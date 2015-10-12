@@ -4,6 +4,8 @@
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 deepblue.USER_KEY = "anonymous_key"
 
+deepblue.debug.VERBOSE = FALSE
+
 {{ commands }}
 
 {{ serialize_r }}

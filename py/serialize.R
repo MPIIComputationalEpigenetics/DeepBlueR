@@ -5,10 +5,12 @@ xml.rpc =
 function(url, method, ..., .args = list(...),
           .opts = list(),
           .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
-          .convert = TRUE, .curl = getCurlHandle(), useragent = "R-XMLRPC")
+          .convert = TRUE, .curl = getCurlHandle(), useragent = "DeepBlue-R-XMLRPC", verbose=deepblue.debug.VERBOSE)
 {
     # Turn the method and arguments to an RPC body.
   body = createBody(method,  .args)
+  if(verbose)
+    print(body)
 
     # merge the .defaultOpts and the .opts into one list.
   .defaultOpts[["postfields"]] = saveXML(body)
@@ -21,10 +23,13 @@ function(url, method, ..., .args = list(...),
 
   hdr = parseHTTPHeader(rdr$header())
   if(as.integer(hdr[["status"]]) %/% 100 !=  2) {
+    print(hdr["status"])
        # call an RCurl error generator function.
      stop("Problems")
   }
   ans = rdr$value()
+  if (verbose)
+    print(ans)
 
    # Now either convert using the default converter fnction (convertToR)
    # or return as is or allow the caller to specify a function to use for conversion.
