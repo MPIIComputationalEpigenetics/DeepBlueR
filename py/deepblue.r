@@ -1,19 +1,21 @@
 # Accessing Deepblue trough R
-# For DeepBlue version 1.5.0
+# For DeepBlue version 1.5.1
 
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 deepblue.USER_KEY = "anonymous_key"
 
+deepblue.debug.VERBOSE = FALSE
+
 
 # add_annotation
 # Inserts a new annotation with the given parameters.
-deepblue.add_annotation <- function(name, genome, description, data, format, extra_metadata, user_key=deepblue.USER_KEY) {
+deepblue.add_annotation <- function(name, genome, description, data, format, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'add_annotation', name, genome, description, data, format, extra_metadata, user_key)
 }
 
 # add_biosource
 # Inserts a new biosource with the given parameters.
-deepblue.add_biosource <- function(name, description, extra_metadata, user_key=deepblue.USER_KEY) {
+deepblue.add_biosource <- function(name, description, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'add_biosource', name, description, extra_metadata, user_key)
 }
 
@@ -25,13 +27,13 @@ deepblue.add_epigenetic_mark <- function(name, description, user_key=deepblue.US
 
 # add_experiment
 # Inserts a new experiment with the given parameters.
-deepblue.add_experiment <- function(name, genome, epigenetic_mark, sample, technique, project, description, data, format, extra_metadata, user_key=deepblue.USER_KEY) {
+deepblue.add_experiment <- function(name, genome, epigenetic_mark, sample, technique, project, description, data, format, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'add_experiment', name, genome, epigenetic_mark, sample, technique, project, description, data, format, extra_metadata, user_key)
 }
 
 # add_gene_set
 # Inserts a new set of genes in the GTF format. Important: It will only include the rows that have 'gene' as feature.
-deepblue.add_gene_set <- function(name, description, data, format, extra_metadata, user_key=deepblue.USER_KEY) {
+deepblue.add_gene_set <- function(name, description, data, format, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'add_gene_set', name, description, data, format, extra_metadata, user_key)
 }
 
@@ -49,8 +51,8 @@ deepblue.add_project <- function(name, description, user_key=deepblue.USER_KEY) 
 
 # add_sample
 # Inserts a new sample of a given biosourcea.
-deepblue.add_sample <- function(biosource_name, metadata, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'add_sample', biosource_name, metadata, user_key)
+deepblue.add_sample <- function(biosource_name, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'add_sample', biosource_name, extra_metadata, user_key)
 }
 
 # add_sample_from_gsm
@@ -61,7 +63,7 @@ deepblue.add_sample_from_gsm <- function(name, gsm_id, user_key=deepblue.USER_KE
 
 # add_technique
 # Inserts a technique with the given parameters.
-deepblue.add_technique <- function(name, description, extra_metadata, user_key=deepblue.USER_KEY) {
+deepblue.add_technique <- function(name, description, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'add_technique', name, description, extra_metadata, user_key)
 }
 
@@ -97,7 +99,7 @@ deepblue.chromosomes <- function(genome, user_key=deepblue.USER_KEY) {
 
 # clone_dataset
 # Clone the dataset, allowing to change the description, column format (restrictively), and extra_metadata.
-deepblue.clone_dataset <- function(dataset_id, new_name, new_epigenetic_mark, new_sample, new_technique, new_project, description, format, extra_metadata, user_key=deepblue.USER_KEY) {
+deepblue.clone_dataset <- function(dataset_id, new_name, new_epigenetic_mark, new_sample, new_technique, new_project, description, format, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'clone_dataset', dataset_id, new_name, new_epigenetic_mark, new_sample, new_technique, new_project, description, format, extra_metadata, user_key)
 }
 
@@ -235,8 +237,8 @@ deepblue.list_annotations <- function(genome, user_key=deepblue.USER_KEY) {
 
 # list_biosources
 # Lists all existing biosources.
-deepblue.list_biosources <- function(metadata, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'list_biosources', metadata, user_key)
+deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'list_biosources', extra_metadata, user_key)
 }
 
 # list_column_types
@@ -289,8 +291,8 @@ deepblue.list_requests <- function(request_state, user_key=deepblue.USER_KEY) {
 
 # list_samples
 # Lists all existing samples that matches the given biosource and metadata.
-deepblue.list_samples <- function(biosource, metadata, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'list_samples', biosource, metadata, user_key)
+deepblue.list_samples <- function(biosource, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'list_samples', biosource, extra_metadata, user_key)
 }
 
 # list_similar_biosources
@@ -421,10 +423,12 @@ xml.rpc =
 function(url, method, ..., .args = list(...),
           .opts = list(),
           .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
-          .convert = TRUE, .curl = getCurlHandle(), useragent = "R-XMLRPC")
+          .convert = TRUE, .curl = getCurlHandle(), useragent = "DeepBlue-R-XMLRPC", verbose=deepblue.debug.VERBOSE)
 {
     # Turn the method and arguments to an RPC body.
   body = createBody(method,  .args)
+  if(verbose)
+    print(body)
 
     # merge the .defaultOpts and the .opts into one list.
   .defaultOpts[["postfields"]] = saveXML(body)
@@ -437,10 +441,13 @@ function(url, method, ..., .args = list(...),
 
   hdr = parseHTTPHeader(rdr$header())
   if(as.integer(hdr[["status"]]) %/% 100 !=  2) {
+    print(hdr["status"])
        # call an RCurl error generator function.
      stop("Problems")
   }
   ans = rdr$value()
+  if (verbose)
+    print(ans)
 
    # Now either convert using the default converter fnction (convertToR)
    # or return as is or allow the caller to specify a function to use for conversion.
@@ -512,7 +519,7 @@ setMethod("rpc.serialize", "AsIs",
 
 setMethod("rpc.serialize", "NULL",
            function(x, ...) {
-             rpc.serialize(list())
+             newXMLNode("value", newXMLNode("nil"))
            })
 
 setMethod("rpc.serialize", "raw",
@@ -606,22 +613,19 @@ setMethod("rpc.serialize", "list",
                   a = newXMLNode("struct")
                   sapply(names(x), function(id) {
                                      type = basicTypeMap[typeof(x[[id]])]
-                                     newXMLNode("member", newXMLNode("name", id),
-                                                 rpc.serialize(x[[id]]
-#                                                          newXMLNode("value", rpc.serialize(x[[id]])
-                                               ),
-                                                parent = a)
+                                     newXMLNode("member",
+                                        newXMLNode("name", id), rpc.serialize(x[[id]]),
+                                        parent = a)
                                    })
-                  a
+                  newXMLNode("value", a)
               } else {
-                  a = newXMLNode("array")
-                  data = newXMLNode("data", parent = a)
-                  sapply(x, function(x) {
-                               elName = basicTypeMap[typeof(x)]
-                               newXMLNode("value", newXMLNode(elName, if(elName == "string") newXMLCDataNode(x) else x,
-                                                               parent = data))
-                             })
-              a
+                a = newXMLNode("array")
+                data = newXMLNode("data", parent = a)
+                sapply(x, function(x) {
+                        elName = basicTypeMap[typeof(x)]
+                        newXMLNode("value", newXMLNode(elName, if(elName == "string") newXMLCDataNode(x) else x, parent = data))
+                })
+                newXMLNode("value", a)
               }
            })
 
