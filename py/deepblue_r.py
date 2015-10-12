@@ -1,14 +1,13 @@
 import xmlrpclib
 
-header_tmpl = """
-# Accessing Deepblue trough R
-library(XMLRPC)
-"""
+
 
 
 cmd_tmpl = """
+# %(name)s
+# %(description)s
 deepblue.%(name)s <- function(%(parameter_names)s) {
-    xml.rpc(URL,'%(name)s', %(parameter_convertion)s)
+    xml.rpc(%(url)s, '%(name)s'%(parameter_convertion)s)
 }
 """
 
@@ -18,7 +17,7 @@ def main():
 
   (s, v) = client.echo(None)
 
-  version = v.split()[2]
+  version = v.split()[1][1:-1]
 
   ok, commands = client.commands()
   if not ok:
@@ -26,6 +25,7 @@ def main():
     return
 
   categories = {}
+  commands_long_doc = ""
 
   for name in sorted(commands.keys()):
     cmd = commands[name]
@@ -39,20 +39,44 @@ def main():
     param_names = []
     param_names_convertion = []
     for p in cmd["parameters"]:
-      param_names.append(p[0])
+
+      if p[0] == "user_key":
+        param_names.append("user_key=deepblue.USER_KEY")
+      else:
+        param_names.append(p[0])
+
       if p[1] == "int":
         param_names_convertion.append("as.integer("+p[0]+")")
       else:
         param_names_convertion.append(p[0])
 
-    #print param_names
-    long_doc = cmd_tmpl % {"parameters_full": params_s,
+
+    if param_names_convertion:
+      parameters_list_convertion = ", " + ', '.join(param_names_convertion)
+    else:
+      parameters_list_convertion = ""
+
+    commands_long_doc += cmd_tmpl % {"parameters_full": params_s,
                            "parameter_names": ', '.join(param_names),
-                           "parameter_convertion": ', '.join(param_names_convertion),
+                           "parameter_convertion": parameters_list_convertion,
                            "name": name,
                            "description": desc[2],
-                           "id": html_id}
-    print long_doc
+                           'url': "deepblue.URL"}
+
+  print commands_long_doc
+
+  serialize_code = open('serialize.R').read()
+
+
+  template = ""
+  with open("api_auto.template", 'r') as f:
+    template = f.read()
+    template = template.replace("{{ version }}", version)
+    template = template.replace("{{ commands }}", commands_long_doc)
+    template = template.replace("{{ serialize_r }}", serialize_code)
+
+  with open("deepblue.r", 'w') as f:
+    f.write(template)
 
 
 
