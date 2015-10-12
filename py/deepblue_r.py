@@ -13,7 +13,7 @@ deepblue.%(name)s <- function(%(parameter_names)s) {
 
 def main():
 
-  client = xmlrpclib.Server("http://localhost:31415", allow_none=True)
+  client = xmlrpclib.Server("http://deepblue.mpi-inf.mpg.de/xmlrpc", allow_none=True)
 
   (s, v) = client.echo(None)
 
