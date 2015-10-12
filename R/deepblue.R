@@ -37,7 +37,7 @@ function <- create_deepblue_call()
 setGeneric("deepblue.list_experiments",
   function() {
     print("hello")
-  }           
+  }
 )
 
 setGeneric("deepblue.list_experiments", c(epigenetic_mark=NULL, sample=NULL, technique=NULL, project=NULL, user_key="anonymous_key"),
@@ -92,7 +92,19 @@ setMethod("DeepBlue.list_experiments", c("DeepBlue", "character"),
           #}
 #)
 
-deepblue <- new("DeepBlue")
-print(deepblue)
+functions <- character()
+function_name <-  "deepblue.list_experiments"
+functions <- c(functions, function_name)
+
+eval("2 + 2")
+
+assign(function_name,  function(genome, epigenetic_mark, sample, technique, project, user_key) {
+    xml.rpc(URL,'list_experiments', genome, epigenetic_mark, sample, technique, project, user_key)
+}, envir = .GlobalEnv)
+
+
+
+
+deepblue <- new("DeepBlue", user_key=1234567)
 deepblue.list_experiments("aaa")
 
