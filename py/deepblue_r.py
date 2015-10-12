@@ -42,6 +42,8 @@ def main():
 
       if p[0] == "user_key":
         param_names.append("user_key=deepblue.USER_KEY")
+      elif p[0] == "extra_metadata":
+        param_names.append("extra_metadata=NULL")
       else:
         param_names.append(p[0])
 
