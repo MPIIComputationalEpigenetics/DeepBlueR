@@ -101,7 +101,7 @@ setMethod("rpc.serialize", "AsIs",
 
 setMethod("rpc.serialize", "NULL",
            function(x, ...) {
-             rpc.serialize(list())
+             newXMLNode("value", newXMLNode("nil"))
            })
 
 setMethod("rpc.serialize", "raw",
