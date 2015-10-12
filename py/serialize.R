@@ -190,22 +190,19 @@ setMethod("rpc.serialize", "list",
                   a = newXMLNode("struct")
                   sapply(names(x), function(id) {
                                      type = basicTypeMap[typeof(x[[id]])]
-                                     newXMLNode("member", newXMLNode("name", id),
-                                                 rpc.serialize(x[[id]]
-#                                                          newXMLNode("value", rpc.serialize(x[[id]])
-                                               ),
-                                                parent = a)
+                                     newXMLNode("member",
+                                        newXMLNode("name", id), rpc.serialize(x[[id]]),
+                                        parent = a)
                                    })
-                  a
+                  newXMLNode("value", a)
               } else {
-                  a = newXMLNode("array")
-                  data = newXMLNode("data", parent = a)
-                  sapply(x, function(x) {
-                               elName = basicTypeMap[typeof(x)]
-                               newXMLNode("value", newXMLNode(elName, if(elName == "string") newXMLCDataNode(x) else x,
-                                                               parent = data))
-                             })
-              a
+                a = newXMLNode("array")
+                data = newXMLNode("data", parent = a)
+                sapply(x, function(x) {
+                        elName = basicTypeMap[typeof(x)]
+                        newXMLNode("value", newXMLNode(elName, if(elName == "string") newXMLCDataNode(x) else x, parent = data))
+                })
+                newXMLNode("value", a)
               }
            })
 
