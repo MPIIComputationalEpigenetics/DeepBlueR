@@ -1,5 +1,5 @@
 # Accessing Deepblue trough R
-# For DeepBlue version 1.5.1
+# For DeepBlue version 1.5.3
 
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 deepblue.USER_KEY = "anonymous_key"
@@ -157,6 +157,12 @@ deepblue.find_pattern <- function(pattern, genome, overlap, user_key=deepblue.US
     xml.rpc(deepblue.URL, 'find_pattern', pattern, genome, overlap, user_key)
 }
 
+# flank
+# Generate flanking regions for the given regions.
+deepblue.flank <- function(query_id, start, length, use_strand, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'flank', query_id, as.integer(start), as.integer(length), use_strand, user_key)
+}
+
 # get_biosource_children
 # Gets the scope for the biosource.
 deepblue.get_biosource_children <- function(biosource, user_key=deepblue.USER_KEY) {
@@ -255,8 +261,8 @@ deepblue.list_epigenetic_marks <- function(user_key=deepblue.USER_KEY) {
 
 # list_experiments
 # Lists all existing experiments.
-deepblue.list_experiments <- function(genome, epigenetic_mark, sample, technique, project, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'list_experiments', genome, epigenetic_mark, sample, technique, project, user_key)
+deepblue.list_experiments <- function(genome, type, epigenetic_mark, biosource, sample, technique, project, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'list_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
 }
 
 # list_genomes
