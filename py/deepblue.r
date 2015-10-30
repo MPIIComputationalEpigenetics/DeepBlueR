@@ -1,6 +1,8 @@
 # Accessing Deepblue trough R
 # For DeepBlue version 1.5.3
 
+# We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
+
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 deepblue.USER_KEY = "anonymous_key"
 
@@ -714,3 +716,4 @@ function(node, ...)
 {
   ans = xmlApply(node[["data"]], function(x) xmlRPCToR(x[[1]]))
 }
+
