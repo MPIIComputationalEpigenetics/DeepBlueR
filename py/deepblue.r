@@ -1,5 +1,5 @@
 # Accessing Deepblue trough R
-# For DeepBlue version 1.5.3
+# For DeepBlue version 1.5.7
 
 # We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
 
@@ -379,6 +379,12 @@ deepblue.search <- function(keyword, type, user_key=deepblue.USER_KEY) {
 # Selects annotation regions matching the given parameters.
 deepblue.select_annotations <- function(annotation_name, genome, chromosome, start, end, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'select_annotations', annotation_name, genome, chromosome, as.integer(start), as.integer(end), user_key)
+}
+
+# select_experiments
+# Selects experiments data. It is a simpler version of the select_regions command.
+deepblue.select_experiments <- function(experiment_name, chromosome, start, end, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'select_experiments', experiment_name, chromosome, as.integer(start), as.integer(end), user_key)
 }
 
 # select_genes
