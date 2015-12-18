@@ -1,5 +1,5 @@
 # Accessing Deepblue trough R
-# For DeepBlue version 1.5.7
+# For DeepBlue version 1.6.0
 
 # We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
 
@@ -23,8 +23,8 @@ deepblue.add_biosource <- function(name, description, extra_metadata=NULL, user_
 
 # add_epigenetic_mark
 # Inserts a new epigenetic mark with the given parameters.
-deepblue.add_epigenetic_mark <- function(name, description, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'add_epigenetic_mark', name, description, user_key)
+deepblue.add_epigenetic_mark <- function(name, description, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'add_epigenetic_mark', name, description, extra_metadata, user_key)
 }
 
 # add_experiment
@@ -147,6 +147,12 @@ deepblue.echo <- function(user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'echo', user_key)
 }
 
+# faceting_experiments
+# Experiments faceting.
+deepblue.faceting_experiments <- function(genome, type, epigenetic_mark, biosource, sample, technique, project, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'faceting_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
+}
+
 # filter_regions
 # Filters the result of the given query by the given restrictions.
 deepblue.filter_regions <- function(query_id, field, operation, value, type, user_key=deepblue.USER_KEY) {
@@ -257,8 +263,8 @@ deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
 
 # list_epigenetic_marks
 # Lists all existing epigenetic marks.
-deepblue.list_epigenetic_marks <- function(user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'list_epigenetic_marks', user_key)
+deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'list_epigenetic_marks', extra_metadata, user_key)
 }
 
 # list_experiments
@@ -349,6 +355,12 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
 # Merges the regions of the given queries.
 deepblue.merge_queries <- function(query_a_id, query_b_id, user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'merge_queries', query_a_id, query_b_id, user_key)
+}
+
+# query_cache
+# Return information for the given ID (or IDs).
+deepblue.query_cache <- function(query_id, cache, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'query_cache', query_id, cache, user_key)
 }
 
 # query_experiment_type
