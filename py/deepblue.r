@@ -1,5 +1,5 @@
 # Accessing Deepblue trough R
-# For DeepBlue version 1.6.0
+# For DeepBlue version 1.6.5
 
 # We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
 
@@ -145,6 +145,18 @@ deepblue.create_column_type_simple <- function(name, description, type, user_key
 # Echos the server's version.
 deepblue.echo <- function(user_key=deepblue.USER_KEY) {
     xml.rpc(deepblue.URL, 'echo', user_key)
+}
+
+# extract_ids
+# Extract the names from a list of ID and Names.
+deepblue.extract_ids <- function(list) {
+    xml.rpc(deepblue.URL, 'extract_ids', list)
+}
+
+# extract_names
+# Extract the names from a list of ID and Names.
+deepblue.extract_names <- function(list) {
+    xml.rpc(deepblue.URL, 'extract_names', list)
 }
 
 # faceting_experiments
@@ -444,6 +456,37 @@ deepblue.upload_chromosome <- function(genome, chromosome, data, user_key=deepbl
 
 library(XML)
 library(RCurl)
+
+deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
+        .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
+        .curl = getCurlHandle())
+{
+  request_info = deepblue.info(request_id, user_key)[2]
+  if (request_info$value$value$state != "done") {
+    stop("Processing was not finished. Please, check it status with deepblue.info(request_id)");
+  }
+
+  command = request_info$value$value$command
+  if (command == "count_regions")  {
+    deepblue.get_request_data(request_id, user_key)
+  } else if (command == "get_experiments_by_query") {
+    deepblue.get_request_data(request_id, user_key)
+  } else if (command == "get_regions") {
+    url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
+    temp_download <- tempfile()
+    download.file(url, temp_download, mode="wb")
+    handle <-  bzfile(temp_download)
+    readLines(handle)
+  } else if (command == "score_matrix") {
+    url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
+    temp_download <- tempfile()
+    download.file(url, temp_download, mode="wb")
+    handle <-  bzfile(temp_download)
+    readLines(handle)
+  } else {
+    stop(paste("Unknow command", command));
+  }
+}
 
 xml.rpc =
 function(url, method, ..., .args = list(...),
