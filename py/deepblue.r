@@ -456,8 +456,10 @@ deepblue.upload_chromosome <- function(genome, chromosome, data, user_key=deepbl
 
 library(XML)
 library(RCurl)
+library(readr)
+library(dplyr)
 
-deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
+deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY, forceDownload=FALSE,
         .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
         .curl = getCurlHandle())
 {
@@ -467,22 +469,28 @@ deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
   }
 
   command = request_info$value$value$command
-  if (command == "count_regions")  {
+  if (command %in% c("count_regions", "get_experiments_by_query"))  {
     deepblue.get_request_data(request_id, user_key)
-  } else if (command == "get_experiments_by_query") {
-    deepblue.get_request_data(request_id, user_key)
-  } else if (command == "get_regions") {
+  } else if (command %in% c("get_regions", "score_matrix")) {
     url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
-    temp_download <- tempfile()
-    download.file(url, temp_download, mode="wb")
+    
+    #create name of temp file
+    temp_download <- paste(tempdir(), request_id, sep="/")
+    
+    #download file only if it was not downloaded before or if forcedDownload is set
+    if(!file.exists(temp_download) || forceDownload){
+      message(paste("Downloading request", request_id))
+      download.file(url, temp_download, mode="wb")
+    } else{
+      message(paste("Using locally cached copy of", request_id))
+    }
+    
+    #read bz compressed file... 
     handle <-  bzfile(temp_download)
-    readLines(handle)
-  } else if (command == "score_matrix") {
-    url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
-    temp_download <- tempfile()
-    download.file(url, temp_download, mode="wb")
-    handle <-  bzfile(temp_download)
-    readLines(handle)
+    
+    #read tab separated file efficiently using the readr package (~x10 speedup compared to base read function)
+    message(paste("Reading in request", request_id))
+    read_tsv(handle, col_names = FALSE)  
   } else {
     stop(paste("Unknow command", command));
   }
