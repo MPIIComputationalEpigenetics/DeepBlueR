@@ -1,5 +1,5 @@
 # Accessing Deepblue trough R
-# For DeepBlue version 1.6.7
+# For DeepBlue version 1.6.5
 
 # We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
 
@@ -180,7 +180,7 @@ deepblue.find_pattern <- function(pattern, genome, overlap, user_key=deepblue.US
 # flank
 # Generate flanking regions for the given regions.
 deepblue.flank <- function(query_id, start, length, use_strand, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'flank', query_id, if (is.null(start)) NULL else as.integer(start), if (is.null(length)) NULL else as.integer(length), use_strand, user_key)
+    xml.rpc(deepblue.URL, 'flank', query_id, as.integer(start), as.integer(length), use_strand, user_key)
 }
 
 # get_biosource_children
@@ -388,9 +388,9 @@ deepblue.remove <- function(id, user_key=deepblue.USER_KEY) {
 }
 
 # score_matrix
-# Build a matrix containing the aggregation result of the the experiments data by aggregation regions.
-deepblue.score_matrix <- function(experiments_columns, aggregation_function, aggregation_regions_id, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'score_matrix', experiments_columns, aggregation_function, aggregation_regions_id, user_key)
+# Gets the regions for the given query in the requested BED format.
+deepblue.score_matrix <- function(experiments_format, aggregation_function, query_id, user_key=deepblue.USER_KEY) {
+    xml.rpc(deepblue.URL, 'score_matrix', experiments_format, aggregation_function, query_id, user_key)
 }
 
 # search
@@ -402,13 +402,13 @@ deepblue.search <- function(keyword, type, user_key=deepblue.USER_KEY) {
 # select_annotations
 # Selects annotation regions matching the given parameters.
 deepblue.select_annotations <- function(annotation_name, genome, chromosome, start, end, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'select_annotations', annotation_name, genome, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    xml.rpc(deepblue.URL, 'select_annotations', annotation_name, genome, chromosome, as.integer(start), as.integer(end), user_key)
 }
 
 # select_experiments
 # Selects experiments data. It is a simpler version of the select_regions command.
 deepblue.select_experiments <- function(experiment_name, chromosome, start, end, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'select_experiments', experiment_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    xml.rpc(deepblue.URL, 'select_experiments', experiment_name, chromosome, as.integer(start), as.integer(end), user_key)
 }
 
 # select_genes
@@ -420,7 +420,7 @@ deepblue.select_genes <- function(genes_name, gene_set, user_key=deepblue.USER_K
 # select_regions
 # Selects experiment regions matching the given parameters.
 deepblue.select_regions <- function(experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, start, end, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'select_regions', experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    xml.rpc(deepblue.URL, 'select_regions', experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, as.integer(start), as.integer(end), user_key)
 }
 
 # set_biosource_parent
@@ -444,7 +444,7 @@ deepblue.set_project_public <- function(project, set, user_key=deepblue.USER_KEY
 # tiling_regions
 # Creates regions with the tiling size over the chromosomes.
 deepblue.tiling_regions <- function(size, genome, chromosome, user_key=deepblue.USER_KEY) {
-    xml.rpc(deepblue.URL, 'tiling_regions', if (is.null(size)) NULL else as.integer(size), genome, chromosome, user_key)
+    xml.rpc(deepblue.URL, 'tiling_regions', as.integer(size), genome, chromosome, user_key)
 }
 
 # upload_chromosome
@@ -456,8 +456,10 @@ deepblue.upload_chromosome <- function(genome, chromosome, data, user_key=deepbl
 
 library(XML)
 library(RCurl)
+library(readr)
+library(dplyr)
 
-deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
+deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY, forceDownload=FALSE,
         .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
         .curl = getCurlHandle())
 {
@@ -467,22 +469,28 @@ deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
   }
 
   command = request_info$value$value$command
-  if (command == "count_regions")  {
+  if (command %in% c("count_regions", "get_experiments_by_query"))  {
     deepblue.get_request_data(request_id, user_key)
-  } else if (command == "get_experiments_by_query") {
-    deepblue.get_request_data(request_id, user_key)
-  } else if (command == "get_regions") {
+  } else if (command %in% c("get_regions", "score_matrix")) {
     url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
-    temp_download <- tempfile()
-    download.file(url, temp_download, mode="wb")
+    
+    #create name of temp file
+    temp_download <- paste(tempdir(), request_id, sep="/")
+    
+    #download file only if it was not downloaded before or if forcedDownload is set
+    if(!file.exists(temp_download) || forceDownload){
+      message(paste("Downloading request", request_id))
+      download.file(url, temp_download, mode="wb")
+    } else{
+      message(paste("Using locally cached copy of", request_id))
+    }
+    
+    #read bz compressed file... 
     handle <-  bzfile(temp_download)
-    readLines(handle)
-  } else if (command == "score_matrix") {
-    url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
-    temp_download <- tempfile()
-    download.file(url, temp_download, mode="wb")
-    handle <-  bzfile(temp_download)
-    readLines(handle)
+    
+    #read tab separated file efficiently using the readr package (~x10 speedup compared to base read function)
+    message(paste("Reading in request", request_id))
+    read_tsv(handle, col_names = FALSE)  
   } else {
     stop(paste("Unknow command", command));
   }
