@@ -48,7 +48,7 @@ def main():
         param_names.append(p[0])
 
       if p[1] == "int":
-        param_names_convertion.append("as.integer("+p[0]+")")
+        param_names_convertion.append("if (is.null("+p[0]+")) NULL else as.integer("+p[0]+")")
       else:
         param_names_convertion.append(p[0])
 
