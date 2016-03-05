@@ -778,3 +778,14 @@ function(node, ...)
   ans = xmlApply(node[["data"]], function(x) xmlRPCToR(x[[1]]))
 }
 
+#Process the user request
+process.request = function (requested_regions, user_key)
+{
+  info = deepblue.info(as.character(requested_regions[2]), user_key)
+  
+  while (info[2]['state'] != 'done' & info[2]['state'] != 'error')
+  {
+    Sys.sleep(5)
+    info = deepblue.info(as.character(requested_regions[2]), user_key)
+  }
+}
