@@ -323,13 +323,13 @@ function(node, ...)
 }
 
 #Process the user request
-process.request = function (requested_regions, user_key)
+process.request = function (requested_regions,sleep.time = 1, user_key=deepblue.USER_KEY)
 {
   info = deepblue.info(as.character(requested_regions[2]), user_key)
   
   while (info[2]['state'] != 'done' & info[2]['state'] != 'error')
   {
-    Sys.sleep(5)
+    Sys.sleep(sleep.time)
     info = deepblue.info(as.character(requested_regions[2]), user_key)
   }
 }
