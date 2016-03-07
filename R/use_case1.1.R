@@ -15,52 +15,52 @@ since it's a struct type object, and then use it to query the server for extract
 more details."
 
 #Extract all H3k27ac from BLUEPRINT Epigenome project (for chromosome 1 only)
-sel_regions = deepblue.select_regions('','GRCh38','H3k27ac','','','BLUEPRINT Epigenome',
-                                      'chr1',NULL,NULL,deepblue.USER_KEY)
+sel_regions = deepblue.select_regions(experiment_name ='',genome ='GRCh38',epigenetic_mark =
+                                      'H3k27ac',sample_id ='',technique ='',project ='BLUEPRINT Epigenome',
+                                      chromosome ='chr1',start =NULL,end =NULL)
 
 #Extract peaks for H3k27ac 
-sel_regions_peaks=deepblue.query_experiment_type(as.character(sel_regions[2]),
-                                                 'peaks',deepblue.USER_KEY)
+sel_regions_peaks=deepblue.query_experiment_type(query_id =as.character(sel_regions[2]),
+                                                 type ='peaks')
 
 #Extract annotated promoter regions from GRCh38 genome assembly
 
-promoters = deepblue.select_annotations('promoters', 'GRCh38','chr1', NULL, NULL, 
-                                        deepblue.USER_KEY)
+promoters = deepblue.select_annotations(annotation_name ='promoters',genome ='GRCh38',
+                                        chromosome ='chr1',start =NULL,end =NULL)
 
 #filter for promoter regions having H3k27ac modification associated with them
 
-sel_promoters = deepblue.intersection(as.character(sel_regions_peaks[2]), 
-                                      as.character(promoters[2]), deepblue.USER_KEY)
+sel_promoters = deepblue.intersection(query_a_id =as.character(sel_regions_peaks[2]), 
+                                      query_b_id =as.character(promoters[2]))
 
 #Extract transcription factors AG01,AG02,and AG03 from ENCODE project
 
-tf = deepblue.select_regions('','hg19', 'SP1', '', '', 'ENCODE', 'chr1', 
-                                        NULL, NULL, deepblue.USER_KEY)
+tf = deepblue.select_regions(experiment_name ='',genome ='hg19',epigenetic_mark ='SP1',
+                             sample_id ='',technique ='',project ='ENCODE',chromosome ='chr1', 
+                             start =NULL,end =NULL)
 
 #Extract signal for transcription factors
 
-sel_tf_signal = deepblue.query_experiment_type(as.character(tf[2]), 'signal',
-                                              deepblue.USER_KEY)
+sel_tf_signal = deepblue.query_experiment_type(query_id =as.character(tf[2]),type ='signal')
 
 #Extract TFs overlaping with sel_promoters
 
-sel_tf = deepblue.intersection(as.character(tf[2]), as.character(sel_promoters[2]),
-                               deepblue.USER_KEY)
+sel_tf = deepblue.intersection(query_a_id =as.character(tf[2]),query_b_id =
+                              as.character(sel_promoters[2]))
 
 #Get chromosome regions
 
-req_regions = deepblue.get_regions(as.character(sel_tf[2]), 
-                                   "CHROMOSOME,START,END,@NAME,@EPIGENETIC_MARK,@BIOSOURCE",
-                                   deepblue.USER_KEY)
+req_regions = deepblue.get_regions(query_id =as.character(sel_tf[2]),output_format =
+                                   "CHROMOSOME,START,END,@NAME,@EPIGENETIC_MARK,@BIOSOURCE")
 
 #Process request
 
-process.request(req_regions,deepblue.USER_KEY) # with sleep time default 1s. It can be
+process.request(requested_regions =req_regions) # with sleep time default 1s. It can be
                                               # by passing sleep time as 2nd argument.
 
 # get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
 
-final_regions = deepblue.get_request_data(as.character(req_regions[2]), deepblue.USER_KEY)
+final_regions = deepblue.get_request_data(request_id =as.character(req_regions[2]))
 
 # storing output in data frame
 final = unlist(strsplit(as.character(final_regions[2]),'\n'))
