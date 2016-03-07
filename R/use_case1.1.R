@@ -5,16 +5,17 @@
 "
 ##############################
 
-source("D:/HiWi/DeepBlue-R/py/deepblue.R")
+source("deepblue.R")
 
-deepblue.USER_KEY = 'n2ofPSrWybmVZ3jH'
+
+
 
 "result of functions is a 2 elements list. Extract 2nd element convert it to string,
 since it's a struct type object, and then use it to query the server for extracting
 more details."
 
 #Extract all H3k27ac from BLUEPRINT Epigenome project (for chromosome 1 only)
-sel_regions = deepblue.select_regions('','GRCh38','H4k12ac','','','BLUEPRINT Epigenome',
+sel_regions = deepblue.select_regions('','GRCh38','H3k27ac','','','BLUEPRINT Epigenome',
                                       'chr1',NULL,NULL,deepblue.USER_KEY)
 
 #Extract peaks for H3k27ac 
@@ -54,22 +55,17 @@ req_regions = deepblue.get_regions(as.character(sel_tf[2]),
 
 #Process request
 
-process.request(req_regions, deepblue.USER_KEY)
+process.request(req_regions,deepblue.USER_KEY) # with sleep time default 1s. It can be
+                                              # by passing sleep time as 2nd argument.
 
 # get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
 
 final_regions = deepblue.get_request_data(as.character(req_regions[2]), deepblue.USER_KEY)
 
+# storing output in data frame
 final = unlist(strsplit(as.character(final_regions[2]),'\n'))
 final = as.data.frame(final)
 regions = data.frame(do.call('rbind', strsplit(as.character(final$final),'\t',fixed=TRUE)))
 colnames(regions) = c('chromosome','start','end','name','epigenetic_mark','biosource')
 
-# for (i in 1:length(regions$start))
-#   {if (regions$start[i]>regions$end[i])
-#     {
-#         temp = regions$start[i]
-#         regions$start[i] = regions$end[i]
-#         regions$end[i] = temp
-#   }
-# }
+
