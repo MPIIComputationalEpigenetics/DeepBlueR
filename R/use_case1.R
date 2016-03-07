@@ -5,7 +5,7 @@
 "
 ##############################
 
-source("D:/HiWi/DeepBlue-R/py/deepblue.R")
+source("deepblue.R")
 
 
 
