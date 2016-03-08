@@ -45,7 +45,7 @@ def main():
       elif p[0] == "extra_metadata":
         param_names.append("extra_metadata=NULL")
       else:
-        param_names.append(p[0])
+        param_names.append(p[0]+"= NULL")
 
       if p[1] == "int":
         param_names_convertion.append("if (is.null("+p[0]+")) NULL else as.integer("+p[0]+")")
