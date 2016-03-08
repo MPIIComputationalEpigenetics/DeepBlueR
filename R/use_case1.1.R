@@ -15,9 +15,8 @@ since it's a struct type object, and then use it to query the server for extract
 more details."
 
 #Extract all H3k27ac from BLUEPRINT Epigenome project (for chromosome 1 only)
-sel_regions = deepblue.select_regions(experiment_name ='',genome ='GRCh38',epigenetic_mark =
-                                      'H3k27ac',sample_id ='',technique ='',project ='BLUEPRINT Epigenome',
-                                      chromosome ='chr1',start =NULL,end =NULL)
+sel_regions = deepblue.select_regions(genome ='GRCh38',epigenetic_mark ='H3k27ac',
+                                      project ='BLUEPRINT Epigenome',chromosome ='chr1')
 
 #Extract peaks for H3k27ac 
 sel_regions_peaks=deepblue.query_experiment_type(query_id =as.character(sel_regions[2]),
@@ -26,7 +25,7 @@ sel_regions_peaks=deepblue.query_experiment_type(query_id =as.character(sel_regi
 #Extract annotated promoter regions from GRCh38 genome assembly
 
 promoters = deepblue.select_annotations(annotation_name ='promoters',genome ='GRCh38',
-                                        chromosome ='chr1',start =NULL,end =NULL)
+                                        chromosome ='chr1')
 
 #filter for promoter regions having H3k27ac modification associated with them
 
@@ -35,9 +34,8 @@ sel_promoters = deepblue.intersection(query_a_id =as.character(sel_regions_peaks
 
 #Extract transcription factors AG01,AG02,and AG03 from ENCODE project
 
-tf = deepblue.select_regions(experiment_name ='',genome ='hg19',epigenetic_mark ='SP1',
-                             sample_id ='',technique ='',project ='ENCODE',chromosome ='chr1', 
-                             start =NULL,end =NULL)
+tf = deepblue.select_regions(genome ='hg19',epigenetic_mark ='SP1',
+                             project ='ENCODE',chromosome ='chr1')
 
 #Extract signal for transcription factors
 
@@ -64,8 +62,8 @@ final_regions = deepblue.get_request_data(request_id =as.character(req_regions[2
 
 # storing output in data frame
 final = unlist(strsplit(as.character(final_regions[2]),'\n'))
-final = as.data.frame(final)
-regions = data.frame(do.call('rbind', strsplit(as.character(final$final),'\t',fixed=TRUE)))
+final = as.data.frame(final, stringsAsFactors=FALSE)
+regions = data.frame(do.call('rbind', strsplit(as.character(final$final),'\t',fixed=TRUE)),stringsAsFactors=FALSE)
 colnames(regions) = c('chromosome','start','end','name','epigenetic_mark','biosource')
 
 
