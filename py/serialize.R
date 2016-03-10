@@ -333,3 +333,24 @@ process.request = function (requested_regions,sleep.time = 1, user_key=deepblue.
     info = deepblue.info(as.character(requested_regions[2]), user_key)
   }
 }
+
+#save output in data frame
+
+convert.to.df = function(output=NULL,inf=NULL)
+{
+  final = unlist(strsplit(as.character(output),'\n'))
+  final = as.data.frame(final, stringsAsFactors=FALSE)
+  regions = data.frame(do.call('rbind', strsplit(as.character(final$final),'\t',fixed=TRUE)),stringsAsFactors=FALSE)
+  colnames(regions) = unlist(strsplit(inf$value$value$format,','))
+  regions = convert.type(regions)
+  return (regions)
+}
+
+#Convert data types in df
+
+convert.type = function(df=NULL)
+{
+  stopifnot(is.list(df))
+  df[] = rapply(df,utils::type.convert,classes = 'character', how = 'replace', as.is = TRUE)
+  return(df)
+}
