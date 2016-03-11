@@ -5,8 +5,8 @@
 "
 ##############################
 
-source("D:/HiWi/DeepBlue-R/py/deepblue.R")
-
+source("deepblue.R")
+library(GenomicRanges)
 
 
 
@@ -86,3 +86,30 @@ final_regions = deepblue.get_request_data(request_id =as.character(req_regions[2
 # storing output in data frame
 
 regions = convert.to.df(output=final_regions[2], inf=info[2])
+
+#convert to GRanges
+if ('STRAND' %in% colnames(regions) | 'Strand' %in% colnames(regions) )
+{
+  region.gr = makeGRangesFromDataFrame(regions, keep.extra.columns = TRUE, 
+                                       seqnames.field = 'CHROMOSOME', start.field = 'START',
+                                       end.field = 'END',strand.field = c('STRAND','Strand'))
+}
+else
+{
+  strand = c()
+  for (i in 1:length(regions$START))
+  {
+    if (regions$START[i] < regions$END[i])
+    {
+      strand = c('+',strand)
+    }
+    else 
+    {
+      strand = c('-',strand)
+    }
+  }
+  regions = cbind(regions,strand)
+  region.gr = makeGRangesFromDataFrame(regions, keep.extra.columns = TRUE, 
+                                       seqnames.field = 'CHROMOSOME', start.field = 'START',
+                                       end.field = 'END',strand.field = 'strand') 
+}
