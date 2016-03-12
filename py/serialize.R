@@ -1,5 +1,6 @@
 library(XML)
 library(RCurl)
+suppressMessages(library(GenomicRanges))
 
 deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
         .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
@@ -353,4 +354,72 @@ convert.type = function(df=NULL)
   stopifnot(is.list(df))
   df[] = rapply(df,utils::type.convert,classes = 'character', how = 'replace', as.is = TRUE)
   return(df)
+}
+
+#extract value from list
+
+get.value = function (input = NULL)
+{
+  value = as.character(input[2])
+  return (value)
+}
+
+#process data for converting to granges
+
+process.data = function (dataframe=NULL)
+{
+  for (i in 1:length(dataframe$START))
+  {
+    if (dataframe$START[i] > dataframe$END[i])
+    {
+      temp = dataframe$END[i]
+      dataframe$END[i] = dataframe$START[i]
+      dataframe$START[i] = temp
+    }
+  }
+  return (dataframe)
+}
+
+#get strand info if not available
+
+get.strand = function (dataframe = NULL)
+{
+  STRAND = c()
+  for (i in 1:length(dataframe$START))
+  {
+    if (dataframe$START[i] > dataframe$END[i])
+    {
+      STRAND = c('-',STRAND)
+      temp = dataframe$END[i]
+      dataframe$END[i] = dataframe$START[i]
+      dataframe$START[i] = temp
+    }
+    else
+    {
+      STRAND = c('+',STRAND)
+    }
+  }
+  dataframe = cbind(dataframe,STRAND)
+  return (dataframe)
+}
+
+#convert to GRanges
+
+convert.to.grange = function (df = NULL)
+{
+  if ('STRAND' %in% colnames(df) | 'Strand' %in% colnames(df) )
+  {
+    df = process.data(dataframe = df)
+    region.gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
+                                         seqnames.field = 'CHROMOSOME', start.field = 'START',
+                                         end.field = 'END',strand.field = c('STRAND','Strand'))
+  }
+  else
+  {
+    df = get.strand(dataframe = df)
+    region.gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
+                                         seqnames.field = 'CHROMOSOME', start.field = 'START',
+                                         end.field = 'END',strand.field = c('STRAND','Strand'))
+  }
+  return (region.gr)
 }
