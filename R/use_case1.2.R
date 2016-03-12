@@ -6,7 +6,7 @@
 ##############################
 
 source("deepblue.R")
-library(GenomicRanges)
+
 
 
 
@@ -47,8 +47,9 @@ promoters = deepblue.select_annotations(annotation_name ='promoters',genome ='GR
 All parameters are set to NULL as default."
 
 val.peaks = get.value(sel_regions_peaks)
+val.prom = get.value(promoters)
 sel_promoters = deepblue.intersection(query_a_id = val.peaks, 
-                                      query_b_id =as.character(promoters[2]))
+                                      query_b_id = val.prom)
 
 #Extract transcription factors AG01,AG02,and AG03 from ENCODE project
 
