@@ -84,14 +84,7 @@ is set to 1s as default sleeping time."
 
 process.request(requested_regions =req_regions) 
 
-# get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
+"get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
+Output is a granges object."
 
-final_regions = deepblue.get_request_data(request_id = id.req.regions)
-
-# storing output in data frame
-
-regions = convert.to.df(output=final_regions[2], inf=info[2])
-
-#convert to GRanges
-
-grange.regions = convert.to.grange(df=regions)
+requested.data = get_request_data(req.id = id.req.regions, data.info = info)
