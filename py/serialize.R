@@ -426,7 +426,11 @@ convert.to.grange = function (df = NULL)
 
 #new get_request_data function
 
+<<<<<<< HEAD
 get_request_data = function (req.id = NULL, data.info = NULL,user=deepblue.USER_KEY)
+=======
+get_request_data = function (req.id = NULL, data.info = NULL, user_key=deepblue.USER_KEY)
+>>>>>>> origin/master
 {
   final_regions = deepblue.get_request_data(request_id = req.id, user_key = user)
   regions = convert.to.df(output=final_regions[2], inf=data.info[2])
