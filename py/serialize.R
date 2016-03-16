@@ -324,7 +324,7 @@ function(node, ...)
 }
 
 #Process the user request
-process.request = function (requested_regions,sleep.time = 1, user_key=deepblue.USER_KEY)
+process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.USER_KEY)
 {
   info = deepblue.info(as.character(requested_regions[2]), user_key)
   
@@ -337,19 +337,19 @@ process.request = function (requested_regions,sleep.time = 1, user_key=deepblue.
 
 #save output in data frame
 
-convert.to.df = function(output=NULL,inf=NULL)
+convert_to_df = function(output=NULL,inf=NULL)
 {
   final = unlist(strsplit(as.character(output),'\n'))
   final = as.data.frame(final, stringsAsFactors=FALSE)
   regions = data.frame(do.call('rbind', strsplit(as.character(final$final),'\t',fixed=TRUE)),stringsAsFactors=FALSE)
   colnames(regions) = unlist(strsplit(inf$value$value$format,','))
-  regions = convert.type(regions)
+  regions = convert_type(regions)
   return (regions)
 }
 
 #Convert data types in df
 
-convert.type = function(df=NULL)
+convert_type = function(df=NULL)
 {
   stopifnot(is.list(df))
   df[] = rapply(df,utils::type.convert,classes = 'character', how = 'replace', as.is = TRUE)
@@ -358,7 +358,7 @@ convert.type = function(df=NULL)
 
 #extract value from list
 
-get.value = function (input = NULL)
+get_value = function (input = NULL)
 {
   value = as.character(input[2])
   return (value)
@@ -366,7 +366,7 @@ get.value = function (input = NULL)
 
 #process data for converting to granges
 
-process.data = function (dataframe=NULL)
+process_data = function (dataframe=NULL)
 {
   for (i in 1:length(dataframe$START))
   {
@@ -382,7 +382,7 @@ process.data = function (dataframe=NULL)
 
 #get strand info if not available
 
-get.strand = function (dataframe = NULL)
+get_strand = function (dataframe = NULL)
 {
   STRAND = c()
   for (i in 1:length(dataframe$START))
@@ -405,35 +405,33 @@ get.strand = function (dataframe = NULL)
 
 #convert to GRanges
 
-convert.to.grange = function (df = NULL)
+convert_to_grange = function (df = NULL)
 {
   if ('STRAND' %in% colnames(df) | 'Strand' %in% colnames(df) )
   {
     df = process.data(dataframe = df)
-    region.gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
+    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
                                          end.field = 'END',strand.field = c('STRAND','Strand'))
   }
   else
   {
-    df = get.strand(dataframe = df)
-    region.gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
+    df = get_strand(dataframe = df)
+    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
                                          end.field = 'END',strand.field = c('STRAND','Strand'))
   }
-  return (region.gr)
+  return (region_gr)
 }
 
 #new get_request_data function
 
-<<<<<<< HEAD
-get_request_data = function (req.id = NULL, data.info = NULL,user=deepblue.USER_KEY)
-=======
-get_request_data = function (req.id = NULL, data.info = NULL, user_key=deepblue.USER_KEY)
->>>>>>> origin/master
+
+get_request_data = function (req_id = NULL, data_info = NULL,user=deepblue.USER_KEY)
+
 {
-  final_regions = deepblue.get_request_data(request_id = req.id, user_key = user)
-  regions = convert.to.df(output=final_regions[2], inf=data.info[2])
-  grange.regions = convert.to.grange(df=regions)
-  return (grange.regions)
+  final_regions = deepblue.get_request_data(request_id = req_id, user_key = user)
+  regions = convert_to_df(output=final_regions[2], inf=data_info[2])
+  grange_regions = convert_to_grange(df=regions)
+  return (grange_regions)
 }

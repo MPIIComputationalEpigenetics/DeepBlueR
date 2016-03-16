@@ -1,11 +1,10 @@
 
-
 #      DeepBlue Project
 #       Use Case 1
 
 
 
-source("deepblue.R")
+source("D:/HiWi/DeepBlue-R/py/deepblue.R")
 
 
 
@@ -33,8 +32,8 @@ sel_regions = deepblue.select_regions(genome ='GRCh38',epigenetic_mark ='H3k27ac
 #All values are set to NULL as default.
 
 
-val.regions = get.value(sel_regions)
-sel_regions_peaks=deepblue.query_experiment_type(query_id =val.regions,
+val_regions = get.value(sel_regions)
+sel_regions_peaks=deepblue.query_experiment_type(query_id =val_regions,
                                                  type ='peaks')
 
 #Extract annotated promoter regions from GRCh38 genome assembly
@@ -54,10 +53,10 @@ promoters = deepblue.select_annotations(annotation_name ='promoters',genome ='GR
 #All parameters are set to NULL as default.
 
 
-val.peaks = get.value(sel_regions_peaks)
-val.prom = get.value(promoters)
-sel_promoters = deepblue.intersection(query_a_id = val.peaks, 
-                                      query_b_id = val.prom)
+val_peaks = get_value(sel_regions_peaks)
+val_prom = get_value(promoters)
+sel_promoters = deepblue.intersection(query_a_id = val_peaks, 
+                                      query_b_id = val_prom)
 
 #Extract transcription factors AG01,AG02,and AG03 from ENCODE project
 
@@ -66,37 +65,37 @@ tf = deepblue.select_regions(genome ='hg19',epigenetic_mark ='SP1',
 
 #Extract signal for transcription factors
 
-qid.tf =  get.value(tf)
-sel_tf_signal = deepblue.query_experiment_type(query_id =qid.tf,type ='signal')
+qid_tf =  get_value(tf)
+sel_tf_signal = deepblue.query_experiment_type(query_id =qid_tf,type ='signal')
 
 #Extract TFs overlaping with sel_promoters
 
-qid.prom = get.value(sel_promoters)
-sel_tf = deepblue.intersection(query_a_id =qid.tf,query_b_id =qid.prom)
+qid_prom = get.value(sel_promoters)
+sel_tf = deepblue.intersection(query_a_id =qid_tf,query_b_id =qid_prom)
 
 #Get chromosome regions
 
 
 #deepblue.get_regions expects 3 input parameters; query_id, output_format, and user_key."
 
-id.sel.tf = get.value(sel_tf)
-req_regions = deepblue.get_regions(query_id = id.sel.tf,output_format =
+id_sel_tf = get.value(sel_tf)
+req_regions = deepblue.get_regions(query_id = id_sel_tf,output_format =
                                      "CHROMOSOME,START,END,@NAME,@EPIGENETIC_MARK,@BIOSOURCE")
 
 
 #Process request
 
-id.req.regions = get.value(req_regions)
-info = deepblue.info(id.req.regions)
+id_req_regions = get_value(req_regions)
+info = deepblue.info(id_req_regions)
 
 
 #process.request expects 3 input parameters; requested_regions, sleep.time, user_key. sleep.time
 #is set to 1s as default sleeping time.
 
-process.request(requested_regions = req_regions) 
+process_request(requested_regions = req_regions) 
 
 #get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
 #Output is a granges object.
 
-requested.data = get_request_data(req.id = id.req.regions, data.info = info)
+requested_data = get_request_data(req_id = id_req_regions, data_info = info)
 
