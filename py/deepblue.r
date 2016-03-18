@@ -822,63 +822,39 @@ get_value = function (input = NULL)
   return (value)
 }
 
-#process data for converting to granges
-
-process_data = function (dataframe=NULL)
-{
-  for (i in 1:length(dataframe$START))
-  {
-    if (dataframe$START[i] > dataframe$END[i])
-    {
-      temp = dataframe$END[i]
-      dataframe$END[i] = dataframe$START[i]
-      dataframe$START[i] = temp
-    }
-  }
-  return (dataframe)
-}
-
 #get strand info if not available
 
-get_strand = function (dataframe = NULL)
+check_strand = function (dataframe = NULL)
 {
-  STRAND = c()
-  for (i in 1:length(dataframe$START))
-  {
-    if (dataframe$START[i] > dataframe$END[i])
-    {
-      STRAND = c('-',STRAND)
-      temp = dataframe$END[i]
-      dataframe$END[i] = dataframe$START[i]
-      dataframe$START[i] = temp
-    }
-    else
-    {
-      STRAND = c('+',STRAND)
-    }
-  }
-  dataframe = cbind(dataframe,STRAND)
-  return (dataframe)
+    
+  if('STRAND' %in% colnames(dataframe))
+      strand <- dataframe$STRAND
+  else if('Strand' %in% colnames(dataframe))
+      strand <- dataframe$Strand  
+  else
+      strand <- NULL
+  
+  library(dplyr)
+  result <- dataframe %>% 
+          rowwise() %>% 
+          mutate(STRAND = if(START > END)"-" else "+", 
+                 NEW_START=min(START, END), 
+                 NEW_END=max(START, END)) %>% 
+          select(-START, -END) %>% 
+          rename(START = NEW_START, END = NEW_END)
+
+  if(!is.null(strand)) result$STRAND <- strand
+  return (result)
 }
 
 #convert to GRanges
 
 convert_to_grange = function (df = NULL)
 {
-  if ('STRAND' %in% colnames(df) | 'Strand' %in% colnames(df) )
-  {
-    df = process.data(dataframe = df)
-    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
+  df = check_strand(dataframe = df)
+  region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
                                          end.field = 'END',strand.field = c('STRAND','Strand'))
-  }
-  else
-  {
-    df = get_strand(dataframe = df)
-    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
-                                         seqnames.field = 'CHROMOSOME', start.field = 'START',
-                                         end.field = 'END',strand.field = c('STRAND','Strand'))
-  }
   return (region_gr)
 }
 

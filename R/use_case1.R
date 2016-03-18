@@ -75,7 +75,7 @@ sel_tf = deepblue.intersection(query_a_id =qid_tf,query_b_id =qid_prom)
 
 id_sel_tf = get_value(sel_tf)
 req_regions = deepblue.get_regions(query_id = id_sel_tf,output_format =
-                                     "CHROMOSOME,START,END,@NAME,@EPIGENETIC_MARK,@BIOSOURCE")
+                                       "CHROMOSOME,START,END,@NAME,@EPIGENETIC_MARK,@BIOSOURCE")
 
 
 #Process request
@@ -89,9 +89,9 @@ info = deepblue.info(id_req_regions)
 
 request_info <- process_request(requested_regions = req_regions)
 if (request_info[[2]]$value$state == "done") {
-	print("The processing was finished")
+    print("The processing was finished")
 } else {
-	stop(request_info[[2]]$value$message)
+    stop(request_info[[2]]$value$message)
 }
 
 #get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
