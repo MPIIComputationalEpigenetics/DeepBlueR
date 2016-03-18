@@ -379,10 +379,10 @@ convert_to_grange = function (df = NULL)
 #new get_request_data function
 
 
-get_request_data = function (request_info, user=deepblue.USER_KEY)
+get_request_data = function (request_info=NULL, user=deepblue.USER_KEY)
 
 {
-  request_id = info[[2]]$value$`_id`
+  request_id = request_info[[2]]$value$`_id`
   final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
   regions = convert_to_df(output=final_regions[2], inf=request_info[2])
   grange_regions = convert_to_grange(df=regions)
