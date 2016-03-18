@@ -547,7 +547,6 @@ setGeneric("rpc.serialize", function(x, ...) standardGeneric("rpc.serialize"))
 
 setMethod("rpc.serialize", "ANY",
            function(x, ...) {
-
               if(isS4(x))
                 return(rpc.serialize.S4Object(x, ...))
 
@@ -570,6 +569,7 @@ basicTypeMap =
     "POSIXt" = "dateTime.iso8601",
     "POSIXct" = "dateTime.iso8601",
     "Date" = "dateTime.iso8601",
+    "list" = "array",
     "raw" = "base64")
 
 cast <- function(x) {
@@ -682,19 +682,18 @@ setMethod("rpc.serialize", "list",
               if(length(names(x))) {
                   a = newXMLNode("struct")
                   sapply(names(x), function(id) {
-                                     type = basicTypeMap[typeof(x[[id]])]
                                      newXMLNode("member",
-                                        newXMLNode("name", id), rpc.serialize(x[[id]]),
-                                        parent = a)
+                                        newXMLNode("name", id),
+                                        rpc.serialize(x[[id]]), parent = a)
                                    })
                   newXMLNode("value", a)
               } else {
                 a = newXMLNode("array")
                 data = newXMLNode("data", parent = a)
-                sapply(x, function(x) {
-                        elName = basicTypeMap[typeof(x)]
-                        newXMLNode("value", newXMLNode(elName, if(elName == "string") newXMLCDataNode(x) else x, parent = data))
+                v <- sapply(x, function(x) {
+                    rpc.serialize(x)
                 })
+                addChildren(data, v)
                 newXMLNode("value", a)
               }
            })
@@ -783,7 +782,7 @@ function(node, ...)
 process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.USER_KEY)
 {
   info = deepblue.info(as.character(requested_regions[2]), user_key)
-  
+
   while (info[2]['state'] != 'done' & info[2]['state'] != 'error')
   {
     Sys.sleep(sleep.time)
@@ -866,14 +865,14 @@ convert_to_grange = function (df = NULL)
   if ('STRAND' %in% colnames(df) | 'Strand' %in% colnames(df) )
   {
     df = process.data(dataframe = df)
-    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
+    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
                                          end.field = 'END',strand.field = c('STRAND','Strand'))
   }
   else
   {
     df = get_strand(dataframe = df)
-    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE, 
+    region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
                                          end.field = 'END',strand.field = c('STRAND','Strand'))
   }
