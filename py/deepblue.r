@@ -822,36 +822,10 @@ get_value = function (input = NULL)
   return (value)
 }
 
-#get strand info if not available
-
-check_strand = function (dataframe = NULL)
-{
-    
-  if('STRAND' %in% colnames(dataframe))
-      strand <- dataframe$STRAND
-  else if('Strand' %in% colnames(dataframe))
-      strand <- dataframe$Strand  
-  else
-      strand <- NULL
-  
-  library(dplyr)
-  result <- dataframe %>% 
-          rowwise() %>% 
-          mutate(STRAND = if(START > END)"-" else "+", 
-                 NEW_START=min(START, END), 
-                 NEW_END=max(START, END)) %>% 
-          select(-START, -END) %>% 
-          rename(START = NEW_START, END = NEW_END)
-
-  if(!is.null(strand)) result$STRAND <- strand
-  return (result)
-}
-
 #convert to GRanges
 
 convert_to_grange = function (df = NULL)
 {
-  df = check_strand(dataframe = df)
   region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
                                          end.field = 'END',strand.field = c('STRAND','Strand'))
@@ -870,4 +844,5 @@ get_request_data = function (request_info, user=deepblue.USER_KEY)
   grange_regions = convert_to_grange(df=regions)
   return (grange_regions)
 }
+
 
