@@ -1,13 +1,8 @@
+# DeepBlue Epigenomic Data Server - R access library
+# Use Case 1
+# Author: Nadia Ashraf
 
-#      DeepBlue Project
-#       Use Case 1
-
-
-
-source("D:/HiWi/DeepBlue-R/py/deepblue.R")
-
-
-
+source("deepblue.R")
 
 #result of functions is a 2 elements list. Extract 2nd element convert it to string,
 #since it's a struct type object, and then use it to query the server for extracting
@@ -18,14 +13,14 @@ source("D:/HiWi/DeepBlue-R/py/deepblue.R")
 
 #deepblue.select_regions takes 11 parameters as input, namely; eperiment_name,genome,epigentic_
 #mark,sample_id,technique,project,chromosome,start,end, and user_key. All parameters have default
-#NULL value which can be changed according to requirement. user_id is set to anonymous_key which 
+#NULL value which can be changed according to requirement. user_id is set to anonymous_key which
 #can also be changed with your specific user key.
 
 
 sel_regions = deepblue.select_regions(genome ='GRCh38',epigenetic_mark ='H3k27ac',
                                       project ='BLUEPRINT Epigenome',chromosome ='chr1')
 
-#Extract peaks for H3k27ac 
+#Extract peaks for H3k27ac
 
 
 #deepblue.query_experiment_type takes 3 input parameters, namely; query_id, type, and user_key.
@@ -55,7 +50,7 @@ promoters = deepblue.select_annotations(annotation_name ='promoters',genome ='GR
 
 val_peaks = get_value(sel_regions_peaks)
 val_prom = get_value(promoters)
-sel_promoters = deepblue.intersection(query_a_id = val_peaks, 
+sel_promoters = deepblue.intersection(query_a_id = val_peaks,
                                       query_b_id = val_prom)
 
 #Extract transcription factors AG01,AG02,and AG03 from ENCODE project
@@ -92,10 +87,14 @@ info = deepblue.info(id_req_regions)
 #process.request expects 3 input parameters; requested_regions, sleep.time, user_key. sleep.time
 #is set to 1s as default sleeping time.
 
-process_request(requested_regions = req_regions) 
+request_info <- process_request(requested_regions = req_regions)
+if (request_info[[2]]$value$state == "done") {
+	print("The processing was finished")
+} else {
+	stop(request_info[[2]]$value$message)
+}
 
 #get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
 #Output is a granges object.
-
-requested_data = get_request_data(req_id = id_req_regions, data_info = info)
+requested_data = get_request_data(request_info = info)
 

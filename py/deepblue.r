@@ -783,11 +783,14 @@ process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.
 {
   info = deepblue.info(as.character(requested_regions[2]), user_key)
 
-  while (info[2]['state'] != 'done' & info[2]['state'] != 'error')
+  state = info[[2]]$value$state
+  while (state != 'done' & state != 'error')
   {
     Sys.sleep(sleep.time)
     info = deepblue.info(as.character(requested_regions[2]), user_key)
+    state = info[[2]]$value$state
   }
+  info
 }
 
 #save output in data frame
@@ -882,11 +885,12 @@ convert_to_grange = function (df = NULL)
 #new get_request_data function
 
 
-get_request_data = function (req_id = NULL, data_info = NULL,user=deepblue.USER_KEY)
+get_request_data = function (request_info, user=deepblue.USER_KEY)
 
 {
-  final_regions = deepblue.get_request_data(request_id = req_id, user_key = user)
-  regions = convert_to_df(output=final_regions[2], inf=data_info[2])
+  request_id = info[[2]]$value$`_id`
+  final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
+  regions = convert_to_df(output=final_regions[2], inf=request_info[2])
   grange_regions = convert_to_grange(df=regions)
   return (grange_regions)
 }
