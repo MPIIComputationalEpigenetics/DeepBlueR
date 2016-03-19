@@ -456,7 +456,7 @@ deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NUL
 
 library(XML)
 library(RCurl)
-suppressMessages(library(GenomicRanges))
+
 
 deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
         .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
@@ -776,73 +776,6 @@ xmlRPCToR.array =
 function(node, ...)
 {
   ans = xmlApply(node[["data"]], function(x) xmlRPCToR(x[[1]]))
-}
-
-#Process the user request
-process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.USER_KEY)
-{
-  info = deepblue.info(as.character(requested_regions[2]), user_key)
-
-  state = info[[2]]$value$state
-  while (state != 'done' & state != 'error')
-  {
-    Sys.sleep(sleep.time)
-    info = deepblue.info(as.character(requested_regions[2]), user_key)
-    state = info[[2]]$value$state
-  }
-  info
-}
-
-#save output in data frame
-
-convert_to_df = function(output=NULL,inf=NULL)
-{
-  final = unlist(strsplit(as.character(output),'\n'))
-  final = as.data.frame(final, stringsAsFactors=FALSE)
-  regions = data.frame(do.call('rbind', strsplit(as.character(final$final),'\t',fixed=TRUE)),stringsAsFactors=FALSE)
-  colnames(regions) = unlist(strsplit(inf$value$value$format,','))
-  regions = convert_type(regions)
-  return (regions)
-}
-
-#Convert data types in df
-
-convert_type = function(df=NULL)
-{
-  stopifnot(is.list(df))
-  df[] = rapply(df,utils::type.convert,classes = 'character', how = 'replace', as.is = TRUE)
-  return(df)
-}
-
-#extract value from list
-
-get_value = function (input = NULL)
-{
-  value = as.character(input[2])
-  return (value)
-}
-
-#convert to GRanges
-
-convert_to_grange = function (df = NULL)
-{
-  region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
-                                         seqnames.field = 'CHROMOSOME', start.field = 'START',
-                                         end.field = 'END',strand.field = c('STRAND','Strand'))
-  return (region_gr)
-}
-
-#new get_request_data function
-
-
-get_request_data = function (request_info=NULL, user=deepblue.USER_KEY)
-
-{
-  request_id = request_info[[2]]$value$`_id`
-  final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
-  regions = convert_to_df(output=final_regions[2], inf=request_info[2])
-  grange_regions = convert_to_grange(df=regions)
-  return (grange_regions)
 }
 
 
