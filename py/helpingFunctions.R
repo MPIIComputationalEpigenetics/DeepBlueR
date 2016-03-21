@@ -35,20 +35,45 @@ convert_to_df = function(output=NULL,inf=NULL)
   final = as.data.frame(final, stringsAsFactors=FALSE)
   regions = data.frame(do.call('rbind', strsplit(as.character(final$final),'\t',fixed=TRUE)),stringsAsFactors=FALSE)
   colnames(regions) = unlist(strsplit(inf$value$value$format,','))
-  regions = convert_type(regions)
+  regions = convert_type(regions,col_dict)
   return (regions)
 }
 
 #'convert_type
-#'Sets data types of each column in the data frame. Expects one input; A dataframe.
+#'Sets data types of each column in the data frame. Expects two input; A dataframe and a dictionary.
 #'
 #'@param df A dataframe
+#'@param dict A dictionary with column names as keys and column types as values.  
 #'@return df A dataframe
 
-convert_type = function(df=NULL)
+convert_type = function(df=NULL,dict)
 {
   stopifnot(is.list(df))
-  df[] = rapply(df,utils::type.convert,classes = 'character', how = 'replace', as.is = TRUE)
+  cols = colnames(df)
+  types = c()
+  for (i in cols)
+  {
+    types=c(types,dict[[i]])
+  }
+  for (i in 1:length(types))
+  {
+    if (types[i] == "integer") 
+    { 
+      df[i] <- as.integer(df[[i]])
+    }
+    else if (types[i] == "character")
+    {
+      df[i] <- as.character(df[[i]])
+    }
+    else if (types[i] == "double")
+    {
+      df[i] <- as.double(df[[i]])
+    }
+    else 
+    {
+      df[i] <- as.factor(df[[i]])
+    }
+  }
   return(df)
 }
 
@@ -94,6 +119,40 @@ get_request_data = function (request_info=NULL, user=deepblue.USER_KEY)
   request_id = request_info[[2]]$value$`_id`
   final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
   regions = convert_to_df(output=final_regions[2], inf=request_info[2])
+  print (typeof(regions$START))
   grange_regions = convert_to_grange(df=regions)
   return (grange_regions)
 }
+
+
+
+get_columns = function()
+{
+  cols = deepblue.list_column_types()
+  col_ids = c()
+  for (i in 1:length(cols[[2]]))
+  {
+    co=cols[[2]][i]$value[[1]]
+    col_ids = c(col_ids,co)
+  }
+  
+  col_names=c()
+  col_types = c()
+  
+  for (i in col_ids)
+  {
+    inf = deepblue.info(i)
+    col_names=c(col_names,inf[[2]]$value$name)
+    col_types=c(col_types,inf[[2]]$value$column_type)
+  }
+  
+  col_info=data.frame(col_names,col_types,stringsAsFactors = FALSE)
+  col_info[col_info=='category']='factor'
+  dict=new.env()
+  for(i in seq(nrow(col_info)))
+  {
+    dict[[col_info[i,1]]] = col_info[i,2]
+  }
+  return(dict)
+}
+col_dict = get_columns()

@@ -3,6 +3,8 @@
 # Author: Nadia Ashraf
 
 source("deepblue.R")
+source("helpingFunctions.R")
+
 
 #result of functions is a 2 elements list. Extract 2nd element convert it to string,
 #since it's a struct type object, and then use it to query the server for extracting
@@ -87,7 +89,7 @@ info = deepblue.info(id_req_regions)
 #process.request expects 3 input parameters; requested_regions, sleep.time, user_key. sleep.time
 #is set to 1s as default sleeping time.
 
-request_info <- process_request(requested_regions = req_regions)
+request_info = process_request(requested_regions = req_regions)
 if (request_info[[2]]$value$state == "done") {
     print("The processing was finished")
 } else {
@@ -96,5 +98,5 @@ if (request_info[[2]]$value$state == "done") {
 
 #get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
 #Output is a granges object.
-requested_data = get_request_data(request_info = info)
+requested_data = get_request_data(request_info=info)
 
