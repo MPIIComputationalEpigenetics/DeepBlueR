@@ -29,6 +29,36 @@ process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.
 #' @param inf A list with request information
 #' @return regions A data frame  
 
+convert_to_df_fast = function(output, inf, dict=col_dict){
+
+    #dependencies used here
+    library(data.table)
+    library(stringr)
+    
+    #get column names from 
+    col_names <- str_split(inf$format, pattern = ",")[[1]]
+    
+    #get column types from dictionary
+    col_types <- sapply(col_names, function(x){
+        col_type <- dict[[x]]
+        #return column type, defaults to character
+        if(is.null(col_type)) return("character")
+        #need to change string to character
+        else if(col_type == "string") return("character")
+        else return(col_type)
+    })
+    
+    #read data frame efficiently from string
+    #paste a header in front so that fread accepts colClasses
+    fread(input = paste(paste(col_names, collapse="\t"), "\n", output, sep=""),
+          sep="\t", 
+          colClasses = col_types, 
+          header=TRUE, 
+          strip.white = FALSE,
+          stringsAsFactors = FALSE,
+          data.table = FALSE)
+}
+
 convert_to_df = function(output=NULL,inf=NULL)
 {
   final = unlist(strsplit(as.character(output),'\n'))
@@ -113,19 +143,17 @@ convert_to_grange = function (df = NULL)
 #'@seealso \code{\link{deepblue.get_request_data}}, \code{\link{convert_to_df}}, and
 #'\code{\link{convert_to_grange}}.
 
-get_request_data = function (request_info=NULL, user=deepblue.USER_KEY)
-  
+#//TODO: REMOVE??
+get_request_data = function (request_info=NULL, user=deepblue.USER_KEY, type="grange")
 {
-  request_id = request_info[[2]]$value$`_id`
-  final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
-  regions = convert_to_df(output=final_regions[2], inf=request_info[2])
-  print (typeof(regions$START))
-  grange_regions = convert_to_grange(df=regions)
-  return (grange_regions)
+    request_id = request_info[[2]]$value$`_id`
+    final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
+    regions = convert_to_df_fast(output=final_regions[[2]][[1]], inf=request_info[[2]][[1]])
+    
+    if(type == "grange") return(convert_to_grange(df=regions))
+    else return (regions)
 }
-
-
-
+#TODO: REMOVE??
 get_columns = function()
 {
   cols = deepblue.list_column_types()
