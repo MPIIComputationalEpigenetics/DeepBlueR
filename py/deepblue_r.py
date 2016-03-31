@@ -2,23 +2,18 @@ import xmlrpclib
 
 
 export_tmpl = """
-#'@export \
+#' @export \
 """
 title_tmpl = """
-#'@title %(name)s \
+#' @title %(name)s \
 """
-
-
-check_value = """\
-
-"""
-
 
 param_tmpl = """
 #' @param %(name)s - A %(type)s%(vector)s (%(description)s)\
 """
 
-result_tmpl = """\
+result_tmpl = """
+#' @description
 %(description)s\
 """
 
@@ -27,9 +22,9 @@ results_tmpl = """ \
 """
 
 cmd_documentation_tmpl = """
-#' %(export)s
+%(export)s
 #' %(title)s
-#' %(description)s
+#' @description %(description)s
 #' %(params)s
 #'
 #' @return a vector with %(return)s\
@@ -102,7 +97,7 @@ def main():
                                                  "type": p[1],
                                                  "vector" : s_vector,
                                                  "description" : p[3]})
-    titles.append(title_tmpl % {'name': cmd["description"][0]})
+    titles.append(title_tmpl % {'name': name})
     results = []
     for r in cmd['results']:
       results.append( result_tmpl % {"name" : r[0],
