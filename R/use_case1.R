@@ -3,7 +3,7 @@
 # Author: Nadia Ashraf
 
 source("deepblue.R")
-source("D:/HiWi/DeepBlue-R/py/helpingFunctions.R")
+source("helpingFunctions.R")
 
 
 #result of functions is a 2 elements list. Extract 2nd element convert it to string,
