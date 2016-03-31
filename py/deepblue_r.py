@@ -1,11 +1,19 @@
 import xmlrpclib
 
+
 export_tmpl = """
 #'@export \
 """
 title_tmpl = """
 #'@title %(name)s \
 """
+
+
+check_value = """\
+
+"""
+
+
 param_tmpl = """
 #' @param %(name)s - A %(type)s%(vector)s (%(description)s)\
 """
@@ -31,7 +39,12 @@ cmd_documentation_tmpl = """
 cmd_tmpl = """
 %(documentation)s
 deepblue.%(name)s <- function(%(parameter_names)s) {
-    xml.rpc(%(url)s, '%(name)s'%(parameter_convertion)s)
+  value <- xml.rpc(%(url)s, '%(name)s'%(parameter_convertion)s)
+  status = value[[1]]
+  if (status == "error") {
+    stop(value[[2]])
+  }
+  value[[2]]
 }
 """
 

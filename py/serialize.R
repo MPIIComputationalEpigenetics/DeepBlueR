@@ -322,3 +322,17 @@ function(node, ...)
   ans = xmlApply(node[["data"]], function(x) xmlRPCToR(x[[1]]))
 }
 
+# Return the function result.
+# TODO:
+#   check the content of input[1], if it is 'error', print the input[2] value and stop the execution (there is no sense to keep executing the script if some error happened)
+check_value =
+function(input)
+{
+  status = input[[1]]
+  print(status)
+  if (status == "error") {
+    stop(input[[2]])
+  }
+  value = input[[2]]
+  return (value)
+}
