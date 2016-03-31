@@ -1,11 +1,28 @@
 import xmlrpclib
 
 
+param_tmpl = """
+#' @param %(name)s - A %(type)s%(vector)s (%(description)s)\
+"""
+
+result_tmpl = """\
+%(description)s\
+"""
+
+results_tmpl = """ \
+('okay', %(results)s) or ('error', error_message) \
+"""
+
+cmd_documentation_tmpl = """
+#' %(description)s
+#' %(params)s
+#'
+#' @return a vector with %(return)s\
+"""
 
 
 cmd_tmpl = """
-# %(name)s
-# %(description)s
+%(documentation)s
 deepblue.%(name)s <- function(%(parameter_names)s) {
     xml.rpc(%(url)s, '%(name)s'%(parameter_convertion)s)
 }
@@ -38,6 +55,10 @@ def main():
     params_s = ""
     param_names = []
     param_names_convertion = []
+
+
+    params_documentation = []
+
     for p in cmd["parameters"]:
 
       if p[0] == "user_key":
@@ -52,17 +73,36 @@ def main():
       else:
         param_names_convertion.append(p[0])
 
+      s_vector = ""
+      if (p[2]):
+        s_vector = " or a vector of " + p[1]
+
+      params_documentation.append(param_tmpl  % {"name": p[0],
+                                                 "type": p[1],
+                                                 "vector" : s_vector,
+                                                 "description" : p[3]})
+    results = []
+    for r in cmd['results']:
+      results.append( result_tmpl % {"name" : r[0],
+                                     "type" : r[1],
+                                     "description": r[3]})
+
+    results_s = results_tmpl % {"results" : "".join(results)}
 
     if param_names_convertion:
       parameters_list_convertion = ", " + ', '.join(param_names_convertion)
     else:
       parameters_list_convertion = ""
 
+    command_description = cmd_documentation_tmpl % {'description': cmd["description"][2],
+                                                  'params' : "".join(params_documentation),
+                                                  'return' :  results_s}
+
     commands_long_doc += cmd_tmpl % {"parameters_full": params_s,
                            "parameter_names": ', '.join(param_names),
                            "parameter_convertion": parameters_list_convertion,
                            "name": name,
-                           "description": desc[2],
+                           "documentation": command_description,
                            'url': "deepblue.URL"}
 
   print commands_long_doc
