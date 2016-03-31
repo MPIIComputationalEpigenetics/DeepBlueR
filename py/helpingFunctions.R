@@ -2,19 +2,19 @@ suppressMessages(library(GenomicRanges))
 
 #'@title process_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
-#'@param requested_regions A string 
+#'@param requested_regions A string
 #'@param sleep.time An integer with default value 1s
-#'@param user_key A string 
+#'@param user_key A string
 
 process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.USER_KEY)
 {
-  info = deepblue.info(requested_regions, user_key)[[2]]
-  
+  info = deepblue.info(requested_regions, user_key)
+
   state = info$value$state
   while (state != 'done' & state != 'error')
   {
     Sys.sleep(sleep.time)
-    info = deepblue.info(requested_regions, user_key)[[2]]
+    info = deepblue.info(requested_regions, user_key)
     state = info$value$state
   }
   info
@@ -22,19 +22,19 @@ process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.
 
 #'@title convert_to_df
 #'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
-#' @param output A string 
+#' @param output A string
 #' @param inf A list with request information
-#' @return regions A data frame  
+#' @return regions A data frame
 
 convert_to_df = function(output, inf, dict=col_dict){
 
     #dependencies used here
     library(data.table)
     library(stringr)
-    
-    #get column names from 
+
+    #get column names from
     col_names <- str_split(inf$format, pattern = ",")[[1]]
-    
+
     #get column types from dictionary
     col_types <- sapply(col_names, function(x){
         col_type <- dict[[x]]
@@ -45,13 +45,13 @@ convert_to_df = function(output, inf, dict=col_dict){
         else if (col_type == 'category') return ('factor')
         else return(col_type)
     })
-    
+
     #read data frame efficiently from string
     #paste a header in front so that fread accepts colClasses
     fread(input = paste(paste(col_names, collapse="\t"), "\n", output, sep=""),
-          sep="\t", 
-          colClasses = col_types, 
-          header=TRUE, 
+          sep="\t",
+          colClasses = col_types,
+          header=TRUE,
           strip.white = FALSE,
           stringsAsFactors = FALSE,
           data.table = FALSE)
@@ -88,33 +88,38 @@ convert_to_grange = function (df = NULL)
 
 get_request_data = function (request_info, user=deepblue.USER_KEY, type="grange")
 {
-    request_id = request_info[[2]]$value$`_id`
+    request_id = request_info$value$`_id`
     final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
-    regions = convert_to_df(output=final_regions[[2]][[1]], inf=request_info[[2]][[1]])
-    
-    if(type == "grange") return(convert_to_grange(df=regions))
-    else return (regions)
+
+    regions_string = final_regions[[1]]
+    if (type == "string") return (regions_string)
+
+    regions_df = convert_to_df(output=regions_string, inf=request_info[[1]])
+    if (type == "df") return (regions_df)
+
+    return(convert_to_grange(df=regions_df))
 }
-#TODO: REMOVE??
+
+# Load the column types from DeepBlue
 get_columns = function()
 {
   cols = deepblue.list_column_types()
   col_ids = c()
-  for (i in 1:length(cols[[2]]))
+  for (i in 1:length(cols))
   {
-    co=cols[[2]][i]$value[[1]]
+    co=cols[[i]][[1]]
     col_ids = c(col_ids,co)
   }
-  
+
   col_names=c()
   col_types = c()
   col_info = deepblue.info(col_ids)
-  for (i in 1:length(col_info[[2]]))
+  for (i in 1:length(col_info))
   {
-    col_names=c(col_names,col_info[[2]][i]$value$name)
-    col_types=c(col_types,col_info[[2]][i]$value$column_type)
+    col_names=c(col_names,col_info[i]$value$name)
+    col_types=c(col_types,col_info[i]$value$column_type)
   }
-  
+
   col_info=data.frame(col_names,col_types,stringsAsFactors = FALSE)
   dict=new.env()
   for(i in seq(nrow(col_info)))
