@@ -25,6 +25,7 @@ cmd_documentation_tmpl = """
 %(export)s
 #' %(title)s
 #' @description %(description)s
+#' @family %(category)s
 #' %(params)s
 #'
 #' @return a vector with %(return)s\
@@ -113,6 +114,7 @@ def main():
 
     command_description = cmd_documentation_tmpl % {'export': export_tmpl,'title':"".join(titles),
                                                   'description': cmd["description"][2],
+                                                  'category' : cmd['description'][1],
                                                   'params' : "".join(params_documentation),
                                                   'return' :  results_s}
 
