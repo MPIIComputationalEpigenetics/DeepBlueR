@@ -1,6 +1,11 @@
 import xmlrpclib
 
-
+export_tmpl = """
+#'@export \
+"""
+title_tmpl = """
+#'@title %(name)s \
+"""
 param_tmpl = """
 #' @param %(name)s - A %(type)s%(vector)s (%(description)s)\
 """
@@ -14,6 +19,8 @@ results_tmpl = """ \
 """
 
 cmd_documentation_tmpl = """
+#' %(export)s
+#' %(title)s
 #' %(description)s
 #' %(params)s
 #'
@@ -47,6 +54,7 @@ def main():
   for name in sorted(commands.keys()):
     cmd = commands[name]
     desc = cmd["description"]
+
     category = desc[0]
 
     html_id = name.replace(' ', '-').lower()
@@ -58,7 +66,7 @@ def main():
 
 
     params_documentation = []
-
+    titles = []
     for p in cmd["parameters"]:
 
       if p[0] == "user_key":
@@ -81,6 +89,7 @@ def main():
                                                  "type": p[1],
                                                  "vector" : s_vector,
                                                  "description" : p[3]})
+    titles.append(title_tmpl % {'name': cmd["description"][0]})
     results = []
     for r in cmd['results']:
       results.append( result_tmpl % {"name" : r[0],
@@ -94,7 +103,8 @@ def main():
     else:
       parameters_list_convertion = ""
 
-    command_description = cmd_documentation_tmpl % {'description': cmd["description"][2],
+    command_description = cmd_documentation_tmpl % {'export': export_tmpl,'title':"".join(titles),
+                                                  'description': cmd["description"][2],
                                                   'params' : "".join(params_documentation),
                                                   'return' :  results_s}
 
