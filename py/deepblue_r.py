@@ -12,7 +12,7 @@ param_tmpl = """
 #' @param %(name)s - A %(type)s%(vector)s (%(description)s)\
 """
 
-result_tmpl = """
+result_tmpl = """\
 #' @description
 %(description)s\
 """
