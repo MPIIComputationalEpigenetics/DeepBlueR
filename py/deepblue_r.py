@@ -12,12 +12,17 @@ param_tmpl = """
 #' @param %(name)s - A %(type)s%(vector)s (%(description)s)\
 """
 
+
 result_tmpl = """
 #' @description %(description)s\
 """
 
 results_tmpl = """ \
 ('okay', %(results)s) or ('error', error_message) \
+"""
+
+result_tmpl = """\
+%(name)s - A %(type)s%(vector)s (%(description)s)\
 """
 
 cmd_documentation_tmpl = """
@@ -27,7 +32,7 @@ cmd_documentation_tmpl = """
 #' @family %(category)s
 #' %(params)s
 #'
-#' @return a vector with %(return)s\
+#' @return %(return)s\
 """
 
 
@@ -100,22 +105,25 @@ def main():
     titles.append(title_tmpl % {'name': name})
     results = []
     for r in cmd['results']:
+      print r
+      r_vector = ""
+      if (r[2]):
+        r_vector = " or a vector of " + r[1]
       results.append( result_tmpl % {"name" : r[0],
                                      "type" : r[1],
+                                     "vector" : r_vector,
                                      "description": r[3]})
-
-    results_s = results_tmpl % {"results" : "".join(results)}
-
-    if param_names_convertion:
-      parameters_list_convertion = ", " + ', '.join(param_names_convertion)
-    else:
-      parameters_list_convertion = ""
 
     command_description = cmd_documentation_tmpl % {'export': export_tmpl,'title':"".join(titles),
                                                   'description': cmd["description"][2],
                                                   'category' : cmd['description'][1],
                                                   'params' : "".join(params_documentation),
-                                                  'return' :  results_s}
+                                                  'return' :  "".join(results)}
+
+    if param_names_convertion:
+      parameters_list_convertion = ", " + ', '.join(param_names_convertion)
+    else:
+      parameters_list_convertion = ""
 
     commands_long_doc += cmd_tmpl % {"parameters_full": params_s,
                            "parameter_names": ', '.join(param_names),
