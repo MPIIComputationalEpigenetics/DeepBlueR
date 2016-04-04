@@ -5,6 +5,7 @@
 source("deepblue.R")
 source("helpingFunctions.R")
 
+#library(DeepBlue)
 
 #result of functions is a 2 elements list. Extract 2nd element convert it to string,
 #since it's a struct type object, and then use it to query the server for extracting
@@ -75,4 +76,3 @@ if (request_info$value$state == "done") {
 # The output type can be changed passing 'string' or 'df' to the 'type' parameter.
 requested_data = get_request_data(request_info=info)
 
-print(requested_data)

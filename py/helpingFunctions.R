@@ -1,5 +1,6 @@
 suppressMessages(library(GenomicRanges))
 
+#'@export
 #'@title process_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
 #'@param requested_regions A string
@@ -17,7 +18,7 @@ process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.
     info = deepblue.info(requested_regions, user_key)
     state = info$value$state
   }
-  info
+  return (info)
 }
 
 #'@title convert_to_df
@@ -73,6 +74,7 @@ convert_to_grange = function (df = NULL)
   return (region_gr)
 }
 
+#' @export
 #'@title get_request_data
 #'@description Returns the requested data as GRanges object. Expects two input parameters; Request information and
 #'user key. It depends on outputs from several functions, namely;
@@ -100,7 +102,8 @@ get_request_data = function (request_info, user=deepblue.USER_KEY, type="grange"
     return(convert_to_grange(df=regions_df))
 }
 
-# Load the column types from DeepBlue
+#' @description Load the column types from DeepBlue
+#' @title get columns
 get_columns = function()
 {
   cols = deepblue.list_column_types()
@@ -128,4 +131,5 @@ get_columns = function()
   }
   return(dict)
 }
+#' @title coulmns dictionary
 col_dict = get_columns()

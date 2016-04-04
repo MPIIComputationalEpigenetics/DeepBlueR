@@ -1,7 +1,7 @@
 library(XML)
 library(RCurl)
 
-
+#' @title get request data r
 deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
         .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
         .curl = getCurlHandle())
@@ -33,6 +33,7 @@ deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
   }
 }
 
+#' @title xml.rpc
 xml.rpc =
 function(url, method, ..., .args = list(...),
           .opts = list(),
@@ -78,6 +79,7 @@ function(url, method, ..., .args = list(...),
       ans
 }
 
+#' @title createBody
 createBody =
 function(method, args)
 {
@@ -87,6 +89,7 @@ function(method, args)
   top
 }
 
+#' @title rpc.serialize
 setGeneric("rpc.serialize", function(x, ...) standardGeneric("rpc.serialize"))
 
 setMethod("rpc.serialize", "ANY",
@@ -97,6 +100,7 @@ setMethod("rpc.serialize", "ANY",
               stop("Not sure how to convert this type of object to XMLRPC format")
            })
 
+#' @title rpc.serialize.S4Object 
 rpc.serialize.S4Object =
 function(x, ...)
 {
@@ -104,7 +108,7 @@ function(x, ...)
   rpc.serialize(structure(lapply(els, function(id) slot(x, id)), names = els), ...)
 }
 
-
+#' @title basicTypeMap
 basicTypeMap =
   c("integer" = "i4",
     "double" = "double",
@@ -116,6 +120,7 @@ basicTypeMap =
     "list" = "array",
     "raw" = "base64")
 
+#' @title cast
 cast <- function(x) {
   if (is.logical(x))
     as.integer(x)
@@ -183,10 +188,12 @@ setMethod("rpc.serialize", "vector",
            })
 
 
+#' @title FormatStrings
 FormatStrings = c(numeric = "%f", integer = "%d", logical = "%s",
                    i4 = "%d", double = "%f",
                   string = "%s", Date = "%s",  POSIXt = "%s", POSIXct = "%s")
 
+#' @title vectorArray
 vectorArray =
 function(x, type)
 {
@@ -242,7 +249,7 @@ setMethod("rpc.serialize", "list",
               }
            })
 
-
+#' @title convertToR
 setGeneric('convertToR', function(node) standardGeneric('convertToR'))
 
 setMethod('convertToR', 'XMLInternalDocument', function(node)
@@ -277,6 +284,7 @@ function(node)
   convertToR(xml)
 })
 
+#' @title xmlRPCToR
 xmlRPCToR =
 function(node, ...)
 {
@@ -306,7 +314,7 @@ function(node, ...)
         )
 
 }
-
+#' @title xmlRPCToR.struct
 xmlRPCToR.struct =
 function(node, ...)
 {
@@ -315,7 +323,7 @@ function(node, ...)
   ans
 }
 
-
+#' @title xmlRPCToR.array
 xmlRPCToR.array =
 function(node, ...)
 {
@@ -325,6 +333,7 @@ function(node, ...)
 # Return the function result.
 # TODO:
 #   check the content of input[1], if it is 'error', print the input[2] value and stop the execution (there is no sense to keep executing the script if some error happened)
+#' @title check value
 check_value =
 function(input)
 {

@@ -13,8 +13,7 @@ param_tmpl = """
 """
 
 result_tmpl = """
-#' @description
-%(description)s\
+#' @description %(description)s\
 """
 
 results_tmpl = """ \
