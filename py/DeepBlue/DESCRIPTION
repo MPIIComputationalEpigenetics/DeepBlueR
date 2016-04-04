@@ -1,0 +1,15 @@
+Package: DeepBlue
+Type: Package
+Title: Accessing Deepblue trough R
+Version: 1.0
+Date: 2016-04-02
+Author: Felipe Albrecht, Markus List, Nadia Ashraf
+Maintainer: Felipe Albrecht <felipe.albrecht@gmail.com>, Markus List <markus.list@mpi-inf.mpg.de>, Nadia Ashraf <nadia.ashraf98@gmail.com>
+Description:Accessing Deepblue trough R.For DeepBlue version 1.6.13
+License: GPL (>=2.0)
+Depends: GenomicRanges, data.table
+Collate:
+	deepblue.R
+	helpingFunctions.R
+BuildVignettes: TRUE
+RoxygenNote: 5.0.1
