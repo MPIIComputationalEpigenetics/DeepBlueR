@@ -25,7 +25,7 @@ deepblue.debug.VERBOSE = FALSE
 #' @param extra_metadata - A struct (additional metadata)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted annotation)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted annotation)
 deepblue.add_annotation <- function(name= NULL, genome= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_annotation', name, genome, description, data, format, extra_metadata, user_key)
   status = value[[1]]
@@ -48,7 +48,7 @@ deepblue.add_annotation <- function(name= NULL, genome= NULL, description= NULL,
 #' @param extra_metadata - A struct (additional metadata)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted biosource)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted biosource)
 deepblue.add_biosource <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_biosource', name, description, extra_metadata, user_key)
   status = value[[1]]
@@ -71,7 +71,7 @@ deepblue.add_biosource <- function(name= NULL, description= NULL, extra_metadata
 #' @param extra_metadata - A struct (additional metadata)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted epigenetic mark)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted epigenetic mark)
 deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_epigenetic_mark', name, description, extra_metadata, user_key)
   status = value[[1]]
@@ -101,7 +101,7 @@ deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_me
 #' @param extra_metadata - A struct (additional metadata)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted experiment)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted experiment)
 deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_experiment', name, genome, epigenetic_mark, sample, technique, project, description, data, format, extra_metadata, user_key)
   status = value[[1]]
@@ -126,7 +126,7 @@ deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= N
 #' @param extra_metadata - A struct (additional metadata)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted annotation)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted annotation)
 deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_gene_set', name, description, data, format, extra_metadata, user_key)
   status = value[[1]]
@@ -149,7 +149,7 @@ deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, for
 #' @param data - A string (genome data)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted genome)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted genome)
 deepblue.add_genome <- function(name= NULL, description= NULL, data= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_genome', name, description, data, user_key)
   status = value[[1]]
@@ -171,7 +171,7 @@ deepblue.add_genome <- function(name= NULL, description= NULL, data= NULL, user_
 #' @param description - A string (description of the project)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted project)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted project)
 deepblue.add_project <- function(name= NULL, description= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_project', name, description, user_key)
   status = value[[1]]
@@ -193,7 +193,7 @@ deepblue.add_project <- function(name= NULL, description= NULL, user_key=deepblu
 #' @param extra_metadata - A struct (sample extra metadata. You can include any key-value collection here.)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted sample)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted sample)
 deepblue.add_sample <- function(biosource_name= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_sample', biosource_name, extra_metadata, user_key)
   status = value[[1]]
@@ -215,7 +215,7 @@ deepblue.add_sample <- function(biosource_name= NULL, extra_metadata=NULL, user_
 #' @param gsm_id - A string (GSM ID)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted sample)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted sample)
 deepblue.add_sample_from_gsm <- function(name= NULL, gsm_id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_sample_from_gsm', name, gsm_id, user_key)
   status = value[[1]]
@@ -238,7 +238,7 @@ deepblue.add_sample_from_gsm <- function(name= NULL, gsm_id= NULL, user_key=deep
 #' @param extra_metadata - A struct (additional metadata)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly inserted technique)) or ('error', error_message) 
+#' @return id - A string (id of the newly inserted technique)
 deepblue.add_technique <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_technique', name, description, extra_metadata, user_key)
   status = value[[1]]
@@ -261,7 +261,7 @@ deepblue.add_technique <- function(name= NULL, description= NULL, extra_metadata
 #' @param set - A boolean (True to include the user or false to remove)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the user)) or ('error', error_message) 
+#' @return user_id - A string (id of the user)
 deepblue.add_user_to_project <- function(user= NULL, project= NULL, set= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'add_user_to_project', user, project, set, user_key)
   status = value[[1]]
@@ -284,7 +284,7 @@ deepblue.add_user_to_project <- function(user= NULL, project= NULL, set= NULL, u
 #' @param column - A string (name of the column that will be used in the aggregation)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (query id of this aggregation operation)) or ('error', error_message) 
+#' @return regions - A string (query id of this aggregation operation)
 deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'aggregate', data_id, ranges_id, column, user_key)
   status = value[[1]]
@@ -305,7 +305,7 @@ deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
 #' @param id - A string (Request ID to be canceled, stopped or removed.)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (ID of the canceled request)) or ('error', error_message) 
+#' @return id - A string (ID of the canceled request)
 deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'cancel_request', id, user_key)
   status = value[[1]]
@@ -328,7 +328,7 @@ deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @param extra_metadata_value - A string (extra_metadata key (empty for delete this key))
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the modified data)) or ('error', error_message) 
+#' @return id - A string (id of the modified data)
 deepblue.change_extra_metadata <- function(id= NULL, extra_metadata_key= NULL, extra_metadata_value= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'change_extra_metadata', id, extra_metadata_key, extra_metadata_value, user_key)
   status = value[[1]]
@@ -349,7 +349,7 @@ deepblue.change_extra_metadata <- function(id= NULL, extra_metadata_key= NULL, e
 #' @param genome - A string (the target genome)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (A list containing all chromosomes, with theirs names and sizes)) or ('error', error_message) 
+#' @return chromosomes - A array (A list containing all chromosomes, with theirs names and sizes)
 deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'chromosomes', genome, user_key)
   status = value[[1]]
@@ -378,7 +378,7 @@ deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
 #' @param extra_metadata - A struct (additional metadata - empty to copy from the cloned dataset)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the new dataset)) or ('error', error_message) 
+#' @return id - A string (id of the new dataset)
 deepblue.clone_dataset <- function(dataset_id= NULL, new_name= NULL, new_epigenetic_mark= NULL, new_sample= NULL, new_technique= NULL, new_project= NULL, description= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'clone_dataset', dataset_id, new_name, new_epigenetic_mark, new_sample, new_technique, new_project, description, format, extra_metadata, user_key)
   status = value[[1]]
@@ -397,7 +397,7 @@ deepblue.clone_dataset <- function(dataset_id= NULL, new_name= NULL, new_epigene
 #' @family Checking DeepBlue status
 #' 
 #'
-#' @return a vector with  ('okay', struct (command descriptions)) or ('error', error_message) 
+#' @return commands - A struct (command descriptions)
 deepblue.commands <- function() {
   value <- xml.rpc(deepblue.URL, 'commands')
   status = value[[1]]
@@ -418,7 +418,7 @@ deepblue.commands <- function() {
 #' @param query_id - A string (Query ID)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (Request ID - Use it to retrieve the result with info() and get_request_data())) or ('error', error_message) 
+#' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'count_regions', query_id, user_key)
   status = value[[1]]
@@ -441,7 +441,7 @@ deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
 #' @param code - A string (Lua code that will be executed)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly created column type)) or ('error', error_message) 
+#' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_calculated <- function(name= NULL, description= NULL, code= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'create_column_type_calculated', name, description, code, user_key)
   status = value[[1]]
@@ -464,7 +464,7 @@ deepblue.create_column_type_calculated <- function(name= NULL, description= NULL
 #' @param items - A string or a vector of string (items that are accepted for this category set)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly created column type)) or ('error', error_message) 
+#' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_category <- function(name= NULL, description= NULL, items= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'create_column_type_category', name, description, items, user_key)
   status = value[[1]]
@@ -488,7 +488,7 @@ deepblue.create_column_type_category <- function(name= NULL, description= NULL, 
 #' @param maximum - A double (maximum value for this range (inclusive))
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly created column type)) or ('error', error_message) 
+#' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_range <- function(name= NULL, description= NULL, minimum= NULL, maximum= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'create_column_type_range', name, description, minimum, maximum, user_key)
   status = value[[1]]
@@ -511,7 +511,7 @@ deepblue.create_column_type_range <- function(name= NULL, description= NULL, min
 #' @param type - A string (type of the column type)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the newly created column type)) or ('error', error_message) 
+#' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_simple <- function(name= NULL, description= NULL, type= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'create_column_type_simple', name, description, type, user_key)
   status = value[[1]]
@@ -531,7 +531,7 @@ deepblue.create_column_type_simple <- function(name= NULL, description= NULL, ty
 #' 
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (echo message including version)) or ('error', error_message) 
+#' @return message - A string (echo message including version)
 deepblue.echo <- function(user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'echo', user_key)
   status = value[[1]]
@@ -551,7 +551,7 @@ deepblue.echo <- function(user_key=deepblue.USER_KEY) {
 #' 
 #' @param list - A array (list of lists of IDs and Names)
 #'
-#' @return a vector with  ('okay', array (list containing the extracted IDs)) or ('error', error_message) 
+#' @return ids - A array (list containing the extracted IDs)
 deepblue.extract_ids <- function(list= NULL) {
   value <- xml.rpc(deepblue.URL, 'extract_ids', list)
   status = value[[1]]
@@ -571,7 +571,7 @@ deepblue.extract_ids <- function(list= NULL) {
 #' 
 #' @param list - A array (list of lists of IDs and Names)
 #'
-#' @return a vector with  ('okay', array (list containing the extracted names)) or ('error', error_message) 
+#' @return names - A array (list containing the extracted names)
 deepblue.extract_names <- function(list= NULL) {
   value <- xml.rpc(deepblue.URL, 'extract_names', list)
   status = value[[1]]
@@ -598,7 +598,7 @@ deepblue.extract_names <- function(list= NULL) {
 #' @param project - A string or a vector of string (name(s) of selected projects)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)) or ('error', error_message) 
+#' @return faceting - A struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)
 deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'faceting_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
   status = value[[1]]
@@ -623,7 +623,7 @@ deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
 #' @param type - A string (type of the value: 'number' or 'string' )
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of filtered query)) or ('error', error_message) 
+#' @return id - A string (id of filtered query)
 deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL, value= NULL, type= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'filter_regions', query_id, field, operation, value, type, user_key)
   status = value[[1]]
@@ -646,7 +646,7 @@ deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 #' @param overlap - A boolean (if the matching should do overlap search)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the annotation that contains the positions of the given pattern)) or ('error', error_message) 
+#' @return id - A string (id of the annotation that contains the positions of the given pattern)
 deepblue.find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'find_pattern', pattern, genome, overlap, user_key)
   status = value[[1]]
@@ -670,7 +670,7 @@ deepblue.find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, us
 #' @param use_strand - A boolean (Use the region column STRAND to define the region direction)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the new query)) or ('error', error_message) 
+#' @return id - A string (id of the new query)
 deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'flank', query_id, if (is.null(start)) NULL else as.integer(start), if (is.null(length)) NULL else as.integer(length), use_strand, user_key)
   status = value[[1]]
@@ -691,7 +691,7 @@ deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
 #' @param biosource - A string (name of the biosource)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (related biosources)) or ('error', error_message) 
+#' @return biosources - A array (related biosources)
 deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_biosource_children', biosource, user_key)
   status = value[[1]]
@@ -712,7 +712,7 @@ deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.U
 #' @param biosource - A string (name of the biosource)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (parents biosources)) or ('error', error_message) 
+#' @return biosources - A array (parents biosources)
 deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_biosource_parents', biosource, user_key)
   status = value[[1]]
@@ -733,7 +733,7 @@ deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.US
 #' @param biosource - A string (name of the biosource)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (related biosources)) or ('error', error_message) 
+#' @return biosources - A array (related biosources)
 deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_biosource_related', biosource, user_key)
   status = value[[1]]
@@ -754,7 +754,7 @@ deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.US
 #' @param biosource - A string (name of the biosource)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (synonyms of the biosource)) or ('error', error_message) 
+#' @return synonyms - A array (synonyms of the biosource)
 deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_biosource_synonyms', biosource, user_key)
   status = value[[1]]
@@ -775,7 +775,7 @@ deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.U
 #' @param query_id - A string (id of the query)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (List containing experiments names and ids)) or ('error', error_message) 
+#' @return experiments - A array (List containing experiments names and ids)
 deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_experiments_by_query', query_id, user_key)
   status = value[[1]]
@@ -797,7 +797,7 @@ deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.
 #' @param output_format - A string (Output format)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (Request ID - Use it to retrieve the result with info() and get_request_data())) or ('error', error_message) 
+#' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_regions', query_id, output_format, user_key)
   status = value[[1]]
@@ -818,7 +818,7 @@ deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
 #' @param request_id - A string (ID of the request)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).)) or ('error', error_message) 
+#' @return data - A string or a vector of string (The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).)
 deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_request_data', request_id, user_key)
   status = value[[1]]
@@ -839,7 +839,7 @@ deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_K
 #' @param data_name - A string (Name of the data to lookup the state for)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', int (State of the data)) or ('error', error_message) 
+#' @return data_state - A int (State of the data)
 deepblue.get_state <- function(data_name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'get_state', data_name, user_key)
   status = value[[1]]
@@ -860,7 +860,7 @@ deepblue.get_state <- function(data_name= NULL, user_key=deepblue.USER_KEY) {
 #' @param id - A string or a vector of string (ID or an array of IDs)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (List of Maps, where each map contains the info of an object.)) or ('error', error_message) 
+#' @return information - A array or a vector of array (List of Maps, where each map contains the info of an object.)
 deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'info', id, user_key)
   status = value[[1]]
@@ -882,7 +882,7 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @param region_set - A string (Regions in CHROMOSOME	START	END format)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (query id)) or ('error', error_message) 
+#' @return id - A string (query id)
 deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'input_regions', genome, region_set, user_key)
   status = value[[1]]
@@ -904,7 +904,7 @@ deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
 #' @param query_b_id - A string (id of the second query)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the new query)) or ('error', error_message) 
+#' @return id - A string (id of the new query)
 deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'intersection', query_a_id, query_b_id, user_key)
   status = value[[1]]
@@ -925,7 +925,7 @@ deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=d
 #' @param biosource_name - A string (Name of the biosource)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (A string containing the biosource name)) or ('error', error_message) 
+#' @return information - A string or a vector of string (A string containing the biosource name)
 deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'is_biosource', biosource_name, user_key)
   status = value[[1]]
@@ -946,7 +946,7 @@ deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_K
 #' @param genome - A string or a vector of string (the target genome)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (annotation ids)) or ('error', error_message) 
+#' @return annotations - A array (annotation ids)
 deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_annotations', genome, user_key)
   status = value[[1]]
@@ -967,7 +967,7 @@ deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) 
 #' @param extra_metadata - A struct (Key-value that must match the biosource extra_metadata.)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (biosources)) or ('error', error_message) 
+#' @return biosources - A array (biosources)
 deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_biosources', extra_metadata, user_key)
   status = value[[1]]
@@ -987,7 +987,7 @@ deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER
 #' 
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (column types)) or ('error', error_message) 
+#' @return column_types - A array (column types)
 deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_column_types', user_key)
   status = value[[1]]
@@ -1008,7 +1008,7 @@ deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
 #' @param extra_metadata - A struct (Key-value that must match the biosource extra_metadata.)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (epigenetic mark names)) or ('error', error_message) 
+#' @return epigenetic_marks - A array (epigenetic mark names)
 deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_epigenetic_marks', extra_metadata, user_key)
   status = value[[1]]
@@ -1035,7 +1035,7 @@ deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
 #' @param project - A string or a vector of string (name(s) of selected projects)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (experiment names)) or ('error', error_message) 
+#' @return experiments - A array (experiment names)
 deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
   status = value[[1]]
@@ -1055,7 +1055,7 @@ deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #' 
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (genome names)) or ('error', error_message) 
+#' @return genomes - A array (genome names)
 deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_genomes', user_key)
   status = value[[1]]
@@ -1076,7 +1076,7 @@ deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
 #' @param controlled_vocabulary - A string (id of the data)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (controlled_vocabulary terms with count)) or ('error', error_message) 
+#' @return terms - A array (controlled_vocabulary terms with count)
 deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_in_use', controlled_vocabulary, user_key)
   status = value[[1]]
@@ -1096,7 +1096,7 @@ deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.
 #' 
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (project names)) or ('error', error_message) 
+#' @return projects - A array (project names)
 deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_projects', user_key)
   status = value[[1]]
@@ -1122,7 +1122,7 @@ deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
 #' @param project - A string or a vector of string (name(s) of selected projects)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (names of recent experiments)) or ('error', error_message) 
+#' @return experiments - A array (names of recent experiments)
 deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_recent_experiments', days, genome, epigenetic_mark, sample, technique, project, user_key)
   status = value[[1]]
@@ -1143,7 +1143,7 @@ deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
 #' @param request_state - A string (Name of the state to get requests for. The valid states are: new, running, done, and failed.)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (Request-IDs and their state)) or ('error', error_message) 
+#' @return data_state - A array (Request-IDs and their state)
 deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_requests', request_state, user_key)
   status = value[[1]]
@@ -1165,7 +1165,7 @@ deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_K
 #' @param extra_metadata - A struct (Key-value that must match the sample extra_metadata.)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (samples id with their content)) or ('error', error_message) 
+#' @return samples - A array (samples id with their content)
 deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_samples', biosource, extra_metadata, user_key)
   status = value[[1]]
@@ -1186,7 +1186,7 @@ deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
 #' @param name - A string (biosource name)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (similar biosources)) or ('error', error_message) 
+#' @return biosources - A array (similar biosources)
 deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_similar_biosources', name, user_key)
   status = value[[1]]
@@ -1207,7 +1207,7 @@ deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_
 #' @param name - A string (epigenetic mark name)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (similar epigenetic mark names)) or ('error', error_message) 
+#' @return epigenetic_marks - A array (similar epigenetic mark names)
 deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_similar_epigenetic_marks', name, user_key)
   status = value[[1]]
@@ -1229,7 +1229,7 @@ deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
 #' @param genome - A string or a vector of string (the target genome)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (similar experiment names)) or ('error', error_message) 
+#' @return experiments - A array (similar experiment names)
 deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_similar_experiments', name, genome, user_key)
   status = value[[1]]
@@ -1250,7 +1250,7 @@ deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key
 #' @param name - A string (genome name)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (similar genome names)) or ('error', error_message) 
+#' @return genomes - A array (similar genome names)
 deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_similar_genomes', name, user_key)
   status = value[[1]]
@@ -1271,7 +1271,7 @@ deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY
 #' @param name - A string (project name)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (similar project names)) or ('error', error_message) 
+#' @return projects - A array (similar project names)
 deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_similar_projects', name, user_key)
   status = value[[1]]
@@ -1292,7 +1292,7 @@ deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KE
 #' @param name - A string (technique name)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (similar techniques)) or ('error', error_message) 
+#' @return techniques - A array (similar techniques)
 deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_similar_techniques', name, user_key)
   status = value[[1]]
@@ -1312,7 +1312,7 @@ deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_
 #' 
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (techniques)) or ('error', error_message) 
+#' @return techniques - A array (techniques)
 deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'list_techniques', user_key)
   status = value[[1]]
@@ -1334,7 +1334,7 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
 #' @param query_b_id - A string (id of the second query)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (new query id)) or ('error', error_message) 
+#' @return id - A string (new query id)
 deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'merge_queries', query_a_id, query_b_id, user_key)
   status = value[[1]]
@@ -1356,7 +1356,7 @@ deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
 #' @param cache - A boolean (set or unset this query caching)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (New query ID.)) or ('error', error_message) 
+#' @return information - A string (New query ID.)
 deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'query_cache', query_id, cache, user_key)
   status = value[[1]]
@@ -1378,7 +1378,7 @@ deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.
 #' @param type - A string (experiment type (peaks or signal))
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (New query ID.)) or ('error', error_message) 
+#' @return information - A string (New query ID.)
 deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'query_experiment_type', query_id, type, user_key)
   status = value[[1]]
@@ -1399,7 +1399,7 @@ deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
 #' @param id - A string (Data ID to be removed.)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the removed data)) or ('error', error_message) 
+#' @return id - A string (id of the removed data)
 deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'remove', id, user_key)
   status = value[[1]]
@@ -1422,7 +1422,7 @@ deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @param aggregation_regions_id - A string (query ID of the regions that will be used as the aggregation boundaries)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (BED formated regions)) or ('error', error_message) 
+#' @return regions - A string (BED formated regions)
 deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_function= NULL, aggregation_regions_id= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'score_matrix', experiments_columns, aggregation_function, aggregation_regions_id, user_key)
   status = value[[1]]
@@ -1444,7 +1444,7 @@ deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_functio
 #' @param type - A string or a vector of string (type of data to search for)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', array (search results as [id, name, type])) or ('error', error_message) 
+#' @return results - A array (search results as [id, name, type])
 deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'search', keyword, type, user_key)
   status = value[[1]]
@@ -1469,7 +1469,7 @@ deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KE
 #' @param end - A int (maximum end region)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (query id)) or ('error', error_message) 
+#' @return id - A string (query id)
 deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'select_annotations', annotation_name, genome, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
@@ -1493,7 +1493,7 @@ deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chr
 #' @param end - A int (maximum end region)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (query id)) or ('error', error_message) 
+#' @return id - A string (query id)
 deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'select_experiments', experiment_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
@@ -1515,7 +1515,7 @@ deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' @param gene_set - A string (gene set name)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (query id)) or ('error', error_message) 
+#' @return id - A string (query id)
 deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'select_genes', genes_name, gene_set, user_key)
   status = value[[1]]
@@ -1544,7 +1544,7 @@ deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, user_key=dee
 #' @param end - A int (maximum end region)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (query id)) or ('error', error_message) 
+#' @return id - A string (query id)
 deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigenetic_mark= NULL, sample_id= NULL, technique= NULL, project= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'select_regions', experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
@@ -1566,7 +1566,7 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
 #' @param child - A string (child)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', ) or ('error', error_message) 
+#' @return 
 deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'set_biosource_parent', parent, child, user_key)
   status = value[[1]]
@@ -1588,7 +1588,7 @@ deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=de
 #' @param synonym_name - A string (name of the synonym)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (inserted synonym_name)) or ('error', error_message) 
+#' @return synonym_name - A string (inserted synonym_name)
 deepblue.set_biosource_synonym <- function(biosource= NULL, synonym_name= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'set_biosource_synonym', biosource, synonym_name, user_key)
   status = value[[1]]
@@ -1610,7 +1610,7 @@ deepblue.set_biosource_synonym <- function(biosource= NULL, synonym_name= NULL, 
 #' @param set - A boolean (True to set the project as public of false for unset)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (id of the project)) or ('error', error_message) 
+#' @return id - A string (id of the project)
 deepblue.set_project_public <- function(project= NULL, set= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'set_project_public', project, set, user_key)
   status = value[[1]]
@@ -1633,7 +1633,7 @@ deepblue.set_project_public <- function(project= NULL, set= NULL, user_key=deepb
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', string (query id)) or ('error', error_message) 
+#' @return id - A string (query id)
 deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'tiling_regions', if (is.null(size)) NULL else as.integer(size), genome, chromosome, user_key)
   status = value[[1]]
@@ -1656,7 +1656,7 @@ deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
 #' @param data - A string (chromosome sequence data)
 #' @param user_key - A string (users token key)
 #'
-#' @return a vector with  ('okay', ) or ('error', error_message) 
+#' @return 
 deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'upload_chromosome', genome, chromosome, data, user_key)
   status = value[[1]]
