@@ -1,5 +1,3 @@
-suppressMessages(library(GenomicRanges))
-
 #'@export
 #'@title process_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
@@ -28,10 +26,6 @@ process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.
 #' @return regions A data frame
 
 convert_to_df = function(output, inf, dict=col_dict){
-
-    #dependencies used here
-    library(data.table)
-    library(stringr)
 
     #get column names from
     col_names <- str_split(inf$format, pattern = ",")[[1]]
