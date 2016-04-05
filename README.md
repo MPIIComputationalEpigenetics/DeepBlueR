@@ -1,4 +1,4 @@
-# Accessing DeepBlue Epigenomic Data Server from R
+# DeepBlue Epigenomic Data Server - R
 *April 6, 2016*
 
 ##  Installation and set up
