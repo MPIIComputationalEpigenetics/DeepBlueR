@@ -1,11 +1,12 @@
 Package: DeepBlue
+Title: DeepBlue
 Type: Package
-Title: Accessing Deepblue through R
-Version: 1.0
+Description: Accessing Deepblue through R
+Version: 0.01
 Date: 2016-04-02
 Author: Felipe Albrecht, Markus List, Nadia Ashraf
 Maintainer: Felipe Albrecht <felipe.albrecht@gmail.com>, Markus List <markus.list@mpi-inf.mpg.de>, Nadia Ashraf <nadia.ashraf98@gmail.com>
-Description:Accessing the Deepblue epigenetics web server through R. For DeepBlue version 1.7.0
+Description: Accessing the DeepBlue Epigenetics Data Server through R. (Version 1.7.0)
 License: GPL (>=2.0)
 Depends: GenomicRanges, data.table, stringr, XML, RCurl
 Collate:
