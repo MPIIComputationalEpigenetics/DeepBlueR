@@ -144,7 +144,7 @@ def main():
     template = template.replace("{{ commands }}", commands_long_doc)
     template = template.replace("{{ serialize_r }}", serialize_code)
 
-  with open("deepblue.r", 'w') as f:
+  with open("../R/deepblue.R", 'w') as f:
     f.write(template)
 
 
