@@ -1,6 +1,8 @@
 # DeepBlue Epigenomic Data Server - R
 *April 6, 2016*
 
+## Remember that it is in progress work. Bugs and changes may and will happen!
+
 ##  Installation and set up
 `DeepBlue-R` can be directly installed from [github](https://github.com/MPIIComputationalEpigenetics//DeepBlue-R)
 ```{r eval=FALSE}
