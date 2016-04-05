@@ -1,1 +1,1 @@
-../py/deepblue.r
+../inst/deepblue.R
