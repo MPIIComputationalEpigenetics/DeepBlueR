@@ -16,6 +16,9 @@ deepblue.upload_chromosome(genome = NULL, chromosome = NULL, data = NULL,
 
 \item{user_key}{- A string (users token key)}
 }
+\value{
+nothing :-(
+}
 \description{
 Uploads the sequence data of the chromosome.
 }

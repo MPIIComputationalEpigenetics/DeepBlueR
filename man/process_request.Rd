@@ -4,11 +4,10 @@
 \alias{process_request}
 \title{process_request}
 \usage{
-process_request(requested_regions, sleep.time = 1,
-  user_key = deepblue.USER_KEY)
+process_request(request_id, sleep.time = 1, user_key = deepblue.USER_KEY)
 }
 \arguments{
-\item{requested_regions}{A string}
+\item{request_id}{A string with the request_id}
 
 \item{sleep.time}{An integer with default value 1s}
 

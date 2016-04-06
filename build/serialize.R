@@ -6,12 +6,12 @@ deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
         .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
         .curl = getCurlHandle())
 {
-  request_info = deepblue.info(request_id, user_key)[2]
-  if (request_info$value$value$state != "done") {
+  request_info = deepblue.info(request_id, user_key)[[1]]
+  if (request_info$state != "done") {
     stop("Processing was not finished. Please, check it status with deepblue.info(request_id)");
   }
 
-  command = request_info$value$value$command
+  command = request_info$command
   if (command == "count_regions")  {
     deepblue.get_request_data(request_id, user_key)
   } else if (command == "get_experiments_by_query") {
@@ -100,7 +100,7 @@ setMethod("rpc.serialize", "ANY",
               stop("Not sure how to convert this type of object to XMLRPC format")
            })
 
-#' @title rpc.serialize.S4Object 
+#' @title rpc.serialize.S4Object
 rpc.serialize.S4Object =
 function(x, ...)
 {
@@ -323,11 +323,16 @@ function(node, ...)
   ans
 }
 
-#' @title xmlRPCToR.array
 xmlRPCToR.array =
 function(node, ...)
 {
-  ans = xmlApply(node[["data"]], function(x) xmlRPCToR(x[[1]]))
+  i <- 1
+  result <- list()
+  while(!is.null(node[["data"]][[i]])){
+   result <- append(result, list(xmlRPCToR(node[["data"]][[i]])))
+   i <- i + 1
+ }
+ return(result)
 }
 
 # Return the function result.

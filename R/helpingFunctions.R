@@ -1,20 +1,20 @@
 #'@export
 #'@title process_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
-#'@param requested_regions A string
+#'@param request_id A string with the request_id
 #'@param sleep.time An integer with default value 1s
 #'@param user_key A string
 
-process_request = function (requested_regions,sleep.time = 1, user_key=deepblue.USER_KEY)
+process_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KEY)
 {
-  info = deepblue.info(requested_regions, user_key)
+  info = deepblue.info(request_id, user_key)[[1]]
 
-  state = info$value$state
+  state = info$state
   while (state != 'done' & state != 'error')
   {
     Sys.sleep(sleep.time)
-    info = deepblue.info(requested_regions, user_key)
-    state = info$value$state
+    info = deepblue.info(request_id, user_key)[[1]]
+    state = info$state
   }
   return (info)
 }
@@ -84,13 +84,12 @@ convert_to_grange = function (df = NULL)
 
 get_request_data = function (request_info, user=deepblue.USER_KEY, type="grange")
 {
-    request_id = request_info$value$`_id`
-    final_regions = deepblue.get_request_data(request_id = request_id, user_key = user)
+    request_id = request_info$`_id`
+    regions_string = deepblue.get_request_data_r(request_id = request_id, user_key = user)
 
-    regions_string = final_regions[[1]]
     if (type == "string") return (regions_string)
 
-    regions_df = convert_to_df(output=regions_string, inf=request_info[[1]])
+    regions_df = convert_to_df(output=regions_string, inf=request_info)
     if (type == "df") return (regions_df)
 
     return(convert_to_grange(df=regions_df))
@@ -111,18 +110,12 @@ get_columns = function()
   col_names=c()
   col_types = c()
   col_info = deepblue.info(col_ids)
+  dict=new.env()
   for (i in 1:length(col_info))
   {
-    col_names=c(col_names,col_info[i]$value$name)
-    col_types=c(col_types,col_info[i]$value$column_type)
+    dict[[col_info[[i]]$name]] = col_info[[i]]$column_type
   }
 
-  col_info=data.frame(col_names,col_types,stringsAsFactors = FALSE)
-  dict=new.env()
-  for(i in seq(nrow(col_info)))
-  {
-    dict[[col_info[i,1]]] = col_info[i,2]
-  }
   return(dict)
 }
 #' @title coulmns dictionary
