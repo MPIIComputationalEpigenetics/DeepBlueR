@@ -4,7 +4,8 @@
 \alias{get_request_data}
 \title{get_request_data}
 \usage{
-get_request_data(request_info, user = deepblue.USER_KEY, type = "grange")
+get_request_data(request_info, user_key = deepblue.USER_KEY,
+  type = "grange")
 }
 \arguments{
 \item{request_info}{A list}
