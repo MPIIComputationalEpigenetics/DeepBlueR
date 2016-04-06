@@ -8,10 +8,17 @@ if(api_update == 0)
 {
     setwd("../")
     library(devtools)
-    
-    #update the documentation and check the package 
+
+    #update the documentation and check the package
     check <- devtools::check()
-    
+
     #if there are no errors install package
-    if(check$errors == "") devtools::install()
-} 
+
+
+    if(check) {
+    	devtools::install()
+    }
+    else {
+    	print(check)
+    }
+}
