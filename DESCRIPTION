@@ -11,6 +11,7 @@ Depends: GenomicRanges, data.table, stringr, XML, RCurl
 Collate:
 	deepblue.R
 	helpingFunctions.R
+	batchExport.R
 BuildVignettes: TRUE
 RoxygenNote: 5.0.1
 Suggests: knitr,

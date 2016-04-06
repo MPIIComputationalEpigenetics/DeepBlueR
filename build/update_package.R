@@ -13,8 +13,6 @@ if(api_update == 0)
     check <- devtools::check()
 
     #if there are no errors install package
-
-
     if(check) {
     	devtools::install()
     }
