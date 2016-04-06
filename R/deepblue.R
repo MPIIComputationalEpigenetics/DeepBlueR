@@ -5,7 +5,7 @@
 #' @title deepblue URL
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
-deepblue.USER_KEY = "anonymous_key"
+deepblue.USER_KEY = "anonymous_r_user"
 #' @title Verbose
 deepblue.debug.VERBOSE = FALSE
 
@@ -1591,7 +1591,7 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
 #' @param child - A string (child)
 #' @param user_key - A string (users token key)
 #'
-#' @return 
+#' @return nothing :-(
 deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'set_biosource_parent', parent, child, user_key)
   status = value[[1]]
@@ -1681,7 +1681,7 @@ deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
 #' @param data - A string (chromosome sequence data)
 #' @param user_key - A string (users token key)
 #'
-#' @return 
+#' @return nothing :-(
 deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NULL, user_key=deepblue.USER_KEY) {
   value <- xml.rpc(deepblue.URL, 'upload_chromosome', genome, chromosome, data, user_key)
   status = value[[1]]

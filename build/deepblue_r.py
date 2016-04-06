@@ -114,11 +114,15 @@ def main():
                                      "vector" : r_vector,
                                      "description": r[3]})
 
+    join_results = "".join(results)
+    if not join_results:
+      join_results = "nothing :-("
+
     command_description = cmd_documentation_tmpl % {'export': export_tmpl,'title':"".join(titles),
                                                   'description': cmd["description"][2],
                                                   'category' : cmd['description'][1],
                                                   'params' : "".join(params_documentation),
-                                                  'return' :  "".join(results)}
+                                                  'return' :  join_results}
 
     if param_names_convertion:
       parameters_list_convertion = ", " + ', '.join(param_names_convertion)
