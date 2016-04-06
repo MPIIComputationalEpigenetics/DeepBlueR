@@ -7,7 +7,6 @@
 deepblue.batch_export_results <- function(requests, target.directory=NULL, suffix="_result", prefix="DeepBlue", user_key = deepblue.USER_KEY){
     #to store results
     all.results <- list()
-    browser()
     if(is.na(requests) || is.null(requests)) stop("A list of request_info objects or request identifiers is needed.")
     
     #make sure we have a list
@@ -31,8 +30,10 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
     
     #while any request is not saved 
     while(any(need.saving)){
+        anything.done <- FALSE
         #go through unsaved requests
         for(request in which(need.saving)){
+            anything.done <- TRUE
             request_id <- requests[[request]]
              
             #update info 
@@ -52,6 +53,7 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
                 need.saving[request] <- FALSE
             }
         }
+        if(!anything.done) Sys.sleep(1) #give DeepBlue some time to make progress
     }
     return(all.results)
 }
