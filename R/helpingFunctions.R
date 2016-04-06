@@ -97,7 +97,7 @@ deepblue.get_requested_data = function (request_info, user=deepblue.USER_KEY, ty
 
 #' @description Load the column types from DeepBlue
 #' @title get columns
-deepblue.get_columns = function()
+get_columns = function()
 {
   cols = deepblue.list_column_types()
   col_ids = c()
