@@ -1,3 +1,4 @@
+source('deepblue.R')
 #'@export
 #'@title process_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
@@ -119,4 +120,4 @@ get_columns = function()
   return(dict)
 }
 #' @title coulmns dictionary
-col_dict = get_columns()
+col_dict = deepblue.get_columns()
