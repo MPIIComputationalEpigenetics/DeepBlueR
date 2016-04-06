@@ -82,10 +82,10 @@ convert_to_grange = function (df = NULL)
 #'\code{\link{convert_to_grange}}.
 
 
-get_request_data = function (request_info, user=deepblue.USER_KEY, type="grange")
+get_request_data = function (request_info, user_key=deepblue.USER_KEY, type="grange")
 {
     request_id = request_info$`_id`
-    regions_string = deepblue.get_request_data_r(request_id = request_id, user_key = user)
+    regions_string = deepblue.get_request_data_r(request_id = request_id, user_key = user_key)
 
     if (type == "string") return (regions_string)
 
