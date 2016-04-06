@@ -1,3 +1,4 @@
+source('deepblue.R')
 #'@export
 #'@title process_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
@@ -5,7 +6,7 @@
 #'@param sleep.time An integer with default value 1s
 #'@param user_key A string
 
-process_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KEY)
+deepblue.process_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KEY)
 {
   info = deepblue.info(request_id, user_key)[[1]]
 
@@ -25,7 +26,7 @@ process_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KE
 #' @param inf A list with request information
 #' @return regions A data frame
 
-convert_to_df = function(output, inf, dict=col_dict){
+deepblue.convert_to_df = function(output, inf, dict=col_dict){
 
     #get column names from
     col_names <- str_split(inf$format, pattern = ",")[[1]]
@@ -60,7 +61,7 @@ convert_to_df = function(output, inf, dict=col_dict){
 #'
 #'@seealso \code{\link[GenomicRanges]{makeGRangesFromDataFrame}}
 
-convert_to_grange = function (df = NULL)
+deepblue.convert_to_grange = function (df = NULL)
 {
   region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
                                        seqnames.field = 'CHROMOSOME', start.field = 'START',
@@ -82,22 +83,22 @@ convert_to_grange = function (df = NULL)
 #'\code{\link{convert_to_grange}}.
 
 
-get_request_data = function (request_info, user=deepblue.USER_KEY, type="grange")
+deepblue.get_requested_data = function (request_info, user=deepblue.USER_KEY, type="grange")
 {
     request_id = request_info$`_id`
     regions_string = deepblue.get_request_data_r(request_id = request_id, user_key = user)
 
     if (type == "string") return (regions_string)
 
-    regions_df = convert_to_df(output=regions_string, inf=request_info)
+    regions_df = deepblue.convert_to_df(output=regions_string, inf=request_info)
     if (type == "df") return (regions_df)
 
-    return(convert_to_grange(df=regions_df))
+    return(deepblue.convert_to_grange(df=regions_df))
 }
 
 #' @description Load the column types from DeepBlue
 #' @title get columns
-get_columns = function()
+deepblue.get_columns = function()
 {
   cols = deepblue.list_column_types()
   col_ids = c()
@@ -119,4 +120,4 @@ get_columns = function()
   return(dict)
 }
 #' @title coulmns dictionary
-col_dict = get_columns()
+col_dict = deepblue.get_columns()
