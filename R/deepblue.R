@@ -1715,13 +1715,13 @@ deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
     temp_download <- tempfile()
     download.file(url, temp_download, mode="wb")
     handle <-  bzfile(temp_download)
-    readLines(handle)
+    paste(readLines(handle), collapse="\n")
   } else if (command == "score_matrix") {
     url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
     temp_download <- tempfile()
     download.file(url, temp_download, mode="wb")
     handle <-  bzfile(temp_download)
-    readLines(handle)
+    paste(readLines(handle), collapse="\n")
   } else {
     stop(paste("Unknow command", command));
   }
