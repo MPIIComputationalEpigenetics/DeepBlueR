@@ -14,6 +14,9 @@ deepblue.set_biosource_parent(parent = NULL, child = NULL,
 
 \item{user_key}{- A string (users token key)}
 }
+\value{
+nothing :-(
+}
 \description{
 Sets a biosource parent.
 }
