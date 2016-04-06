@@ -1,0 +1,59 @@
+#'@export
+#'@title batch_export_results
+#'@description Write results from DeepBlue to disk as they become available
+#'@param requests A list of request objects
+#'@param target.directory Where the results should be saved
+#'@param user_key A string used to authenticate the user
+deepblue.batch_export_results <- function(requests, target.directory=NULL, suffix="_result", prefix="DeepBlue", user_key = deepblue.USER_KEY){
+    #to store results
+    all.results <- list()
+    if(is.na(requests) || is.null(requests)) stop("A list of request_info objects or request identifiers is needed.")
+    
+    #make sure we have a list
+    requests <- as.list(requests)
+    
+    #check if there is at least one elt
+    if(length(requests) < 1) stop("Provide a list of at least one request_info object or request identifier.")
+    
+    #get ids in case we are given request_info objects
+    if(length(requests[[1]]) > 1){
+        for(request in 1:length(requests)){
+            requests[[request]] <- requests[[request]]$`_id`
+        }
+    }
+    
+    #remove duplicates
+    requests <- unique(requests)
+    
+    #keep track of which instances were already downloaded
+    need.saving <- rep(TRUE, length(requests))
+    
+    #while any request is not saved 
+    while(any(need.saving)){
+        anything.done <- FALSE
+        #go through unsaved requests
+        for(request in which(need.saving)){
+            anything.done <- TRUE
+            request_id <- requests[[request]]
+             
+            #update info 
+            request_info <- deepblue.info(request_id, user_key = user_key)[[1]]
+            
+            if(request_info$state == "done" && need.saving[request])
+            {
+                #download data
+                message(paste("Downloading results for id", request_id))
+                result <- get_request_data(request_info = request_info)
+                all.results[[request_id]] <- result
+                if(!is.null(target.directory)){
+                    #save to disk
+                    write.table(as.data.frame(result), file = paste(paste(prefix, request_id, suffix, sep="_"), ".txt", sep=""), sep="\t")
+                }
+                
+                need.saving[request] <- FALSE
+            }
+        }
+        if(!anything.done) Sys.sleep(1) #give DeepBlue some time to make progress
+    }
+    return(all.results)
+}
