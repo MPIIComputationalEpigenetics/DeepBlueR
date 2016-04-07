@@ -2,10 +2,6 @@
 # Use Case 1
 # Author: Nadia Ashraf
 
-#result of functions is a 2 elements list. Extract 2nd element convert it to string,
-#since it's a struct type object, and then use it to query the server for extracting
-#more details.
-
 #Extract all H3k27ac from BLUEPRINT Epigenome project (for chromosome 1 only)
 
 #deepblue.select_regions takes 11 parameters as input, namely; eperiment_name,genome,epigentic_
@@ -86,3 +82,4 @@ readline("press any key to continue")
 # The output type can be changed passing 'string' or 'df' to the 'type' parameter.
 requested_data = get_request_data(request_info=request_info)
 
+readline("press any key to finish")
