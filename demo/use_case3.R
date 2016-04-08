@@ -42,3 +42,32 @@ requests = lapply(hsc_experiment_names, function (hsc_experiment) {
   req = deepblue.get_regions(query_id = q_filtered, output_format = "CHROMOSOME,START,END,@AGG.MEAN,
                        @AGG.MAX,@AGG.MIN")
 })
+print (requests)
+
+deepblue.batch_export_results(requests, target.directory="D:/hsc_aggregation", suffix="_result", prefix="DeepBlue")
+
+while (length(requests) > 0)
+{
+  print (paste("It is still missing",as.character(length(requests))," requests"))  
+  for (req in requests)
+  {
+  ss = deepblue.info(req)
+  print (ss)
+  print (ss[[1]]$state)
+  if (ss[[1]]$state == "done")
+  {
+    print (ss)
+  
+    print (paste("getting data from ", ss[[1]]$`_id`))
+    data = deepblue.get_request_data(req)
+    write(data,paste("D:/data/",req,".bed"))
+    deepblue.cancel_request(req)
+    if (ss[[1]]$state == "failed")
+    {
+      print (ss)
+      deepblue.cancel_request(req)
+    }
+  }
+Sys.sleep(1.0)
+  }
+}
