@@ -2029,9 +2029,7 @@ function(node, ...)
  return(result)
 }
 
-# Return the function result.
-# TODO:
-#   check the content of input[1], if it is 'error', print the input[2] value and stop the execution (there is no sense to keep executing the script if some error happened)
+# Return the function result and check for error message from DeepBlue server.
 #' @title check value
 check_value =
 function(input)
