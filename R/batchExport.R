@@ -45,7 +45,7 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
                 message(paste("Downloading results for id", request_id))
                 if(!is.null(target.directory)){
                     #save to disk
-                    dir.create(target.directory, showWarnings=FALSE)
+                    dir.create(target.directory, showWarnings=FALSE, recursive = TRUE)
                     result <- get_request_data(request_info = request_info, type="string", user_key = user_key)
                     write(result, file = file.path(target.directory, paste(paste(prefix, request_id, suffix, sep="_"), ".txt", sep="")))
                 } else {
