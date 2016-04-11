@@ -22,14 +22,19 @@ For installing DeepBlue R package, simply execute:
 Automatic installation of DeepBlue-R and its companion data packages can be performed using the devtools package. All you have to do is to execute the
 following command in your R environment:
 
-```{r, echo=FALSE}
-#library(devtools)
-#install_github("MPIIComputationalEpigenetics/DeepBlue-R")
+```{r, eval = FALSE, echo=TRUE}
+library(devtools)
+install_github("MPIIComputationalEpigenetics/DeepBlue-R")
 ```
 
-You can test your installation executing:
-```{r, echo=FALSE}
-#deepblue.info("me")
+The package name is ```DeepBlue``` and can be accessible by:
+```{r, echo=TRUE}
+library(DeepBlue)
+```
+
+You can test your installation executing.
+```{r, echo=TRUE, eval = FALSE}
+deepblue.info("me")
 ```
 
 ## Overview of the DeepBlue commands
