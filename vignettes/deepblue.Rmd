@@ -1,8 +1,11 @@
 ---
-title: "DeepBlue Epigenomic Data Server - R"
+title: "DeepBlue-R"
 author: "Felipe Albrecht"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    toc: true
+    number_of_sections: true
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,58 +15,73 @@ vignette: >
 DeepBlue Epigenomic Data Server is a tool that allows researchers to access epigenomic data from different consortia.
 DeepBlue provides extensive documentation: [API Reference](http://deepblue.mpi-inf.mpg.de/api.php), [examples](http://deepblue.mpi-inf.mpg.de/examples.php), [use cases](http://deepblue.mpi-inf.mpg.de/use_cases.php), and a [complete users' manual](http://deepblue.mpi-inf.mpg.de/manual). With exception of the API listing, that is language agnostic, the others documentation focus on the python language. This document will present how to access DeepBlue by its R package.
 
-
+# Getting started
 ## Installation
 For installing DeepBlue R package, simply execute:
 
-```{r}
-library(devtools)
-install_github("MPIIComputationalEpigenetics/DeepBlue-R")
+Automatic installation of DeepBlue-R and its companion data packages can be performed using the devtools package. All you have to do is to execute the
+following command in your R environment:
+
+```{r, echo=FALSE}
+#library(devtools)
+#install_github("MPIIComputationalEpigenetics/DeepBlue-R")
 ```
 
 You can test your installation executing:
-```{r}
+```{r, echo=FALSE}
 #deepblue.info("me")
 ```
 
-## Vignette Info
+## Overview of the DeepBlue commands
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+DeepBlue provides a comprehensive programmatic interface for finding, selecting, filtering, summarizing and downloading region sets.
+A list of all commands available by DeepBlue is provided in its [API page](http://deepblue.mpi-inf.mpg.de/api.php).
 
-## Styles
+For reference, following are listed the most used DeepBlue commands:
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+| Category        | Command               | Description                           |
+|-----------------|-----------------------|---------------------------------------|
+| Information     | info                  | Obtain information about an entity    |
+| List and search | list genomes          | List all registered genomes           |
+|                 | list biosources       | List all registered biosources        |
+|                 | list samples          | List all registered samples           |
+|                 | list epigenetic marks | List all registered epigenetic marks  |
+|                 | list experiments      | List all available experiments        |
+|                 | list annotations      | List all available annotations        |
+|                 | search                | Perform a full-text search            |
+| Selection       | select regions        | Select regions from experiments       |
+|                 | select experiments    | Select regions from experiments       |
+|                 | select annotations    | Select regions from annotations       |
+|                 | select genes          | Select genes as regions               |
+|                 | tiling regions        | Generate tiling regions               |
+|                 | input regions         | Upload and use a small region-set     |
+| Operation       | aggregate             | Aggregate and summarize regions       |
+|                 | filter regions        | Filter regions using their attributes |
+|                 | flank                 | Generate flanking regions             |
+|                 | intersection          | Filter overlapping regions            |
+|                 | merge queries         | Merge two regions set                 |
+| Result          | count regions         | Count selected regions                |
+|                 | score matrix          | Request a score matrix                |
+|                 | get regions           | Request the selected regions          |
+| Request         | get request data      | Obtain the requested data             |
 
-    output:
-      rmarkdown::html_vignette:
-        css: mystyles.css
 
-## Figures
+This package provides a set of functions for facilitate the API usage:
 
-The figure sizes have been customised so that you can easily put two images side-by-side.
+| Category        | Command               | Description                                       |
+|-----------------|-----------------------|---------------------------------------------------|
+| Request         | batch_export_results  | Download the data a set of requests               |
+|                 | process_request       | Wait for a request be processed                   |
+|                 | get_request_data      | Download and convert the requested data           |
 
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+# DeepBlue usage
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+The usual DeepBlue usage starts with a listing command. For example, listing all biosources:
 
-## More Examples
+### EXAMPLE.
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+It is also possible to list all epigenetic marks:
 
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+#### EXAMPLE
