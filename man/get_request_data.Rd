@@ -16,7 +16,7 @@ get_request_data(request_info, user_key = deepblue.USER_KEY,
 grange_regions Final output in GRanges format
 }
 \description{
-Returns the requested data as GRanges object. Expects two input parameters; Request information and
+Returns the requested data as the expected type object. Expects two input parameters; Request information and
 user key. It depends on outputs from several functions, namely;
 deepblue.get_request_data, convert_to_df, and convert_to_grange.
 }
