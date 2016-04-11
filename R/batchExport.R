@@ -4,7 +4,7 @@
 #'@param requests A list of request objects
 #'@param target.directory Where the results should be saved
 #'@param user_key A string used to authenticate the user
-deepblue.batch_export_results <- function(requests, target.directory=NULL, suffix="_result", prefix="DeepBlue", user_key = deepblue.USER_KEY){
+deepblue.batch_export_results <- function(requests, target.directory=NULL, suffix="_result", prefix="DeepBlue", sleep.time = 1, user_key = deepblue.USER_KEY){
     #to store results
     all.results <- list()
     if(is.na(requests) || is.null(requests)) stop("A list of request_info objects or request identifiers is needed.")
@@ -45,6 +45,7 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
                 message(paste("Downloading results for id", request_id))
                 if(!is.null(target.directory)){
                     #save to disk
+                    dir.create(target.directory, showWarnings=FALSE)
                     result <- deepblue.get_requested_data(request_info = request_info, type="string", user_key = user_key)
                     write(result, file = file.path(target.directory, paste(paste(prefix, request_id, suffix, sep="_"), ".txt", sep="")))
                 } else {
@@ -56,7 +57,7 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
                 need.saving[request] <- FALSE
             }
         }
-        if(!anything.done) Sys.sleep(1) #give DeepBlue some time to make progress
+        if(!anything.done) Sys.sleep(sleep.time) #give DeepBlue some time to make progress
     }
     return(all.results)
 }
