@@ -54,7 +54,8 @@ readline("press any key to continue")
 
 # We iterate over each selected DNA Methylation experiment
 requests = lapply(liver_experiments_names, function (liver_experiment) {
-	print(paste("Processing", liver_experiment))
+    print(paste("Sending request for processing", liver_experiment))
+
 
 	# Selecting the regions of the experiment
 	q_liver_data = deepblue.select_experiments(experiment_name=liver_experiment)
