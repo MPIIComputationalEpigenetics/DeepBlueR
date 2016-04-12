@@ -20,10 +20,11 @@ process_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KE
 }
 
 #'@title convert_to_df
+#'@import stringr data.table
 #'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
-#' @param output A string
-#' @param inf A list with request information
-#' @return regions A data frame
+#'@param output A string
+#'@param inf A list with request information
+#'@return regions A data frame
 
 convert_to_df = function(output, inf, dict=col_dict){
 
@@ -54,7 +55,7 @@ convert_to_df = function(output, inf, dict=col_dict){
 
 #'@title convert_to_grange
 #'@description Converts the requested data into GRanges object. Expects one input; A dataframe with requested data.
-#'
+#'@import GenomicRanges
 #'@param df A data frame
 #'@return region_gr A GRanges object
 #'
@@ -68,7 +69,7 @@ convert_to_grange = function (df = NULL)
   return (region_gr)
 }
 
-#' @export
+#'@export
 #'@title get_request_data
 #'@description Returns the requested data as the expected type object. Expects two input parameters; Request information and
 #'user key. It depends on outputs from several functions, namely;
@@ -118,5 +119,5 @@ get_columns = function()
 
   return(dict)
 }
-#' @title coulmns dictionary
+#'@title coulmns dictionary
 col_dict = get_columns()

@@ -1,6 +1,4 @@
-library(XML)
-library(RCurl)
-
+#' @import XML RCurl
 #' @title get request data r
 deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
         .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
