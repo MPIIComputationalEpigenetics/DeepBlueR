@@ -1,5 +1,5 @@
 ---
-title: "DeepBlue-R"
+title: "DeepBlue epigenomic data server - R package"
 author: "Felipe Albrecht"
 date: "`r Sys.Date()`"
 output:
@@ -12,8 +12,21 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+# Introduction
+
 DeepBlue Epigenomic Data Server is a tool that allows researchers to access epigenomic data from different consortia.
 DeepBlue provides extensive documentation: [API Reference](http://deepblue.mpi-inf.mpg.de/api.php), [examples](http://deepblue.mpi-inf.mpg.de/examples.php), [use cases](http://deepblue.mpi-inf.mpg.de/use_cases.php), and a [complete users' manual](http://deepblue.mpi-inf.mpg.de/manual). With exception of the API listing, that is language agnostic, the others documentation focus on the python language. This document will present how to access DeepBlue by its R package.
+
+## Why to use DeepBlue ?
+Shortly: DeepBlue simplifies the task of obtaining the right epigenomic data for your analysis.
+
+DeepBlue imports and organized the epigenome data from different epigenome mapping consortia in an standardized metadata.
+An experiment is the most important entity in DeepBlue. An experiment is a file (usually a bed or wig) with a set of mandatory metadata: name, genome assembly, epigenetic mark, biosource, sample, technique, and project.  For sake of organization, the metadata fields are part of controlled vocabularies and the biosources controlled vocabulary are imported from ontologies (CL, EFO, and UBERON).
+DeepBlue also contains annotations, that are data auxiliary data for epigenomic analysis. For example: CpG Islands, Promoter Regions, and Genes.
+DeepBlue provides commands for operating and retrieving the data. These commands include data listing operations and data retrieval operations: selecting data, filtering, transforming, and downloading the data.
+
+
+Important note:  does not change the imported data. The data available in DeepBlue is exactly the data available by the epigenome mapping consortia.
 
 # Getting started
 ## Installation
@@ -81,12 +94,85 @@ This package provides a set of functions for facilitate the API usage:
 
 
 
-# DeepBlue usage
+# DeepBlue usage examples
 
-The usual DeepBlue usage starts with a listing command. For example, listing all biosources:
+One of the first tasks in DeepBlue is listing the data. It can be made in three ways:
 
-### EXAMPLE.
+* Using full-text search with the ```search``` command
+* Listing the available data with the ```list_*``` commands
+* Using the companion [DeepBlue web interface](http://deepblue.mpi-inf.mpg.de/) site for listing the data
 
-It is also possible to list all epigenetic marks:
+### Full-text search
 
-#### EXAMPLE
+In this example, we use the search command to find experiments that contain the texts H3k27AC, blood, and peaks in their metadata.
+We put the names in single quotes to show that these names must be in the metadata.
+
+```{r, echo=TRUE, eval=FALSE}
+# We are selecting the experiments with terms 'H3k27AC', 'blood', and 'peak' in the metadata.
+experiments_found = deepblue.search(keyword="'H3k27AC' 'blood' 'peak'", type="experiments")
+
+lapply(experiments_found, function(experiment) {
+  experiment_id = experiment[[1]]
+  # Obtain the information about the experiment_id
+  info = deepblue.info(experiment_id)
+  experiment_info = info[[1]]
+  # Print the experiment name, project, biosource, and epigenetic mark.
+  print(paste(experiment_info$name, experiment_info$project, experiment_info$sample_info$biosource_name, experiment_info$epigenetic_mark))
+})
+```
+
+### Listing experiments
+
+We use the list_experiments command to list all experiments with the corresponding values in theirs metadata.
+
+```{r, echo=TRUE, eval=FALSE}
+experiments = deepblue.list_experiments(type="peaks", epigenetic_mark="H3K4me3", biosource=c("inflammatory macrophage", "macrophage"), project="BLUEPRINT Epigenome")
+```
+
+### Accessing the extra-metadata
+The extra-metadata is important because it contains information that is not stored in the mandatory metadata fields.
+We use the info command to access an experiment's metadata and its extra-metadata fields.
+
+```{r, echo=TRUE, eval=TRUE}
+info = deepblue.info("e30000")
+print(info[[1]]$extra_metadata)
+```
+
+### Select epigenomic data
+We use the select_experiments command to select all genomic regions from the two informed experiments.
+We use the count_regions command with the query_id value returned by the select_experiments.
+The count_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+The processing is over when the request_status value is done or failed.
+The request data is retrieved using the get_request_data command.
+
+
+```{R, echo=TRUE, eval=TRUE}
+query_id = deepblue.select_experiments (experiment_name=c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"))
+# Count how many regions where selected
+request_id = deepblue.count_regions(query_id=query_id)
+# Wait for the request
+request_info = process_request(request_id = request_id)
+requested_data = deepblue.get_request_data(request_id=request_id)
+print(paste("The selected experiments have", requested_data$count, "regions."))
+```
+
+### Output with desired columns
+We use the select_experiments command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+
+We use the get_regions command with the query_id value returned by the select_experiments and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
+
+The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+
+The processing is over when the request_status value is done or failed.
+
+The request data is retrieved using the get_request_data command.
+```{R, echo=TRUE, eval=TRUE}
+query_id = deepblue.select_experiments (experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
+
+# Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
+request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
+# Wait for the request
+request_info = process_request(request_id = request_id)
+regions = deepblue.get_request_data(request_id=request_id)
+cat(substr(regions, 0, 282))
+```
