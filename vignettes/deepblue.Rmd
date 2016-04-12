@@ -226,3 +226,28 @@ request_info = process_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 288))
 ```
+
+### Find overlapping regions
+We use the select_experiments command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+
+We use the select_annotations command to select the genomic regions in the chromosome 1 of the annotation promoters of the genome assembly GRCh38.
+
+The command intersection filters all regions of the query_id that overlap with at least one promoters_id region.
+
+We use the get_regions command with the parameters: query_id returned by the select_experiments and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
+
+The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+
+The processing is over when the request_status value is done or failed.
+
+The request data is retrieved using the get_request_data command.
+
+```{R, echo=TRUE, eval=TRUE}
+query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
+promoters_id = deepblue.select_annotations(annotation_name="promoters", genome="GRCh38", chromosome="chr1")
+intersect_id = deepblue.intersection(query_a_id=query_id, query_b_id=promoters_id)
+request_id = deepblue.get_regions(query_id=intersect_id, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
+request_info = process_request(request_id = request_id)
+regions = deepblue.get_request_data(request_id=request_id)
+cat(substr(regions, 0, 281))
+```
