@@ -176,3 +176,53 @@ request_info = process_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 282))
 ```
+
+### Filter epigenomic data by metadata
+We use the list_samples command to obtain all samples from the biosource myeloid cell from the BLUEPRINT project. The list_samples returns a list of samples with their IDs and content.
+
+We extract the IDs from this list and use it in the select_regions command.
+
+The select_regions command selects the genomic regions that are in the chromosome 1, position 0 to 50,000 of all experiments that have the given samples IDs.
+
+Then, we use the get_regions command with the parameters: query_id returned by the select_regions and the desired file columns. The columns @NAME, SAMPLE_ID, and @BIOSOURCE include the experiment name, the sample ID, and the experiment biosource in the row output.
+
+The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+
+The processing is over when the request_status value is done or failed.
+
+The request data is retrieved using the get_request_data command.
+
+```{R, echo=TRUE, eval=TRUE}
+samples = deepblue.list_samples(biosource="myeloid cell", extra_metadata = list("source" = "BLUEPRINT Epigenome"))
+samples_ids = deepblue.extract_ids(samples)
+query_id = deepblue.select_regions(genome="GRCh38", sample=samples_ids, chromosome="chr1", start=0, end=50000)
+request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,@NAME,@SAMPLE_ID,@BIOSOURCE")
+request_info = process_request(request_id = request_id)
+regions = deepblue.get_request_data(request_id=request_id)
+cat(substr(regions, 0, 288))
+```
+
+### Filter epigenomic data by region attributes
+We use the select_experiments command for selecting the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+
+We filter the genomic regions that have the value of the column SIGNAL_VALUE higher than 10.
+
+We filter the genomic regions that have the value of the column PEAK higher than 1000.
+
+Then, we use the get_regions command with the parameters: query_id returned by the select_experiments and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
+
+The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+
+The processing is over when the request_status value is done or failed.
+
+The request data is retrieved using the get_request_data command.
+
+```{R, echo=TRUE, eval=TRUE}
+query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
+query_id_filter_signal = deepblue.filter_regions (query_id=query_id, field="SIGNAL_VALUE", operation=">", value="10", type="number")
+query_id_filters = deepblue.filter_regions (query_id=query_id_filter_signal, field="PEAK", operation=">", value="1000", type="number")
+request_id = deepblue.get_regions(query_id=query_id_filters, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
+request_info = process_request(request_id = request_id)
+regions = deepblue.get_request_data(request_id=request_id)
+cat(substr(regions, 0, 288))
+```
