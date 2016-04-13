@@ -68,7 +68,7 @@ readline("press any key to continue")
 
 #process.request expects 3 input parameters; requested_regions, sleep.time, user_key. sleep.time
 #is set to 1s as default sleeping time.
-request_info = process_request(request_id = req_regions)
+request_info = wait_request(request_id = req_regions)
 if (request_info$state == "done") {
     print("The processing was finished")
 } else {

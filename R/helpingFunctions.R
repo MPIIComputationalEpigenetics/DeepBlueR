@@ -1,11 +1,11 @@
 #'@export
-#'@title process_request
+#'@title wait_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
 #'@param request_id A string with the request_id
 #'@param sleep.time An integer with default value 1s
 #'@param user_key A string
 
-process_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KEY)
+wait_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KEY)
 {
   info = deepblue.info(request_id, user_key)[[1]]
 
@@ -21,7 +21,7 @@ process_request = function (request_id,sleep.time = 1, user_key=deepblue.USER_KE
 
 #'@title convert_to_df
 #'@import stringr data.table
-#'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
+#'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method wait_request.
 #'@param output A string
 #'@param inf A list with request information
 #'@return regions A data frame

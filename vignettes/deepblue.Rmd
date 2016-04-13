@@ -89,7 +89,7 @@ This package provides a set of functions for facilitate the API usage:
 | Category        | Command               | Description                                       |
 |-----------------|-----------------------|---------------------------------------------------|
 | Request         | batch_export_results  | Download the data a set of requests               |
-|                 | process_request       | Wait for a request be processed                   |
+|                 | wait_request       | Wait for a request be processed                   |
 |                 | get_request_data      | Download and convert the requested data           |
 
 
@@ -111,7 +111,7 @@ We put the names in single quotes to show that these names must be in the metada
 # We are selecting the experiments with terms 'H3k27AC', 'blood', and 'peak' in the metadata.
 experiments_found = deepblue.search(keyword="'H3k27AC' 'blood' 'peak'", type="experiments")
 
-lapply(experiments_found, function(experiment) {
+for (experiment in experiments_found) {
   experiment_id = experiment[[1]]
   # Obtain the information about the experiment_id
   info = deepblue.info(experiment_id)
@@ -132,10 +132,11 @@ experiments = deepblue.list_experiments(type="peaks", epigenetic_mark="H3K4me3",
 ### Accessing the extra-metadata
 The extra-metadata is important because it contains information that is not stored in the mandatory metadata fields.
 We use the info command to access an experiment's metadata and its extra-metadata fields.
+The following example prints the ```file_url``` attribute that it is contained in the data imported from the ENCODE project.
 
 ```{r, echo=TRUE, eval=TRUE}
 info = deepblue.info("e30000")
-print(info[[1]]$extra_metadata)
+print(info[[1]]$extra_metadata$file_url)
 ```
 
 ### Select epigenomic data
@@ -151,7 +152,7 @@ query_id = deepblue.select_experiments (experiment_name=c("BL-2_c01.ERX297416.H3
 # Count how many regions where selected
 request_id = deepblue.count_regions(query_id=query_id)
 # Wait for the request
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 requested_data = deepblue.get_request_data(request_id=request_id)
 print(paste("The selected experiments have", requested_data$count, "regions."))
 ```
@@ -172,7 +173,7 @@ query_id = deepblue.select_experiments (experiment_name = c("BL-2_c01.ERX297416.
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
 # Wait for the request
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 282))
 ```
@@ -197,7 +198,7 @@ samples = deepblue.list_samples(biosource="myeloid cell", extra_metadata = list(
 samples_ids = deepblue.extract_ids(samples)
 query_id = deepblue.select_regions(genome="GRCh38", sample=samples_ids, chromosome="chr1", start=0, end=50000)
 request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,@NAME,@SAMPLE_ID,@BIOSOURCE")
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 288))
 ```
@@ -222,7 +223,7 @@ query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H
 query_id_filter_signal = deepblue.filter_regions (query_id=query_id, field="SIGNAL_VALUE", operation=">", value="10", type="number")
 query_id_filters = deepblue.filter_regions (query_id=query_id_filter_signal, field="PEAK", operation=">", value="1000", type="number")
 request_id = deepblue.get_regions(query_id=query_id_filters, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 288))
 ```
@@ -247,7 +248,7 @@ query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H
 promoters_id = deepblue.select_annotations(annotation_name="promoters", genome="GRCh38", chromosome="chr1")
 intersect_id = deepblue.intersection(query_a_id=query_id, query_b_id=promoters_id)
 request_id = deepblue.get_regions(query_id=intersect_id, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 281))
 ```
@@ -275,7 +276,7 @@ query_id_filter_signal = deepblue.filter_regions (query_id=query_id, field="SIGN
 query_id_filters = deepblue.filter_regions (query_id=query_id_filter_signal, field="PEAK", operation=">", value="1000", type="number")
 query_id_filter_length = deepblue.filter_regions (query_id=query_id_filters, field="@LENGTH", operation="<", value="2000", type="number")
 request_id = deepblue.get_regions(query_id=query_id_filter_length, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 1669))
 ```
@@ -305,7 +306,7 @@ tataa_regions = deepblue.select_annotations(annotation_name="Pattern TATAAA (non
 query_id = deepblue.select_experiments (experiment_name= c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
 overlapped = deepblue.intersection(query_a_id=query_id, query_b_id=tataa_regions)
 request_id=deepblue.get_regions(overlapped, "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(substr(regions, 0, 1705))
 ```
@@ -329,7 +330,7 @@ The request data is retrieved using the get_request_data command.
 q_genes = deepblue.select_genes(genes_name="RP11-34P13", gene_set="gencode v23")
 q_filter = deepblue.filter_regions(query_id=q_genes, field="@GENE_ATTRIBUTE(gene_type)", operation="==", value="lincRNA", type="string")
 request_id=deepblue.get_regions(q_filter, "CHROMOSOME,START,END,GTF_ATTRIBUTES")
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(regions)
 ```
@@ -351,7 +352,7 @@ overlapped = deepblue.aggregate (data_id=query_id, ranges_id=cpg_islands, column
 
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=overlapped, output_format="CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEDIAN,@AGG.MEAN,@AGG.VAR,@AGG.SD,@AGG.COUNT")
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(regions)
 ```
@@ -380,7 +381,7 @@ overlapped = deepblue.aggregate (data_id=query_id, ranges_id=tiling_id, column="
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=overlapped, output_format="CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEDIAN,@AGG.MEAN,@AGG.VAR,@AGG.SD,@AGG.COUNT")
 
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(regions)
 ```
@@ -413,7 +414,7 @@ all_merge_id = deepblue.merge_queries(query_a_id=q_genes, query_b_id=flank_merge
 # Request the regions
 request_id = deepblue.get_regions(query_id=all_merge_id, output_format="CHROMOSOME,START,END,STRAND,@LENGTH")
 
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(regions)
 ```
@@ -452,7 +453,7 @@ filtered = deepblue.filter_regions(query_id=overlapped, field="@AGG.COUNT", oper
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=filtered, output_format="CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
 
-request_info = process_request(request_id = request_id)
+request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
 cat(regions)
 ```
