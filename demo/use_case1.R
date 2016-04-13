@@ -66,20 +66,8 @@ req_regions = deepblue.get_regions(query_id =sel_tf,output_format =
 
 readline("press any key to continue")
 
-#process.request expects 3 input parameters; requested_regions, sleep.time, user_key. sleep.time
-#is set to 1s as default sleeping time.
-request_info = process_request(request_id = req_regions)
-if (request_info$state == "done") {
-    print("The processing was finished")
-} else {
-    stop(request_info$message)
-}
-
-readline("press any key to continue")
-
 #get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
-#The default output is a granges object.
-# The output type can be changed passing 'string' or 'df' to the 'type' parameter.
-requested_data = get_request_data(request_info=request_info)
+requested_data = deepblue.download_request_data(req_regions)
+requested_data@result
 
 readline("press any key to finish")

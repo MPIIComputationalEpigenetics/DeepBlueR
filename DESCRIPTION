@@ -8,16 +8,17 @@ Author: Felipe Albrecht, Markus List, Nadia Ashraf
 Maintainer: Felipe Albrecht <felipe.albrecht@gmail.com>, Markus List <markus.list@mpi-inf.mpg.de>
 License: GPL (>=2.0)
 Depends: R (>= 3.1.0),
-    methods,
     GenomicRanges,
     data.table,
     stringr,
     XML,
     RCurl
 Collate:
+    class_DeepBlueCommand.R
 	deepblue.R
-	helpingFunctions.R
+	internalFunctions.R
 	batchExport.R
+	methods_DeepBlueCommand.R
 BuildVignettes: TRUE
 RoxygenNote: 5.0.1
 Suggests: knitr,

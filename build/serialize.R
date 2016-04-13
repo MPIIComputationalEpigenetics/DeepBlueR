@@ -1,36 +1,3 @@
-#' @import XML RCurl
-#' @title get request data r
-deepblue.get_request_data_r <-function(request_id, user_key=deepblue.USER_KEY,
-        .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), followlocation = TRUE, useragent = useragent),
-        .curl = getCurlHandle())
-{
-  request_info = deepblue.info(request_id, user_key)[[1]]
-  if (request_info$state != "done") {
-    stop("Processing was not finished. Please, check it status with deepblue.info(request_id)");
-  }
-
-  command = request_info$command
-  if (command == "count_regions")  {
-    deepblue.get_request_data(request_id, user_key)
-  } else if (command == "get_experiments_by_query") {
-    deepblue.get_request_data(request_id, user_key)
-  } else if (command == "get_regions") {
-    url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
-    temp_download <- tempfile()
-    download.file(url, temp_download, mode="wb")
-    handle <-  bzfile(temp_download)
-    paste(readLines(handle), collapse="\n")
-  } else if (command == "score_matrix") {
-    url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
-    temp_download <- tempfile()
-    download.file(url, temp_download, mode="wb")
-    handle <-  bzfile(temp_download)
-    paste(readLines(handle), collapse="\n")
-  } else {
-    stop(paste("Unknow command", command));
-  }
-}
-
 #' @title xml.rpc
 xml.rpc =
 function(url, method, ..., .args = list(...),

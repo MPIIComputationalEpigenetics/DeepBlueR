@@ -39,12 +39,32 @@ cmd_documentation_tmpl = """
 cmd_tmpl = """
 %(documentation)s
 deepblue.%(name)s <- function(%(parameter_names)s) {
+  
+  previous_commands <- list()
+  arg.names <- names(as.list(match.call()))
+  for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+  }
+  
   value <- xml.rpc(%(url)s, '%(name)s'%(parameter_convertion)s)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
-  value[[2]]
+  if(!is.list(value[[2]])){
+  DeepBlueCommand(call = sys.call(), 
+  status = value[[1]], 
+  query_id = value[[2]],
+  previous_commands = previous_commands,
+  user_key = user_key
+  )
+  } else return(value[[2]])
 }
 """
 
