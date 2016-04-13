@@ -225,7 +225,7 @@ query_id_filters = deepblue.filter_regions (query_id=query_id_filter_signal, fie
 request_id = deepblue.get_regions(query_id=query_id_filters, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
 request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
-cat(substr(regions, 0, 288))
+cat(substr(regions, 0, 286))
 ```
 
 ### Find overlapping regions
@@ -308,7 +308,7 @@ overlapped = deepblue.intersection(query_a_id=query_id, query_b_id=tataa_regions
 request_id=deepblue.get_regions(overlapped, "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
 request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
-cat(substr(regions, 0, 1705))
+cat(substr(regions, 0, 914))
 ```
 
 ### Genes
@@ -354,7 +354,7 @@ overlapped = deepblue.aggregate (data_id=query_id, ranges_id=cpg_islands, column
 request_id = deepblue.get_regions(query_id=overlapped, output_format="CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEDIAN,@AGG.MEAN,@AGG.VAR,@AGG.SD,@AGG.COUNT")
 request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
-cat(regions)
+cat(substr(regions, 0, 190))
 ```
 
 ### Tiling regions
@@ -383,7 +383,7 @@ request_id = deepblue.get_regions(query_id=overlapped, output_format="CHROMOSOME
 
 request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
-cat(regions)
+cat(substr(regions, 0, 189))
 ```
 
 ### Flanking regions
@@ -416,7 +416,7 @@ request_id = deepblue.get_regions(query_id=all_merge_id, output_format="CHROMOSO
 
 request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
-cat(regions)
+cat(substr(regions, 0, 127))
 ```
 
 ### Calculated columns
@@ -455,7 +455,7 @@ request_id = deepblue.get_regions(query_id=filtered, output_format="CHROMOSOME,S
 
 request_info = wait_request(request_id = request_id)
 regions = deepblue.get_request_data(request_id=request_id)
-cat(regions)
+cat(substr(regions, 0, 153))
 ```
 
 ### Score matrix
@@ -486,5 +486,5 @@ cpgs = deepblue.select_annotations(annotation_name="Cpg Islands", genome="hg19")
 request_id = deepblue.score_matrix(experiments_columns=experiments_columns, aggregation_function="mean", aggregation_regions_id=cpgs)
 
 regions = deepblue.get_request_data(request_id=request_id)
-cat(regions)
+cat(substr(regions, 0, 999))
 ```
