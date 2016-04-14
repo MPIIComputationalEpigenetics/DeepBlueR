@@ -35,7 +35,7 @@ For installing DeepBlue R package, simply execute:
 Automatic installation of DeepBlue-R and its companion data packages can be performed using the devtools package. All you have to do is to execute the
 following command in your R environment:
 
-```{r, eval = FALSE, echo=TRUE}
+```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
 library(devtools)
 install_github("MPIIComputationalEpigenetics/DeepBlue-R")
 ```
@@ -46,7 +46,7 @@ library(DeepBlue)
 ```
 
 You can test your installation executing.
-```{r, echo=TRUE, eval = FALSE}
+```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
 deepblue.info("me")
 ```
 
@@ -106,7 +106,7 @@ One of the first tasks in DeepBlue is listing the data. It can be made in three 
 In this example, we use the search command to find experiments that contain the texts H3k27AC, blood, and peaks in their metadata.
 We put the names in single quotes to show that these names must be in the metadata.
 
-```{r, echo=TRUE, eval=FALSE}
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 # We are selecting the experiments with terms 'H3k27AC', 'blood', and 'peak' in the metadata.
 experiments_found = deepblue.search(keyword="'H3k27AC' 'blood' 'peak'", type="experiments")
 
@@ -117,14 +117,14 @@ for (experiment in experiments_found) {
   experiment_info = info[[1]]
   # Print the experiment name, project, biosource, and epigenetic mark.
   print(paste(experiment_info$name, experiment_info$project, experiment_info$sample_info$biosource_name, experiment_info$epigenetic_mark))
-})
+}
 ```
 
 ### Listing experiments
 
 We use the list_experiments command to list all experiments with the corresponding values in theirs metadata.
 
-```{r, echo=TRUE, eval=FALSE}
+```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
 experiments = deepblue.list_experiments(type="peaks", epigenetic_mark="H3K4me3", biosource=c("inflammatory macrophage", "macrophage"), project="BLUEPRINT Epigenome")
 ```
 
@@ -133,7 +133,7 @@ The extra-metadata is important because it contains information that is not stor
 We use the info command to access an experiment's metadata and its extra-metadata fields.
 The following example prints the ```file_url``` attribute that it is contained in the data imported from the ENCODE project.
 
-```{r, echo=TRUE, eval=TRUE}
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 info = deepblue.info("e30000")
 print(info[[1]]$extra_metadata$file_url)
 ```
@@ -146,7 +146,7 @@ The processing is over when the request_status value is done or failed.
 The request data is retrieved using the get_request_data command.
 
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments(experiment_name=c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"))
 # Count how many regions where selected
 request_id = deepblue.count_regions(query_id=query_id)
@@ -165,13 +165,13 @@ The get_regions command is asynchronous. It means that the user receives a reque
 The processing is over when the request_status value is done or failed.
 
 The request data is retrieved using the get_request_data command.
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments (experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
 
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 282))
+regions
 ```
 
 ### Filter epigenomic data by metadata
@@ -189,13 +189,13 @@ The processing is over when the request_status value is done or failed.
 
 The request data is retrieved using the get_request_data command.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 samples = deepblue.list_samples(biosource="myeloid cell", extra_metadata = list("source" = "BLUEPRINT Epigenome"))
 samples_ids = deepblue.extract_ids(samples)
 query_id = deepblue.select_regions(genome="GRCh38", sample=samples_ids, chromosome="chr1", start=0, end=50000)
 request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,@NAME,@SAMPLE_ID,@BIOSOURCE")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 288))
+regions
 ```
 
 ### Filter epigenomic data by region attributes
@@ -213,13 +213,13 @@ The processing is over when the request_status value is done or failed.
 
 The request data is retrieved using the get_request_data command.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
 query_id_filter_signal = deepblue.filter_regions (query_id=query_id, field="SIGNAL_VALUE", operation=">", value="10", type="number")
 query_id_filters = deepblue.filter_regions (query_id=query_id_filter_signal, field="PEAK", operation=">", value="1000", type="number")
 request_id = deepblue.get_regions(query_id=query_id_filters, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 286))
+regions
 ```
 
 ### Find overlapping regions
@@ -237,13 +237,13 @@ The processing is over when the request_status value is done or failed.
 
 The request data is retrieved using the get_request_data command.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
 promoters_id = deepblue.select_annotations(annotation_name="promoters", genome="GRCh38", chromosome="chr1")
 intersect_id = deepblue.intersection(query_a_id=query_id, query_b_id=promoters_id)
 request_id = deepblue.get_regions(query_id=intersect_id, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 281))
+regions
 ```
 
 ### Retrieve DNA sequences
@@ -263,14 +263,14 @@ The processing is over when the request_status value is done or failed.
 
 The request data is retrieved using the get_request_data command.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
 query_id_filter_signal = deepblue.filter_regions (query_id=query_id, field="SIGNAL_VALUE", operation=">", value="10", type="number")
 query_id_filters = deepblue.filter_regions (query_id=query_id_filter_signal, field="PEAK", operation=">", value="1000", type="number")
 query_id_filter_length = deepblue.filter_regions (query_id=query_id_filters, field="@LENGTH", operation="<", value="2000", type="number")
 request_id = deepblue.get_regions(query_id=query_id_filter_length, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 1669))
+regions
 ```
 
 ### DNA pattern matching operations
@@ -293,13 +293,13 @@ The processing is over when the request_status value is done or failed.
 The request data is retrieved using the get_request_data command.
 
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 tataa_regions = deepblue.select_annotations(annotation_name="Pattern TATAAA (non-overlap) in the genome GRCh38", genome="GRCh38", chromosome="chr1")
 query_id = deepblue.select_experiments (experiment_name= c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
 overlapped = deepblue.intersection(query_a_id=query_id, query_b_id=tataa_regions)
 request_id=deepblue.get_regions(overlapped, "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 914))
+regions
 ```
 
 ### Genes
@@ -317,7 +317,7 @@ The processing is over when the request_status value is done or failed.
 
 The request data is retrieved using the get_request_data command.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 q_genes = deepblue.select_genes(genes_name="RP11-34P13", gene_set="gencode v23")
 q_filter = deepblue.filter_regions(query_id=q_genes, field="@GENE_ATTRIBUTE(gene_type)", operation="==", value="lincRNA", type="string")
 request_id=deepblue.get_regions(q_filter, "CHROMOSOME,START,END,GTF_ATTRIBUTES")
@@ -334,7 +334,7 @@ The command aggregate aggregates the query_id regions using the cpg_islands regi
 
 The aggregate values can be accessed through the @AGG meta-columns.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments (experiment=c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig"), chromosome="chr1", start=0, end=50000000)
 cpg_islands = deepblue.select_annotations(annotation_name="CpG Islands", genome="GRCh38", chromosome="chr1", start=0, end=50000000)
 # Aggregate
@@ -355,7 +355,7 @@ The command aggregate aggregates the query_id regions by their column named VALU
 
 The aggregation values can be accessed through the @AGG meta-columns.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 # Selecting the data from 2 experiments: GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig
 # As we already know the experiments names, we keep all others fields empty.
 # We are selecting all regions of chromosome 1
@@ -383,7 +383,7 @@ The merge_queries command merges the region sets defined by the query IDs. We me
 
 We use the get_regions with the query_id that is returned by the merge_queries.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 # Select the RP11-34P13 gene locations from gencode v23
 q_genes = deepblue.select_genes(genes_name=c("RNU6-1100P", "CICP7", "MRPL20", "ANKRD65", "HES2", "ACOT7", "HES3", "ICMT"), gene_set="gencode v19")
 
@@ -420,7 +420,7 @@ The aggregation values can be accessed through the @AGG meta-columns.
 We use the get_regions with the query_id value returned by the select_experiments and the desired file columns. We use the @CALCULATED meta-column to transform the aggregate region @AGG.MEAN value to its log scale value.
 
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 # Select the RP11-34P13 gene locations from gencode v23
 
 # Selecting the data from 2 experiments: GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig
@@ -459,7 +459,7 @@ The processing is over when the request_status value is done or failed.
 
 The request data is retrieved using the get_request_data command.
 
-```{R, echo=TRUE, eval=TRUE}
+```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 experiments = c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "C003N351.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "C005VG51.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S002R551.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "NBC_NC11_41.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "bmPCs-V156.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S00BS451.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S00D1DA1.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S00D39A1.CPG_methylation_calls.bs_call.GRCh38.20150707.wig")
 
 experiments_columns = list()
@@ -467,7 +467,7 @@ for (experiment_name in experiments) {
     experiments_columns[[experiment_name]] = "VALUE"
 }
 
-cpgs = deepblue.select_annotations(annotation_name="Cpg Islands", genome="hg19")
+cpgs = deepblue.select_annotations(annotation_name="Cpg Islands", chromosome="chr22", start=0, end=18000000, genome="hg19")
 
 request_id = deepblue.score_matrix(experiments_columns=experiments_columns, aggregation_function="mean", aggregation_regions_id=cpgs)
 
