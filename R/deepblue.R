@@ -2966,16 +2966,17 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
   
   value <- xml.rpc(deepblue.URL, 'select_regions', experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
+  browser()
   if (status == "error") {
     stop(value[[2]])
   }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
+  return(DeepBlueCommand(call = sys.call(), 
   status = value[[1]], 
   query_id = value[[2]],
   previous_commands = previous_commands,
   user_key = user_key
-  )
+  ))
   } else return(value[[2]])
 }
 

@@ -1,4 +1,3 @@
-#'@export
 #'@title deepblue.wait_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
 #'@param request_id A string with the request_id
@@ -19,7 +18,6 @@ setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1, user_ke
     return (info)
 })
 
-#'@export
 #'@title deepblue.download_request_data
 #'@description Returns the requested data as the expected type object. Expects two input parameters; Request information and
 #'user key. It depends on outputs from several functions, namely;
@@ -39,12 +37,11 @@ setGeneric("deepblue.download_request_data", function (request_id, user_key=deep
         stop(request_info$message)
     }
     
-    request_id = request_info$`_id`
     regions_string = deepblue.switch_get_request_data(request_id = request_id, user_key = user_key)
     
-    if (type == "string") return (regions_string)
+    if(request_info$command != "get_regions" || type == "string") return (regions_string)
     
-    regions_df = deepblue.convert_to_df(output=regions_string, inf=request_info)
+    regions_df = deepblue.convert_to_df(string_to_parse=regions_string, request_info=request_info)
     
     if (type == "df") return (regions_df)
     else return(deepblue.convert_to_grange(df=regions_df))
@@ -83,28 +80,34 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
 #'@title convert_to_df
 #'@import stringr data.table
 #'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
-#'@param output A string
+#'@param string_to_parse A string
 #'@param inf A list with request information
 #'@return regions A data frame
-deepblue.convert_to_df = function(output, inf, dict=col_dict){
+deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
     
-    #get column names from
-    col_names <- str_split(inf$format, pattern = ",")[[1]]
-    
-    #get column types from dictionary
-    col_types <- sapply(col_names, function(x){
-        col_type <- dict[[x]]
-        #return column type, defaults to character
-        if(is.null(col_type)) return("character")
-        #need to change string to character
-        else if(col_type == "string") return("character")
-        else if (col_type == 'category') return ('factor')
-        else return(col_type)
-    })
-    
+    if(!is.null(request_info$format)){
+        #get column names from
+        col_names <- str_split(request_info$format, pattern = ",")[[1]]
+        
+        #get column types from dictionary
+        col_types <- sapply(col_names, function(x){
+            col_type <- dict[[x]]
+            #return column type, defaults to character
+            if(is.null(col_type)) return("character")
+            #need to change string to character
+            else if(col_type == "string") return("character")
+            else if (col_type == 'category') return ('factor')
+            else return(col_type)
+        })
+        
+        input <- paste(paste(col_names, collapse="\t"), "\n", string_to_parse, sep="")
+    } else{
+        col_types <- NULL
+        input <- string_to_parse
+    } 
     #read data frame efficiently from string
     #paste a header in front so that fread accepts colClasses
-    fread(input = paste(paste(col_names, collapse="\t"), "\n", output, sep=""),
+    fread(input = input,
           sep="\t",
           colClasses = col_types,
           header=TRUE,

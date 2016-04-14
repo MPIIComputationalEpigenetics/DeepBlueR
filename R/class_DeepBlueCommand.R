@@ -14,14 +14,14 @@ DeepBlueCommand <- setClass("DeepBlueCommand",
                                       status = "character",
                                       query_id = "character",
                                       previous_commands = "list",
-                                      user_key = "character",
-                                      result = "GRanges"),
+                                      user_key = "character"),
                             validity=function(object) {
                                 if (object@status == "error")
                                     return(FALSE)
                                 else return(TRUE)
                             }, 
-                            prototype = list(result = GRanges(), 
+                            prototype = list(
                                              user_key = "anonymous_r_user",
-                                             previous_commands = list())
+                                             previous_commands = list()
+                                            )
 )

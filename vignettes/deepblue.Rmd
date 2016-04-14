@@ -89,7 +89,7 @@ This package provides a set of functions for facilitate the API usage:
 | Category        | Command               | Description                                       |
 |-----------------|-----------------------|---------------------------------------------------|
 | Request         | batch_export_results  | Download the data a set of requests               |
-|                 | download_request_data      | Download and convert the requested data           |
+|                 | download_request_data | Download and convert the requested data           |
 
 
 
@@ -152,7 +152,7 @@ query_id = deepblue.select_experiments(experiment_name=c("BL-2_c01.ERX297416.H3K
 request_id = deepblue.count_regions(query_id=query_id)
 # Download the request data as soon as processing is finished
 requested_data = deepblue.download_request_data(request_id=request_id)
-print(paste("The selected experiments have", nrow(requested_data)@result, "regions."))
+print(paste("The selected experiments have", requested_data, "regions."))
 ```
 
 ### Output with desired columns
@@ -170,7 +170,6 @@ query_id = deepblue.select_experiments (experiment_name = c("BL-2_c01.ERX297416.
 
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
-# Wait for the request
 regions = deepblue.download_request_data(request_id=request_id)
 cat(substr(regions, 0, 282))
 ```
@@ -323,7 +322,7 @@ q_genes = deepblue.select_genes(genes_name="RP11-34P13", gene_set="gencode v23")
 q_filter = deepblue.filter_regions(query_id=q_genes, field="@GENE_ATTRIBUTE(gene_type)", operation="==", value="lincRNA", type="string")
 request_id=deepblue.get_regions(q_filter, "CHROMOSOME,START,END,GTF_ATTRIBUTES")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(regions)
+regions
 ```
 
 ### Aggregate and summarize regions
@@ -344,7 +343,7 @@ overlapped = deepblue.aggregate (data_id=query_id, ranges_id=cpg_islands, column
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=overlapped, output_format="CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEDIAN,@AGG.MEAN,@AGG.VAR,@AGG.SD,@AGG.COUNT")
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 190))
+regions
 ```
 
 ### Tiling regions
@@ -372,7 +371,7 @@ overlapped = deepblue.aggregate (data_id=query_id, ranges_id=tiling_id, column="
 request_id = deepblue.get_regions(query_id=overlapped, output_format="CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEDIAN,@AGG.MEAN,@AGG.VAR,@AGG.SD,@AGG.COUNT")
 
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 189))
+regions
 ```
 
 ### Flanking regions
@@ -404,7 +403,7 @@ all_merge_id = deepblue.merge_queries(query_a_id=q_genes, query_b_id=flank_merge
 request_id = deepblue.get_regions(query_id=all_merge_id, output_format="CHROMOSOME,START,END,STRAND,@LENGTH")
 
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 127))
+regions
 ```
 
 ### Calculated columns
@@ -442,7 +441,7 @@ filtered = deepblue.filter_regions(query_id=overlapped, field="@AGG.COUNT", oper
 request_id = deepblue.get_regions(query_id=filtered, output_format="CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
 
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 153))
+regions
 ```
 
 ### Score matrix
@@ -473,5 +472,5 @@ cpgs = deepblue.select_annotations(annotation_name="Cpg Islands", genome="hg19")
 request_id = deepblue.score_matrix(experiments_columns=experiments_columns, aggregation_function="mean", aggregation_regions_id=cpgs)
 
 regions = deepblue.download_request_data(request_id=request_id)
-cat(substr(regions, 0, 999))
+regions
 ```
