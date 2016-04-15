@@ -68,6 +68,3 @@ readline("press any key to continue")
 
 #get regions that contains the TFs that overlap with the H3K27ac and the promoters regions.
 requested_data = deepblue.download_request_data(req_regions)
-requested_data@result
-
-readline("press any key to finish")

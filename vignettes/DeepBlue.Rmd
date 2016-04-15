@@ -35,7 +35,7 @@ For installing DeepBlue R package, simply execute:
 Automatic installation of DeepBlue-R and its companion data packages can be performed using the devtools package. All you have to do is to execute the
 following command in your R environment:
 
-```{r, eval = FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
 library(devtools)
 install_github("MPIIComputationalEpigenetics/DeepBlue-R")
 ```
@@ -375,6 +375,19 @@ request_id = deepblue.get_regions(query_id=overlapped, output_format="CHROMOSOME
 regions = deepblue.download_request_data(request_id=request_id)
 regions
 ```
+
+Such data can now be plotted using any of the common R plotting mechanisms and packages. An example is shown here:
+
+```{r}
+library(ggplot2)
+plot_data <- as.data.frame(regions)
+plot_data[,grepl("X.", colnames(plot_data))] <- apply(plot_data[,grepl("X.", colnames(plot_data))], 2, as.numeric)
+AGG.plot <- ggplot(plot_data, aes(start)) + 
+    geom_ribbon(aes(ymin = X.AGG.MEAN - (X.AGG.SD / 2), ymax = X.AGG.MEAN + (X.AGG.SD / 2)), fill = "grey70") +
+    geom_line(aes(y = X.AGG.MEAN))
+print(AGG.plot)
+```
+
 
 ### Flanking regions
 We use the select_genes command to generate a set of genes from the gene set gencode v19.

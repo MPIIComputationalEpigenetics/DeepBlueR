@@ -13,6 +13,7 @@ Depends: R (>= 3.1.0),
     stringr,
     XML,
     RCurl
+Suggests: LOLA
 Collate:
     class_DeepBlueCommand.R
 	deepblue.R
