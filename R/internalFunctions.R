@@ -6,10 +6,9 @@
 setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1, user_key=deepblue.USER_KEY)
 {
     info = deepblue.info(request_id, user_key)[[1]]
-    
     state = info$state
     if(is.null(state)) stop("no state information found")
-    while (state != 'done' & state != 'error' & !is.null(sleep_time) )
+    while (!state %in% c('done','error','failed') && !is.null(sleep_time) )
     {
         Sys.sleep(sleep_time)
         info = deepblue.info(request_id, user_key)[[1]]
@@ -43,7 +42,7 @@ setGeneric("deepblue.download_request_data", function (request_id, user_key=deep
     
     regions_df = deepblue.convert_to_df(string_to_parse=regions_string, request_info=request_info)
     
-    if (type == "df") return (regions_df)
+    if (type == "df" || request_info[[1]]$format == "") return (regions_df)
     else return(deepblue.convert_to_grange(df=regions_df))
 })
 
@@ -119,13 +118,18 @@ deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
 
 #'@title convert_to_grange
 #'@description Converts the requested data into GRanges object. Expects one input; A dataframe with requested data.
-#'@import GenomicRanges
+#'@importFrom GenomicRanges makeGRangesFromDataFrame
 #'@param df A data frame
 #'@return region_gr A GRanges object
 #'
 #'@seealso \code{\link[GenomicRanges]{makeGRangesFromDataFrame}}
 deepblue.convert_to_grange = function (df = NULL)
 {
+    if("GTF_ATTRIBUTES" %in% colnames(df)){
+        gtf_attributes <- deepblue.parse_gtf(df$GTF_ATTRIBUTES)
+        df <- df$GTF_ATTRIBUTES <- NULL
+        df <- cbind(df, gtf_attributes)
+    }
     region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
                                          end.field = 'END',strand.field = c('STRAND','Strand'))
@@ -157,3 +161,20 @@ deepblue.column_types = function()
 }
 
 col_dict = deepblue.column_types()
+
+#' @description Parse the GTF semicolon separated attributes into a data frame
+#' @title deepblue.parse_gtf
+#' @importFrom plyr rbind.fill
+deepblue.parse_gtf <- function(all_gtf){
+    
+    do.call(plyr::rbind.fill, lapply(as.list(all_gtf), function(gtf){
+        gtf_no_quotes <- str_replace_all(gtf, "\"", "")
+        split_gtf <- lapply(str_split(gtf_no_quotes, "; "), function(x){
+                str_split(x, " ")
+            })
+        attr.names <- unlist(lapply(split_gtf[[1]], function(x) { x[[1]] }))
+        attr.values <- lapply(split_gtf[[1]], function(x) { x[[2]] })
+        names(attr.values) <- attr.names
+        return(data.frame(attr.values))
+    }))
+}

@@ -37,7 +37,7 @@ setMethod("deepblue.download_request_data",
               
               regions_df = deepblue.convert_to_df(string_to_parse=regions_string, request_info=request_info)
               
-              if (request_info$command %in% c("score_matrix", "get_experiments_by_query")) return (regions_df)
+              if (request_info$command %in% c("score_matrix", "get_experiments_by_query") || request_info$format == "") return (regions_df)
               
               else if(request_info$command == "get_regions") return(deepblue.convert_to_grange(df=regions_df))
           })

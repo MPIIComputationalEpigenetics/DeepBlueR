@@ -250,10 +250,12 @@ regions
 
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 library(Gviz)
-atrack <- AnnotationTrack(regions, name = "Overlapping regions", group = regions$`@BIOSOURCE`, genome="hg19")
+atrack <- AnnotationTrack(regions, name = "Overlapping regions", group = regions$`@BIOSOURCE`, genome="hg38")
 gtrack <- GenomeAxisTrack()
-itrack <- IdeogramTrack(genome = "hg19", chromosome = "chr1")
-plotTracks(list(itrack, atrack, gtrack), groupAnnotation="group")
+itrack <- IdeogramTrack(genome = "hg38", chromosome = "chr1")
+data(geneModels)
+grtrack <- GeneRegionTrack(geneModels, genome = "hg38", chromosome = "chr1", name = "Gene Model")
+plotTracks(list(itrack, atrack, grtrack,gtrack), groupAnnotation="group")
 ```
 
 
