@@ -13,7 +13,6 @@ Depends: R (>= 3.1.0),
     stringr,
     XML,
     RCurl
-Suggests: LOLA
 Collate:
     class_DeepBlueCommand.R
 	deepblue.R
@@ -23,5 +22,7 @@ Collate:
 BuildVignettes: TRUE
 RoxygenNote: 5.0.1
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    LOLA,
+    Gviz
 VignetteBuilder: knitr

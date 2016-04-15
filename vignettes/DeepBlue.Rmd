@@ -248,6 +248,15 @@ regions = deepblue.download_request_data(request_id=request_id)
 regions
 ```
 
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+library(Gviz)
+atrack <- AnnotationTrack(regions, name = "Overlapping regions", group = regions$`@BIOSOURCE`, genome="hg19")
+gtrack <- GenomeAxisTrack()
+itrack <- IdeogramTrack(genome = "hg19", chromosome = "chr1")
+plotTracks(list(itrack, atrack, gtrack), groupAnnotation="group")
+```
+
+
 ### Retrieve DNA sequences
 We use the select_experiments command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
 
