@@ -35,13 +35,13 @@ For installing DeepBlue R package, simply execute:
 Automatic installation of DeepBlue-R and its companion data packages can be performed using the devtools package. All you have to do is to execute the
 following command in your R environment:
 
-```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
+```{r, eval = FALSE, echo=FALSE, warning=FALSE, message=FALSE}
 library(devtools)
 install_github("MPIIComputationalEpigenetics/DeepBlue-R")
 ```
 
 The package name is ```DeepBlue``` and can be accessible by:
-```{r, echo=TRUE}
+```{r, echo=FALSE}
 library(DeepBlue)
 ```
 
@@ -110,14 +110,15 @@ We put the names in single quotes to show that these names must be in the metada
 # We are selecting the experiments with terms 'H3k27AC', 'blood', and 'peak' in the metadata.
 experiments_found = deepblue.search(keyword="'H3k27AC' 'blood' 'peak'", type="experiments")
 
-for (experiment in experiments_found) {
+custom_table = do.call("rbind", lapply(experiments_found, function(experiment){
   experiment_id = experiment[[1]]
   # Obtain the information about the experiment_id
   info = deepblue.info(experiment_id)
   experiment_info = info[[1]]
   # Print the experiment name, project, biosource, and epigenetic mark.
-  print(paste(experiment_info$name, experiment_info$project, experiment_info$sample_info$biosource_name, experiment_info$epigenetic_mark))
-}
+  with(experiment_info, { data.frame(name = name, project = project, biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark) })
+}))
+  head(custom_table)
 ```
 
 ### Listing experiments
@@ -126,6 +127,7 @@ We use the list_experiments command to list all experiments with the correspondi
 
 ```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
 experiments = deepblue.list_experiments(type="peaks", epigenetic_mark="H3K4me3", biosource=c("inflammatory macrophage", "macrophage"), project="BLUEPRINT Epigenome")
+do.call("rbind", lapply(experiments, function(x){ data.frame(id = x[[1]], filename = x[[2]])}))
 ```
 
 ### Accessing the extra-metadata
@@ -471,6 +473,6 @@ cpgs = deepblue.select_annotations(annotation_name="Cpg Islands", chromosome="ch
 
 request_id = deepblue.score_matrix(experiments_columns=experiments_columns, aggregation_function="mean", aggregation_regions_id=cpgs)
 
-regions = deepblue.download_request_data(request_id=request_id)
-regions
+score_matrix = deepblue.download_request_data(request_id=request_id)
+head(score_matrix)
 ```

@@ -78,7 +78,8 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
 }
 
 #'@title convert_to_df
-#'@import stringr data.table
+#'@importFrom stringr str_split
+#'@importFrom data.table fread
 #'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
 #'@param string_to_parse A string
 #'@param inf A list with request information

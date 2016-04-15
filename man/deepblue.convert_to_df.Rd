@@ -4,10 +4,10 @@
 \alias{deepblue.convert_to_df}
 \title{convert_to_df}
 \usage{
-deepblue.convert_to_df(output, inf, dict = col_dict)
+deepblue.convert_to_df(string_to_parse, request_info, dict = col_dict)
 }
 \arguments{
-\item{output}{A string}
+\item{string_to_parse}{A string}
 
 \item{inf}{A list with request information}
 }
@@ -15,6 +15,6 @@ deepblue.convert_to_df(output, inf, dict = col_dict)
 regions A data frame
 }
 \description{
-save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method wait_request.
+save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
 }
 
