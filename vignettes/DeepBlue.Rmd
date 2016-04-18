@@ -127,7 +127,7 @@ We use the list_experiments command to list all experiments with the correspondi
 
 ```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
 experiments = deepblue.list_experiments(type="peaks", epigenetic_mark="H3K4me3", biosource=c("inflammatory macrophage", "macrophage"), project="BLUEPRINT Epigenome")
-do.call("rbind", lapply(experiments, function(x){ data.frame(id = x[[1]], filename = x[[2]])}))
+do.call("rbind", lapply(experiments, function(x){ data.frame(id = x[[1]], experiment_name = x[[2]])}))
 ```
 
 ### Accessing the extra-metadata
@@ -393,7 +393,7 @@ Such data can now be plotted using any of the common R plotting mechanisms and p
 library(ggplot2)
 plot_data <- as.data.frame(regions)
 plot_data[,grepl("X.", colnames(plot_data))] <- apply(plot_data[,grepl("X.", colnames(plot_data))], 2, as.numeric)
-AGG.plot <- ggplot(plot_data, aes(start)) + 
+AGG.plot <- ggplot(plot_data, aes(start)) +
     geom_ribbon(aes(ymin = X.AGG.MEAN - (X.AGG.SD / 2), ymax = X.AGG.MEAN + (X.AGG.SD / 2)), fill = "grey70") +
     geom_line(aes(y = X.AGG.MEAN))
 print(AGG.plot)
