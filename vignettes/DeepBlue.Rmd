@@ -41,7 +41,7 @@ install_github("MPIIComputationalEpigenetics/DeepBlue-R")
 ```
 
 The package name is ```DeepBlue``` and can be accessible by:
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
 library(DeepBlue)
 ```
 
@@ -103,7 +103,7 @@ One of the first tasks in DeepBlue is listing the data. It can be made in three 
 
 ### Full-text search
 
-In this example, we use the search command to find experiments that contain the texts H3k27AC, blood, and peaks in their metadata.
+In this example, we use the command ```search``` to find experiments that contain the texts H3k27AC, blood, and peaks in their metadata.
 We put the names in single quotes to show that these names must be in the metadata.
 
 ```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
@@ -123,9 +123,9 @@ custom_table = do.call("rbind", lapply(experiments_found, function(experiment){
 
 ### Listing experiments
 
-We use the list_experiments command to list all experiments with the corresponding values in theirs metadata.
+We use the ```list_experiments``` command to list all experiments with the corresponding values in theirs metadata.
 
-```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 experiments = deepblue.list_experiments(type="peaks", epigenetic_mark="H3K4me3", biosource=c("inflammatory macrophage", "macrophage"), project="BLUEPRINT Epigenome")
 do.call("rbind", lapply(experiments, function(x){ data.frame(id = x[[1]], experiment_name = x[[2]])}))
 ```
@@ -141,11 +141,9 @@ print(info[[1]]$extra_metadata$file_url)
 ```
 
 ### Select epigenomic data
-We use the select_experiments command to select all genomic regions from the two informed experiments.
-We use the count_regions command with the query_id value returned by the select_experiments.
-The count_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
-The processing is over when the request_status value is done or failed.
-The request data is retrieved using the get_request_data command.
+We use the ```select_experiments``` command to select all genomic regions from the two informed experiments.
+We use the ```count_regions``` command with the ```query_id``` value returned by the ```select_experiments```.
+The ```count_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
@@ -158,15 +156,12 @@ print(paste("The selected experiments have", requested_data, "regions."))
 ```
 
 ### Output with desired columns
-We use the select_experiments command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+We use the ```select_experiments``` command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
 
-We use the get_regions command with the query_id value returned by the select_experiments and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
+We use the ```get_regions``` command with the ```query_id``` value returned by the ```select_experiments``` and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
 
-The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+The ```get_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments (experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
 
@@ -177,19 +172,15 @@ regions
 ```
 
 ### Filter epigenomic data by metadata
-We use the list_samples command to obtain all samples from the biosource myeloid cell from the BLUEPRINT project. The list_samples returns a list of samples with their IDs and content.
+We use the ```list_samples``` command to obtain all samples from the biosource myeloid cell from the BLUEPRINT project. The ```list_samples``` returns a list of samples with their IDs and content.
 
-We extract the IDs from this list and use it in the select_regions command.
+We extract the IDs from this list and use it in the ```select_regions``` command.
 
-The select_regions command selects the genomic regions that are in the chromosome 1, position 0 to 50,000 of all experiments that have the given samples IDs.
+The ```select_regions``` command selects the genomic regions that are in the chromosome 1, position 0 to 50,000 of all experiments that have the given samples IDs.
 
-Then, we use the get_regions command with the parameters: query_id returned by the select_regions and the desired file columns. The columns @NAME, SAMPLE_ID, and @BIOSOURCE include the experiment name, the sample ID, and the experiment biosource in the row output.
+Then, we use the ```get_regions``` command with the parameters: ```query_id``` returned by the ```select_regions``` and the desired file columns. The columns @NAME, SAMPLE_ID, and @BIOSOURCE include the experiment name, the sample ID, and the experiment biosource in the row output.
 
-The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
-
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
+The ```get_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 samples = deepblue.list_samples(biosource="myeloid cell", extra_metadata = list("source" = "BLUEPRINT Epigenome"))
@@ -197,23 +188,19 @@ samples_ids = deepblue.extract_ids(samples)
 query_id = deepblue.select_regions(genome="GRCh38", sample=samples_ids, chromosome="chr1", start=0, end=50000)
 request_id = deepblue.get_regions(query_id=query_id, output_format="CHROMOSOME,START,END,@NAME,@SAMPLE_ID,@BIOSOURCE")
 regions = deepblue.download_request_data(request_id=request_id)
-regions
+head(regions,1)
 ```
 
 ### Filter epigenomic data by region attributes
-We use the select_experiments command for selecting the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+We use the ```select_experiments``` command for selecting the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
 
 We filter the genomic regions that have the value of the column SIGNAL_VALUE higher than 10.
 
 We filter the genomic regions that have the value of the column PEAK higher than 1000.
 
-Then, we use the get_regions command with the parameters: query_id returned by the select_experiments and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
+Then, we use the ```get_regions``` command with the parameters: ```query_id``` returned by the select_experiments and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
 
-The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
-
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
+The ```get_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
@@ -225,19 +212,15 @@ regions
 ```
 
 ### Find overlapping regions
-We use the select_experiments command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+We use the ```select_experiments``` command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
 
-We use the select_annotations command to select the genomic regions in the chromosome 1 of the annotation promoters of the genome assembly GRCh38.
+We use the ```select_annotations``` command to select the genomic regions in the chromosome 1 of the annotation promoters of the genome assembly GRCh38.
 
-The command intersection filters all regions of the query_id that overlap with at least one promoters_id region.
+The command intersection filters all regions of the ```query_id``` that overlap with at least one ```promoters_id``` region.
 
-We use the get_regions command with the parameters: query_id returned by the select_experiments and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
+We use the ```get_regions``` command with the parameters: ```query_id``` returned by the ```select_experiments``` and the desired file columns. The columns @NAME and @BIOSOURCE include the experiment name and the experiment biosource in the row output.
 
-The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
-
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
+The ```get_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
@@ -260,7 +243,7 @@ plotTracks(list(itrack, atrack, grtrack,gtrack), groupAnnotation="group")
 
 
 ### Retrieve DNA sequences
-We use the select_experiments command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+We use the ```select_experiments``` command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
 
 We filter the genomic regions that have the value of the column SIGNAL_VALUE higher than 10.
 
@@ -268,13 +251,10 @@ We filter the genomic regions that have the value of the column PEAK higher than
 
 The meta-column @LENGTH contains the genomic region length, and we filter the genomic regions where this value is smaller than 2,000.
 
-We use the get_regions with the query_id returned by the select_experiments and the desired file columns. In this case, we use the meta-column @SEQUENCE, that includes the DNA Sequence in the genomic region output.
+We use the ```get_regions``` with the ```query_id``` returned by the ```select_experiments``` and the desired file columns. In this case, we use the meta-column @SEQUENCE, that includes the DNA Sequence in the genomic region output.
 
-The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+The ```get_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue.select_experiments(experiment_name = c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed", "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"), chromosome="chr1", start=0, end=50000000)
@@ -287,24 +267,19 @@ regions
 ```
 
 ### DNA pattern matching operations
-We use the find_pattern command to generate an annotation of the genomic locations where the pattern TATAA happens in the genome assembly GRCh38.
+We use the ```find_pattern``` command to generate an annotation of the genomic locations where the pattern TATAA happens in the genome assembly GRCh38.
 
-The find_pattern command requires permission to include annotations. If the user (e.g. anonymous user) does not have this permission, an error will be returned.
+The ```find_pattern``` command requires permission to include annotations. If the user (e.g. anonymous user) does not have this permission, an error will be returned.
 
 Nevertheless, we have already processed this pattern, and the annotation was generated with the name "Pattern TATAAA (non-overlap) in the genome GRCh38". We selected the genomic regions of the first chromosome of this annotation with the select_annotations command.
 
-We use the select_experiments command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
+We use the ```select_experiments``` command to select the genomic regions from the experiments that are in the chromosome 1, position 0 to 50,000,000.
 
-The command intersection filters all regions of the query_id that overlap with at least one tataa_regions region.
+The command ```intersection``` selects all regions of the ```query_id``` that overlap with at least one tataa_regions region.
 
-We use the get_regions with the query_id returned by the select_experiments and the desired file columns. In this case, we use the meta-column @SEQUENCE, that includes the DNA Sequence in the genomic region output.
+We use the ```get_regions``` with the ```query_id``` returned by the ```select_experiments``` and the desired file columns. In this case, we use the meta-column @SEQUENCE, that includes the DNA Sequence in the genomic region output.
 
-The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
-
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
-
+The ```get_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 tataa_regions = deepblue.select_annotations(annotation_name="Pattern TATAAA (non-overlap) in the genome GRCh38", genome="GRCh38", chromosome="chr1")
@@ -316,34 +291,29 @@ regions
 ```
 
 ### Genes
-We use the select_genes command to select the gene RP11-34P13 from the gene set gencode v23.
+We use the ```select_genes``` command to select the gene RP11-34P13 from the gene set gencode v23.
 
 The selected genes behave like a regular genomic region that, for example, can be filtered by their content.
 
 We use the @GENE_ATTRIBUTE meta-column to select the genomic regions that are lincRNA.
 
-We use the get_regions with the query_id returned by the select_experiments and the desired file columns.
+We use the ```get_regions``` with the ```query_id``` returned by the ```select_experiments``` and the desired file columns.
 
-The get_regions command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+The ```get_regions``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
-
-```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+```{R, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
 q_genes = deepblue.select_genes(genes_name="RP11-34P13", gene_set="gencode v23")
 q_filter = deepblue.filter_regions(query_id=q_genes, field="@GENE_ATTRIBUTE(gene_type)", operation="==", value="lincRNA", type="string")
 request_id=deepblue.get_regions(q_filter, "CHROMOSOME,START,END,GTF_ATTRIBUTES")
 regions = deepblue.download_request_data(request_id=request_id)
-regions
 ```
 
 ### Aggregate and summarize regions
-We use the get_regions command with the query_id value returned by the select_experiments and the desired file columns.
+We use the ```get_regions``` command with the ```query_id``` value returned by the select_experiments and the desired file columns.
 
-We use the select_annotations command to select the genomic regions, from position 0 to 50,000,000 in the chromosome 1 of the annotation CpG Islands of the genome assembly GRCh38.
+We use the ```select_annotations``` command to select the genomic regions, from position 0 to 50,000,000 in the chromosome 1 of the annotation CpG Islands of the genome assembly GRCh38.
 
-The command aggregate aggregates the query_id regions using the cpg_islands regions as boundaries.
+The command ```aggregate``` aggregates the ```query_id``` regions using the ```cpg_islands``` regions as boundaries.
 
 The aggregate values can be accessed through the @AGG meta-columns.
 
@@ -360,11 +330,11 @@ regions
 ```
 
 ### Tiling regions
-We use the get_regions command with the query_id value returned by the select_experiments and the desired file columns.
+We use the ```get_regions``` command with the ```query_id``` value returned by the ```select_experiments``` and the desired file columns.
 
-We use the tiling_regions command to generate a set of consecutive genomic regions of size 100,000 on the chromosome 1 of the genome assembly GRCh38.
+We use the ```tiling_regions``` command to generate a set of consecutive genomic regions of size 100,000 on the chromosome 1 of the genome assembly GRCh38.
 
-The command aggregate aggregates the query_id regions by their column named VALUE, using the cpg_islands regions as boundaries.
+The command ```aggregate``` aggregates the ```query_id``` regions by their column named VALUE, using the ```cpg_islands``` regions as boundaries.
 
 The aggregation values can be accessed through the @AGG meta-columns.
 
@@ -401,14 +371,14 @@ print(AGG.plot)
 
 
 ### Flanking regions
-We use the select_genes command to generate a set of genes from the gene set gencode v19.
+We use the ```select_genes``` command to generate a set of genes from the gene set gencode v19.
 
-The flank command obtains flanking regions based on the existing regions. First, we generate regions that starts 2500bp before the regions and with the length of 2000bp. After, we generate the regions that starts 1500 bases pair after the regions end and have 500 base pairs. We consider the regions strand in both cases.
+The ```flank``` command obtains flanking regions based on the existing regions. First, we generate regions that starts 2500bp before the regions and with the length of 2000bp. After, we generate the regions that starts 1500 bases pair after the regions end and have 500 base pairs. We consider the regions strand in both cases.
 
-The merge_queries command merges the region sets defined by the query IDs. We merge the two flanking regions sets with the genes' regions set.
+The ```merge_queries``` command merges the region sets defined by the query IDs. We merge the two flanking regions sets with the genes' regions set.
 
-We use the get_regions with the query_id that is returned by the merge_queries.
-
+We use the ```get_regions``` with the ```query_id``` that is returned by the ```merge_queries```.
+  
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 # Select the RP11-34P13 gene locations from gencode v23
 q_genes = deepblue.select_genes(genes_name=c("RNU6-1100P", "CICP7", "MRPL20", "ANKRD65", "HES2", "ACOT7", "HES3", "ICMT"), gene_set="gencode v19")
@@ -433,17 +403,17 @@ regions
 ```
 
 ### Calculated columns
-We use the get_regions command with the query_id value returned by the select_experiments and the desired file columns.
+We use the ```get_regions``` command with the ```query_id``` value returned by the ```select_experiments``` and the desired file columns.
 
-We use the select_annotations command to select the genomic regions, from position 0 to 50,000,000 in the chromosome 1 of the annotation CpG Islands of the genome assembly GRCh38.
+We use the ```select_annotations``` command to select the genomic regions, from position 0 to 50,000,000 in the chromosome 1 of the annotation CpG Islands of the genome assembly GRCh38.
 
-The command aggregate aggregates the query_id regions by their column named VALUE, using the cpg_islands regions as boundaries.
+The command ```aggregate``` aggregates the ```query_id``` regions by their column named VALUE, using the ```cpg_islands``` regions as boundaries.
 
-We select the aggregated regions that aggregated at least one region from the selected experiments (@AGG.COUNT > 0).
+We select the ```aggregated``` regions that aggregated at least one region from the selected experiments (@AGG.COUNT > 0).
 
 The aggregation values can be accessed through the @AGG meta-columns.
 
-We use the get_regions with the query_id value returned by the select_experiments and the desired file columns. We use the @CALCULATED meta-column to transform the aggregate region @AGG.MEAN value to its log scale value.
+We use the ```get_regions``` with the ```query_id``` value returned by the ```select_experiments``` and the desired file columns. We use the @CALCULATED meta-column to transform the aggregate region @AGG.MEAN value to its log scale value.
 
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
@@ -467,23 +437,20 @@ filtered = deepblue.filter_regions(query_id=overlapped, field="@AGG.COUNT", oper
 request_id = deepblue.get_regions(query_id=filtered, output_format="CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
 
 regions = deepblue.download_request_data(request_id=request_id)
-regions
+head(regions, 1)
 ```
 
 ### Score matrix
-The experiments list contains the names of the experiments fow which we want to build a score matrix.
+The list ```experiments``` contains the names of the experiments fow which we want to build a score matrix.
 
 We will build the score matrix using the column named VALUE.
 
 We select the CpG islands, which will be used as aggregated regions boundaries.
 
-The score_matrix command receives the dictionary with the experiments names and columns that will be used for aggregation, the regions' boundaries, and the operation that will be performed (min, max, mean, var, sd, median, count).
+The ```score_matrix``` command receives the dictionary with the experiments names and columns that will be used for aggregation, the regions' boundaries, and the operation that will be performed (min, max, mean, var, sd, median, count).
 
-The score_matrix command is asynchronous. It means that the user receives a request_id and should use the info command to check the status of this request.
+The ```score_matrix``` command is asynchronous. It means that the user receives a ```request_id``` and should check the status of this request. The specific DeepBlue-R package command ```download_request_data``` wait for the processing finishes in the server, download the data, and convert to a GRanges object.
 
-The processing is over when the request_status value is done or failed.
-
-The request data is retrieved using the get_request_data command.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 experiments = c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "C003N351.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "C005VG51.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S002R551.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "NBC_NC11_41.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "bmPCs-V156.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S00BS451.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S00D1DA1.CPG_methylation_calls.bs_call.GRCh38.20150707.wig", "S00D39A1.CPG_methylation_calls.bs_call.GRCh38.20150707.wig")
@@ -498,5 +465,5 @@ cpgs = deepblue.select_annotations(annotation_name="Cpg Islands", chromosome="ch
 request_id = deepblue.score_matrix(experiments_columns=experiments_columns, aggregation_function="mean", aggregation_regions_id=cpgs)
 
 score_matrix = deepblue.download_request_data(request_id=request_id)
-head(score_matrix)
+head(score_matrix, 5)
 ```
