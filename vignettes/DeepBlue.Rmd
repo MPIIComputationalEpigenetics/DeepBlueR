@@ -1,4 +1,4 @@
-http://veja.abril.com.br/noticia/brasil/bolsonaro-defende-torturador-e-jean-willys-cospe-nele---
+---
 title: "DeepBlue epigenomic data server - R package"
 author: "Felipe Albrecht"
 date: "`r Sys.Date()`"
@@ -432,10 +432,17 @@ overlapped = deepblue.aggregate (data_id=query_id, ranges_id=cpg_islands, column
 # Select the aggregated regions that aggregated at least one region from the selected experiments (@AGG.COUNT > 0)
 filtered = deepblue.filter_regions(query_id=overlapped, field="@AGG.COUNT", operation=">", value="0", type="number")
 
+# We remove all regions where the aggregation mean is zero.
+filtered_zeros = deepblue.filter_regions(query_id=filtered, field="@AGG.MEAN", operation="!=", value="0.0", type="number")
+
 # Retrieve the experiments data (The @NAME meta-column is used to include the experiment name and @BIOSOURCE for experiment's biosource
-request_id = deepblue.get_regions(query_id=filtered, output_format="CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
+request_id = deepblue.get_regions(query_id=filtered_zeros, output_format="CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
 
 regions = deepblue.download_request_data(request_id=request_id)
+
+# We have to perform a manual conversion because the package can't know the type for calculated columns
+regions$`@CALCULATED(return math.log(value_of('@AGG.MEAN')))` =  as.numeric(regions$`@CALCULATED(return math.log(value_of('@AGG.MEAN')))`)
+
 head(regions, 5)
 ```
 
@@ -446,7 +453,7 @@ library(Gviz)
 atrack <- AnnotationTrack(regions, name = "CpGs", group = regions$`@BIOSOURCE`, genome="hg38")
 gtrack <- GenomeAxisTrack()
 itrack <- IdeogramTrack(genome = "hg38", chromosome = "chr1")
-dtrack <- DataTrack(regions, "@CALCULATED(return math.log(value_of('@AGG.MEAN')))", name = "Log of average methylation value")
+dtrack <- DataTrack(regions, data="@AGG.MEAN", name = "Log of average methylation value")
 plotTracks(list(itrack, atrack, dtrack, gtrack), type="histogram", fontsize=18,
            background.panel = "#FFFEDB", background.title = "darkblue")
 ```
