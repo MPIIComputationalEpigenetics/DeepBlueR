@@ -12,7 +12,8 @@ Depends: R (>= 3.1.0),
     data.table,
     stringr,
     XML,
-    RCurl
+    RCurl,
+    dplyr
 Collate:
     class_DeepBlueCommand.R
 	deepblue.R

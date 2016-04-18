@@ -127,8 +127,8 @@ deepblue.convert_to_grange = function (df = NULL)
 {
     if("GTF_ATTRIBUTES" %in% colnames(df)){
         gtf_attributes <- deepblue.parse_gtf(df$GTF_ATTRIBUTES)
-        df <- df$GTF_ATTRIBUTES <- NULL
-        df <- cbind(df, gtf_attributes)
+        df$GTF_ATTRIBUTES <- NULL
+        df <- dplyr::bind_cols(df, gtf_attributes)
     }
     region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
                                          seqnames.field = 'CHROMOSOME', start.field = 'START',
@@ -164,10 +164,9 @@ col_dict = deepblue.column_types()
 
 #' @description Parse the GTF semicolon separated attributes into a data frame
 #' @title deepblue.parse_gtf
-#' @importFrom plyr rbind.fill
+#' @importFrom dplyr bind_rows
 deepblue.parse_gtf <- function(all_gtf){
-    
-    do.call(plyr::rbind.fill, lapply(as.list(all_gtf), function(gtf){
+    parsed_results <- lapply(as.list(all_gtf), function(gtf){
         gtf_no_quotes <- str_replace_all(gtf, "\"", "")
         split_gtf <- lapply(str_split(gtf_no_quotes, "; "), function(x){
                 str_split(x, " ")
@@ -175,6 +174,8 @@ deepblue.parse_gtf <- function(all_gtf){
         attr.names <- unlist(lapply(split_gtf[[1]], function(x) { x[[1]] }))
         attr.values <- lapply(split_gtf[[1]], function(x) { x[[2]] })
         names(attr.values) <- attr.names
-        return(data.frame(attr.values))
-    }))
+        return(attr.values)
+    })
+    
+    return(dplyr::bind_rows(parsed_results))
 }

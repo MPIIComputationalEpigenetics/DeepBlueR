@@ -1,4 +1,4 @@
----
+http://veja.abril.com.br/noticia/brasil/bolsonaro-defende-torturador-e-jean-willys-cospe-nele---
 title: "DeepBlue epigenomic data server - R package"
 author: "Felipe Albrecht"
 date: "`r Sys.Date()`"
@@ -236,9 +236,8 @@ library(Gviz)
 atrack <- AnnotationTrack(regions, name = "Overlapping regions", group = regions$`@BIOSOURCE`, genome="hg38")
 gtrack <- GenomeAxisTrack()
 itrack <- IdeogramTrack(genome = "hg38", chromosome = "chr1")
-data(geneModels)
-grtrack <- GeneRegionTrack(geneModels, genome = "hg38", chromosome = "chr1", name = "Gene Model")
-plotTracks(list(itrack, atrack, grtrack,gtrack), groupAnnotation="group")
+plotTracks(list(itrack, atrack, gtrack), groupAnnotation="group", fontsize=18,
+           background.panel = "#FFFEDB", background.title = "darkblue")
 ```
 
 
@@ -287,7 +286,7 @@ query_id = deepblue.select_experiments (experiment_name= c("BL-2_c01.ERX297416.H
 overlapped = deepblue.intersection(query_a_id=query_id, query_b_id=tataa_regions)
 request_id=deepblue.get_regions(overlapped, "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
 regions = deepblue.download_request_data(request_id=request_id)
-regions
+head(regions, 5)
 ```
 
 ### Genes
@@ -378,7 +377,7 @@ The ```flank``` command obtains flanking regions based on the existing regions. 
 The ```merge_queries``` command merges the region sets defined by the query IDs. We merge the two flanking regions sets with the genes' regions set.
 
 We use the ```get_regions``` with the ```query_id``` that is returned by the ```merge_queries```.
-  
+
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 # Select the RP11-34P13 gene locations from gencode v23
 q_genes = deepblue.select_genes(genes_name=c("RNU6-1100P", "CICP7", "MRPL20", "ANKRD65", "HES2", "ACOT7", "HES3", "ICMT"), gene_set="gencode v19")
@@ -437,8 +436,21 @@ filtered = deepblue.filter_regions(query_id=overlapped, field="@AGG.COUNT", oper
 request_id = deepblue.get_regions(query_id=filtered, output_format="CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
 
 regions = deepblue.download_request_data(request_id=request_id)
-head(regions, 1)
+head(regions, 5)
 ```
+
+Any numerical values returned by DeepBlue can also be conveniently displayed using, for example, the DataTrack feature of the GViz bioconductor package as shown here:
+
+```{r}
+library(Gviz)
+atrack <- AnnotationTrack(regions, name = "CpGs", group = regions$`@BIOSOURCE`, genome="hg38")
+gtrack <- GenomeAxisTrack()
+itrack <- IdeogramTrack(genome = "hg38", chromosome = "chr1")
+dtrack <- DataTrack(regions, "@CALCULATED(return math.log(value_of('@AGG.MEAN')))", name = "Log of average methylation value")
+plotTracks(list(itrack, atrack, dtrack, gtrack), type="histogram", fontsize=18,
+           background.panel = "#FFFEDB", background.title = "darkblue")
+```
+
 
 ### Score matrix
 The list ```experiments``` contains the names of the experiments fow which we want to build a score matrix.
