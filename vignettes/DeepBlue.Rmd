@@ -255,7 +255,8 @@ gtrack <- GenomeAxisTrack()
 itrack <- IdeogramTrack(genome = "hg38", chromosome = "chr1")
 data(geneModels)
 grtrack <- GeneRegionTrack(geneModels, genome = "hg38", chromosome = "chr1", name = "Gene Model")
-plotTracks(list(itrack, atrack, grtrack,gtrack), groupAnnotation="group")
+plotTracks(list(itrack, atrack, grtrack,gtrack), groupAnnotation="group", fontsize=18, 
+           background.panel = "#FFFEDB", background.title = "darkblue")
 ```
 
 
@@ -468,7 +469,21 @@ request_id = deepblue.get_regions(query_id=filtered, output_format="CHROMOSOME,S
 
 regions = deepblue.download_request_data(request_id=request_id)
 regions
+
 ```
+
+Any numerical values returned by DeepBlue can also be conveniently displayed using, for example, the DataTrack feature of the GViz bioconductor package as shown here:
+
+```{r}
+library(Gviz)
+atrack <- AnnotationTrack(regions, name = "CpGs", group = regions$`@BIOSOURCE`, genome="hg38")
+gtrack <- GenomeAxisTrack()
+itrack <- IdeogramTrack(genome = "hg38", chromosome = "chr1")
+dtrack <- DataTrack(regions, "@CALCULATED(return math.log(value_of('@AGG.MEAN')))", name = "Log of average methylation value")
+plotTracks(list(itrack, atrack, dtrack, gtrack), type="histogram", fontsize=18, 
+           background.panel = "#FFFEDB", background.title = "darkblue")
+```
+
 
 ### Score matrix
 The experiments list contains the names of the experiments fow which we want to build a score matrix.
