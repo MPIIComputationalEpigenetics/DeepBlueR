@@ -14,19 +14,15 @@ vignette: >
 
 # Introduction
 
-DeepBlue Epigenomic Data Server is a tool that allows researchers to access epigenomic data from different consortia.
-DeepBlue provides extensive documentation: [API Reference](http://deepblue.mpi-inf.mpg.de/api.php), [examples](http://deepblue.mpi-inf.mpg.de/examples.php), [use cases](http://deepblue.mpi-inf.mpg.de/use_cases.php), and a [complete users' manual](http://deepblue.mpi-inf.mpg.de/manual). With exception of the API listing, that is language agnostic, the others documentation focus on the python language. This document will present how to access DeepBlue by its R package.
+DeepBlue Epigenomic Data Server is a tool that allows researchers to access data from various epigenomic mapping consortia such as DEEP, BLUEPRINT or ROADMAP.
+DeepBlue can be accessed through a [web interface](http://deepblue.mpi-inf.mpg.de) or programmatically via its [API](http://deepblue.mpi-inf.mpg.de/api.php). The usage of the API is documented with [examples](http://deepblue.mpi-inf.mpg.de/examples.php), [use cases](http://deepblue.mpi-inf.mpg.de/use_cases.php), and a [user manual](http://deepblue.mpi-inf.mpg.de/manual). While the description of the API is language agnostic, the examples and use cases shown online are focused on the python language. However, the R package presented here also enables access to the DeepBlue API directly within the R statistical environment and provides convenient functionality for triggering operations on the DeepBlue server as well as for data retrievel using R functions. In the following, we give a brief introduction to the package and subsequently show how python examples from the online documentation can be reproduced with it.
 
-## Why to use DeepBlue ?
-Shortly: DeepBlue simplifies the task of obtaining the right epigenomic data for your analysis.
-
-DeepBlue imports and organized the epigenome data from different epigenome mapping consortia in an standardized metadata.
-An experiment is the most important entity in DeepBlue. An experiment is a file (usually a bed or wig) with a set of mandatory metadata: name, genome assembly, epigenetic mark, biosource, sample, technique, and project.  For sake of organization, the metadata fields are part of controlled vocabularies and the biosources controlled vocabulary are imported from ontologies (CL, EFO, and UBERON).
-DeepBlue also contains annotations, that are data auxiliary data for epigenomic analysis. For example: CpG Islands, Promoter Regions, and Genes.
-DeepBlue provides commands for operating and retrieving the data. These commands include data listing operations and data retrieval operations: selecting data, filtering, transforming, and downloading the data.
+## What is DeepBlue ?
+A wealth of epigenomic data has been collected over the past decade by large epigenomic mapping consortia. Event though most of these data are publicly available, the task of identifiying, downloading and processing data from various experiments is challenging. Recognizing that these tedious steps need to be tackled programmatically, we developed the DeepBlue epigenomic data server. Epigenome data from the different epigenome mapping consortia are accessible with standardized metadata. An experiment is the most important entity in DeepBlue and typically encompasses a single file (usually a bed or wig file) with a set of mandatory metadata: name, genome assembly, epigenetic mark, biosource, sample, technique, and project. For the sake of organization, all metadata fields are part of controlled vocabularies, some of which are imported from ontologies (CL, EFO, and UBERON, to name a few). DeepBlue also contains annotations, i.e. auxiliary data that is helpful in epigenomic analysis, such as, for example, CpG Islands, promoter regions, and genes.
+DeepBlue provides different types of commands, such as listing and searching commands as well as commands for data retrieval. A typical work-flow for the latter is to select, filter, transform, and finally download the selected data. For a more thorough description of DeepBlue you may find additional material in [DeepBlue's NAR web server issue publication](http://nar.oxfordjournals.org/content/early/2016/04/15/nar.gkw211.full). If you find DeepBlue useful and use it in your project consider citing this paper.
 
 
-Important note:  does not change the imported data. The data available in DeepBlue is exactly the data available by the epigenome mapping consortia.
+Important note: With the exception of data aggregation tasks, DeepBlue does not alter the imported data, i.e. it remains exactly as provided by the epigenome mapping consortia. 
 
 # Getting started
 ## Installation
@@ -40,19 +36,20 @@ library(devtools)
 install_github("MPIIComputationalEpigenetics/DeepBlue-R")
 ```
 
-The package name is ```DeepBlue``` and can be accessible by:
+The package name is ```DeepBlue``` and it can be loaded via:
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
 library(DeepBlue)
 ```
 
-You can test your installation executing.
+You can test your installation by saying hello to the DeepBlue server:
 ```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
 deepblue.info("me")
 ```
 
-## Overview of the DeepBlue commands
+## Overview of DeepBlue commands
 
-DeepBlue provides a comprehensive programmatic interface for finding, selecting, filtering, summarizing and downloading region sets.
+DeepBlue provides a comprehensive programmatic interface for finding, selecting, filtering, summarizing and downloading annotated genomic region sets. Downloaded region sets are stored using the GenomicRanges R package, which allows for downloaded region sets to be further processed, visualized and analyzed with existing R packages such as LOLA or GViz.
+
 A list of all commands available by DeepBlue is provided in its [API page](http://deepblue.mpi-inf.mpg.de/api.php).
 
 For reference, following are listed the most used DeepBlue commands:
@@ -95,7 +92,9 @@ This package provides a set of functions for facilitate the API usage:
 
 # DeepBlue usage examples
 
-One of the first tasks in DeepBlue is listing the data. It can be made in three ways:
+In the following we give a number of increasingly complex examples illustrating what DeepBlue can achieve for you in your epigenomic data analysis work-flow. We go beyond the online description of these examples by showing how the retrieved information can be further used in R.
+
+One of the first tasks in DeepBlue is listing the data. This can be achieved in three ways:
 
 * Using full-text search with the ```search``` command
 * Listing the available data with the ```list_*``` commands
@@ -262,7 +261,7 @@ query_id_filters = deepblue.filter_regions (query_id=query_id_filter_signal, fie
 query_id_filter_length = deepblue.filter_regions (query_id=query_id_filters, field="@LENGTH", operation="<", value="2000", type="number")
 request_id = deepblue.get_regions(query_id=query_id_filter_length, output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
 regions = deepblue.download_request_data(request_id=request_id)
-regions
+head(regions, 1)
 ```
 
 ### DNA pattern matching operations
@@ -448,7 +447,7 @@ head(regions, 5)
 
 Any numerical values returned by DeepBlue can also be conveniently displayed using, for example, the DataTrack feature of the GViz bioconductor package as shown here:
 
-```{r}
+```{r, warning=FALSE, error=FALSE}
 library(Gviz)
 atrack <- AnnotationTrack(regions, name = "CpGs", group = regions$`@BIOSOURCE`, genome="hg38")
 gtrack <- GenomeAxisTrack()
