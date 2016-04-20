@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.7.0
+# For DeepBlue version 1.7.3
 
 # We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
 #' @title deepblue URL
@@ -2896,12 +2896,15 @@ deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' @description Selects genes as regions.
 #' @family Operations on gene sets and genes identifiers
 #' 
-#' @param genes_name - A string or a vector of string (genes(s) (ENSB ID or ENSB name))
+#' @param genes_name - A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)
 #' @param gene_set - A string (gene set name)
+#' @param chromosome - A string or a vector of string (chromosome name(s))
+#' @param start - A int (minimum start region)
+#' @param end - A int (maximum end region)
 #' @param user_key - A string (users token key)
 #'
 #' @return id - A string (query id)
-deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, user_key=deepblue.USER_KEY) {
+deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
   
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
@@ -2915,7 +2918,7 @@ deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, user_key=dee
         }
   }
   
-  value <- xml.rpc(deepblue.URL, 'select_genes', genes_name, gene_set, user_key)
+  value <- xml.rpc(deepblue.URL, 'select_genes', genes_name, gene_set, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])

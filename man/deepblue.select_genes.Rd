@@ -5,12 +5,19 @@
 \title{select_genes}
 \usage{
 deepblue.select_genes(genes_name = NULL, gene_set = NULL,
+  chromosome = NULL, start = NULL, end = NULL,
   user_key = deepblue.USER_KEY)
 }
 \arguments{
-\item{genes_name}{- A string or a vector of string (genes(s) (ENSB ID or ENSB name))}
+\item{genes_name}{- A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)}
 
 \item{gene_set}{- A string (gene set name)}
+
+\item{chromosome}{- A string or a vector of string (chromosome name(s))}
+
+\item{start}{- A int (minimum start region)}
+
+\item{end}{- A int (maximum end region)}
 
 \item{user_key}{- A string (users token key)}
 }
