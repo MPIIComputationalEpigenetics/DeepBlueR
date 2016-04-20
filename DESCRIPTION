@@ -26,5 +26,6 @@ Suggests: knitr,
     rmarkdown,
     LOLA,
     Gviz,
-    ggplot2
+    ggplot2,
+    tidyr
 VignetteBuilder: knitr

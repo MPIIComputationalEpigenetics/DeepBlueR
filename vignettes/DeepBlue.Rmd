@@ -8,7 +8,7 @@ output:
     number_of_sections: true
 vignette: >
   %\VignetteIndexEntry{The DeepBlue epigenomic data server - R package}
-  %\VignetteDepends{DeepBlue,ggplot2,Gviz} 
+  %\VignetteDepends{DeepBlue,ggplot2,Gviz,tidyr} 
   %\VignettePackage{DeepBlue} 
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
@@ -28,14 +28,12 @@ Important note: With the exception of data aggregation tasks, DeepBlue does not 
 
 # Getting started
 ## Installation
-For installing DeepBlue R package, simply execute:
 
-Automatic installation of DeepBlue-R and its companion data packages can be performed using the devtools package. All you have to do is to execute the
+Automatic installation of DeepBlue-R and its companion packages can be performed using the devtools package. All you have to do is to execute the
 following command in your R environment:
 
 ```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
-library(devtools)
-install_github("MPIIComputationalEpigenetics/DeepBlue-R")
+devtools::install_github("MPIIComputationalEpigenetics/DeepBlue-R", build_vignettes=TRUE)
 ```
 
 The package name is ```DeepBlue``` and it can be loaded via:
@@ -487,3 +485,13 @@ request_id = deepblue.score_matrix(experiments_columns=experiments_columns, aggr
 score_matrix = deepblue.download_request_data(request_id=request_id)
 head(score_matrix, 5)
 ```
+
+```{r, warning=FALSE, echo=FALSE, error=FALSE}
+library(ggplot2)
+score_matrix = tidyr::gather(score_matrix, "experiment", "methylation", -CHROMOSOME, -START, -END)
+score_matrix$START <- as.factor(score_matrix$START)
+ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) + 
+    geom_tile() + 
+    theme(axis.text.x=element_text(angle=-90))
+```
+
