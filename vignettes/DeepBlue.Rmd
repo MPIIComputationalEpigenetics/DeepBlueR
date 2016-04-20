@@ -1,5 +1,5 @@
 ---
-title: "DeepBlue epigenomic data server - R package"
+title: "The DeepBlue epigenomic data server - R package"
 author: "Felipe Albrecht"
 date: "`r Sys.Date()`"
 output:
@@ -7,14 +7,16 @@ output:
     toc: true
     number_of_sections: true
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{The DeepBlue epigenomic data server - R package}
+  %\VignetteDepends{DeepBlue,ggplot2,Gviz} 
+  %\VignettePackage{DeepBlue} 
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction
 
-DeepBlue Epigenomic Data Server is a tool that allows researchers to access data from various epigenomic mapping consortia such as DEEP, BLUEPRINT or ROADMAP.
+The DeepBlue Epigenomic Data Server is a tool that allows researchers to access data from various epigenomic mapping consortia such as DEEP, BLUEPRINT or ROADMAP.
 DeepBlue can be accessed through a [web interface](http://deepblue.mpi-inf.mpg.de) or programmatically via its [API](http://deepblue.mpi-inf.mpg.de/api.php). The usage of the API is documented with [examples](http://deepblue.mpi-inf.mpg.de/examples.php), [use cases](http://deepblue.mpi-inf.mpg.de/use_cases.php), and a [user manual](http://deepblue.mpi-inf.mpg.de/manual). While the description of the API is language agnostic, the examples and use cases shown online are focused on the python language. However, the R package presented here also enables access to the DeepBlue API directly within the R statistical environment and provides convenient functionality for triggering operations on the DeepBlue server as well as for data retrievel using R functions. In the following, we give a brief introduction to the package and subsequently show how python examples from the online documentation can be reproduced with it.
 
 ## What is DeepBlue ?
