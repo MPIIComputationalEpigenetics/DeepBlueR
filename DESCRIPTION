@@ -25,5 +25,7 @@ RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown,
     LOLA,
-    Gviz
+    Gviz,
+    ggplot2,
+    tidyr
 VignetteBuilder: knitr
