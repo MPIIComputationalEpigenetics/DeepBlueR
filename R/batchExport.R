@@ -4,7 +4,7 @@
 #'@param requests A list of request objects
 #'@param target.directory Where the results should be saved
 #'@param user_key A string used to authenticate the user
-deepblue.batch_export_results <- function(requests, target.directory=NULL, suffix="_result", prefix="DeepBlue", sleep.time = 1, user_key = deepblue.USER_KEY){
+deepblue.batch_export_results <- function(requests, target.directory=NULL, suffix="result", prefix="DeepBlue", sleep.time = 1, user_key = deepblue.USER_KEY){
     #to store results
     all.results <- list()
     if(is.na(requests) || is.null(requests)) stop("A list of request_info objects or request identifiers is needed.")
@@ -28,12 +28,15 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
     #keep track of which instances were already downloaded
     need.saving <- rep(TRUE, length(requests))
 
+    #count errors
+    errors <- 0
+    error_commands <- list()
+    
     #while any request is not saved
     while(any(need.saving)){
         anything.done <- FALSE
         #go through unsaved requests
         for(request in which(need.saving)){
-            anything.done <- TRUE
             request_id <- requests[[request]]
 
             #update info
@@ -42,22 +45,30 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
             if(request_info$state == "done" && need.saving[request])
             {
                 #download data
-                message(paste("Downloading results for id", request_id))
+                message(paste("Downloading results for id", request_id@query_id))
+                result <- deepblue.download_request_data(request_id)
+                all.results[[request_id@query_id]] <- result
+                
                 if(!is.null(target.directory)){
                     #save to disk
                     dir.create(target.directory, showWarnings=FALSE, recursive = TRUE)
-                    result <- get_request_data(request_info = request_info, type="string", user_key = user_key)
-                    write(result, file = file.path(target.directory, paste(paste(prefix, request_id, suffix, sep="_"), ".txt", sep="")))
-                } else {
-                    #keep in memory
-                    result <- get_request_data(request_info = request_info, type="grange", user_key = user_key)
-                    all.results[[request_id]] <- result
-                }
-
+                    result <- GenomicRanges::as.data.frame(result)
+                    write.table(result, sep = "\t", row.names = FALSE, quote=FALSE, file = file.path(target.directory, paste(paste(prefix, request_id@query_id, suffix, sep="_"), ".txt", sep="")))
+                } 
+                anything.done <- TRUE
                 need.saving[request] <- FALSE
             }
+            else if(request_info$state %in% c("failed", "error") && need.saving[request]){
+                need.saving[request] <- FALSE
+                error_commands[[request_id@query_id]] <- request_id
+                errors <- errors + 1
+            }
         }
+        
         if(!anything.done) Sys.sleep(sleep.time) #give DeepBlue some time to make progress
     }
+    attr(all.results, "errors") <- error_commands
+    message(paste("Processing of", length(requests), "requests completed with", errors, "errors"))
+    if(!is.null(target.directory)) message(paste("All result files saved to directory", target.directory))
     return(all.results)
 }
