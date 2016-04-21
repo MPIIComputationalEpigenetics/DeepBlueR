@@ -5,7 +5,7 @@
 \title{batch_export_results}
 \usage{
 deepblue.batch_export_results(requests, target.directory = NULL,
-  suffix = "_result", prefix = "DeepBlue", sleep.time = 1,
+  suffix = "result", prefix = "DeepBlue", sleep.time = 1,
   user_key = deepblue.USER_KEY)
 }
 \arguments{

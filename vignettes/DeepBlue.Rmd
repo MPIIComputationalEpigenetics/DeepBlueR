@@ -486,7 +486,7 @@ score_matrix = deepblue.download_request_data(request_id=request_id)
 head(score_matrix, 5)
 ```
 
-```{r, warning=FALSE, echo=FALSE, error=FALSE}
+```{r, warning=FALSE, echo=TRUE, error=FALSE}
 library(ggplot2)
 score_matrix = tidyr::gather(score_matrix, "experiment", "methylation", -CHROMOSOME, -START, -END)
 score_matrix$START <- as.factor(score_matrix$START)
