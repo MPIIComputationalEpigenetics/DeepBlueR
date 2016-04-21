@@ -64,14 +64,18 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
                temp_download <- tempfile()
                download.file(url, temp_download, mode="wb")
                handle <-  bzfile(temp_download)
-               paste(readLines(handle), collapse="\n")
+               result <- paste(readLines(handle), collapse="\n")
+               close(handle)
+               return(result)
            },              
            "score_matrix" = {
                url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
                temp_download <- tempfile()
                download.file(url, temp_download, mode="wb")
                handle <-  bzfile(temp_download)
-               paste(readLines(handle), collapse="\n")
+               result <- paste(readLines(handle), collapse="\n")
+               close(handle)
+               return(result)
            }, 
            stop(paste("Unknow command", command)))
 }
