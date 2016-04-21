@@ -52,33 +52,33 @@ DeepBlue provides a comprehensive programmatic interface for finding, selecting,
 
 A list of all commands available by DeepBlue is provided in its [API page](http://deepblue.mpi-inf.mpg.de/api.php).
 
-For reference, following are listed the most used DeepBlue commands:
+For reference, following are listed the most used DeepBlue commands. Note that each command has the prefix 'deepblue.*', e.g. deepblue.select_genes.
 
 | Category        | Command               | Description                           |
 |-----------------|-----------------------|---------------------------------------|
 | Information     | info                  | Obtain information about an entity    |
-| List and search | list genomes          | List all registered genomes           |
-|                 | list biosources       | List all registered biosources        |
-|                 | list samples          | List all registered samples           |
-|                 | list epigenetic marks | List all registered epigenetic marks  |
-|                 | list experiments      | List all available experiments        |
-|                 | list annotations      | List all available annotations        |
+| List and search | list_genomes          | List all registered genomes           |
+|                 | list_biosources       | List all registered biosources        |
+|                 | list_samples          | List all registered samples           |
+|                 | list_epigenetic marks | List all registered epigenetic marks  |
+|                 | list_experiments      | List all available experiments        |
+|                 | list_annotations      | List all available annotations        |
 |                 | search                | Perform a full-text search            |
-| Selection       | select regions        | Select regions from experiments       |
-|                 | select experiments    | Select regions from experiments       |
-|                 | select annotations    | Select regions from annotations       |
-|                 | select genes          | Select genes as regions               |
-|                 | tiling regions        | Generate tiling regions               |
-|                 | input regions         | Upload and use a small region-set     |
+| Selection       | select_regions        | Select regions from experiments       |
+|                 | select_experiments    | Select regions from experiments       |
+|                 | select_annotations    | Select regions from annotations       |
+|                 | select_genes          | Select genes as regions               |
+|                 | tiling_regions        | Generate tiling regions               |
+|                 | input_regions         | Upload and use a small region-set     |
 | Operation       | aggregate             | Aggregate and summarize regions       |
-|                 | filter regions        | Filter regions using their attributes |
+|                 | filter_regions        | Filter regions using their attributes |
 |                 | flank                 | Generate flanking regions             |
 |                 | intersection          | Filter overlapping regions            |
-|                 | merge queries         | Merge two regions set                 |
-| Result          | count regions         | Count selected regions                |
-|                 | score matrix          | Request a score matrix                |
-|                 | get regions           | Request the selected regions          |
-| Request         | get request data      | Obtain the requested data             |
+|                 | merge_queries         | Merge two regions set                 |
+| Result          | count_regions         | Count selected regions                |
+|                 | score_matrix          | Request a score matrix                |
+|                 | get_regions           | Request the selected regions          |
+| Request         | get_request data      | Obtain the requested data             |
 
 
 This package provides a set of functions for facilitate the API usage:

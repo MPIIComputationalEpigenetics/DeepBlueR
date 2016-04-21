@@ -43,4 +43,8 @@ requests = lapply(hsc_experiment_names, function (hsc_experiment) {
       output_format = "CHROMOSOME,START,END,@AGG.MEAN,@AGG.MAX,@AGG.MIN")
 })
 
-deepblue.batch_export_results(requests, target.directory="data/hsc_aggregation", suffix="_result", prefix="DeepBlue")
+#download the results and save them to disk
+results <- deepblue.batch_export_results(requests, target.directory="data/hsc_aggregation")
+
+#look at first three results
+head(results, 3)
