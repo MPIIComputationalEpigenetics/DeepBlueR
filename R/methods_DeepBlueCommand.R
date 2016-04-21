@@ -39,5 +39,10 @@ setMethod("deepblue.download_request_data",
               
               if (request_info$command %in% c("score_matrix", "get_experiments_by_query") || request_info$format == "") return (regions_df)
               
-              else if(request_info$command == "get_regions") return(deepblue.convert_to_grange(df=regions_df))
+              else if(request_info$command == "get_regions"){
+                  if(nrow(regions_df) > 0) 
+                    return(deepblue.convert_to_grange(df=regions_df))  
+                  else 
+                    stop("No regions were returned in this request.")
+              } 
           })
