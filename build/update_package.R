@@ -15,7 +15,7 @@ if(api_update == 0)
 
     #if there are no errors install package
     if(!is.list(check)) {
-        devtools::install(build_vignettes = TRUE) 
+        devtools::install(build_vignettes = TRUE)
     } else {
     	print(check)
     }
