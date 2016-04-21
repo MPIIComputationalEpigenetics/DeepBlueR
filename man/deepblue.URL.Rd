@@ -8,5 +8,8 @@
 \usage{
 deepblue.URL
 }
+\description{
+Location of the DeepBlue XML-RPC server
+}
 \keyword{datasets}
 

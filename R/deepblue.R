@@ -3,10 +3,13 @@
 
 # We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
 #' @title deepblue URL
+#' @description Location of the DeepBlue XML-RPC server
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
+#' @description Default anonymous user key
 deepblue.USER_KEY = "anonymous_key"
 #' @title Verbose
+#' @description Show or hide debugging messages
 deepblue.debug.VERBOSE = FALSE
 
 
@@ -3346,6 +3349,7 @@ deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NUL
 
 
 #' @title xml.rpc
+#' @description perform an XML-RPC call
 xml.rpc =
 function(url, method, ..., .args = list(...),
           .opts = list(),
@@ -3392,6 +3396,9 @@ function(url, method, ..., .args = list(...),
 }
 
 #' @title createBody
+#' @description Create XML-RPC request body document
+#' @param method DeepBlue operation to be executed
+#' @param args Operation arguments
 createBody =
 function(method, args)
 {
@@ -3402,6 +3409,7 @@ function(method, args)
 }
 
 #' @title rpc.serialize
+#' @description Serialize the R data to XML-RPC
 setGeneric("rpc.serialize", function(x, ...) standardGeneric("rpc.serialize"))
 
 setMethod("rpc.serialize", "ANY",
@@ -3413,6 +3421,7 @@ setMethod("rpc.serialize", "ANY",
            })
 
 #' @title rpc.serialize.S4Object
+#' @description Serialize the R data to XML-RPC
 rpc.serialize.S4Object =
 function(x, ...)
 {
@@ -3421,6 +3430,7 @@ function(x, ...)
 }
 
 #' @title basicTypeMap
+#' @description mapping between R types and XML-RPC types.
 basicTypeMap =
   c("integer" = "i4",
     "double" = "double",
@@ -3433,6 +3443,8 @@ basicTypeMap =
     "raw" = "base64")
 
 #' @title cast
+#' @description Cast to integer value if it is a logical
+#' @param x - value to be converted
 cast <- function(x) {
   if (is.logical(x))
     as.integer(x)
@@ -3501,18 +3513,19 @@ setMethod("rpc.serialize", "vector",
 
 
 #' @title FormatStrings
+#' @description Types format
 FormatStrings = c(numeric = "%f", integer = "%d", logical = "%s",
                    i4 = "%d", double = "%f",
                   string = "%s", Date = "%s",  POSIXt = "%s", POSIXct = "%s")
 
 #' @title vectorArray
+#' @description Convert an vector to XML-RPC array.
 vectorArray =
 function(x, type)
 {
   top = newXMLNode("value")
   a = newXMLNode("array", parent = top)
   data = newXMLNode("data", parent = a)
-#  sapply(x, function(x) newXMLNode("value", newXMLNode(type, if(type == "string") newXMLCDataNode(x) else x), parent = data))
 
   tmpl = if(type == "string")  # is.character(x))
             sprintf("<value><%s><![CDATA[%%s]]></%s></value>", type, type)
@@ -3562,6 +3575,9 @@ setMethod("rpc.serialize", "list",
            })
 
 #' @title convertToR
+#' @description Convert XML-RPC nodes to R types
+#' @param node - XML-RPC XML node to be converted to R
+
 setGeneric('convertToR', function(node) standardGeneric('convertToR'))
 
 setMethod('convertToR', 'XMLInternalDocument', function(node)
@@ -3597,6 +3613,7 @@ function(node)
 })
 
 #' @title xmlRPCToR
+#' @description convert the XML-RPC data to R
 xmlRPCToR =
 function(node, ...)
 {
@@ -3627,6 +3644,8 @@ function(node, ...)
 
 }
 #' @title xmlRPCToR.struct
+#' @description convert XML-RPC struct to R data'
+#' @param node - XML-RPC node that contains the struct.
 xmlRPCToR.struct =
 function(node, ...)
 {
@@ -3635,6 +3654,9 @@ function(node, ...)
   ans
 }
 
+#' @title xmlRPCToR.struct
+#' @description convert XML-RPC array to R data'
+#' @param node - XML-RPC node that contains the array.
 xmlRPCToR.array =
 function(node, ...)
 {
@@ -3647,8 +3669,9 @@ function(node, ...)
  return(result)
 }
 
-# Return the function result and check for error message from DeepBlue server.
 #' @title check value
+#' @description return the function result and check for error message from DeepBlue server.
+#' @param input - DeepBlue XML-RPC return to be checked.
 check_value =
 function(input)
 {

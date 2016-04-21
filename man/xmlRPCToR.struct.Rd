@@ -6,4 +6,10 @@
 \usage{
 xmlRPCToR.struct(node, ...)
 }
+\arguments{
+\item{node}{- XML-RPC node that contains the struct.}
+}
+\description{
+convert XML-RPC struct to R data'
+}
 

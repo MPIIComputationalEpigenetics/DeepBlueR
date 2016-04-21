@@ -6,4 +6,7 @@
 \usage{
 deepblue.switch_get_request_data(request_id, user_key = deepblue.USER_KEY)
 }
+\description{
+Download the request
+}
 

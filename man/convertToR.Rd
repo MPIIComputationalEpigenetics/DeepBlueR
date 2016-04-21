@@ -6,4 +6,10 @@
 \usage{
 convertToR(node)
 }
+\arguments{
+\item{node}{- XML-RPC XML node to be converted to R}
+}
+\description{
+Convert XML-RPC nodes to R types
+}
 

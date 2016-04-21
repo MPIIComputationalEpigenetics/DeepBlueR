@@ -6,4 +6,10 @@
 \usage{
 cast(x)
 }
+\arguments{
+\item{x}{- value to be converted}
+}
+\description{
+Cast to integer value if it is a logical
+}
 

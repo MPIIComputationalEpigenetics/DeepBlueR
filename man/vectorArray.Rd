@@ -6,4 +6,7 @@
 \usage{
 vectorArray(x, type)
 }
+\description{
+Convert an vector to XML-RPC array.
+}
 

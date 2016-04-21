@@ -8,5 +8,8 @@
 \usage{
 basicTypeMap
 }
+\description{
+mapping between R types and XML-RPC types.
+}
 \keyword{datasets}
 

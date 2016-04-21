@@ -6,4 +6,7 @@
 \usage{
 xmlRPCToR(node, ...)
 }
+\description{
+convert the XML-RPC data to R
+}
 

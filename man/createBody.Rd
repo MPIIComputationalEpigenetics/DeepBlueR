@@ -6,4 +6,12 @@
 \usage{
 createBody(method, args)
 }
+\arguments{
+\item{method}{DeepBlue operation to be executed}
+
+\item{args}{Operation arguments}
+}
+\description{
+Create XML-RPC request body document
+}
 

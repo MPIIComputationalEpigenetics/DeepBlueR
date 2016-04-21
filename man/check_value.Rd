@@ -6,4 +6,10 @@
 \usage{
 check_value(input)
 }
+\arguments{
+\item{input}{- DeepBlue XML-RPC return to be checked.}
+}
+\description{
+return the function result and check for error message from DeepBlue server.
+}
 

@@ -10,4 +10,7 @@ xml.rpc(url, method, ..., .args = list(...), .opts = list(),
   .curl = getCurlHandle(), useragent = "DeepBlue-R-XMLRPC",
   verbose = deepblue.debug.VERBOSE)
 }
+\description{
+perform an XML-RPC call
+}
 

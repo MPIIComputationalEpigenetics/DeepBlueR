@@ -22,39 +22,41 @@ setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1, user_ke
 #'user key. It depends on outputs from several functions, namely;
 #'deepblue.get_request_data, convert_to_df, and convert_to_grange.
 #'
-#'@param request_info A list
-#'@param user A string
+#'@param request_id - Id of the request that will be downloaded
+#'@param user_key A string
+#'@param type To which type the downloaded data will be converted: 'string', 'df', or 'grange'.
 #'
 #'@return grange_regions Final output in GRanges format
 setGeneric("deepblue.download_request_data", function (request_id, user_key=deepblue.USER_KEY, type="grange")
 {
     request_info = deepblue.wait_request(request_id, user_key=user_key)
-    
+
     if (request_info$state == "done") {
         message("The request was processed successfully.")
     } else {
         stop(request_info$message)
     }
-    
+
     regions_string = deepblue.switch_get_request_data(request_id = request_id, user_key = user_key)
-    
+
     if(request_info$command != "get_regions" || type == "string") return (regions_string)
-    
+
     regions_df = deepblue.convert_to_df(string_to_parse=regions_string, request_info=request_info)
-    
+
     if (type == "df" || request_info[[1]]$format == "") return (regions_df)
     else return(deepblue.convert_to_grange(df=regions_df))
 })
 
 #' @import XML RCurl
 #' @title switch_get_request_data
+#' @description Download the request
 deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_KEY)
 {
     request_info = deepblue.info(request_id, user_key)[[1]]
     if (request_info$state != "done") {
         stop("Processing was not finished. Please, check it status with deepblue.info(request_id)");
     }
-    
+
     command = request_info$command
     switch(command,
            "count_regions" = deepblue.get_request_data(request_id, user_key),
@@ -67,7 +69,7 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
                result <- paste(readLines(handle), collapse="\n")
                close(handle)
                return(result)
-           },              
+           },
            "score_matrix" = {
                url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
                temp_download <- tempfile()
@@ -76,7 +78,7 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
                result <- paste(readLines(handle), collapse="\n")
                close(handle)
                return(result)
-           }, 
+           },
            stop(paste("Unknow command", command)))
 }
 
@@ -85,14 +87,15 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
 #'@importFrom data.table fread
 #'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
 #'@param string_to_parse A string
-#'@param inf A list with request information
+#'@param request_info The request information returned by DeepBlue
+#'@param dict The data structure that contains the DeepBlue columns types
 #'@return regions A data frame
 deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
-    
+
     if(!is.null(request_info$format)){
         #get column names from
         col_names <- str_split(request_info$format, pattern = ",")[[1]]
-        
+
         #get column types from dictionary
         col_types <- sapply(col_names, function(x){
             col_type <- dict[[x]]
@@ -103,12 +106,12 @@ deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
             else if (col_type == 'category') return ('factor')
             else return(col_type)
         })
-        
+
         input <- paste(paste(col_names, collapse="\t"), "\n", string_to_parse, sep="")
     } else{
         col_types <- NULL
         input <- string_to_parse
-    } 
+    }
     #read data frame efficiently from string
     #paste a header in front so that fread accepts colClasses
     fread(input = input,
@@ -151,7 +154,7 @@ deepblue.column_types = function()
         co=cols[[i]][[1]]
         col_ids = c(col_ids,co)
     }
-    
+
     col_names=c()
     col_types = c()
     col_info = deepblue.info(col_ids)
@@ -160,7 +163,7 @@ deepblue.column_types = function()
     {
         dict[[col_info[[i]]$name]] = col_info[[i]]$column_type
     }
-    
+
     return(dict)
 }
 
@@ -180,6 +183,6 @@ deepblue.parse_gtf <- function(all_gtf){
         names(attr.values) <- attr.names
         return(attr.values)
     })
-    
+
     return(dplyr::bind_rows(parsed_results))
 }

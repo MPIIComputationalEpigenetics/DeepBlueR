@@ -9,7 +9,9 @@ deepblue.convert_to_df(string_to_parse, request_info, dict = col_dict)
 \arguments{
 \item{string_to_parse}{A string}
 
-\item{inf}{A list with request information}
+\item{request_info}{The request information returned by DeepBlue}
+
+\item{dict}{The data structure that contains the DeepBlue columns types}
 }
 \value{
 regions A data frame

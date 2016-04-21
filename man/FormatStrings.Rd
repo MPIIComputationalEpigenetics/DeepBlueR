@@ -8,5 +8,8 @@
 \usage{
 FormatStrings
 }
+\description{
+Types format
+}
 \keyword{datasets}
 

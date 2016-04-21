@@ -13,6 +13,12 @@ deepblue.batch_export_results(requests, target.directory = NULL,
 
 \item{target.directory}{Where the results should be saved}
 
+\item{suffix}{File names suffix}
+
+\item{prefix}{File names prefix}
+
+\item{sleep.time}{How long this function will wait after the requests verification}
+
 \item{user_key}{A string used to authenticate the user}
 }
 \description{

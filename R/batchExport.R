@@ -3,6 +3,9 @@
 #'@description Write results from DeepBlue to disk as they become available
 #'@param requests A list of request objects
 #'@param target.directory Where the results should be saved
+#'@param suffix File names suffix
+#'@param prefix File names prefix
+#'@param sleep.time How long this function will wait after the requests verification
 #'@param user_key A string used to authenticate the user
 deepblue.batch_export_results <- function(requests, target.directory=NULL, suffix="result", prefix="DeepBlue", sleep.time = 1, user_key = deepblue.USER_KEY){
     #to store results
@@ -31,7 +34,7 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
     #count errors
     errors <- 0
     error_commands <- list()
-    
+
     #while any request is not saved
     while(any(need.saving)){
         anything.done <- FALSE
@@ -48,13 +51,13 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
                 message(paste("Downloading results for id", request_id@query_id))
                 result <- deepblue.download_request_data(request_id)
                 all.results[[request_id@query_id]] <- result
-                
+
                 if(!is.null(target.directory)){
                     #save to disk
                     dir.create(target.directory, showWarnings=FALSE, recursive = TRUE)
                     result <- GenomicRanges::as.data.frame(result)
                     write.table(result, sep = "\t", row.names = FALSE, quote=FALSE, file = file.path(target.directory, paste(paste(prefix, request_id@query_id, suffix, sep="_"), ".txt", sep="")))
-                } 
+                }
                 anything.done <- TRUE
                 need.saving[request] <- FALSE
             }
@@ -64,7 +67,7 @@ deepblue.batch_export_results <- function(requests, target.directory=NULL, suffi
                 errors <- errors + 1
             }
         }
-        
+
         if(!anything.done) Sys.sleep(sleep.time) #give DeepBlue some time to make progress
     }
     attr(all.results, "errors") <- error_commands

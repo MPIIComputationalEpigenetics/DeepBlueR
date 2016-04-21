@@ -8,5 +8,8 @@
 \usage{
 deepblue.debug.VERBOSE
 }
+\description{
+Show or hide debugging messages
+}
 \keyword{datasets}
 

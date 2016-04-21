@@ -6,4 +6,7 @@
 \usage{
 rpc.serialize.S4Object(x, ...)
 }
+\description{
+Serialize the R data to XML-RPC
+}
 
