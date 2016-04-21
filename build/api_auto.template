@@ -5,7 +5,7 @@
 #' @title deepblue URL
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
-deepblue.USER_KEY = "anonymous_r_user"
+deepblue.USER_KEY = "anonymous_key"
 #' @title Verbose
 deepblue.debug.VERBOSE = FALSE
 

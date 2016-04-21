@@ -5,7 +5,7 @@
 #' @title deepblue URL
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
-deepblue.USER_KEY = "anonymous_r_user"
+deepblue.USER_KEY = "anonymous_key"
 #' @title Verbose
 deepblue.debug.VERBOSE = FALSE
 
@@ -28,7 +28,7 @@ deepblue.debug.VERBOSE = FALSE
 #'
 #' @return id - A string (id of the newly inserted annotation)
 deepblue.add_annotation <- function(name= NULL, genome= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -40,19 +40,21 @@ deepblue.add_annotation <- function(name= NULL, genome= NULL, description= NULL,
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_annotation', name, genome, description, data, format, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -71,7 +73,7 @@ deepblue.add_annotation <- function(name= NULL, genome= NULL, description= NULL,
 #'
 #' @return id - A string (id of the newly inserted biosource)
 deepblue.add_biosource <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -83,19 +85,21 @@ deepblue.add_biosource <- function(name= NULL, description= NULL, extra_metadata
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_biosource', name, description, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -114,7 +118,7 @@ deepblue.add_biosource <- function(name= NULL, description= NULL, extra_metadata
 #'
 #' @return id - A string (id of the newly inserted epigenetic mark)
 deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -126,19 +130,21 @@ deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_me
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_epigenetic_mark', name, description, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -164,7 +170,7 @@ deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_me
 #'
 #' @return id - A string (id of the newly inserted experiment)
 deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -176,19 +182,21 @@ deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= N
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_experiment', name, genome, epigenetic_mark, sample, technique, project, description, data, format, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -209,7 +217,7 @@ deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= N
 #'
 #' @return id - A string (id of the newly inserted annotation)
 deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -221,19 +229,21 @@ deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, for
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_gene_set', name, description, data, format, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -252,7 +262,7 @@ deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, for
 #'
 #' @return id - A string (id of the newly inserted genome)
 deepblue.add_genome <- function(name= NULL, description= NULL, data= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -264,19 +274,21 @@ deepblue.add_genome <- function(name= NULL, description= NULL, data= NULL, user_
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_genome', name, description, data, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -294,7 +306,7 @@ deepblue.add_genome <- function(name= NULL, description= NULL, data= NULL, user_
 #'
 #' @return id - A string (id of the newly inserted project)
 deepblue.add_project <- function(name= NULL, description= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -306,19 +318,21 @@ deepblue.add_project <- function(name= NULL, description= NULL, user_key=deepblu
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_project', name, description, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -336,7 +350,7 @@ deepblue.add_project <- function(name= NULL, description= NULL, user_key=deepblu
 #'
 #' @return id - A string (id of the newly inserted sample)
 deepblue.add_sample <- function(biosource_name= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -348,19 +362,21 @@ deepblue.add_sample <- function(biosource_name= NULL, extra_metadata=NULL, user_
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_sample', biosource_name, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -378,7 +394,7 @@ deepblue.add_sample <- function(biosource_name= NULL, extra_metadata=NULL, user_
 #'
 #' @return id - A string (id of the newly inserted sample)
 deepblue.add_sample_from_gsm <- function(name= NULL, gsm_id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -390,19 +406,21 @@ deepblue.add_sample_from_gsm <- function(name= NULL, gsm_id= NULL, user_key=deep
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_sample_from_gsm', name, gsm_id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -421,7 +439,7 @@ deepblue.add_sample_from_gsm <- function(name= NULL, gsm_id= NULL, user_key=deep
 #'
 #' @return id - A string (id of the newly inserted technique)
 deepblue.add_technique <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -433,19 +451,21 @@ deepblue.add_technique <- function(name= NULL, description= NULL, extra_metadata
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_technique', name, description, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -464,7 +484,7 @@ deepblue.add_technique <- function(name= NULL, description= NULL, extra_metadata
 #'
 #' @return user_id - A string (id of the user)
 deepblue.add_user_to_project <- function(user= NULL, project= NULL, set= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -476,19 +496,21 @@ deepblue.add_user_to_project <- function(user= NULL, project= NULL, set= NULL, u
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'add_user_to_project', user, project, set, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -507,7 +529,7 @@ deepblue.add_user_to_project <- function(user= NULL, project= NULL, set= NULL, u
 #'
 #' @return regions - A string (query id of this aggregation operation)
 deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -519,19 +541,21 @@ deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'aggregate', data_id, ranges_id, column, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -548,7 +572,7 @@ deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
 #'
 #' @return id - A string (ID of the canceled request)
 deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -560,19 +584,21 @@ deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'cancel_request', id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -591,7 +617,7 @@ deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #'
 #' @return id - A string (id of the modified data)
 deepblue.change_extra_metadata <- function(id= NULL, extra_metadata_key= NULL, extra_metadata_value= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -603,19 +629,21 @@ deepblue.change_extra_metadata <- function(id= NULL, extra_metadata_key= NULL, e
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'change_extra_metadata', id, extra_metadata_key, extra_metadata_value, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -632,7 +660,7 @@ deepblue.change_extra_metadata <- function(id= NULL, extra_metadata_key= NULL, e
 #'
 #' @return chromosomes - A array (A list containing all chromosomes, with theirs names and sizes)
 deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -644,19 +672,21 @@ deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'chromosomes', genome, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -681,7 +711,7 @@ deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
 #'
 #' @return id - A string (id of the new dataset)
 deepblue.clone_dataset <- function(dataset_id= NULL, new_name= NULL, new_epigenetic_mark= NULL, new_sample= NULL, new_technique= NULL, new_project= NULL, description= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -693,19 +723,21 @@ deepblue.clone_dataset <- function(dataset_id= NULL, new_name= NULL, new_epigene
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'clone_dataset', dataset_id, new_name, new_epigenetic_mark, new_sample, new_technique, new_project, description, format, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -720,7 +752,7 @@ deepblue.clone_dataset <- function(dataset_id= NULL, new_name= NULL, new_epigene
 #'
 #' @return commands - A struct (command descriptions)
 deepblue.commands <- function() {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -732,19 +764,21 @@ deepblue.commands <- function() {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'commands')
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -761,7 +795,7 @@ deepblue.commands <- function() {
 #'
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -773,19 +807,21 @@ deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'count_regions', query_id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -804,7 +840,7 @@ deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
 #'
 #' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_calculated <- function(name= NULL, description= NULL, code= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -816,19 +852,21 @@ deepblue.create_column_type_calculated <- function(name= NULL, description= NULL
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'create_column_type_calculated', name, description, code, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -847,7 +885,7 @@ deepblue.create_column_type_calculated <- function(name= NULL, description= NULL
 #'
 #' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_category <- function(name= NULL, description= NULL, items= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -859,19 +897,21 @@ deepblue.create_column_type_category <- function(name= NULL, description= NULL, 
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'create_column_type_category', name, description, items, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -891,7 +931,7 @@ deepblue.create_column_type_category <- function(name= NULL, description= NULL, 
 #'
 #' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_range <- function(name= NULL, description= NULL, minimum= NULL, maximum= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -903,19 +943,21 @@ deepblue.create_column_type_range <- function(name= NULL, description= NULL, min
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'create_column_type_range', name, description, minimum, maximum, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -934,7 +976,7 @@ deepblue.create_column_type_range <- function(name= NULL, description= NULL, min
 #'
 #' @return id - A string (id of the newly created column type)
 deepblue.create_column_type_simple <- function(name= NULL, description= NULL, type= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -946,19 +988,21 @@ deepblue.create_column_type_simple <- function(name= NULL, description= NULL, ty
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'create_column_type_simple', name, description, type, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -974,7 +1018,7 @@ deepblue.create_column_type_simple <- function(name= NULL, description= NULL, ty
 #'
 #' @return message - A string (echo message including version)
 deepblue.echo <- function(user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -986,19 +1030,21 @@ deepblue.echo <- function(user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'echo', user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1018,7 +1064,7 @@ deepblue.echo <- function(user_key=deepblue.USER_KEY) {
 #'
 #' @return id - A string (id of the new query)
 deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_strand= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1030,19 +1076,21 @@ deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'extend', query_id, if (is.null(length)) NULL else as.integer(length), direction, use_strand, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1058,7 +1106,7 @@ deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
 #'
 #' @return ids - A array (list containing the extracted IDs)
 deepblue.extract_ids <- function(list= NULL) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1070,19 +1118,21 @@ deepblue.extract_ids <- function(list= NULL) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'extract_ids', list)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1098,7 +1148,7 @@ deepblue.extract_ids <- function(list= NULL) {
 #'
 #' @return names - A array (list containing the extracted names)
 deepblue.extract_names <- function(list= NULL) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1110,19 +1160,21 @@ deepblue.extract_names <- function(list= NULL) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'extract_names', list)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1145,7 +1197,7 @@ deepblue.extract_names <- function(list= NULL) {
 #'
 #' @return faceting - A struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)
 deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1157,19 +1209,21 @@ deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'faceting_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1190,7 +1244,7 @@ deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
 #'
 #' @return id - A string (id of filtered query)
 deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL, value= NULL, type= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1202,19 +1256,21 @@ deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'filter_regions', query_id, field, operation, value, type, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1233,7 +1289,7 @@ deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 #'
 #' @return id - A string (id of the annotation that contains the positions of the given pattern)
 deepblue.find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1245,19 +1301,21 @@ deepblue.find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, us
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'find_pattern', pattern, genome, overlap, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1277,7 +1335,7 @@ deepblue.find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, us
 #'
 #' @return id - A string (id of the new query)
 deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1289,19 +1347,21 @@ deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'flank', query_id, if (is.null(start)) NULL else as.integer(start), if (is.null(length)) NULL else as.integer(length), use_strand, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1318,7 +1378,7 @@ deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
 #'
 #' @return biosources - A array (related biosources)
 deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1330,19 +1390,21 @@ deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.U
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_biosource_children', biosource, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1359,7 +1421,7 @@ deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.U
 #'
 #' @return biosources - A array (parents biosources)
 deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1371,19 +1433,21 @@ deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.US
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_biosource_parents', biosource, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1400,7 +1464,7 @@ deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.US
 #'
 #' @return biosources - A array (related biosources)
 deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1412,19 +1476,21 @@ deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.US
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_biosource_related', biosource, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1441,7 +1507,7 @@ deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.US
 #'
 #' @return synonyms - A array (synonyms of the biosource)
 deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1453,19 +1519,21 @@ deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.U
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_biosource_synonyms', biosource, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1482,7 +1550,7 @@ deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.U
 #'
 #' @return experiments - A array (List containing experiments names and ids)
 deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1494,19 +1562,21 @@ deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_experiments_by_query', query_id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1524,7 +1594,7 @@ deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.
 #'
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1536,19 +1606,21 @@ deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_regions', query_id, output_format, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1565,7 +1637,7 @@ deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
 #'
 #' @return data - A string or a vector of string (The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).)
 deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1577,19 +1649,21 @@ deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_K
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_request_data', request_id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1606,7 +1680,7 @@ deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_K
 #'
 #' @return data_state - A int (State of the data)
 deepblue.get_state <- function(data_name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1618,19 +1692,21 @@ deepblue.get_state <- function(data_name= NULL, user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'get_state', data_name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1647,7 +1723,7 @@ deepblue.get_state <- function(data_name= NULL, user_key=deepblue.USER_KEY) {
 #'
 #' @return information - A array or a vector of array (List of Maps, where each map contains the info of an object.)
 deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1659,19 +1735,21 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'info', id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1689,7 +1767,7 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #'
 #' @return id - A string (query id)
 deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1701,19 +1779,21 @@ deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'input_regions', genome, region_set, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1731,7 +1811,7 @@ deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
 #'
 #' @return id - A string (id of the new query)
 deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1743,19 +1823,21 @@ deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=d
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'intersection', query_a_id, query_b_id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1772,7 +1854,7 @@ deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=d
 #'
 #' @return information - A string or a vector of string (A string containing the biosource name)
 deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1784,19 +1866,21 @@ deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_K
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'is_biosource', biosource_name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1813,7 +1897,7 @@ deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_K
 #'
 #' @return annotations - A array (annotation ids)
 deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1825,19 +1909,21 @@ deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) 
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_annotations', genome, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1854,7 +1940,7 @@ deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) 
 #'
 #' @return biosources - A array (biosources)
 deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1866,19 +1952,21 @@ deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_biosources', extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1894,7 +1982,7 @@ deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER
 #'
 #' @return column_types - A array (column types)
 deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1906,19 +1994,21 @@ deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_column_types', user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1935,7 +2025,7 @@ deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
 #'
 #' @return epigenetic_marks - A array (epigenetic mark names)
 deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1947,19 +2037,21 @@ deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_epigenetic_marks', extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -1982,7 +2074,7 @@ deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
 #'
 #' @return experiments - A array (experiment names)
 deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -1994,19 +2086,21 @@ deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2022,7 +2116,7 @@ deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #'
 #' @return genomes - A array (genome names)
 deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2034,19 +2128,21 @@ deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_genomes', user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2063,7 +2159,7 @@ deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
 #'
 #' @return terms - A array (controlled_vocabulary terms with count)
 deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2075,19 +2171,21 @@ deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_in_use', controlled_vocabulary, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2103,7 +2201,7 @@ deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.
 #'
 #' @return projects - A array (project names)
 deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2115,19 +2213,21 @@ deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_projects', user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2149,7 +2249,7 @@ deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
 #'
 #' @return experiments - A array (names of recent experiments)
 deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2161,19 +2261,21 @@ deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_recent_experiments', days, genome, epigenetic_mark, sample, technique, project, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2190,7 +2292,7 @@ deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
 #'
 #' @return data_state - A array (Request-IDs and their state)
 deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2202,19 +2304,21 @@ deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_K
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_requests', request_state, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2232,7 +2336,7 @@ deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_K
 #'
 #' @return samples - A array (samples id with their content)
 deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2244,19 +2348,21 @@ deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_samples', biosource, extra_metadata, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2273,7 +2379,7 @@ deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
 #'
 #' @return biosources - A array (similar biosources)
 deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2285,19 +2391,21 @@ deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_similar_biosources', name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2314,7 +2422,7 @@ deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_
 #'
 #' @return epigenetic_marks - A array (similar epigenetic mark names)
 deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2326,19 +2434,21 @@ deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_similar_epigenetic_marks', name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2356,7 +2466,7 @@ deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
 #'
 #' @return experiments - A array (similar experiment names)
 deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2368,19 +2478,21 @@ deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_similar_experiments', name, genome, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2397,7 +2509,7 @@ deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key
 #'
 #' @return genomes - A array (similar genome names)
 deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2409,19 +2521,21 @@ deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_similar_genomes', name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2438,7 +2552,7 @@ deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY
 #'
 #' @return projects - A array (similar project names)
 deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2450,19 +2564,21 @@ deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KE
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_similar_projects', name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2479,7 +2595,7 @@ deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KE
 #'
 #' @return techniques - A array (similar techniques)
 deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2491,19 +2607,21 @@ deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_similar_techniques', name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2519,7 +2637,7 @@ deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_
 #'
 #' @return techniques - A array (techniques)
 deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2531,19 +2649,21 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'list_techniques', user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2561,7 +2681,7 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
 #'
 #' @return id - A string (new query id)
 deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2573,19 +2693,21 @@ deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'merge_queries', query_a_id, query_b_id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2603,7 +2725,7 @@ deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
 #'
 #' @return information - A string (New query ID.)
 deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2615,19 +2737,21 @@ deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'query_cache', query_id, cache, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2645,7 +2769,7 @@ deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.
 #'
 #' @return information - A string (New query ID.)
 deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2657,19 +2781,21 @@ deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'query_experiment_type', query_id, type, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2686,7 +2812,7 @@ deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
 #'
 #' @return id - A string (id of the removed data)
 deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2698,19 +2824,21 @@ deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'remove', id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2729,7 +2857,7 @@ deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #'
 #' @return regions - A string (BED formated regions)
 deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_function= NULL, aggregation_regions_id= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2741,19 +2869,21 @@ deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_functio
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'score_matrix', experiments_columns, aggregation_function, aggregation_regions_id, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2771,7 +2901,7 @@ deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_functio
 #'
 #' @return results - A array (search results as [id, name, type])
 deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2783,19 +2913,21 @@ deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KE
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'search', keyword, type, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2816,7 +2948,7 @@ deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KE
 #'
 #' @return id - A string (query id)
 deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2828,19 +2960,21 @@ deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chr
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'select_annotations', annotation_name, genome, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2860,7 +2994,7 @@ deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chr
 #'
 #' @return id - A string (query id)
 deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2872,19 +3006,21 @@ deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL,
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'select_experiments', experiment_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2905,7 +3041,7 @@ deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #'
 #' @return id - A string (query id)
 deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2917,19 +3053,21 @@ deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= 
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'select_genes', genes_name, gene_set, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2954,7 +3092,7 @@ deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= 
 #'
 #' @return id - A string (query id)
 deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigenetic_mark= NULL, sample_id= NULL, technique= NULL, project= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -2966,19 +3104,21 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'select_regions', experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -2996,7 +3136,7 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
 #'
 #' @return nothing :-(
 deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -3008,19 +3148,21 @@ deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=de
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'set_biosource_parent', parent, child, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -3038,7 +3180,7 @@ deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=de
 #'
 #' @return synonym_name - A string (inserted synonym_name)
 deepblue.set_biosource_synonym <- function(biosource= NULL, synonym_name= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -3050,19 +3192,21 @@ deepblue.set_biosource_synonym <- function(biosource= NULL, synonym_name= NULL, 
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'set_biosource_synonym', biosource, synonym_name, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -3080,7 +3224,7 @@ deepblue.set_biosource_synonym <- function(biosource= NULL, synonym_name= NULL, 
 #'
 #' @return id - A string (id of the project)
 deepblue.set_project_public <- function(project= NULL, set= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -3092,19 +3236,21 @@ deepblue.set_project_public <- function(project= NULL, set= NULL, user_key=deepb
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'set_project_public', project, set, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -3123,7 +3269,7 @@ deepblue.set_project_public <- function(project= NULL, set= NULL, user_key=deepb
 #'
 #' @return id - A string (query id)
 deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -3135,19 +3281,21 @@ deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'tiling_regions', if (is.null(size)) NULL else as.integer(size), genome, chromosome, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
@@ -3166,7 +3314,7 @@ deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
 #'
 #' @return nothing :-(
 deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NULL, user_key=deepblue.USER_KEY) {
-  
+
   previous_commands <- list()
   arg.names <- names(as.list(match.call()))
   for(command_object_name in arg.names[which(arg.names != "")]){
@@ -3178,19 +3326,21 @@ deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NUL
             }
         }
   }
-  
   value <- xml.rpc(deepblue.URL, 'upload_chromosome', genome, chromosome, data, user_key)
   status = value[[1]]
   if (status == "error") {
     stop(value[[2]])
   }
+  if (!exists("user_key")) {
+    user_key = NULL
+  }
   if(!is.list(value[[2]])){
-  DeepBlueCommand(call = sys.call(), 
-  status = value[[1]], 
-  query_id = value[[2]],
-  previous_commands = previous_commands,
-  user_key = user_key
-  )
+    DeepBlueCommand(call = sys.call(),
+      status = value[[1]],
+      query_id = value[[2]],
+      previous_commands = previous_commands,
+      user_key = user_key
+    )
   } else return(value[[2]])
 }
 
