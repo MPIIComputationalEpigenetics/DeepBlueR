@@ -1,7 +1,7 @@
 #'@title deepblue.wait_request
 #'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
 #'@param request_id A string with the request_id
-#'@param sleep.time An integer with default value 1s
+#'@param sleep_time An integer with default value 1s
 #'@param user_key A string
 setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1, user_key=deepblue.USER_KEY)
 {
@@ -49,7 +49,11 @@ setGeneric("deepblue.download_request_data", function (request_id, user_key=deep
 
 #' @import XML RCurl
 #' @title switch_get_request_data
-#' @description Download the request
+#' @param request_id The request command generated with deepblue.get_request_data
+#' @param user_key the user_key used to submit the request. 
+#' @description Download the requested data from DeepBlue. Can be either region sets, 
+#' a region count, a list of experiments, or a score matrix.
+#' @aliases get_request_data
 deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_KEY)
 {
     request_info = deepblue.info(request_id, user_key)[[1]]
@@ -171,7 +175,11 @@ col_dict = deepblue.column_types()
 
 #' @description Parse the GTF semicolon separated attributes into a data frame
 #' @title deepblue.parse_gtf
+#' @param all_gtf a character vector of GTF attributes for a single region.
+#' @keywords internal
 #' @importFrom dplyr bind_rows
+#' @importFrom stringr str_split
+#' @importFrom stringr str_replace_all
 deepblue.parse_gtf <- function(all_gtf){
     parsed_results <- lapply(as.list(all_gtf), function(gtf){
         gtf_no_quotes <- str_replace_all(gtf, "\"", "")

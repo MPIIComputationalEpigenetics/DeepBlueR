@@ -13,4 +13,5 @@ xml.rpc(url, method, ..., .args = list(...), .opts = list(),
 \description{
 perform an XML-RPC call
 }
+\keyword{internal}
 

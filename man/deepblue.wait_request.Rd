@@ -10,9 +10,9 @@ deepblue.wait_request(request_id, sleep_time = 1,
 \arguments{
 \item{request_id}{A string with the request_id}
 
-\item{user_key}{A string}
+\item{sleep_time}{An integer with default value 1s}
 
-\item{sleep.time}{An integer with default value 1s}
+\item{user_key}{A string}
 }
 \description{
 Process the user request. Takes in three parameters; requested regions, sleep time, and user key.

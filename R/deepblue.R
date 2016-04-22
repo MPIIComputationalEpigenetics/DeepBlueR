@@ -3349,6 +3349,7 @@ deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NUL
 
 
 #' @title xml.rpc
+#' @keywords internal
 #' @description perform an XML-RPC call
 xml.rpc =
 function(url, method, ..., .args = list(...),
@@ -3395,10 +3396,6 @@ function(url, method, ..., .args = list(...),
       ans
 }
 
-#' @title createBody
-#' @description Create XML-RPC request body document
-#' @param method DeepBlue operation to be executed
-#' @param args Operation arguments
 createBody =
 function(method, args)
 {
@@ -3408,8 +3405,7 @@ function(method, args)
   top
 }
 
-#' @title rpc.serialize
-#' @description Serialize the R data to XML-RPC
+
 setGeneric("rpc.serialize", function(x, ...) standardGeneric("rpc.serialize"))
 
 setMethod("rpc.serialize", "ANY",
@@ -3420,8 +3416,6 @@ setMethod("rpc.serialize", "ANY",
               stop("Not sure how to convert this type of object to XMLRPC format")
            })
 
-#' @title rpc.serialize.S4Object
-#' @description Serialize the R data to XML-RPC
 rpc.serialize.S4Object =
 function(x, ...)
 {
@@ -3429,8 +3423,6 @@ function(x, ...)
   rpc.serialize(structure(lapply(els, function(id) slot(x, id)), names = els), ...)
 }
 
-#' @title basicTypeMap
-#' @description mapping between R types and XML-RPC types.
 basicTypeMap =
   c("integer" = "i4",
     "double" = "double",
@@ -3442,9 +3434,7 @@ basicTypeMap =
     "list" = "array",
     "raw" = "base64")
 
-#' @title cast
-#' @description Cast to integer value if it is a logical
-#' @param x - value to be converted
+
 cast <- function(x) {
   if (is.logical(x))
     as.integer(x)
@@ -3467,7 +3457,6 @@ setMethod("rpc.serialize", "NULL",
 
 setMethod("rpc.serialize", "raw",
            function(x, ...) {
-#              x = gsub("\\n", "", x)
               val = base64Encode(x)
               newXMLNode("value", newXMLNode("base64", val))
            })
@@ -3501,25 +3490,20 @@ setMethod("rpc.serialize", "vector",
                 names(x) = NULL
               }
 
-#              else
-              {
-                if(length(x) == 1)
-                  newXMLNode("value", newXMLNode(type, if(type == "string") newXMLCDataNode(x) else x))
+            if(length(x) == 1)
+              newXMLNode("value", newXMLNode(type, if(type == "string") newXMLCDataNode(x) else x))
                 else {
                   vectorArray(x, type)
                 }
               }
-           })
+           )
 
 
-#' @title FormatStrings
-#' @description Types format
 FormatStrings = c(numeric = "%f", integer = "%d", logical = "%s",
                    i4 = "%d", double = "%f",
                   string = "%s", Date = "%s",  POSIXt = "%s", POSIXct = "%s")
 
-#' @title vectorArray
-#' @description Convert an vector to XML-RPC array.
+
 vectorArray =
 function(x, type)
 {
@@ -3549,7 +3533,6 @@ function(x, type)
   txt = sprintf(tmpl, x)
   parseXMLAndAdd(txt, data)
 
-#  sapply(x, function(x)  newXMLNode(type, if(type == "string") newXMLCDataNode(x) else x, parent = data))
   top
 }
 
@@ -3574,9 +3557,6 @@ setMethod("rpc.serialize", "list",
               }
            })
 
-#' @title convertToR
-#' @description Convert XML-RPC nodes to R types
-#' @param node - XML-RPC XML node to be converted to R
 
 setGeneric('convertToR', function(node) standardGeneric('convertToR'))
 
@@ -3612,8 +3592,7 @@ function(node)
   convertToR(xml)
 })
 
-#' @title xmlRPCToR
-#' @description convert the XML-RPC data to R
+
 xmlRPCToR =
 function(node, ...)
 {
@@ -3643,9 +3622,7 @@ function(node, ...)
         )
 
 }
-#' @title xmlRPCToR.struct
-#' @description convert XML-RPC struct to R data'
-#' @param node - XML-RPC node that contains the struct.
+
 xmlRPCToR.struct =
 function(node, ...)
 {
@@ -3654,9 +3631,6 @@ function(node, ...)
   ans
 }
 
-#' @title xmlRPCToR.struct
-#' @description convert XML-RPC array to R data'
-#' @param node - XML-RPC node that contains the array.
 xmlRPCToR.array =
 function(node, ...)
 {
@@ -3669,9 +3643,6 @@ function(node, ...)
  return(result)
 }
 
-#' @title check value
-#' @description return the function result and check for error message from DeepBlue server.
-#' @param input - DeepBlue XML-RPC return to be checked.
 check_value =
 function(input)
 {

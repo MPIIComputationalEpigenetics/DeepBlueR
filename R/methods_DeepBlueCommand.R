@@ -1,3 +1,8 @@
+#'@title show DeepBlue command object
+#'@keywords internal 
+#'@import methods
+#'@description Provides a summary of a DeepBlue command object
+#'@param object DeepBlueCommand object 
 setMethod("show", 
           signature = "DeepBlueCommand",
           function(object) {
@@ -10,6 +15,7 @@ setMethod("show",
 
 #'@title deepblue.download_request_data
 #'@export 
+#'@import methods
 #'@description Returns the requested data as the expected type object. Expects two input parameters; Request information and
 #'user key. It depends on outputs from several functions, namely;
 #'deepblue.get_request_data, convert_to_df, and convert_to_grange.

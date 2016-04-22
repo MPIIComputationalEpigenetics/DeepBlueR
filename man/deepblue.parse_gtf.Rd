@@ -6,7 +6,11 @@
 \usage{
 deepblue.parse_gtf(all_gtf)
 }
+\arguments{
+\item{all_gtf}{a character vector of GTF attributes for a single region.}
+}
 \description{
 Parse the GTF semicolon separated attributes into a data frame
 }
+\keyword{internal}
 
