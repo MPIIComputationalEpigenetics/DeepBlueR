@@ -5,7 +5,7 @@ Description: Accessing the DeepBlue Epigenetics Data Server through R.
 Version: 0.99.0
 Date: 2016-04-02
 Author: Felipe Albrecht, Markus List, Nadia Ashraf
-Maintainer: Felipe Albrecht <felipe.albrecht@gmail.com>, Markus List <markus.list@mpi-inf.mpg.de>
+Maintainer: Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>, Markus List <markus.list@mpi-inf.mpg.de>
 License: GPL (>=2.0)
 Imports: GenomicRanges,
     data.table,
