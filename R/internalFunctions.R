@@ -1,9 +1,11 @@
 #'@title deepblue.wait_request
-#'@description Process the user request. Takes in three parameters; requested regions, sleep time, and user key.
+#'@description Process the user request. Takes in three parameters; 
+#'requested regions, sleep time, and user key.
 #'@param request_id A string with the request_id
 #'@param sleep_time An integer with default value 1s
 #'@param user_key A string
-setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1, user_key=deepblue.USER_KEY)
+setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1, 
+                                             user_key=deepblue.USER_KEY)
 {
     info = deepblue.info(request_id, user_key)[[1]]
     state = info$state
@@ -18,55 +20,69 @@ setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1, user_ke
 })
 
 #'@title deepblue.download_request_data
-#'@description Returns the requested data as the expected type object. Expects two input parameters; Request information and
+#'@description Returns the requested data as the expected type object. 
+#'Expects two input parameters; Request information and
 #'user key. It depends on outputs from several functions, namely;
 #'deepblue.get_request_data, convert_to_df, and convert_to_grange.
 #'
 #'@param request_id - Id of the request that will be downloaded
 #'@param user_key A string
-#'@param type To which type the downloaded data will be converted: 'string', 'df', or 'grange'.
+#'@param type To which type the downloaded data will be converted: 
+#''string', 'df', or 'grange'.
 #'
 #'@return grange_regions Final output in GRanges format
-setGeneric("deepblue.download_request_data", function (request_id, user_key=deepblue.USER_KEY, type="grange")
-{
+setGeneric("deepblue.download_request_data", 
+           function(request_id, 
+                    user_key=deepblue.USER_KEY, 
+                    type="grange")
+           {
     request_info = deepblue.wait_request(request_id, user_key=user_key)
-
+    
     if (request_info$state == "done") {
         message("The request was processed successfully.")
     } else {
         stop(request_info$message)
     }
-
-    regions_string = deepblue.switch_get_request_data(request_id = request_id, user_key = user_key)
-
-    if(request_info$command != "get_regions" || type == "string") return (regions_string)
-
-    regions_df = deepblue.convert_to_df(string_to_parse=regions_string, request_info=request_info)
-
+    
+    regions_string = deepblue.switch_get_request_data(request_id = request_id, 
+                                                      user_key = user_key)
+    
+    if(request_info$command != "get_regions" || type == "string") 
+        return (regions_string)
+    
+    regions_df = deepblue.convert_to_df(string_to_parse=regions_string, 
+                                        request_info=request_info)
+    
     if (type == "df" || request_info[[1]]$format == "") return (regions_df)
     else return(deepblue.convert_to_grange(df=regions_df))
 })
 
 #' @import XML RCurl
 #' @title switch_get_request_data
-#' @param request_id The request command generated with deepblue.get_request_data
+#' @param request_id The request command generated 
+#' with deepblue.get_request_data
 #' @param user_key the user_key used to submit the request. 
-#' @description Download the requested data from DeepBlue. Can be either region sets, 
+#' @description Download the requested data from DeepBlue. 
+#' Can be either region sets, 
 #' a region count, a list of experiments, or a score matrix.
 #' @aliases get_request_data
-deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_KEY)
+deepblue.switch_get_request_data = function(request_id, 
+                                            user_key=deepblue.USER_KEY)
 {
     request_info = deepblue.info(request_id, user_key)[[1]]
     if (request_info$state != "done") {
-        stop("Processing was not finished. Please, check it status with deepblue.info(request_id)");
+        stop("Processing was not finished. 
+             Please, check it status with deepblue.info(request_id)");
     }
-
+    
     command = request_info$command
     switch(command,
            "count_regions" = deepblue.get_request_data(request_id, user_key),
-           "get_experiments_by_query" = deepblue.get_request_data(request_id, user_key),
+           "get_experiments_by_query" = deepblue.get_request_data(request_id, 
+                                                                  user_key),
            "get_regions" = {
-               url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
+               url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", 
+                           request_id, "&key=", user_key, sep="")
                temp_download <- tempfile()
                download.file(url, temp_download, mode="wb")
                handle <-  bzfile(temp_download)
@@ -75,7 +91,8 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
                return(result)
            },
            "score_matrix" = {
-               url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", request_id, "&key=", user_key, sep="")
+               url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=", 
+                           request_id, "&key=", user_key, sep="")
                temp_download <- tempfile()
                download.file(url, temp_download, mode="wb")
                handle <-  bzfile(temp_download)
@@ -89,17 +106,19 @@ deepblue.switch_get_request_data = function(request_id, user_key=deepblue.USER_K
 #'@title convert_to_df
 #'@importFrom stringr str_split
 #'@importFrom data.table fread
-#'@description save output in a data frame for further processing.Expects two parameters; the output string from method deepblue.get_request_data and request information from method process_request.
+#'@description save output in a data frame for further processing.
+#'Expects two parameters; the output string from method 
+#'deepblue.get_request_data and request information from method process_request.
 #'@param string_to_parse A string
 #'@param request_info The request information returned by DeepBlue
 #'@param dict The data structure that contains the DeepBlue columns types
 #'@return regions A data frame
 deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
-
+    
     if(!is.null(request_info$format)){
         #get column names from
         col_names <- str_split(request_info$format, pattern = ",")[[1]]
-
+        
         #get column types from dictionary
         col_types <- sapply(col_names, function(x){
             col_type <- dict[[x]]
@@ -110,8 +129,9 @@ deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
             else if (col_type == 'category') return ('factor')
             else return(col_type)
         })
-
-        input <- paste(paste(col_names, collapse="\t"), "\n", string_to_parse, sep="")
+        
+        input <- paste(paste(col_names, 
+                             collapse="\t"), "\n", string_to_parse, sep="")
     } else{
         col_types <- NULL
         input <- string_to_parse
@@ -128,7 +148,8 @@ deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
 }
 
 #'@title convert_to_grange
-#'@description Converts the requested data into GRanges object. Expects one input; A dataframe with requested data.
+#'@description Converts the requested data into GRanges object. 
+#'Expects one input; A dataframe with requested data.
 #'@importFrom GenomicRanges makeGRangesFromDataFrame
 #'@param df A data frame
 #'@return region_gr A GRanges object
@@ -142,8 +163,10 @@ deepblue.convert_to_grange = function (df = NULL)
         df <- dplyr::bind_cols(df, gtf_attributes)
     }
     region_gr = makeGRangesFromDataFrame(df, keep.extra.columns = TRUE,
-                                         seqnames.field = 'CHROMOSOME', start.field = 'START',
-                                         end.field = 'END',strand.field = c('STRAND','Strand'))
+                                         seqnames.field = 'CHROMOSOME', 
+                                         start.field = 'START',
+                                         end.field = 'END',
+                                         strand.field = c('STRAND','Strand'))
     return (region_gr)
 }
 
@@ -158,7 +181,7 @@ deepblue.column_types = function()
         co=cols[[i]][[1]]
         col_ids = c(col_ids,co)
     }
-
+    
     col_names=c()
     col_types = c()
     col_info = deepblue.info(col_ids)
@@ -167,7 +190,7 @@ deepblue.column_types = function()
     {
         dict[[col_info[[i]]$name]] = col_info[[i]]$column_type
     }
-
+    
     return(dict)
 }
 
@@ -184,13 +207,13 @@ deepblue.parse_gtf <- function(all_gtf){
     parsed_results <- lapply(as.list(all_gtf), function(gtf){
         gtf_no_quotes <- str_replace_all(gtf, "\"", "")
         split_gtf <- lapply(str_split(gtf_no_quotes, "; "), function(x){
-                str_split(x, " ")
-            })
+            str_split(x, " ")
+        })
         attr.names <- unlist(lapply(split_gtf[[1]], function(x) { x[[1]] }))
         attr.values <- lapply(split_gtf[[1]], function(x) { x[[2]] })
         names(attr.values) <- attr.names
         return(attr.values)
     })
-
+    
     return(dplyr::bind_rows(parsed_results))
 }

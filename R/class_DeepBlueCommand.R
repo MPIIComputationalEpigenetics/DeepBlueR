@@ -1,9 +1,11 @@
 #'@title DeepBlueCommand class
 #'@export
 #'@import methods
-#'@description An S4 class returned when calling a DeepBlue-R function. It holds information about
-#'the original call, the query / request status, previous commands, the user_key, and results in GRanges format once
-#'a request is downloaded.#'
+#'@description An S4 class returned when calling 
+#'a DeepBlue-R function. It holds information about
+#'the original call, the query / request status, 
+#'previous commands, the user_key, and results in GRanges format once
+#'a request is downloaded.
 #'@param call language
 #'@param status character
 #'@param query_id character
@@ -22,7 +24,7 @@ DeepBlueCommand <- setClass("DeepBlueCommand",
                                 else return(TRUE)
                             },
                             prototype = list(
-                                             user_key = "anonymous_key",
-                                             previous_commands = list()
-                                            )
+                                user_key = "anonymous_key",
+                                previous_commands = list()
+                            )
 )
