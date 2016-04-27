@@ -1,0 +1,1 @@
+deepblue.list_techniques()
