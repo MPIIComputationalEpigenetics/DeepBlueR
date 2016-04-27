@@ -4,12 +4,15 @@
 # We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
 #' @title deepblue URL
 #' @description Location of the DeepBlue XML-RPC server
+#' @keywords internal
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
 #' @description Default anonymous user key
+#' @keywords internal
 deepblue.USER_KEY = "anonymous_key"
 #' @title Verbose
 #' @description Show or hide debugging messages
+#' @keywords internal
 deepblue.debug.VERBOSE = FALSE
 
 
