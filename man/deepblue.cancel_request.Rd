@@ -18,8 +18,7 @@ id - A string (ID of the canceled request)
 Stop, cancel, and remove request data. Its data will be remove if the request did finish.
 }
 \seealso{
-Other Commands for all types of data: \code{\link{deepblue.get_state}},
-  \code{\link{deepblue.info}},
+Other Commands for all types of data: \code{\link{deepblue.info}},
   \code{\link{deepblue.is_biosource}},
   \code{\link{deepblue.list_in_use}},
   \code{\link{deepblue.remove}},

@@ -19,7 +19,6 @@ Return information for the given ID (or IDs).
 }
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
-  \code{\link{deepblue.get_state}},
   \code{\link{deepblue.is_biosource}},
   \code{\link{deepblue.list_in_use}},
   \code{\link{deepblue.remove}},

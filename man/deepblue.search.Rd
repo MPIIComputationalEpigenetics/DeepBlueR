@@ -21,7 +21,6 @@ Search all data of all types for the given keyword. A minus (-) character in fro
 }
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
-  \code{\link{deepblue.get_state}},
   \code{\link{deepblue.info}},
   \code{\link{deepblue.is_biosource}},
   \code{\link{deepblue.list_in_use}},

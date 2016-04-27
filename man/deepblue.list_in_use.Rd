@@ -20,7 +20,6 @@ Lists all terms from the given controlled vocabulary that are used.
 }
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
-  \code{\link{deepblue.get_state}},
   \code{\link{deepblue.info}},
   \code{\link{deepblue.is_biosource}},
   \code{\link{deepblue.remove}},
