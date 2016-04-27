@@ -1,0 +1,1 @@
+deepblue.count_regions(query_id = "q12345", user_key = deepblue.USER_KEY)
