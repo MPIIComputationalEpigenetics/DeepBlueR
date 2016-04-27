@@ -194,6 +194,26 @@ deepblue.column_types = function()
     {
         dict[[col_info[[i]]$name]] = col_info[[i]]$column_type
     }
+    
+    #add extra column types not reported by DeepBlue
+    dict[["@LENGTH"]] = "integer"
+    dict[["@NAME"]] = "string"
+    dict[["@SEQUENCE"]] = "string"
+    dict[["@EPIGENETIC_MARK"]] = "string"
+    dict[["@PROJECT"]] = "string"
+    dict[["@BIOSOURCE"]] = "string"
+    dict[["@SAMPLE_ID"]] = "string"
+    dict[["@AGG.MIN"]] = "double"
+    dict[["@AGG.MAX"]] = "double"
+    dict[["@AGG.MEDIAN"]] = "double"
+    dict[["@AGG.MEAN"]] = "double"
+    dict[["@AGG.VAR"]] = "double"
+    dict[["@AGG.SD"]] = "double"
+    dict[["@AGG.COUNT"]] = "integer"
+    dict[["@COUNT.OVERLAP"]] = "integer"
+    dict[["@COUNT.NON-OVERLAP"]] = "integer"
+    dict[["@CALCULATED"]] = "string"
+    dict[["@GENE_ATTRIBUTE"]] = "string"
 
     return(dict)
 }
