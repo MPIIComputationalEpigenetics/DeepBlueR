@@ -73,6 +73,9 @@ deepblue.%(name)s <- function(%(parameter_names)s) {
 def main():
 
   client = xmlrpclib.Server("http://deepblue.mpi-inf.mpg.de/xmlrpc", allow_none=True)
+  
+  #list of commands to ignore
+  exclude = ['get_state']
 
   (s, v) = client.echo(None)
 
@@ -87,6 +90,9 @@ def main():
   commands_long_doc = ""
 
   for name in sorted(commands.keys()):
+
+    if name in exclude: continue
+
     cmd = commands[name]
     desc = cmd["description"]
 

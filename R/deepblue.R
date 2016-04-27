@@ -1677,49 +1677,6 @@ deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_K
 
 #' @export 
 #' 
-#' @title get_state 
-#' @description Returns the current state of specific data.
-#' @family Commands for all types of data
-#' 
-#' @param data_name - A string (Name of the data to lookup the state for)
-#' @param user_key - A string (users token key)
-#'
-#' @return data_state - A int (State of the data)
-deepblue.get_state <- function(data_name= NULL, user_key=deepblue.USER_KEY) {
-
-    previous_commands <- list()
-    arg.names <- names(as.list(match.call()))
-    for(command_object_name in arg.names[which(arg.names != "")]){
-        if(exists(command_object_name)){
-            command_object <- get(command_object_name)
-            if(is(command_object, "DeepBlueCommand")){
-                previous_commands <- append(previous_commands, command_object)
-                assign(command_object_name, command_object@query_id)
-            }
-        }
-    }
-    value <- xml.rpc(deepblue.URL, 'get_state', data_name, user_key)
-    status = value[[1]]
-    if (status == "error") {
-        stop(value[[2]])
-    }
-    if (!exists("user_key")) {
-        user_key = NULL
-    }
-    if(!is.list(value[[2]])){
-        DeepBlueCommand(call = sys.call(),
-            status = value[[1]],
-            query_id = value[[2]],
-            previous_commands = previous_commands,
-            user_key = user_key
-        )
-    } else return(value[[2]])
-}
-
-
-
-#' @export 
-#' 
 #' @title info 
 #' @description Return information for the given ID (or IDs).
 #' @family Commands for all types of data
