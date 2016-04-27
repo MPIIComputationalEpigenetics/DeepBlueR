@@ -18,7 +18,8 @@ regions A data frame
 }
 \description{
 save output in a data frame for further processing.
-Expects two parameters; the output string from method 
+Expects two parameters; the output string from method
 deepblue.get_request_data and request information from method process_request.
 }
+\keyword{internal}
 

@@ -5,7 +5,7 @@
 \title{batch_export_results}
 \usage{
 deepblue.batch_export_results(requests, target.directory = NULL,
-  suffix = "result", prefix = "DeepBlue", sleep_time = 1,
+  suffix = "result", prefix = "DeepBlue", sleep.time = 1,
   user_key = deepblue.USER_KEY)
 }
 \arguments{
@@ -17,7 +17,7 @@ deepblue.batch_export_results(requests, target.directory = NULL,
 
 \item{prefix}{File names prefix}
 
-\item{sleep_time}{How long this function will wait after the requests 
+\item{sleep.time}{How long this function will wait after the requests
 verification}
 
 \item{user_key}{A string used to authenticate the user}

@@ -24,5 +24,6 @@ chrX	156040895
 chrY	57227415
 chrM	16569"
 
-deepblue.add_genome(name = "GRCh38", description = "GRCh38 with the main chromosomes", data = GRCh38_info,
-  user_key = "my_secret_key")
+deepblue.add_genome(name = "GRCh38",
+	description = "GRCh38 with the main chromosomes",
+	data = GRCh38_info, user_key = "my_secret_key")

@@ -8,14 +8,15 @@
 deepblue.switch_get_request_data(request_id, user_key = deepblue.USER_KEY)
 }
 \arguments{
-\item{request_id}{The request command generated 
+\item{request_id}{The request command generated
 with deepblue.get_request_data}
 
 \item{user_key}{the user_key used to submit the request.}
 }
 \description{
-Download the requested data from DeepBlue. 
-Can be either region sets, 
+Download the requested data from DeepBlue.
+Can be either region sets,
 a region count, a list of experiments, or a score matrix.
 }
+\keyword{internal}
 

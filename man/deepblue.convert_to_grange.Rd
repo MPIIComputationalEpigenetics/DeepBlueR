@@ -13,10 +13,11 @@ deepblue.convert_to_grange(df = NULL)
 region_gr A GRanges object
 }
 \description{
-Converts the requested data into GRanges object. 
+Converts the requested data into GRanges object.
 Expects one input; A dataframe with requested data.
 }
 \seealso{
 \code{\link[GenomicRanges]{makeGRangesFromDataFrame}}
 }
+\keyword{internal}
 

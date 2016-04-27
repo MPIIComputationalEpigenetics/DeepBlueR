@@ -15,7 +15,7 @@ deepblue.wait_request(request_id, sleep_time = 1,
 \item{user_key}{A string}
 }
 \description{
-Process the user request. Takes in three parameters; 
+Process the user request. Takes in three parameters;
 requested regions, sleep time, and user key.
 }
 

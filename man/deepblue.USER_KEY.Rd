@@ -11,5 +11,5 @@ deepblue.USER_KEY
 \description{
 Default anonymous user key
 }
-\keyword{datasets}
+\keyword{internal}
 

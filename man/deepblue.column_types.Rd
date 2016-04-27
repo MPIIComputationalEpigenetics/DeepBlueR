@@ -9,4 +9,5 @@ deepblue.column_types()
 \description{
 Load the column types from DeepBlue
 }
+\keyword{internal}
 
