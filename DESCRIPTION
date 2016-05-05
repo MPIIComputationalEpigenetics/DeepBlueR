@@ -1,5 +1,5 @@
-Package: DeepBlue
-Title: DeepBlue
+Package: DeepBlueR
+Title: DeepBlueR
 Type: Package
 Description: Accessing the DeepBlue Epigenetics Data Server through R.
 Version: 0.99.0
