@@ -23,10 +23,12 @@ nothing :-(
 Uploads the sequence data of the chromosome.
 }
 \examples{
-data = "ACTGAGCTCAGC"
+\dontrun{
+  data = "ACTGAGCTCAGC"
 deepblue.upload_chromosome(genome = "genome_name",
 	chromosome = "chromosome_name", data = NULL,
   	user_key = "my_secret_key")
+}
 
 }
 \seealso{

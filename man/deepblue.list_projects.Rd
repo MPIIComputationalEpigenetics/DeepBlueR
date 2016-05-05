@@ -16,7 +16,9 @@ projects - A array (project names)
 Lists all existing projects.
 }
 \examples{
-deepblue.list_projects()
+\dontrun{
+  deepblue.list_projects()
+}
 
 }
 \seealso{

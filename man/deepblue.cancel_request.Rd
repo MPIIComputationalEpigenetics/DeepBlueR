@@ -18,7 +18,9 @@ id - A string (ID of the canceled request)
 Stop, cancel, and remove request data. Its data will be remove if the request did finish.
 }
 \examples{
-deepblue.cancel_request(id = "r12345", user_key = "my_secret_key")
+\dontrun{
+  deepblue.cancel_request(id = "r12345", user_key = "my_secret_key")
+}
 
 }
 \seealso{

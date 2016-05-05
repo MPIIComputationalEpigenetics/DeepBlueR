@@ -18,7 +18,9 @@ information - A string or a vector of string (A string containing the biosource 
 Return information for the given biosource name.
 }
 \examples{
-deepblue.is_biosource(biosource_name = "blood")
+\dontrun{
+  deepblue.is_biosource(biosource_name = "blood")
+}
 
 }
 \seealso{

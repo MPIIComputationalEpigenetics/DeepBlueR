@@ -27,7 +27,8 @@ id - A string (id of the newly inserted annotation)
 Inserts a new set of genes in the GTF format. Important: It will only include the rows that have 'gene' as feature.
 }
 \examples{
-gs = 'chr1HAVANA\\tgene\\t11869\\t14409\\t.\\t+\\t.\\tgene_id "ENSG00000223972.5";",
+\dontrun{
+  gs = 'chr1HAVANA\\tgene\\t11869\\t14409\\t.\\t+\\t.\\tgene_id "ENSG00000223972.5";",
      "gene_type "transcribed_unprocessed_pseudogene"; gene_status "KNOWN"; ",
      "gene_name "DDX11L1";  level 2; havana_gene "OTTHUMG00000000961.2";\\n",
      "chr1\\tHAVANA\\tgene\\t14404\\t29570\\t.\\t-\\t.\\tgene_id "ENSG00000227232.5";",
@@ -39,6 +40,7 @@ gs = 'chr1HAVANA\\tgene\\t11869\\t14409\\t.\\t+\\t.\\tgene_id "ENSG00000223972.5
 deepblue.add_gene_set(name = "My new gene set", description = "A gene set",
 	data = gs, format = "gtf", extra_metadata = NULL,
 	user_key = "my_secret_key")
+}
 
 }
 \seealso{

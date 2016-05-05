@@ -21,8 +21,10 @@ id - A string (id of the newly inserted sample)
 Import sample from an existing GSM identifier.
 }
 \examples{
-deepblue.add_sample_from_gsm(biosource_name = "BLOOD",
+\dontrun{
+  deepblue.add_sample_from_gsm(biosource_name = "BLOOD",
 	gsm_id = "GSM1234567890", user_key = "my_secret_key")
+}
 
 }
 \seealso{

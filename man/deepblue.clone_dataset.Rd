@@ -37,10 +37,12 @@ id - A string (id of the new dataset)
 Clone the dataset, allowing to change the description, column format (restrictively), and extra_metadata.
 }
 \examples{
-deepblue.clone_dataset(dataset_id = "e12345",
+\dontrun{
+  deepblue.clone_dataset(dataset_id = "e12345",
 	new_name = "Dataset with better metadata",
   	new_sample = "s1234", new_technique = "CHiP-Seq",
   	new_project = "My private data", Auser_key = "my_secret_key")
+}
 
 }
 \seealso{

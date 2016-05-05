@@ -21,8 +21,10 @@ id - A string (id of the new query)
 Select regions from the first query that does intersect with at least one second query region.
 }
 \examples{
-deepblue.intersection(query_a_id = query_a, query_b_id = query_b,
+\dontrun{
+  deepblue.intersection(query_a_id = query_a, query_b_id = query_b,
   user_key = "my_secret_user_key")
+}
 
 }
 \seealso{

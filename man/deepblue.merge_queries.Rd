@@ -21,8 +21,10 @@ id - A string (new query id)
 Merges the regions of the given queries.
 }
 \examples{
-deepblue.merge_queries(query_a_id = query_a, query_b_id = query_a,
+\dontrun{
+  deepblue.merge_queries(query_a_id = query_a, query_b_id = query_a,
   user_key = "my_secret_key")
+}
 
 }
 \seealso{

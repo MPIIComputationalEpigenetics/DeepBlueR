@@ -16,7 +16,9 @@ column_types - A array (column types)
 Lists all available column types.
 }
 \examples{
-deepblue.list_column_types()
+\dontrun{
+  deepblue.list_column_types()
+}
 
 }
 \seealso{

@@ -18,7 +18,9 @@ techniques - A array (similar techniques)
 Lists all techniques similar to the one provided.
 }
 \examples{
-deepblue.list_similar_techniques(name = "chip seq")
+\dontrun{
+  deepblue.list_similar_techniques(name = "chip seq")
+}
 
 }
 \seealso{

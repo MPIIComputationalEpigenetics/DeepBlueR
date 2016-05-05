@@ -23,10 +23,12 @@ id - A string (id of the newly inserted technique)
 Inserts a technique with the given parameters.
 }
 \examples{
-deepblue.add_technique(name = "New technique",
+\dontrun{
+  deepblue.add_technique(name = "New technique",
 	description = "This technique is faster and cheaper",
 	extra_metadata = list(information = "some useful information"),
 	user_key = "my_secret_key")
+}
 
 }
 \seealso{

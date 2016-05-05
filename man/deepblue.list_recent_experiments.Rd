@@ -30,7 +30,9 @@ experiments - A array (names of recent experiments)
 Lists all recent experiments.
 }
 \examples{
-deepblue.list_recent_experiments(days = 2, genome = "hg19")
+\dontrun{
+  deepblue.list_recent_experiments(days = 2, genome = "hg19")
+}
 
 }
 \seealso{

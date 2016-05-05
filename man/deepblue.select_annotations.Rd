@@ -28,8 +28,10 @@ id - A string (query id)
 Selects annotation regions matching the given parameters.
 }
 \examples{
-deepblue.select_annotations(annotation_name = "Cpg Islands", genome = "hg19",
+\dontrun{
+  deepblue.select_annotations(annotation_name = "Cpg Islands", genome = "hg19",
   chromosome = "chr1", start = 0, end = 2000000)
+}
 
 }
 \seealso{

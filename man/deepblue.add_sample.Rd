@@ -21,8 +21,10 @@ id - A string (id of the newly inserted sample)
 Inserts a new sample of a given biosourcea.
 }
 \examples{
-deepblue.add_sample(biosource_name = "BLOOD",
+\dontrun{
+  deepblue.add_sample(biosource_name = "BLOOD",
 	extra_metadata = list(age="20 days"), user_key = "my_secret_key")
+}
 
 }
 \seealso{

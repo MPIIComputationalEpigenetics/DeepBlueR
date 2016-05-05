@@ -19,7 +19,9 @@ epigenetic_marks - A array (epigenetic mark names)
 Lists all existing epigenetic marks.
 }
 \examples{
-deepblue.list_epigenetic_marks()
+\dontrun{
+  deepblue.list_epigenetic_marks()
+}
 
 }
 \seealso{

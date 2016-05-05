@@ -39,7 +39,8 @@ id - A string (id of the newly inserted experiment)
 Inserts a new experiment with the given parameters.
 }
 \examples{
-data = "chr1	28735	29810
+\dontrun{
+  data = "chr1	28735	29810
 chr1	135124	135563
 chr1	327790	328229
 chr1	437151	438164
@@ -56,6 +57,7 @@ deepblue.add_experiment(name="Interesting experiment", genome="hg19",
 	format="CHROMOSOME,START,END",
 	extra_metadata=list(source="My own experiments"),
 	user_key="my_private_user_key")
+}
 
 }
 \seealso{

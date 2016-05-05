@@ -21,9 +21,11 @@ id - A string (id of the newly inserted project)
 Inserts a new project with the given parameters.
 }
 \examples{
-deepblue.add_project(name = "My project",
+\dontrun{
+  deepblue.add_project(name = "My project",
 	description = "Data that I will store for myself",
 	user_key = "my_secret_key")
+}
 
 }
 \seealso{

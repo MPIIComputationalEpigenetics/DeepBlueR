@@ -18,7 +18,9 @@ id - A string (id of the removed data)
 Remove data from DeepBlue.
 }
 \examples{
-deepblue.remove(id = data_id, user_key = "my_secret_key")
+\dontrun{
+  deepblue.remove(id = data_id, user_key = "my_secret_key")
+}
 
 }
 \seealso{

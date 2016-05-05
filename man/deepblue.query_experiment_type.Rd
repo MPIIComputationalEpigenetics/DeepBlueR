@@ -21,8 +21,10 @@ information - A string (New query ID.)
 Return information for the given ID (or IDs).
 }
 \examples{
-deepblue.query_experiment_type(query_id = "q1234", type = "signal",
+\dontrun{
+  deepblue.query_experiment_type(query_id = "q1234", type = "signal",
   user_key = "my_secret_key")
+}
 
 }
 \seealso{

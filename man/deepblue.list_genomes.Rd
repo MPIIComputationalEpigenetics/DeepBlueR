@@ -16,7 +16,9 @@ genomes - A array (genome names)
 Lists all existing genomes.
 }
 \examples{
-deepblue.list_genomes()
+\dontrun{
+  deepblue.list_genomes()
+}
 
 }
 \seealso{

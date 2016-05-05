@@ -21,8 +21,10 @@ id - A string (id of the project)
 Set a project as public. You must be the project owner to perform this operation.
 }
 \examples{
-deepblue.set_project_public(project = "My secret project", set = TRUE,
+\dontrun{
+  deepblue.set_project_public(project = "My secret project", set = TRUE,
   user_key = "my_secret_key")
+}
 
 }
 \seealso{

@@ -18,7 +18,9 @@ information - A array or a vector of array (List of Maps, where each map contain
 Return information for the given ID (or IDs).
 }
 \examples{
-deepblue.info(id = "e30035")
+\dontrun{
+  deepblue.info(id = "e30035")
+}
 
 }
 \seealso{

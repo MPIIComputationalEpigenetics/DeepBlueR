@@ -21,8 +21,10 @@ synonym_name - A string (inserted synonym_name)
 Sets a biosource synonym.
 }
 \examples{
-deepblue.set_biosource_synonym(biosource = "biosource name",
+\dontrun{
+  deepblue.set_biosource_synonym(biosource = "biosource name",
   synonym_name = "synonym name", user_key = "my_secret_key")
+}
 
 }
 \seealso{

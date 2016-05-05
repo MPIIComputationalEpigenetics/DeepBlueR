@@ -21,8 +21,10 @@ information - A string (New query ID.)
 Return information for the given ID (or IDs).
 }
 \examples{
-deepblue.query_cache(query_id = "q12345", cache = TRUE,
+\dontrun{
+  deepblue.query_cache(query_id = "q12345", cache = TRUE,
   user_key = "my_secret_key")
+}
 
 }
 \seealso{

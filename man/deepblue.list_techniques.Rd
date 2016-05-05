@@ -16,7 +16,9 @@ techniques - A array (techniques)
 Lists all existing techniques.
 }
 \examples{
-deepblue.list_techniques()
+\dontrun{
+  deepblue.list_techniques()
+}
 
 }
 \seealso{

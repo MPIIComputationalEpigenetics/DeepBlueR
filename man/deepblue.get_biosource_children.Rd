@@ -19,7 +19,9 @@ biosources - A array (related biosources)
 Gets the scope for the biosource.
 }
 \examples{
-deepblue.get_biosource_children(biosource = "Blood")
+\dontrun{
+  deepblue.get_biosource_children(biosource = "Blood")
+}
 
 }
 \seealso{

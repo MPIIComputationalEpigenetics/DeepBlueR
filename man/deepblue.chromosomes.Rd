@@ -18,7 +18,9 @@ chromosomes - A array (A list containing all chromosomes, with theirs names and 
 List all chromosomes of a given genome.
 }
 \examples{
-deepblue.chromosomes(genome = "g1", user_key = deepblue.USER_KEY)
+\dontrun{
+  deepblue.chromosomes(genome = "g1", user_key = deepblue.USER_KEY)
+}
 
 }
 \seealso{

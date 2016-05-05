@@ -35,7 +35,9 @@ cmd_documentation_tmpl = """
 #' @return %(return)s
 #'
 #' @examples
+#' \dontrun{
 #' %(examples)s
+#' }
 #'\
 """
 

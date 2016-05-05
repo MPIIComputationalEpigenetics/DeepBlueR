@@ -19,7 +19,9 @@ synonyms - A array (synonyms of the biosource)
 Gets the synonyms for the biosource.
 }
 \examples{
-deepblue.get_biosource_synonyms(biosource = "prostate gland")
+\dontrun{
+  deepblue.get_biosource_synonyms(biosource = "prostate gland")
+}
 
 }
 \seealso{

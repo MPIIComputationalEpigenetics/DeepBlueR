@@ -21,7 +21,9 @@ samples - A array (samples id with their content)
 Lists all existing samples that matches the given biosource and metadata.
 }
 \examples{
-deepblue.list_samples(biosource = "Blood")
+\dontrun{
+  deepblue.list_samples(biosource = "Blood")
+}
 
 }
 \seealso{

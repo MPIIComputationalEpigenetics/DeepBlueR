@@ -21,7 +21,9 @@ experiments - A array (similar experiment names)
 Lists all experiments similar to the one provided.
 }
 \examples{
-deepblue.list_similar_experiments(name = "blood", genome = "hg19")
+\dontrun{
+  deepblue.list_similar_experiments(name = "blood", genome = "hg19")
+}
 
 }
 \seealso{

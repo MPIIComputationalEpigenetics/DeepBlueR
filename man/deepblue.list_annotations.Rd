@@ -18,7 +18,9 @@ annotations - A array (annotation ids)
 Lists all existing annotations.
 }
 \examples{
-deepblue.list_annotations(genome = "hg19")
+\dontrun{
+  deepblue.list_annotations(genome = "hg19")
+}
 
 }
 \seealso{

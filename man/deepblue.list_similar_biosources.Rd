@@ -18,7 +18,9 @@ biosources - A array (similar biosources)
 Lists all biosources similar to the one provided.
 }
 \examples{
-deepblue.list_similar_biosources(name = "blood")
+\dontrun{
+  deepblue.list_similar_biosources(name = "blood")
+}
 
 }
 \seealso{

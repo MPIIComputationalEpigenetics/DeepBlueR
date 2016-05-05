@@ -18,7 +18,9 @@ projects - A array (similar project names)
 Lists all projects similar to the one provided.
 }
 \examples{
-deepblue.list_similar_projects(name = "BLUEPRINT")
+\dontrun{
+  deepblue.list_similar_projects(name = "BLUEPRINT")
+}
 
 }
 \seealso{

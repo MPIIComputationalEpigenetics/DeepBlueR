@@ -23,8 +23,10 @@ id - A string (id of the annotation that contains the positions of the given pat
 Process an annotation that will contain all genomic positions from the given pattern.
 }
 \examples{
-deepblue.find_pattern(pattern = "CAC[TAG]+CAC", genome = "hg19", overlap = FALSE,
+\dontrun{
+  deepblue.find_pattern(pattern = "CAC[TAG]+CAC", genome = "hg19", overlap = FALSE,
   user_key = "my_secret_key")
+}
 
 }
 \seealso{

@@ -35,7 +35,8 @@ deepblue.debug.VERBOSE = FALSE
 #' @return id - A string (id of the newly inserted annotation)
 #'
 #' @examples
-#' data = "chr1	28735	29810
+#' \dontrun{
+#'   data = "chr1	28735	29810
 #' chr1	135124	135563
 #' chr1	327790	328229
 #' chr1	437151	438164
@@ -50,6 +51,7 @@ deepblue.debug.VERBOSE = FALSE
 #' 	data=data, format="CHROMOSOME,START,END",
 #' 	extra_metadata=list(source="My own experiments"),
 #' 	user_key="my_private_user_key")
+#' }
 #'
 deepblue.add_annotation <- function(name= NULL, genome= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -98,11 +100,13 @@ deepblue.add_annotation <- function(name= NULL, genome= NULL, description= NULL,
 #' @return id - A string (id of the newly inserted biosource)
 #'
 #' @examples
-#' deepblue.add_biosource(name="New BioSource",
+#' \dontrun{
+#'   deepblue.add_biosource(name="New BioSource",
 #' 	description="This Biosource is used for..",
 #' 	extra_metadata=list(source="Ontology Blabla",
 #' 		reference="http://ontology.blabla/id"),
 #' 	user_key="my_private_user_key")
+#' }
 #'
 deepblue.add_biosource <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -151,10 +155,12 @@ deepblue.add_biosource <- function(name= NULL, description= NULL, extra_metadata
 #' @return id - A string (id of the newly inserted epigenetic mark)
 #'
 #' @examples
-#' deepblue.add_epigenetic_mark(name="H3k123ac Name",
+#' \dontrun{
+#'   deepblue.add_epigenetic_mark(name="H3k123ac Name",
 #' 	description="A brand new histone mark",
 #' 	extra_metadata=list(type="Histone Mark"),
 #' 	user_key="my_secret_key" )
+#' }
 #'
 deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -210,7 +216,8 @@ deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_me
 #' @return id - A string (id of the newly inserted experiment)
 #'
 #' @examples
-#' data = "chr1	28735	29810
+#' \dontrun{
+#'   data = "chr1	28735	29810
 #' chr1	135124	135563
 #' chr1	327790	328229
 #' chr1	437151	438164
@@ -227,6 +234,7 @@ deepblue.add_epigenetic_mark <- function(name= NULL, description= NULL, extra_me
 #' 	format="CHROMOSOME,START,END",
 #' 	extra_metadata=list(source="My own experiments"),
 #' 	user_key="my_private_user_key")
+#' }
 #'
 deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -277,7 +285,8 @@ deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= N
 #' @return id - A string (id of the newly inserted annotation)
 #'
 #' @examples
-#' gs = 'chr1HAVANA\tgene\t11869\t14409\t.\t+\t.\tgene_id "ENSG00000223972.5";",
+#' \dontrun{
+#'   gs = 'chr1HAVANA\tgene\t11869\t14409\t.\t+\t.\tgene_id "ENSG00000223972.5";",
 #'      "gene_type "transcribed_unprocessed_pseudogene"; gene_status "KNOWN"; ",
 #'      "gene_name "DDX11L1";  level 2; havana_gene "OTTHUMG00000000961.2";\n",
 #'      "chr1\tHAVANA\tgene\t14404\t29570\t.\t-\t.\tgene_id "ENSG00000227232.5";",
@@ -289,6 +298,7 @@ deepblue.add_experiment <- function(name= NULL, genome= NULL, epigenetic_mark= N
 #' deepblue.add_gene_set(name = "My new gene set", description = "A gene set",
 #' 	data = gs, format = "gtf", extra_metadata = NULL,
 #' 	user_key = "my_secret_key")
+#' }
 #'
 deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -337,7 +347,8 @@ deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, for
 #' @return id - A string (id of the newly inserted genome)
 #'
 #' @examples
-#' GRCh38_info = "chr1	248956422
+#' \dontrun{
+#'   GRCh38_info = "chr1	248956422
 #' chr2	242193529
 #' chr3	198295559
 #' chr4	190214555
@@ -366,6 +377,7 @@ deepblue.add_gene_set <- function(name= NULL, description= NULL, data= NULL, for
 #' deepblue.add_genome(name = "GRCh38",
 #' 	description = "GRCh38 with the main chromosomes",
 #' 	data = GRCh38_info, user_key = "my_secret_key")
+#' }
 #'
 deepblue.add_genome <- function(name= NULL, description= NULL, data= NULL, user_key=deepblue.USER_KEY) {
 
@@ -413,9 +425,11 @@ deepblue.add_genome <- function(name= NULL, description= NULL, data= NULL, user_
 #' @return id - A string (id of the newly inserted project)
 #'
 #' @examples
-#' deepblue.add_project(name = "My project",
+#' \dontrun{
+#'   deepblue.add_project(name = "My project",
 #' 	description = "Data that I will store for myself",
 #' 	user_key = "my_secret_key")
+#' }
 #'
 deepblue.add_project <- function(name= NULL, description= NULL, user_key=deepblue.USER_KEY) {
 
@@ -463,8 +477,10 @@ deepblue.add_project <- function(name= NULL, description= NULL, user_key=deepblu
 #' @return id - A string (id of the newly inserted sample)
 #'
 #' @examples
-#' deepblue.add_sample(biosource_name = "BLOOD",
+#' \dontrun{
+#'   deepblue.add_sample(biosource_name = "BLOOD",
 #' 	extra_metadata = list(age="20 days"), user_key = "my_secret_key")
+#' }
 #'
 deepblue.add_sample <- function(biosource_name= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -512,8 +528,10 @@ deepblue.add_sample <- function(biosource_name= NULL, extra_metadata=NULL, user_
 #' @return id - A string (id of the newly inserted sample)
 #'
 #' @examples
-#' deepblue.add_sample_from_gsm(biosource_name = "BLOOD",
+#' \dontrun{
+#'   deepblue.add_sample_from_gsm(biosource_name = "BLOOD",
 #' 	gsm_id = "GSM1234567890", user_key = "my_secret_key")
+#' }
 #'
 deepblue.add_sample_from_gsm <- function(biosource_name= NULL, gsm_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -562,10 +580,12 @@ deepblue.add_sample_from_gsm <- function(biosource_name= NULL, gsm_id= NULL, use
 #' @return id - A string (id of the newly inserted technique)
 #'
 #' @examples
-#' deepblue.add_technique(name = "New technique",
+#' \dontrun{
+#'   deepblue.add_technique(name = "New technique",
 #' 	description = "This technique is faster and cheaper",
 #' 	extra_metadata = list(information = "some useful information"),
 #' 	user_key = "my_secret_key")
+#' }
 #'
 deepblue.add_technique <- function(name= NULL, description= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -614,8 +634,10 @@ deepblue.add_technique <- function(name= NULL, description= NULL, extra_metadata
 #' @return user_id - A string (id of the user)
 #'
 #' @examples
-#' deepblue.add_user_to_project(user = "u1234", project = "My secret project",
+#' \dontrun{
+#'   deepblue.add_user_to_project(user = "u1234", project = "My secret project",
 #'  set = TRUE, user_key = "my_secret_key")
+#' }
 #'
 deepblue.add_user_to_project <- function(user= NULL, project= NULL, set= NULL, user_key=deepblue.USER_KEY) {
 
@@ -664,8 +686,10 @@ deepblue.add_user_to_project <- function(user= NULL, project= NULL, set= NULL, u
 #' @return regions - A string (query id of this aggregation operation)
 #'
 #' @examples
-#' deepblue.aggregate(data_id = "q123456", ranges_id = "q654321",
+#' \dontrun{
+#'   deepblue.aggregate(data_id = "q123456", ranges_id = "q654321",
 #'   column = "SCORE", user_key = deepblue.USER_KEY)
+#' }
 #'
 deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, user_key=deepblue.USER_KEY) {
 
@@ -712,7 +736,9 @@ deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
 #' @return id - A string (ID of the canceled request)
 #'
 #' @examples
-#' deepblue.cancel_request(id = "r12345", user_key = "my_secret_key")
+#' \dontrun{
+#'   deepblue.cancel_request(id = "r12345", user_key = "my_secret_key")
+#' }
 #'
 deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -761,8 +787,10 @@ deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @return id - A string (id of the modified data)
 #'
 #' @examples
-#' deepblue.change_extra_metadata(id = "s1234", extra_metadata_key = "age",
+#' \dontrun{
+#'   deepblue.change_extra_metadata(id = "s1234", extra_metadata_key = "age",
 #' 	extra_metadata_value = "20 days", user_key = "my_secret_key")
+#' }
 #'
 deepblue.change_extra_metadata <- function(id= NULL, extra_metadata_key= NULL, extra_metadata_value= NULL, user_key=deepblue.USER_KEY) {
 
@@ -809,7 +837,9 @@ deepblue.change_extra_metadata <- function(id= NULL, extra_metadata_key= NULL, e
 #' @return chromosomes - A array (A list containing all chromosomes, with theirs names and sizes)
 #'
 #' @examples
-#' deepblue.chromosomes(genome = "g1", user_key = deepblue.USER_KEY)
+#' \dontrun{
+#'   deepblue.chromosomes(genome = "g1", user_key = deepblue.USER_KEY)
+#' }
 #'
 deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
 
@@ -864,10 +894,12 @@ deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
 #' @return id - A string (id of the new dataset)
 #'
 #' @examples
-#' deepblue.clone_dataset(dataset_id = "e12345",
+#' \dontrun{
+#'   deepblue.clone_dataset(dataset_id = "e12345",
 #' 	new_name = "Dataset with better metadata",
 #'   	new_sample = "s1234", new_technique = "CHiP-Seq",
 #'   	new_project = "My private data", Auser_key = "my_secret_key")
+#' }
 #'
 deepblue.clone_dataset <- function(dataset_id= NULL, new_name= NULL, new_epigenetic_mark= NULL, new_sample= NULL, new_technique= NULL, new_project= NULL, description= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -921,8 +953,10 @@ deepblue.clone_dataset <- function(dataset_id= NULL, new_name= NULL, new_epigene
 #' @return terms - A array (controlled_vocabulary terms with count)
 #'
 #' @examples
-#' deepblue.collection_experiments_count(controlled_vocabulary="epigenetic_marks",
+#' \dontrun{
+#'   deepblue.collection_experiments_count(controlled_vocabulary="epigenetic_marks",
 #'   genome = "hg19", type = "peaks", biosource = "blood")
+#' }
 #'
 deepblue.collection_experiments_count <- function(controlled_vocabulary= NULL, genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
 
@@ -967,7 +1001,9 @@ deepblue.collection_experiments_count <- function(controlled_vocabulary= NULL, g
 #' @return commands - A struct (command descriptions)
 #'
 #' @examples
-#' deepblue.commands()
+#' \dontrun{
+#'   deepblue.commands()
+#' }
 #'
 deepblue.commands <- function() {
 
@@ -1014,7 +1050,9 @@ deepblue.commands <- function() {
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 #'
 #' @examples
-#' deepblue.count_regions(query_id = "q12345", user_key = deepblue.USER_KEY)
+#' \dontrun{
+#'   deepblue.count_regions(query_id = "q12345", user_key = deepblue.USER_KEY)
+#' }
 #'
 deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1063,9 +1101,11 @@ deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
 #' @return id - A string (id of the newly created column type)
 #'
 #' @examples
-#' deepblue.create_column_type_calculated(name = "CALC_SQUARE_ROOT_VALUE",
+#' \dontrun{
+#'   deepblue.create_column_type_calculated(name = "CALC_SQUARE_ROOT_VALUE",
 #'   description ="The square root of the value column",
 #'   code = "return sqrt(value_of('VALUE'))", user_key = "my_secret_key")
+#' }
 #'
 deepblue.create_column_type_calculated <- function(name= NULL, description= NULL, code= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1114,10 +1154,12 @@ deepblue.create_column_type_calculated <- function(name= NULL, description= NULL
 #' @return id - A string (id of the newly created column type)
 #'
 #' @examples
-#' deepblue.create_column_type_category(name = FRUITS,
+#' \dontrun{
+#'   deepblue.create_column_type_category(name = FRUITS,
 #' 	description = "Fruits that we accept",
 #'   	items = c("apple", "banana", "grape"),
 #'   	user_key = "my_secret_key")
+#' }
 #'
 deepblue.create_column_type_category <- function(name= NULL, description= NULL, items= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1167,9 +1209,11 @@ deepblue.create_column_type_category <- function(name= NULL, description= NULL, 
 #' @return id - A string (id of the newly created column type)
 #'
 #' @examples
-#' deepblue.create_column_type_range(name = ACCEPTED_VALUE,
+#' \dontrun{
+#'   deepblue.create_column_type_range(name = ACCEPTED_VALUE,
 #' 	description = "Values that we accept",
 #'   	minimum = 1, maximum = 99, user_key = "my_secret_key")
+#' }
 #'
 deepblue.create_column_type_range <- function(name= NULL, description= NULL, minimum= NULL, maximum= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1218,10 +1262,12 @@ deepblue.create_column_type_range <- function(name= NULL, description= NULL, min
 #' @return id - A string (id of the newly created column type)
 #'
 #' @examples
-#' deepblue.create_column_type_simple(name = "SOME_VALUE",
+#' \dontrun{
+#'   deepblue.create_column_type_simple(name = "SOME_VALUE",
 #' 	description = "This column will include some value",
 #'   	type = "integer", user_key = "my_secret_key")
 
+#' }
 #'
 deepblue.create_column_type_simple <- function(name= NULL, description= NULL, type= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1267,7 +1313,9 @@ deepblue.create_column_type_simple <- function(name= NULL, description= NULL, ty
 #' @return message - A string (echo message including version)
 #'
 #' @examples
-#' deepblue.echo(user_key = "anonymous_key")
+#' \dontrun{
+#'   deepblue.echo(user_key = "anonymous_key")
+#' }
 #'
 deepblue.echo <- function(user_key=deepblue.USER_KEY) {
 
@@ -1317,8 +1365,10 @@ deepblue.echo <- function(user_key=deepblue.USER_KEY) {
 #' @return id - A string (id of the new query)
 #'
 #' @examples
-#' deepblue.extend(query_id = "q1234", length = 2000, direction = "BOTH",
+#' \dontrun{
+#'   deepblue.extend(query_id = "q1234", length = 2000, direction = "BOTH",
 #'   use_strand = TRUE, user_key = "my_secret_key")
+#' }
 #'
 deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_strand= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1364,7 +1414,9 @@ deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
 #' @return ids - A array (list containing the extracted IDs)
 #'
 #' @examples
-#' deepblue.extract_ids(list = list(list("a124", "Annotation 1"), list("a1235", "Annotation 2")))
+#' \dontrun{
+#'   deepblue.extract_ids(list = list(list("a124", "Annotation 1"), list("a1235", "Annotation 2")))
+#' }
 #'
 deepblue.extract_ids <- function(list= NULL) {
 
@@ -1410,7 +1462,9 @@ deepblue.extract_ids <- function(list= NULL) {
 #' @return names - A array (list containing the extracted names)
 #'
 #' @examples
-#' deepblue.extract_names(list = list(list("a124", "Annotation 1"), list("a1235", "Annotation 2")))
+#' \dontrun{
+#'   deepblue.extract_names(list = list(list("a124", "Annotation 1"), list("a1235", "Annotation 2")))
+#' }
 #'
 deepblue.extract_names <- function(list= NULL) {
 
@@ -1463,8 +1517,10 @@ deepblue.extract_names <- function(list= NULL) {
 #' @return faceting - A struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)
 #'
 #' @examples
-#' deepblue.faceting_experiments(genome = "hg19", type = "peaks",
+#' \dontrun{
+#'   deepblue.faceting_experiments(genome = "hg19", type = "peaks",
 #'   biosource = "blood")
+#' }
 #'
 deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1515,8 +1571,10 @@ deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
 #' @return id - A string (id of filtered query)
 #'
 #' @examples
-#' deepblue.filter_regions(query_id = "q12345", field = "VALUE", operation = ">",
+#' \dontrun{
+#'   deepblue.filter_regions(query_id = "q12345", field = "VALUE", operation = ">",
 #'   value = "100", type = "number", user_key = "anonymous_key")
+#' }
 #'
 deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL, value= NULL, type= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1565,9 +1623,11 @@ deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 #' @return id - A string (id of the annotation that contains the positions of the given pattern)
 #'
 #' @examples
-#' deepblue.find_pattern(pattern = "CAC[TAG]+CAC", genome = "hg19", overlap = FALSE,
+#' \dontrun{
+#'   deepblue.find_pattern(pattern = "CAC[TAG]+CAC", genome = "hg19", overlap = FALSE,
 #'   user_key = "my_secret_key")
 
+#' }
 #'
 deepblue.find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1617,8 +1677,10 @@ deepblue.find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, us
 #' @return id - A string (id of the new query)
 #'
 #' @examples
-#' deepblue.flank(query_id = "q1234", start = 0, length = 2000,
+#' \dontrun{
+#'   deepblue.flank(query_id = "q1234", start = 0, length = 2000,
 #'   use_strand = TRUE, user_key = "my_secret_key")
+#' }
 #'
 deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1665,7 +1727,9 @@ deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
 #' @return biosources - A array (related biosources)
 #'
 #' @examples
-#' deepblue.get_biosource_children(biosource = "Blood")
+#' \dontrun{
+#'   deepblue.get_biosource_children(biosource = "Blood")
+#' }
 #'
 deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1712,7 +1776,9 @@ deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.U
 #' @return biosources - A array (parents biosources)
 #'
 #' @examples
-#' deepblue.get_biosource_parents(biosource = "Blood")
+#' \dontrun{
+#'   deepblue.get_biosource_parents(biosource = "Blood")
+#' }
 #'
 deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1759,7 +1825,9 @@ deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.US
 #' @return biosources - A array (related biosources)
 #'
 #' @examples
-#' deepblue.get_biosource_related(biosource = "Blood")
+#' \dontrun{
+#'   deepblue.get_biosource_related(biosource = "Blood")
+#' }
 #'
 deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1806,7 +1874,9 @@ deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.US
 #' @return synonyms - A array (synonyms of the biosource)
 #'
 #' @examples
-#' deepblue.get_biosource_synonyms(biosource = "prostate gland")
+#' \dontrun{
+#'   deepblue.get_biosource_synonyms(biosource = "prostate gland")
+#' }
 #'
 deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1853,7 +1923,9 @@ deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.U
 #' @return experiments - A array (List containing experiments names and ids)
 #'
 #' @examples
-#' deepblue.get_experiments_by_query(query_id = "q12345")
+#' \dontrun{
+#'   deepblue.get_experiments_by_query(query_id = "q12345")
+#' }
 #'
 deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1901,8 +1973,10 @@ deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 #'
 #' @examples
-#' deepblue.get_regions(query_id = "q123456", output_format = "CHROMOSOME,START,END",
+#' \dontrun{
+#'   deepblue.get_regions(query_id = "q123456", output_format = "CHROMOSOME,START,END",
 #'   user_key = "my_secret_key")
+#' }
 #'
 deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1949,7 +2023,9 @@ deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
 #' @return data - A string or a vector of string (The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).)
 #'
 #' @examples
-#' deepblue.get_request_data(request_id = "r12345", user_key = "my_secret_key")
+#' \dontrun{
+#'   deepblue.get_request_data(request_id = "r12345", user_key = "my_secret_key")
+#' }
 #'
 deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -1996,7 +2072,9 @@ deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_K
 #' @return information - A array or a vector of array (List of Maps, where each map contains the info of an object.)
 #'
 #' @examples
-#' deepblue.info(id = "e30035")
+#' \dontrun{
+#'   deepblue.info(id = "e30035")
+#' }
 #'
 deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2044,7 +2122,8 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @return id - A string (query id)
 #'
 #' @examples
-#' regions_set = "chr1  28735 29810
+#' \dontrun{
+#'   regions_set = "chr1  28735 29810
 #' chr1  135124  135563
 #' chr1  327790  328229
 #' chr1  437151  438164
@@ -2056,6 +2135,7 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' chr1  788863  789211"
 #' deepblue.input_regions(genome = "hg19", region_set = regions_set,
 #'   user_key = "my_secret_key")
+#' }
 #'
 deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2103,8 +2183,10 @@ deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
 #' @return id - A string (id of the new query)
 #'
 #' @examples
-#' deepblue.intersection(query_a_id = query_a, query_b_id = query_b,
+#' \dontrun{
+#'   deepblue.intersection(query_a_id = query_a, query_b_id = query_b,
 #'   user_key = "my_secret_user_key")
+#' }
 #'
 deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2151,7 +2233,9 @@ deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=d
 #' @return information - A string or a vector of string (A string containing the biosource name)
 #'
 #' @examples
-#' deepblue.is_biosource(biosource_name = "blood")
+#' \dontrun{
+#'   deepblue.is_biosource(biosource_name = "blood")
+#' }
 #'
 deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2198,7 +2282,9 @@ deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_K
 #' @return annotations - A array (annotation ids)
 #'
 #' @examples
-#' deepblue.list_annotations(genome = "hg19")
+#' \dontrun{
+#'   deepblue.list_annotations(genome = "hg19")
+#' }
 #'
 deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2245,7 +2331,9 @@ deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) 
 #' @return biosources - A array (biosources)
 #'
 #' @examples
-#' deepblue.list_biosources(extra_metadata = list(namespace = "uberon"))
+#' \dontrun{
+#'   deepblue.list_biosources(extra_metadata = list(namespace = "uberon"))
+#' }
 #'
 deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -2291,7 +2379,9 @@ deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER
 #' @return column_types - A array (column types)
 #'
 #' @examples
-#' deepblue.list_column_types()
+#' \dontrun{
+#'   deepblue.list_column_types()
+#' }
 #'
 deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
 
@@ -2338,7 +2428,9 @@ deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
 #' @return epigenetic_marks - A array (epigenetic mark names)
 #'
 #' @examples
-#' deepblue.list_epigenetic_marks()
+#' \dontrun{
+#'   deepblue.list_epigenetic_marks()
+#' }
 #'
 deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -2391,8 +2483,10 @@ deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
 #' @return experiments - A array (experiment names)
 #'
 #' @examples
-#' deepblue.list_experiments(genome = "hg19", type = "peaks",
+#' \dontrun{
+#'   deepblue.list_experiments(genome = "hg19", type = "peaks",
 #'   epigenetic_mark = "H3K27ac", biosource = "blood")
+#' }
 #'
 deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2438,7 +2532,9 @@ deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #' @return genomes - A array (genome names)
 #'
 #' @examples
-#' deepblue.list_genomes()
+#' \dontrun{
+#'   deepblue.list_genomes()
+#' }
 #'
 deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
 
@@ -2485,7 +2581,9 @@ deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
 #' @return terms - A array (controlled_vocabulary terms with count)
 #'
 #' @examples
-#' deepblue.list_in_use(controlled_vocabulary = "biosources")
+#' \dontrun{
+#'   deepblue.list_in_use(controlled_vocabulary = "biosources")
+#' }
 #'
 deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2531,7 +2629,9 @@ deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.
 #' @return projects - A array (project names)
 #'
 #' @examples
-#' deepblue.list_projects()
+#' \dontrun{
+#'   deepblue.list_projects()
+#' }
 #'
 deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
 
@@ -2583,7 +2683,9 @@ deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
 #' @return experiments - A array (names of recent experiments)
 #'
 #' @examples
-#' deepblue.list_recent_experiments(days = 2, genome = "hg19")
+#' \dontrun{
+#'   deepblue.list_recent_experiments(days = 2, genome = "hg19")
+#' }
 #'
 deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2630,7 +2732,9 @@ deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
 #' @return data_state - A array (Request-IDs and their state)
 #'
 #' @examples
-#' deepblue.list_requests(request_state = 'done', user_key = 'my_secret_key')
+#' \dontrun{
+#'   deepblue.list_requests(request_state = 'done', user_key = 'my_secret_key')
+#' }
 #'
 deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2678,7 +2782,9 @@ deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_K
 #' @return samples - A array (samples id with their content)
 #'
 #' @examples
-#' deepblue.list_samples(biosource = "Blood")
+#' \dontrun{
+#'   deepblue.list_samples(biosource = "Blood")
+#' }
 #'
 deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 
@@ -2725,7 +2831,9 @@ deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
 #' @return biosources - A array (similar biosources)
 #'
 #' @examples
-#' deepblue.list_similar_biosources(name = "blood")
+#' \dontrun{
+#'   deepblue.list_similar_biosources(name = "blood")
+#' }
 #'
 deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2772,7 +2880,9 @@ deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_
 #' @return epigenetic_marks - A array (similar epigenetic mark names)
 #'
 #' @examples
-#' deepblue.list_similar_epigenetic_marks(name = "H3k27ac")
+#' \dontrun{
+#'   deepblue.list_similar_epigenetic_marks(name = "H3k27ac")
+#' }
 #'
 deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2820,7 +2930,9 @@ deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
 #' @return experiments - A array (similar experiment names)
 #'
 #' @examples
-#' deepblue.list_similar_experiments(name = "blood", genome = "hg19")
+#' \dontrun{
+#'   deepblue.list_similar_experiments(name = "blood", genome = "hg19")
+#' }
 #'
 deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2867,7 +2979,9 @@ deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key
 #' @return genomes - A array (similar genome names)
 #'
 #' @examples
-#' deepblue.list_similar_genomes(name = "grc")
+#' \dontrun{
+#'   deepblue.list_similar_genomes(name = "grc")
+#' }
 #'
 deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2914,7 +3028,9 @@ deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY
 #' @return projects - A array (similar project names)
 #'
 #' @examples
-#' deepblue.list_similar_projects(name = "BLUEPRINT")
+#' \dontrun{
+#'   deepblue.list_similar_projects(name = "BLUEPRINT")
+#' }
 #'
 deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2961,7 +3077,9 @@ deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KE
 #' @return techniques - A array (similar techniques)
 #'
 #' @examples
-#' deepblue.list_similar_techniques(name = "chip seq")
+#' \dontrun{
+#'   deepblue.list_similar_techniques(name = "chip seq")
+#' }
 #'
 deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3007,7 +3125,9 @@ deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_
 #' @return techniques - A array (techniques)
 #'
 #' @examples
-#' deepblue.list_techniques()
+#' \dontrun{
+#'   deepblue.list_techniques()
+#' }
 #'
 deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
 
@@ -3055,8 +3175,10 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
 #' @return id - A string (new query id)
 #'
 #' @examples
-#' deepblue.merge_queries(query_a_id = query_a, query_b_id = query_a,
+#' \dontrun{
+#'   deepblue.merge_queries(query_a_id = query_a, query_b_id = query_a,
 #'   user_key = "my_secret_key")
+#' }
 #'
 deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3104,8 +3226,10 @@ deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
 #' @return information - A string (New query ID.)
 #'
 #' @examples
-#' deepblue.query_cache(query_id = "q12345", cache = TRUE,
+#' \dontrun{
+#'   deepblue.query_cache(query_id = "q12345", cache = TRUE,
 #'   user_key = "my_secret_key")
+#' }
 #'
 deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3153,8 +3277,10 @@ deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.
 #' @return information - A string (New query ID.)
 #'
 #' @examples
-#' deepblue.query_experiment_type(query_id = "q1234", type = "signal",
+#' \dontrun{
+#'   deepblue.query_experiment_type(query_id = "q1234", type = "signal",
 #'   user_key = "my_secret_key")
+#' }
 #'
 deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3201,7 +3327,9 @@ deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
 #' @return id - A string (id of the removed data)
 #'
 #' @examples
-#' deepblue.remove(id = data_id, user_key = "my_secret_key")
+#' \dontrun{
+#'   deepblue.remove(id = data_id, user_key = "my_secret_key")
+#' }
 #'
 deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3250,9 +3378,11 @@ deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @return regions - A string (BED formated regions)
 #'
 #' @examples
-#' deepblue.score_matrix(experiments_columns = list(list("Experiment One", "VALUE)),
+#' \dontrun{
+#'   deepblue.score_matrix(experiments_columns = list(list("Experiment One", "VALUE)),
 #'   aggregation_function = "mean", aggregation_regions_id = "q123",
 #'   user_key = "my_private_key")
+#' }
 #'
 deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_function= NULL, aggregation_regions_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3300,7 +3430,9 @@ deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_functio
 #' @return results - A array (search results as [id, name, type])
 #'
 #' @examples
-#' deepblue.search(keyword = "DNA Methylation BLUEPRINT", type = "experiments")
+#' \dontrun{
+#'   deepblue.search(keyword = "DNA Methylation BLUEPRINT", type = "experiments")
+#' }
 #'
 deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3351,8 +3483,10 @@ deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KE
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.select_annotations(annotation_name = "Cpg Islands", genome = "hg19",
+#' \dontrun{
+#'   deepblue.select_annotations(annotation_name = "Cpg Islands", genome = "hg19",
 #'   chromosome = "chr1", start = 0, end = 2000000)
+#' }
 #'
 deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3402,10 +3536,12 @@ deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chr
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.select_experiments(
+#' \dontrun{
+#'   deepblue.select_experiments(
 #' 	experiment_name = c("E002-H3K9ac.narrowPeak.bed",
 #' 						"E001-H3K4me3.gappedPeak.bed")
 #' )
+#' }
 #'
 deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3456,8 +3592,10 @@ deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' @return id - A string (query id)
 #'
 #' @examples
-#' genes_names = c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
+#' \dontrun{
+#'   genes_names = c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
 #' deepblue.select_genes(genes_name = genes_names, gene_set = "gencode v23")
+#' }
 #'
 deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3512,9 +3650,11 @@ deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= 
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.select_regions(genome="hg19", epigenetic_mark = "H3K27ac",
+#' \dontrun{
+#'   deepblue.select_regions(genome="hg19", epigenetic_mark = "H3K27ac",
 #'   project = " BLUEPRINT Epigenome")
 
+#' }
 #'
 deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigenetic_mark= NULL, sample_id= NULL, technique= NULL, project= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3562,8 +3702,10 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
 #' @return nothing :-(
 #'
 #' @examples
-#' deepblue.set_biosource_parent(parent = "biosource-parent",
+#' \dontrun{
+#'   deepblue.set_biosource_parent(parent = "biosource-parent",
 #'   child = "biosource-child", user_key = "my_secret_key")
+#' }
 #'
 deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3611,8 +3753,10 @@ deepblue.set_biosource_parent <- function(parent= NULL, child= NULL, user_key=de
 #' @return synonym_name - A string (inserted synonym_name)
 #'
 #' @examples
-#' deepblue.set_biosource_synonym(biosource = "biosource name",
+#' \dontrun{
+#'   deepblue.set_biosource_synonym(biosource = "biosource name",
 #'   synonym_name = "synonym name", user_key = "my_secret_key")
+#' }
 #'
 deepblue.set_biosource_synonym <- function(biosource= NULL, synonym_name= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3660,8 +3804,10 @@ deepblue.set_biosource_synonym <- function(biosource= NULL, synonym_name= NULL, 
 #' @return id - A string (id of the project)
 #'
 #' @examples
-#' deepblue.set_project_public(project = "My secret project", set = TRUE,
+#' \dontrun{
+#'   deepblue.set_project_public(project = "My secret project", set = TRUE,
 #'   user_key = "my_secret_key")
+#' }
 #'
 deepblue.set_project_public <- function(project= NULL, set= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3710,8 +3856,10 @@ deepblue.set_project_public <- function(project= NULL, set= NULL, user_key=deepb
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.tiling_regions(size = 10000, genome = "hg19",
+#' \dontrun{
+#'   deepblue.tiling_regions(size = 10000, genome = "hg19",
 #'   chromosome = "chr1")
+#' }
 #'
 deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3760,10 +3908,12 @@ deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
 #' @return nothing :-(
 #'
 #' @examples
-#' data = "ACTGAGCTCAGC"
+#' \dontrun{
+#'   data = "ACTGAGCTCAGC"
 #' deepblue.upload_chromosome(genome = "genome_name",
 #' 	chromosome = "chromosome_name", data = NULL,
 #'   	user_key = "my_secret_key")
+#' }
 #'
 deepblue.upload_chromosome <- function(genome= NULL, chromosome= NULL, data= NULL, user_key=deepblue.USER_KEY) {
 

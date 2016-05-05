@@ -25,8 +25,10 @@ id - A string (id of the new query)
 Generate flanking regions from the given regions.
 }
 \examples{
-deepblue.flank(query_id = "q1234", start = 0, length = 2000,
+\dontrun{
+  deepblue.flank(query_id = "q1234", start = 0, length = 2000,
   use_strand = TRUE, user_key = "my_secret_key")
+}
 
 }
 \seealso{

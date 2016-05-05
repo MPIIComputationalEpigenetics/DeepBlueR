@@ -21,7 +21,8 @@ id - A string (query id)
 Include a region set that will be used by the follow ups operations.
 }
 \examples{
-regions_set = "chr1  28735 29810
+\dontrun{
+  regions_set = "chr1  28735 29810
 chr1  135124  135563
 chr1  327790  328229
 chr1  437151  438164
@@ -33,6 +34,7 @@ chr1  762416  763445
 chr1  788863  789211"
 deepblue.input_regions(genome = "hg19", region_set = regions_set,
   user_key = "my_secret_key")
+}
 
 }
 \seealso{

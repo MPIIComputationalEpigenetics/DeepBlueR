@@ -19,7 +19,9 @@ biosources - A array (parents biosources)
 Gets the biosources that are parents of the given biosource.
 }
 \examples{
-deepblue.get_biosource_parents(biosource = "Blood")
+\dontrun{
+  deepblue.get_biosource_parents(biosource = "Blood")
+}
 
 }
 \seealso{

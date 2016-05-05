@@ -18,7 +18,9 @@ genomes - A array (similar genome names)
 Lists all genomes similar to the one provided.
 }
 \examples{
-deepblue.list_similar_genomes(name = "grc")
+\dontrun{
+  deepblue.list_similar_genomes(name = "grc")
+}
 
 }
 \seealso{

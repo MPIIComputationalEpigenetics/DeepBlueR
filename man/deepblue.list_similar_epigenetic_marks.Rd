@@ -19,7 +19,9 @@ epigenetic_marks - A array (similar epigenetic mark names)
 Lists all epigenetic marks similar to the one provided.
 }
 \examples{
-deepblue.list_similar_epigenetic_marks(name = "H3k27ac")
+\dontrun{
+  deepblue.list_similar_epigenetic_marks(name = "H3k27ac")
+}
 
 }
 \seealso{

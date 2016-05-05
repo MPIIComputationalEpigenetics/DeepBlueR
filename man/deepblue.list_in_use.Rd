@@ -19,7 +19,9 @@ terms - A array (controlled_vocabulary terms with count)
 Lists all terms from the given controlled vocabulary that are used.
 }
 \examples{
-deepblue.list_in_use(controlled_vocabulary = "biosources")
+\dontrun{
+  deepblue.list_in_use(controlled_vocabulary = "biosources")
+}
 
 }
 \seealso{

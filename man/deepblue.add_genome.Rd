@@ -23,7 +23,8 @@ id - A string (id of the newly inserted genome)
 Inserts a new genome with the given parameters.
 }
 \examples{
-GRCh38_info = "chr1	248956422
+\dontrun{
+  GRCh38_info = "chr1	248956422
 chr2	242193529
 chr3	198295559
 chr4	190214555
@@ -52,6 +53,7 @@ chrM	16569"
 deepblue.add_genome(name = "GRCh38",
 	description = "GRCh38 with the main chromosomes",
 	data = GRCh38_info, user_key = "my_secret_key")
+}
 
 }
 \seealso{
