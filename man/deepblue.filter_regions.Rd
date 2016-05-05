@@ -26,6 +26,11 @@ id - A string (id of filtered query)
 \description{
 Filters the result of the given query by the given restrictions.
 }
+\examples{
+deepblue.filter_regions(query_id = "q12345", field = "VALUE", operation = ">",
+  value = "100", type = "number", user_key = "anonymous_key")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

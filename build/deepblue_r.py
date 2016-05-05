@@ -32,7 +32,11 @@ cmd_documentation_tmpl = """
 #' @family %(category)s
 #' %(params)s
 #'
-#' @return %(return)s\
+#' @return %(return)s
+#'
+#' @examples
+#' %(examples)s
+#'\
 """
 
 
@@ -73,7 +77,7 @@ deepblue.%(name)s <- function(%(parameter_names)s) {
 def main():
 
   client = xmlrpclib.Server("http://deepblue.mpi-inf.mpg.de/xmlrpc", allow_none=True)
-  
+
   #list of commands to ignore
   exclude = ['get_state']
 
@@ -105,6 +109,8 @@ def main():
     param_names = []
     param_names_convertion = []
 
+    examples = open("examples/deepblue."+name+".R").read()
+    examples = "#' ".join(examples.splitlines(True))
 
     params_documentation = []
     titles = []
@@ -150,6 +156,7 @@ def main():
                                                   'description': cmd["description"][2],
                                                   'category' : cmd['description'][1],
                                                   'params' : "".join(params_documentation),
+                                                  'examples': examples,
                                                   'return' :  join_results}
 
     if param_names_convertion:

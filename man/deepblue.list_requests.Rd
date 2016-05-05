@@ -17,6 +17,10 @@ data_state - A array (Request-IDs and their state)
 \description{
 Lists all requests in given state.
 }
+\examples{
+deepblue.list_requests(request_state = 'done', user_key = 'my_secret_key')
+
+}
 \seealso{
 Other Requests status information and results: \code{\link{deepblue.get_request_data}}
 }

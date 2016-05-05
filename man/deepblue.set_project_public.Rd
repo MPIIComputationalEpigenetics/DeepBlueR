@@ -20,6 +20,11 @@ id - A string (id of the project)
 \description{
 Set a project as public. You must be the project owner to perform this operation.
 }
+\examples{
+deepblue.set_project_public(project = "My secret project", set = TRUE,
+  user_key = "my_secret_key")
+
+}
 \seealso{
 Other Inserting and listing projects: \code{\link{deepblue.add_project}},
   \code{\link{deepblue.add_user_to_project}},

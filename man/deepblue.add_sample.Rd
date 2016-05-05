@@ -20,6 +20,11 @@ id - A string (id of the newly inserted sample)
 \description{
 Inserts a new sample of a given biosourcea.
 }
+\examples{
+deepblue.add_sample(biosource_name = "BLOOD",
+	extra_metadata = list(age="20 days"), user_key = "my_secret_key")
+
+}
 \seealso{
 Other Inserting and listing samples: \code{\link{deepblue.add_sample_from_gsm}},
   \code{\link{deepblue.list_samples}}

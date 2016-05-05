@@ -24,6 +24,11 @@ id - A string (id of the new query)
 \description{
 Generate flanking regions from the given regions.
 }
+\examples{
+deepblue.flank(query_id = "q1234", start = 0, length = 2000,
+  use_strand = TRUE, user_key = "my_secret_key")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

@@ -18,6 +18,10 @@ epigenetic_marks - A array (epigenetic mark names)
 \description{
 Lists all existing epigenetic marks.
 }
+\examples{
+deepblue.list_epigenetic_marks()
+
+}
 \seealso{
 Other Inserting and listing epigenetic marks: \code{\link{deepblue.add_epigenetic_mark}},
   \code{\link{deepblue.list_similar_epigenetic_marks}}

@@ -17,6 +17,10 @@ id - A string (id of the removed data)
 \description{
 Remove data from DeepBlue.
 }
+\examples{
+deepblue.remove(id = data_id, user_key = "my_secret_key")
+
+}
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
   \code{\link{deepblue.info}},

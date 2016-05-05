@@ -17,6 +17,10 @@ chromosomes - A array (A list containing all chromosomes, with theirs names and 
 \description{
 List all chromosomes of a given genome.
 }
+\examples{
+deepblue.chromosomes(genome = "g1", user_key = deepblue.USER_KEY)
+
+}
 \seealso{
 Other Inserting and listing genomes: \code{\link{deepblue.add_genome}},
   \code{\link{deepblue.list_genomes}},

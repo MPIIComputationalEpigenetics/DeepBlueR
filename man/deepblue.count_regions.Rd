@@ -17,6 +17,10 @@ request_id - A string (Request ID - Use it to retrieve the result with info() an
 \description{
 Send a request to count the number of regions in the result of the given query.
 }
+\examples{
+deepblue.count_regions(query_id = "q12345", user_key = deepblue.USER_KEY)
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.extend}},

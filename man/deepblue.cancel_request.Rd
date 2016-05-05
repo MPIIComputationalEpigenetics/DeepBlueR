@@ -17,6 +17,10 @@ id - A string (ID of the canceled request)
 \description{
 Stop, cancel, and remove request data. Its data will be remove if the request did finish.
 }
+\examples{
+deepblue.cancel_request(id = "r12345", user_key = "my_secret_key")
+
+}
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.info}},
   \code{\link{deepblue.is_biosource}},

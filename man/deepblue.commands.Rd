@@ -12,6 +12,10 @@ commands - A struct (command descriptions)
 \description{
 Lists all existing commands.
 }
+\examples{
+deepblue.commands()
+
+}
 \seealso{
 Other Checking DeepBlue status: \code{\link{deepblue.echo}}
 }

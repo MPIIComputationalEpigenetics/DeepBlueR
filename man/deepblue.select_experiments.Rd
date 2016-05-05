@@ -24,6 +24,13 @@ id - A string (query id)
 \description{
 Selects experiments data. It is a simpler version of the select_regions command.
 }
+\examples{
+deepblue.select_experiments(
+	experiment_name = c("E002-H3K9ac.narrowPeak.bed",
+						"E001-H3K4me3.gappedPeak.bed")
+)
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

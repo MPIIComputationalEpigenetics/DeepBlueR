@@ -27,6 +27,11 @@ id - A string (query id)
 \description{
 Selects genes as regions.
 }
+\examples{
+genes_names = c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
+deepblue.select_genes(genes_name = genes_names, gene_set = "gencode v23")
+
+}
 \seealso{
 Other Operations on gene sets and genes identifiers: \code{\link{deepblue.add_gene_set}}
 }

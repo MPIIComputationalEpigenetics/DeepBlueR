@@ -20,6 +20,11 @@ id - A string (new query id)
 \description{
 Merges the regions of the given queries.
 }
+\examples{
+deepblue.merge_queries(query_a_id = query_a, query_b_id = query_a,
+  user_key = "my_secret_key")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

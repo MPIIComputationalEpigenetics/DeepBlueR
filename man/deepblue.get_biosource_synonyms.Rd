@@ -18,6 +18,10 @@ synonyms - A array (synonyms of the biosource)
 \description{
 Gets the synonyms for the biosource.
 }
+\examples{
+deepblue.get_biosource_synonyms(biosource = "prostate gland")
+
+}
 \seealso{
 Other Set the relationship between different biosources: \code{\link{deepblue.get_biosource_children}},
   \code{\link{deepblue.get_biosource_parents}},

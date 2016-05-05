@@ -22,6 +22,13 @@ id - A string (id of the newly inserted epigenetic mark)
 \description{
 Inserts a new epigenetic mark with the given parameters.
 }
+\examples{
+deepblue.add_epigenetic_mark(name="H3k123ac Name",
+	description="A brand new histone mark",
+	extra_metadata=list(type="Histone Mark"),
+	user_key="my_secret_key" )
+
+}
 \seealso{
 Other Inserting and listing epigenetic marks: \code{\link{deepblue.list_epigenetic_marks}},
   \code{\link{deepblue.list_similar_epigenetic_marks}}

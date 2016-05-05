@@ -20,6 +20,11 @@ nothing :-(
 \description{
 Sets a biosource parent.
 }
+\examples{
+deepblue.set_biosource_parent(parent = "biosource-parent",
+  child = "biosource-child", user_key = "my_secret_key")
+
+}
 \seealso{
 Other Set the relationship between different biosources: \code{\link{deepblue.get_biosource_children}},
   \code{\link{deepblue.get_biosource_parents}},

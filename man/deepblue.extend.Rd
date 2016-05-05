@@ -24,6 +24,11 @@ id - A string (id of the new query)
 \description{
 Extend regions.
 }
+\examples{
+deepblue.extend(query_id = "q1234", length = 2000, direction = "BOTH",
+  use_strand = TRUE, user_key = "my_secret_key")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

@@ -22,6 +22,11 @@ id - A string (query id)
 \description{
 Creates regions with the tiling size over the chromosomes.
 }
+\examples{
+deepblue.tiling_regions(size = 10000, genome = "hg19",
+  chromosome = "chr1")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

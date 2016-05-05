@@ -8,7 +8,7 @@ deepblue.list_in_use(controlled_vocabulary = NULL,
   user_key = deepblue.USER_KEY)
 }
 \arguments{
-\item{controlled_vocabulary}{- A string (id of the data)}
+\item{controlled_vocabulary}{- A string (controlled vocabulary name)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -17,6 +17,10 @@ terms - A array (controlled_vocabulary terms with count)
 }
 \description{
 Lists all terms from the given controlled vocabulary that are used.
+}
+\examples{
+deepblue.list_in_use(controlled_vocabulary = "biosources")
+
 }
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},

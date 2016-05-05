@@ -15,6 +15,10 @@ techniques - A array (techniques)
 \description{
 Lists all existing techniques.
 }
+\examples{
+deepblue.list_techniques()
+
+}
 \seealso{
 Other Inserting and listing techniques: \code{\link{deepblue.add_technique}},
   \code{\link{deepblue.list_similar_techniques}}

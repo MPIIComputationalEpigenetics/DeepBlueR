@@ -17,6 +17,10 @@ information - A string or a vector of string (A string containing the biosource 
 \description{
 Return information for the given biosource name.
 }
+\examples{
+deepblue.is_biosource(biosource_name = "blood")
+
+}
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
   \code{\link{deepblue.info}},

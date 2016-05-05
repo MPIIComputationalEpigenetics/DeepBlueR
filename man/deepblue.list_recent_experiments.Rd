@@ -29,8 +29,13 @@ experiments - A array (names of recent experiments)
 \description{
 Lists all recent experiments.
 }
+\examples{
+deepblue.list_recent_experiments(days = 2, genome = "hg19")
+
+}
 \seealso{
 Other Inserting and listing experiments: \code{\link{deepblue.add_experiment}},
+  \code{\link{deepblue.collection_experiments_count}},
   \code{\link{deepblue.faceting_experiments}},
   \code{\link{deepblue.list_experiments}},
   \code{\link{deepblue.list_similar_experiments}}

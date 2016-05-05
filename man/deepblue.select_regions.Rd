@@ -36,6 +36,11 @@ id - A string (query id)
 \description{
 Selects experiment regions matching the given parameters.
 }
+\examples{
+deepblue.select_regions(genome="hg19", epigenetic_mark = "H3K27ac",
+  project = " BLUEPRINT Epigenome")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

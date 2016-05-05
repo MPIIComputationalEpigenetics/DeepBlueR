@@ -17,6 +17,10 @@ annotations - A array (annotation ids)
 \description{
 Lists all existing annotations.
 }
+\examples{
+deepblue.list_annotations(genome = "hg19")
+
+}
 \seealso{
 Other Inserting and listing annotations: \code{\link{deepblue.add_annotation}},
   \code{\link{deepblue.find_pattern}}

@@ -22,6 +22,14 @@ id - A string (id of the newly inserted biosource)
 \description{
 Inserts a new biosource with the given parameters.
 }
+\examples{
+deepblue.add_biosource(name="New BioSource",
+	description="This Biosource is used for..",
+	extra_metadata=list(source="Ontology Blabla",
+		reference="http://ontology.blabla/id"),
+	user_key="my_private_user_key")
+
+}
 \seealso{
 Other Inserting and listing biosources: \code{\link{deepblue.list_biosources}},
   \code{\link{deepblue.list_similar_biosources}}

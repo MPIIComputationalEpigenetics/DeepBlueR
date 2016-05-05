@@ -18,6 +18,10 @@ experiments - A array (List containing experiments names and ids)
 \description{
 Return a list of experiments and annotations that have at least one region in the data set represented by the query.
 }
+\examples{
+deepblue.get_experiments_by_query(query_id = "q12345")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

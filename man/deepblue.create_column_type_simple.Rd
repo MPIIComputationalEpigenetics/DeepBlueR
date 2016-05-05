@@ -12,7 +12,7 @@ deepblue.create_column_type_simple(name = NULL, description = NULL,
 
 \item{description}{- A string (description of the column type)}
 
-\item{type}{- A string (type of the column type)}
+\item{type}{- A string (type of the column type (string, integer, double))}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -21,6 +21,12 @@ id - A string (id of the newly created column type)
 }
 \description{
 Create a column type from a category set.
+}
+\examples{
+deepblue.create_column_type_simple(name = "SOME_VALUE",
+	description = "This column will include some value",
+  	type = "integer", user_key = "my_secret_key")
+
 }
 \seealso{
 Other Inserting and listing different column types: \code{\link{deepblue.create_column_type_calculated}},

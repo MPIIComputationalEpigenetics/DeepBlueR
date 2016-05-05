@@ -15,6 +15,10 @@ projects - A array (project names)
 \description{
 Lists all existing projects.
 }
+\examples{
+deepblue.list_projects()
+
+}
 \seealso{
 Other Inserting and listing projects: \code{\link{deepblue.add_project}},
   \code{\link{deepblue.add_user_to_project}},

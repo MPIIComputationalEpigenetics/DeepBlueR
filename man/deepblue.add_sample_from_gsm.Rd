@@ -4,11 +4,11 @@
 \alias{deepblue.add_sample_from_gsm}
 \title{add_sample_from_gsm}
 \usage{
-deepblue.add_sample_from_gsm(name = NULL, gsm_id = NULL,
+deepblue.add_sample_from_gsm(biosource_name = NULL, gsm_id = NULL,
   user_key = deepblue.USER_KEY)
 }
 \arguments{
-\item{name}{- A string (biosource name)}
+\item{biosource_name}{- A string (biosource name)}
 
 \item{gsm_id}{- A string (GSM ID)}
 
@@ -19,6 +19,11 @@ id - A string (id of the newly inserted sample)
 }
 \description{
 Import sample from an existing GSM identifier.
+}
+\examples{
+deepblue.add_sample_from_gsm(biosource_name = "BLOOD",
+	gsm_id = "GSM1234567890", user_key = "my_secret_key")
+
 }
 \seealso{
 Other Inserting and listing samples: \code{\link{deepblue.add_sample}},

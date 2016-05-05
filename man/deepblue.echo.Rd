@@ -15,6 +15,10 @@ message - A string (echo message including version)
 \description{
 Echos the server's version.
 }
+\examples{
+deepblue.echo(user_key = "anonymous_key")
+
+}
 \seealso{
 Other Checking DeepBlue status: \code{\link{deepblue.commands}}
 }

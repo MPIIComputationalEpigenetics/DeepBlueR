@@ -15,6 +15,10 @@ genomes - A array (genome names)
 \description{
 Lists all existing genomes.
 }
+\examples{
+deepblue.list_genomes()
+
+}
 \seealso{
 Other Inserting and listing genomes: \code{\link{deepblue.add_genome}},
   \code{\link{deepblue.chromosomes}},

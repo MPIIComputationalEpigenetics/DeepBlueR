@@ -22,6 +22,13 @@ nothing :-(
 \description{
 Uploads the sequence data of the chromosome.
 }
+\examples{
+data = "ACTGAGCTCAGC"
+deepblue.upload_chromosome(genome = "genome_name",
+	chromosome = "chromosome_name", data = NULL,
+  	user_key = "my_secret_key")
+
+}
 \seealso{
 Other Inserting and listing genomes: \code{\link{deepblue.add_genome}},
   \code{\link{deepblue.chromosomes}},

@@ -19,6 +19,10 @@ results - A array (search results as [id, name, type])
 \description{
 Search all data of all types for the given keyword. A minus (-) character in front of a keyword searches for data without the given keyword. The search can be restricted to the following data types are: annotations,biosources,column_types,epigenetic_marks,experiments,genomes,gene_sets,genes,projects,samples,techniques,tilings
 }
+\examples{
+deepblue.search(keyword = "DNA Methylation BLUEPRINT", type = "experiments")
+
+}
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
   \code{\link{deepblue.info}},

@@ -17,6 +17,10 @@ information - A array or a vector of array (List of Maps, where each map contain
 \description{
 Return information for the given ID (or IDs).
 }
+\examples{
+deepblue.info(id = "e30035")
+
+}
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
   \code{\link{deepblue.is_biosource}},

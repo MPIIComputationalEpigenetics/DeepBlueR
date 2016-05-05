@@ -22,6 +22,11 @@ user_id - A string (id of the user)
 \description{
 Include or exclude an user from a project
 }
+\examples{
+deepblue.add_user_to_project(user = "u1234", project = "My secret project",
+ set = TRUE, user_key = "my_secret_key")
+
+}
 \seealso{
 Other Inserting and listing projects: \code{\link{deepblue.add_project}},
   \code{\link{deepblue.list_projects}},

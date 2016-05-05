@@ -20,6 +20,11 @@ synonym_name - A string (inserted synonym_name)
 \description{
 Sets a biosource synonym.
 }
+\examples{
+deepblue.set_biosource_synonym(biosource = "biosource name",
+  synonym_name = "synonym name", user_key = "my_secret_key")
+
+}
 \seealso{
 Other Set the relationship between different biosources: \code{\link{deepblue.get_biosource_children}},
   \code{\link{deepblue.get_biosource_parents}},

@@ -17,6 +17,10 @@ data - A string or a vector of string (The output can be (i) a string (get_regio
 \description{
 Get the request data.
 }
+\examples{
+deepblue.get_request_data(request_id = "r12345", user_key = "my_secret_key")
+
+}
 \seealso{
 Other Requests status information and results: \code{\link{deepblue.list_requests}}
 }

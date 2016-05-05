@@ -20,6 +20,12 @@ id - A string (id of the newly inserted project)
 \description{
 Inserts a new project with the given parameters.
 }
+\examples{
+deepblue.add_project(name = "My project",
+	description = "Data that I will store for myself",
+	user_key = "my_secret_key")
+
+}
 \seealso{
 Other Inserting and listing projects: \code{\link{deepblue.add_user_to_project}},
   \code{\link{deepblue.list_projects}},

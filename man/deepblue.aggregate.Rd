@@ -22,6 +22,11 @@ regions - A string (query id of this aggregation operation)
 \description{
 Summarize the data regions content in range regions. Use the fields @AGG.MIN, @AGG.MAX, @AGG.MEDIAN, @AGG.MEAN, @AGG.VAR, @AGG.SD, @AGG.COUNT in the get_regions command format parameter for retrieving the computed values.
 }
+\examples{
+deepblue.aggregate(data_id = "q123456", ranges_id = "q654321",
+  column = "SCORE", user_key = deepblue.USER_KEY)
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.count_regions}},
   \code{\link{deepblue.extend}},

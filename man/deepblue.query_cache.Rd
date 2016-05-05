@@ -20,6 +20,11 @@ information - A string (New query ID.)
 \description{
 Return information for the given ID (or IDs).
 }
+\examples{
+deepblue.query_cache(query_id = "q12345", cache = TRUE,
+  user_key = "my_secret_key")
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

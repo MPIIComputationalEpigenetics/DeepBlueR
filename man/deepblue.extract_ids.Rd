@@ -15,6 +15,10 @@ ids - A array (list containing the extracted IDs)
 \description{
 Extract the names from a list of ID and Names.
 }
+\examples{
+deepblue.extract_ids(list = list(list("a124", "Annotation 1"), list("a1235", "Annotation 2")))
+
+}
 \seealso{
 Other Utilities for connecting operations: \code{\link{deepblue.extract_names}}
 }

@@ -22,6 +22,13 @@ id - A string (id of the newly inserted technique)
 \description{
 Inserts a technique with the given parameters.
 }
+\examples{
+deepblue.add_technique(name = "New technique",
+	description = "This technique is faster and cheaper",
+	extra_metadata = list(information = "some useful information"),
+	user_key = "my_secret_key")
+
+}
 \seealso{
 Other Inserting and listing techniques: \code{\link{deepblue.list_similar_techniques}},
   \code{\link{deepblue.list_techniques}}

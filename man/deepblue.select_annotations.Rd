@@ -27,6 +27,11 @@ id - A string (query id)
 \description{
 Selects annotation regions matching the given parameters.
 }
+\examples{
+deepblue.select_annotations(annotation_name = "Cpg Islands", genome = "hg19",
+  chromosome = "chr1", start = 0, end = 2000000)
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

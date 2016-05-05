@@ -17,6 +17,10 @@ projects - A array (similar project names)
 \description{
 Lists all projects similar to the one provided.
 }
+\examples{
+deepblue.list_similar_projects(name = "BLUEPRINT")
+
+}
 \seealso{
 Other Inserting and listing projects: \code{\link{deepblue.add_project}},
   \code{\link{deepblue.add_user_to_project}},
