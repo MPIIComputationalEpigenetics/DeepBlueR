@@ -35,9 +35,7 @@ cmd_documentation_tmpl = """
 #' @return %(return)s
 #'
 #' @examples
-#' \dontrun{
-#' %(examples)s
-#' }
+%(examples)s
 #'\
 """
 
@@ -113,6 +111,10 @@ def main():
 
     examples = open("examples/deepblue."+name+".R").read()
     examples = "#' ".join(examples.splitlines(True))
+    examples = "#' " + examples
+
+    if name.startswith("add_"):
+    	examples = "#' \dontrun{\n" + examples + "\n#' }\n"
 
     params_documentation = []
     titles = []
