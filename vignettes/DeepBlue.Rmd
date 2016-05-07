@@ -8,8 +8,8 @@ output:
     number_of_sections: true
 vignette: >
   %\VignetteIndexEntry{The DeepBlue epigenomic data server - R package}
-  %\VignetteDepends{DeepBlue,ggplot2,Gviz,tidyr} 
-  %\VignettePackage{DeepBlue} 
+  %\VignetteDepends{DeepBlueR,ggplot2,Gviz,tidyr}
+  %\VignettePackage{DeepBlueR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,7 @@ A wealth of epigenomic data has been collected over the past decade by large epi
 DeepBlue provides different types of commands, such as listing and searching commands as well as commands for data retrieval. A typical work-flow for the latter is to select, filter, transform, and finally download the selected data. For a more thorough description of DeepBlue you may find additional material in [DeepBlue's NAR web server issue publication](http://nar.oxfordjournals.org/content/early/2016/04/15/nar.gkw211.full). If you find DeepBlue useful and use it in your project consider citing this paper.
 
 
-Important note: With the exception of data aggregation tasks, DeepBlue does not alter the imported data, i.e. it remains exactly as provided by the epigenome mapping consortia. 
+Important note: With the exception of data aggregation tasks, DeepBlue does not alter the imported data, i.e. it remains exactly as provided by the epigenome mapping consortia.
 
 # Getting started
 ## Installation
@@ -490,8 +490,8 @@ head(score_matrix, 5)
 library(ggplot2)
 score_matrix = tidyr::gather(score_matrix, "experiment", "methylation", -CHROMOSOME, -START, -END)
 score_matrix$START <- as.factor(score_matrix$START)
-ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) + 
-    geom_tile() + 
+ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) +
+    geom_tile() +
     theme(axis.text.x=element_text(angle=-90))
 ```
 
