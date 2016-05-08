@@ -1,2 +1,4 @@
-deepblue.flank(query_id = "q1234", start = 0, length = 2000,
-  use_strand = TRUE, user_key = "my_secret_key")
+annotation_id = deepblue.select_annotations(annotation_name="CpG Islands",
+	genome="hg19", chromosome="chr1")
+deepblue.flank(query_id = annotation_id, start = 0, length = 2000,
+  use_strand = TRUE)

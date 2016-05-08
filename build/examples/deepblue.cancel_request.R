@@ -1,1 +1,1 @@
-deepblue.cancel_request(id = "r12345", user_key = "my_secret_key")
+deepblue.cancel_request(id = "r12345")
