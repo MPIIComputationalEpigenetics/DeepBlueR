@@ -117,10 +117,9 @@ deepblue.switch_get_request_data = function(request_id,
 #'@keywords internal
 deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
 
-    if(!is.null(request_info$format)){
+    if(!(request_info$format == "")){
         #get column names from
         col_names <- str_split(request_info$format, pattern = ",")[[1]]
-
         #get column types from dictionary
         col_types <- sapply(col_names, function(x){
             col_type <- dict[[x]]

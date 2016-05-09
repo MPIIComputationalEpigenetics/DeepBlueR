@@ -218,7 +218,7 @@ head(score_matrix, 5)
 library(ggplot2)
 score_matrix = tidyr::gather(score_matrix, "experiment", "methylation", -CHROMOSOME, -START, -END)
 score_matrix$START <- as.factor(score_matrix$START)
-ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) + 
-    geom_tile() + 
+ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) +
+    geom_tile() +
     theme(axis.text.x=element_text(angle=-90))
 

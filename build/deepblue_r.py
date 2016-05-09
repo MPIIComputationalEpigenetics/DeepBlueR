@@ -57,13 +57,15 @@ deepblue.%(name)s <- function(%(parameter_names)s) {
     }
     value <- xml.rpc(%(url)s, '%(name)s'%(parameter_convertion)s)
     status = value[[1]]
+    message(paste("Reported status was:", status))
     if (status == "error") {
         stop(value[[2]])
     }
     if (!exists("user_key")) {
         user_key = NULL
     }
-    if(!is.list(value[[2]])){
+    if(length(value) == 1) return(NULL) 
+    else if(!is.list(value[[2]])){
         DeepBlueCommand(call = sys.call(),
             status = value[[1]],
             query_id = value[[2]],
