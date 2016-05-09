@@ -1968,8 +1968,9 @@ deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 #'
 #' @examples
-#' deepblue.get_regions(query_id = "q123456", output_format = "CHROMOSOME,START,END",
-#'   user_key = "my_secret_key")
+#' data_id = deepblue.select_experiments(
+#' 	experiment_name="E002-H3K9ac.narrowPeak.bed")
+#' deepblue.get_regions(query_id =data_id, output_format = "CHROMOSOME,START,END")
 #'
 deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2016,7 +2017,10 @@ deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
 #' @return data - A string or a vector of string (The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).)
 #'
 #' @examples
-#' deepblue.get_request_data(request_id = "r12345", user_key = "my_secret_key")
+#' data_id = deepblue.select_experiments(
+#' 	experiment_name="E002-H3K9ac.narrowPeak.bed", chromosome="chr1")
+#' request_id = deepblue.get_regions(query_id =data_id, output_format = "CHROMOSOME,START,END")
+#' deepblue.get_request_data(request_id = request_id)
 #'
 deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2111,18 +2115,17 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @return id - A string (query id)
 #'
 #' @examples
-#' regions_set = "chr1  28735 29810
-#' chr1  135124  135563
-#' chr1  327790  328229
-#' chr1  437151  438164
-#' chr1  449273  450544
-#' chr1  533219  534114
-#' chr1  544738  546649
-#' chr1  713984  714547
-#' chr1  762416  763445
-#' chr1  788863  789211"
-#' deepblue.input_regions(genome = "hg19", region_set = regions_set,
-#'   user_key = "my_secret_key")
+#' regions_set = "chr1	28735	29810
+#' chr1	135124	135563
+#' chr1	327790	328229
+#' chr1	437151	438164
+#' chr1	449273	450544
+#' chr1	533219	534114
+#' chr1	544738	546649
+#' chr1	713984	714547
+#' chr1	762416	763445
+#' chr1	788863	789211"
+#' deepblue.input_regions(genome = "hg19", region_set = regions_set)
 #'
 deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2170,8 +2173,11 @@ deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
 #' @return id - A string (id of the new query)
 #'
 #' @examples
-#' deepblue.intersection(query_a_id = query_a, query_b_id = query_b,
-#'   user_key = "my_secret_user_key")
+#' annotation_id = deepblue.select_annotations(annotation_name="CpG Islands",
+#' 	genome="hg19", chromosome="chr1")
+#' data_id = deepblue.select_experiments(
+#' 	experiment_name="E002-H3K9ac.narrowPeak.bed")
+#' deepblue.intersection(query_a_id = annotation_id, query_b_id = data_id)
 #'
 deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -2697,7 +2703,7 @@ deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
 #' @return data_state - A array (Request-IDs and their state)
 #'
 #' @examples
-#' deepblue.list_requests(request_state = 'done', user_key = 'my_secret_key')
+#' deepblue.list_requests(request_state = 'done')
 #'
 deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3122,8 +3128,11 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
 #' @return id - A string (new query id)
 #'
 #' @examples
-#' deepblue.merge_queries(query_a_id = query_a, query_b_id = query_a,
-#'   user_key = "my_secret_key")
+#' annotation_id = deepblue.select_annotations(annotation_name="CpG Islands",
+#' 	genome="hg19", chromosome="chr1")
+#' data_id = deepblue.select_experiments(
+#' 	experiment_name="E002-H3K9ac.narrowPeak.bed")
+#' deepblue.merge_queries(query_a_id = annotation_id, query_b_id = data_id)
 #'
 deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3171,8 +3180,13 @@ deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
 #' @return information - A string (New query ID.)
 #'
 #' @examples
-#' deepblue.query_cache(query_id = "q12345", cache = TRUE,
-#'   user_key = "my_secret_key")
+#' annotation_id = deepblue.select_annotations(annotation_name="CpG Islands",
+#' 	genome="hg19", chromosome="chr1")
+#' data_id = deepblue.select_experiments(
+#' 	experiment_name="E002-H3K9ac.narrowPeak.bed")
+#' merged_regions = deepblue.merge_queries(query_a_id = annotation_id,
+#' 	query_b_id = data_id)
+#' deepblue.query_cache(query_id = merged_regions, cache = TRUE)
 #'
 deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3220,8 +3234,11 @@ deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.
 #' @return information - A string (New query ID.)
 #'
 #' @examples
-#' deepblue.query_experiment_type(query_id = "q1234", type = "signal",
-#'   user_key = "my_secret_key")
+#' h3k27ac_regions = deepblue.select_regions(genome ='GRCh38',
+#'                                       epigenetic_mark ='H3k27ac',
+#'                                       project ='BLUEPRINT Epigenome',
+#'                                       chromosome ='chr1')
+#' deepblue.query_experiment_type(query_id = h3k27ac_regions, type = "peaks")
 #'
 deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=deepblue.USER_KEY) {
 
@@ -3268,7 +3285,10 @@ deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
 #' @return id - A string (id of the removed data)
 #'
 #' @examples
+#' \dontrun{
 #' deepblue.remove(id = data_id, user_key = "my_secret_key")
+#' }
+
 #'
 deepblue.remove <- function(id= NULL, user_key=deepblue.USER_KEY) {
 
