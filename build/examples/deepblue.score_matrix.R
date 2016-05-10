@@ -1,3 +1,3 @@
-deepblue.score_matrix(experiments_columns = list(list("Experiment One", "VALUE")),
-  aggregation_function = "mean", aggregation_regions_id = "q123",
-  user_key = "my_private_key")
+tiling_regions = deepblue.tiling_regions(size=100000, genome="hg19", chromosome="chr1")
+deepblue.score_matrix(experiments_columns = list(ENCFF721EKA="VALUE", ENCFF781VVH="VALUE"),
+  aggregation_function = "mean", aggregation_regions_id = tiling_regions)

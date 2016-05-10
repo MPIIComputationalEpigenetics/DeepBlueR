@@ -64,7 +64,7 @@ deepblue.%(name)s <- function(%(parameter_names)s) {
     if (!exists("user_key")) {
         user_key = NULL
     }
-    if(length(value) == 1) return(NULL) 
+    if(length(value) == 1) return(NULL)
     else if(!is.list(value[[2]])){
         DeepBlueCommand(call = sys.call(),
             status = value[[1]],
@@ -115,7 +115,7 @@ def main():
     examples = "#' ".join(examples.splitlines(True))
     examples = "#' " + examples
 
-    if name.startswith("add_") or name.startswith("create_") or name == "cancel_request" or name == "change_extra_metadata" or name == "clone_dataset" or name == "remove" or name == "find_pattern":
+    if name.startswith("add_") or name.startswith("set_biosource") or name.startswith("create_") or name == "cancel_request" or name == "change_extra_metadata" or name == "clone_dataset" or name == "remove" or name == "find_pattern":
       examples = "#' \dontrun{\n" + examples + "\n#' }\n"
 
     params_documentation = []
