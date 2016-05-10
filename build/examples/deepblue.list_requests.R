@@ -1,1 +1,1 @@
-deepblue.list_requests(request_state = 'done')
+deepblue.list_requests(request_state = 'running')
