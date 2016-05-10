@@ -118,6 +118,7 @@ deepblue.switch_get_request_data = function(request_id,
 deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
 
     if("format" %in% names(request_info)) {
+        if (request_info$format == "") request_info$format = "CHROMOSOME,START,END"
         #get column names from
         col_names <- str_split(request_info$format, pattern = ",")[[1]]
         #get column types from dictionary
