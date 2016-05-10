@@ -38,7 +38,7 @@ devtools::install_github("MPIIComputationalEpigenetics/DeepBlue-R", build_vignet
 
 The package name is ```DeepBlue``` and it can be loaded via:
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
-library(DeepBlue)
+library(DeepBlueR)
 ```
 
 You can test your installation by saying hello to the DeepBlue server:
@@ -486,7 +486,7 @@ score_matrix = deepblue.download_request_data(request_id=request_id)
 head(score_matrix, 5)
 ```
 
-```{r, warning=FALSE, echo=TRUE, error=FALSE}
+```{r, warning=FALSE, echo=TRUE, error=FALSE, eval=TRUE}
 library(ggplot2)
 score_matrix = tidyr::gather(score_matrix, "experiment", "methylation", -CHROMOSOME, -START, -END)
 score_matrix$START <- as.factor(score_matrix$START)
