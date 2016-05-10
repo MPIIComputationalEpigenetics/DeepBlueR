@@ -8,6 +8,13 @@
 #'@param sleep.time How long this function will wait after the requests
 #'verification
 #'@param user_key A string used to authenticate the user
+#'@return A list containing the requests IDs data
+#' @examples
+#' data_id = deepblue.select_experiments(
+#' experiment_name="E002-H3K9ac.narrowPeak.bed", chromosome="chr1")
+#' request_id = deepblue.get_regions(query_id =data_id,
+#'   output_format = "CHROMOSOME,START,END")
+#' request_data = deepblue.batch_export_results(list(request_id))
 deepblue.batch_export_results <- function(requests,
                                           target.directory=NULL,
                                           suffix="result",
