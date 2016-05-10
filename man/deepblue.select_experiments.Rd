@@ -25,12 +25,10 @@ id - A string (query id)
 Selects experiments data. It is a simpler version of the select_regions command.
 }
 \examples{
-\dontrun{
-  deepblue.select_experiments(
+deepblue.select_experiments(
 	experiment_name = c("E002-H3K9ac.narrowPeak.bed",
 						"E001-H3K4me3.gappedPeak.bed")
 )
-}
 
 }
 \seealso{

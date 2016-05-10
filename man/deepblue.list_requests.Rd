@@ -18,9 +18,7 @@ data_state - A array (Request-IDs and their state)
 Lists all requests in given state.
 }
 \examples{
-\dontrun{
-  deepblue.list_requests(request_state = 'done', user_key = 'my_secret_key')
-}
+deepblue.list_requests(request_state = 'done')
 
 }
 \seealso{

@@ -16,15 +16,10 @@ projects - A array (project names)
 Lists all existing projects.
 }
 \examples{
-\dontrun{
-  deepblue.list_projects()
-}
+deepblue.list_projects()
 
 }
 \seealso{
-Other Inserting and listing projects: \code{\link{deepblue.add_project}},
-  \code{\link{deepblue.add_user_to_project}},
-  \code{\link{deepblue.list_similar_projects}},
-  \code{\link{deepblue.set_project_public}}
+Other Inserting and listing projects: \code{\link{deepblue.list_similar_projects}}
 }
 

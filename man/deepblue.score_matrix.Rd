@@ -23,6 +23,12 @@ regions - A string (BED formated regions)
 \description{
 Build a matrix containing the aggregation result of the the experiments data by aggregation regions.
 }
+\examples{
+tiling_regions = deepblue.tiling_regions(size=100000, genome="hg19", chromosome="chr1")
+deepblue.score_matrix(experiments_columns = list(ENCFF721EKA="VALUE", ENCFF781VVH="VALUE"),
+  aggregation_function = "mean", aggregation_regions_id = tiling_regions)
+
+}
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue.aggregate}},
   \code{\link{deepblue.count_regions}},

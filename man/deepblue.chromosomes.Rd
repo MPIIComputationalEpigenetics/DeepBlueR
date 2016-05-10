@@ -18,15 +18,11 @@ chromosomes - A array (A list containing all chromosomes, with theirs names and 
 List all chromosomes of a given genome.
 }
 \examples{
-\dontrun{
-  deepblue.chromosomes(genome = "g1", user_key = deepblue.USER_KEY)
-}
+deepblue.chromosomes(genome = "g1")
 
 }
 \seealso{
-Other Inserting and listing genomes: \code{\link{deepblue.add_genome}},
-  \code{\link{deepblue.list_genomes}},
-  \code{\link{deepblue.list_similar_genomes}},
-  \code{\link{deepblue.upload_chromosome}}
+Other Inserting and listing genomes: \code{\link{deepblue.list_genomes}},
+  \code{\link{deepblue.list_similar_genomes}}
 }
 

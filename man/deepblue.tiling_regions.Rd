@@ -23,10 +23,8 @@ id - A string (query id)
 Creates regions with the tiling size over the chromosomes.
 }
 \examples{
-\dontrun{
-  deepblue.tiling_regions(size = 10000, genome = "hg19",
+deepblue.tiling_regions(size = 10000, genome = "hg19",
   chromosome = "chr1")
-}
 
 }
 \seealso{

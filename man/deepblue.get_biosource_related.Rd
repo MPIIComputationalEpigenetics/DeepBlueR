@@ -19,16 +19,12 @@ biosources - A array (related biosources)
 Gets biosources related to the given one. e.g. the children terms and theirs synonyms.
 }
 \examples{
-\dontrun{
-  deepblue.get_biosource_related(biosource = "Blood")
-}
+deepblue.get_biosource_related(biosource = "Blood")
 
 }
 \seealso{
 Other Set the relationship between different biosources: \code{\link{deepblue.get_biosource_children}},
   \code{\link{deepblue.get_biosource_parents}},
-  \code{\link{deepblue.get_biosource_synonyms}},
-  \code{\link{deepblue.set_biosource_parent}},
-  \code{\link{deepblue.set_biosource_synonym}}
+  \code{\link{deepblue.get_biosource_synonyms}}
 }
 

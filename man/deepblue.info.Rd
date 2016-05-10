@@ -18,16 +18,13 @@ information - A array or a vector of array (List of Maps, where each map contain
 Return information for the given ID (or IDs).
 }
 \examples{
-\dontrun{
-  deepblue.info(id = "e30035")
-}
+deepblue.info(id = "e30035")
 
 }
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
   \code{\link{deepblue.is_biosource}},
   \code{\link{deepblue.list_in_use}},
-  \code{\link{deepblue.remove}},
   \code{\link{deepblue.search}}
 }
 

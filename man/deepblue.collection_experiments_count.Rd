@@ -35,15 +35,12 @@ terms - A array (controlled_vocabulary terms with count)
 Count the number of elements of the given collection that contains experiments.
 }
 \examples{
-\dontrun{
-  deepblue.collection_experiments_count(controlled_vocabulary="epigenetic_marks",
+deepblue.collection_experiments_count(controlled_vocabulary="epigenetic_marks",
   genome = "hg19", type = "peaks", biosource = "blood")
-}
 
 }
 \seealso{
-Other Inserting and listing experiments: \code{\link{deepblue.add_experiment}},
-  \code{\link{deepblue.faceting_experiments}},
+Other Inserting and listing experiments: \code{\link{deepblue.faceting_experiments}},
   \code{\link{deepblue.list_experiments}},
   \code{\link{deepblue.list_recent_experiments}},
   \code{\link{deepblue.list_similar_experiments}}

@@ -18,15 +18,10 @@ projects - A array (similar project names)
 Lists all projects similar to the one provided.
 }
 \examples{
-\dontrun{
-  deepblue.list_similar_projects(name = "BLUEPRINT")
-}
+deepblue.list_similar_projects(name = "BLUEPRINT")
 
 }
 \seealso{
-Other Inserting and listing projects: \code{\link{deepblue.add_project}},
-  \code{\link{deepblue.add_user_to_project}},
-  \code{\link{deepblue.list_projects}},
-  \code{\link{deepblue.set_project_public}}
+Other Inserting and listing projects: \code{\link{deepblue.list_projects}}
 }
 

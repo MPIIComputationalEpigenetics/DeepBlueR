@@ -19,9 +19,7 @@ experiments - A array (List containing experiments names and ids)
 Return a list of experiments and annotations that have at least one region in the data set represented by the query.
 }
 \examples{
-\dontrun{
-  deepblue.get_experiments_by_query(query_id = "q12345")
-}
+deepblue.get_experiments_by_query(query_id = "q12345")
 
 }
 \seealso{

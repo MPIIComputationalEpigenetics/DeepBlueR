@@ -32,15 +32,12 @@ faceting - A struct (Map with the mandatory fields of the experiments metadata, 
 Experiments faceting.
 }
 \examples{
-\dontrun{
-  deepblue.faceting_experiments(genome = "hg19", type = "peaks",
+deepblue.faceting_experiments(genome = "hg19", type = "peaks",
   biosource = "blood")
-}
 
 }
 \seealso{
-Other Inserting and listing experiments: \code{\link{deepblue.add_experiment}},
-  \code{\link{deepblue.collection_experiments_count}},
+Other Inserting and listing experiments: \code{\link{deepblue.collection_experiments_count}},
   \code{\link{deepblue.list_experiments}},
   \code{\link{deepblue.list_recent_experiments}},
   \code{\link{deepblue.list_similar_experiments}}

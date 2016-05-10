@@ -18,16 +18,13 @@ information - A string or a vector of string (A string containing the biosource 
 Return information for the given biosource name.
 }
 \examples{
-\dontrun{
-  deepblue.is_biosource(biosource_name = "blood")
-}
+deepblue.is_biosource(biosource_name = "blood")
 
 }
 \seealso{
 Other Commands for all types of data: \code{\link{deepblue.cancel_request}},
   \code{\link{deepblue.info}},
   \code{\link{deepblue.list_in_use}},
-  \code{\link{deepblue.remove}},
   \code{\link{deepblue.search}}
 }
 

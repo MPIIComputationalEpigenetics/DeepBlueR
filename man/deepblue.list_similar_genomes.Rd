@@ -18,15 +18,11 @@ genomes - A array (similar genome names)
 Lists all genomes similar to the one provided.
 }
 \examples{
-\dontrun{
-  deepblue.list_similar_genomes(name = "grc")
-}
+deepblue.list_similar_genomes(name = "grc")
 
 }
 \seealso{
-Other Inserting and listing genomes: \code{\link{deepblue.add_genome}},
-  \code{\link{deepblue.chromosomes}},
-  \code{\link{deepblue.list_genomes}},
-  \code{\link{deepblue.upload_chromosome}}
+Other Inserting and listing genomes: \code{\link{deepblue.chromosomes}},
+  \code{\link{deepblue.list_genomes}}
 }
 

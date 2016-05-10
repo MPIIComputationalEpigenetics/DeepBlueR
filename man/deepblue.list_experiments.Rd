@@ -32,15 +32,12 @@ experiments - A array (experiment names)
 Lists all existing experiments.
 }
 \examples{
-\dontrun{
-  deepblue.list_experiments(genome = "hg19", type = "peaks",
+deepblue.list_experiments(genome = "hg19", type = "peaks",
   epigenetic_mark = "H3K27ac", biosource = "blood")
-}
 
 }
 \seealso{
-Other Inserting and listing experiments: \code{\link{deepblue.add_experiment}},
-  \code{\link{deepblue.collection_experiments_count}},
+Other Inserting and listing experiments: \code{\link{deepblue.collection_experiments_count}},
   \code{\link{deepblue.faceting_experiments}},
   \code{\link{deepblue.list_recent_experiments}},
   \code{\link{deepblue.list_similar_experiments}}

@@ -21,10 +21,9 @@ request_id - A string (Request ID - Use it to retrieve the result with info() an
 Send a request  to retrieve the regions for the given query in the requested BED format.
 }
 \examples{
-\dontrun{
-  deepblue.get_regions(query_id = "q123456", output_format = "CHROMOSOME,START,END",
-  user_key = "my_secret_key")
-}
+data_id = deepblue.select_experiments(
+	experiment_name="E002-H3K9ac.narrowPeak.bed")
+deepblue.get_regions(query_id =data_id, output_format = "CHROMOSOME,START,END")
 
 }
 \seealso{

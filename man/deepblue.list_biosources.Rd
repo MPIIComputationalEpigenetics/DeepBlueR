@@ -19,13 +19,10 @@ biosources - A array (biosources)
 Lists all existing biosources.
 }
 \examples{
-\dontrun{
-  deepblue.list_biosources(extra_metadata = list(namespace = "uberon"))
-}
+deepblue.list_biosources(extra_metadata = list(namespace = "uberon"))
 
 }
 \seealso{
-Other Inserting and listing biosources: \code{\link{deepblue.add_biosource}},
-  \code{\link{deepblue.list_similar_biosources}}
+Other Inserting and listing biosources: \code{\link{deepblue.list_similar_biosources}}
 }
 

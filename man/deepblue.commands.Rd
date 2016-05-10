@@ -13,9 +13,7 @@ commands - A struct (command descriptions)
 Lists all existing commands.
 }
 \examples{
-\dontrun{
-  deepblue.commands()
-}
+deepblue.commands()
 
 }
 \seealso{

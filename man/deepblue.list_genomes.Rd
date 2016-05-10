@@ -16,15 +16,11 @@ genomes - A array (genome names)
 Lists all existing genomes.
 }
 \examples{
-\dontrun{
-  deepblue.list_genomes()
-}
+deepblue.list_genomes()
 
 }
 \seealso{
-Other Inserting and listing genomes: \code{\link{deepblue.add_genome}},
-  \code{\link{deepblue.chromosomes}},
-  \code{\link{deepblue.list_similar_genomes}},
-  \code{\link{deepblue.upload_chromosome}}
+Other Inserting and listing genomes: \code{\link{deepblue.chromosomes}},
+  \code{\link{deepblue.list_similar_genomes}}
 }
 

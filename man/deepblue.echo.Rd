@@ -16,9 +16,7 @@ message - A string (echo message including version)
 Echos the server's version.
 }
 \examples{
-\dontrun{
-  deepblue.echo(user_key = "anonymous_key")
-}
+deepblue.echo(user_key = "anonymous_key")
 
 }
 \seealso{
