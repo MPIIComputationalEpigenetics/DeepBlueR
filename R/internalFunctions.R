@@ -47,14 +47,18 @@ setGeneric("deepblue.download_request_data",
     regions_string = deepblue.switch_get_request_data(request_id = request_id,
                                                       user_key = user_key)
 
-    if(request_info$command != "get_regions" || type == "string")
+    if (type == "string") {
         return (regions_string)
+    }
 
     regions_df = deepblue.convert_to_df(string_to_parse=regions_string,
                                         request_info=request_info)
 
-    if (type == "df" || request_info[[1]]$format == "") return (regions_df)
-    else return(deepblue.convert_to_grange(df=regions_df))
+    if (type == "df") {
+        return (regions_df)
+    }
+
+    return(deepblue.convert_to_grange(df=regions_df))
 })
 
 #' @import XML RCurl
