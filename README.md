@@ -1,1 +1,1 @@
-vignettes/DeepBlue.Rmd
+vignettes/DeepBlueR.Rmd

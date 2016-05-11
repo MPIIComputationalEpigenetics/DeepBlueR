@@ -16,7 +16,9 @@ names - A array (list containing the extracted names)
 Extract the names from a list of ID and Names.
 }
 \examples{
-deepblue.extract_names(list = list(list("a124", "Annotation 1"), list("a1235", "Annotation 2")))
+deepblue.extract_names(
+    list = list(list("a124", "Annotation 1"),
+        list("a1235", "Annotation 2")))
 
 }
 \seealso{
