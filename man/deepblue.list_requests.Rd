@@ -18,7 +18,7 @@ data_state - A array (Request-IDs and their state)
 Lists all requests in given state.
 }
 \examples{
-deepblue.list_requests(request_state = 'done')
+deepblue.list_requests(request_state = 'running')
 
 }
 \seealso{

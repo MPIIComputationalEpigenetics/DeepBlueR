@@ -402,8 +402,7 @@ query_id_filters = deepblue.filter_regions(query_id=query_id_filter_signal,
 query_id_filter_length = deepblue.filter_regions (query_id=query_id_filters,
     field="@LENGTH", operation="<", value="2000", type="number")
 request_id = deepblue.get_regions(query_id=query_id_filter_length,
-    output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,",
-        "@BIOSOURCE,@LENGTH,@SEQUENCE")
+    output_format="CHROMOSOME,START,END,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
 regions = deepblue.download_request_data(request_id=request_id)
 head(regions, 1)
 ```
@@ -506,8 +505,8 @@ overlapped = deepblue.aggregate (data_id=query_id, ranges_id=cpg_islands,
 # Retrieve the experiments data (The @NAME meta-column is used to include
 # the experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=overlapped,
-    output_format="CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEDIAN,",
-        "@AGG.MEAN,@AGG.VAR,@AGG.SD,@AGG.COUNT")
+    output_format=
+      "CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEAN,@AGG.VAR")
 regions = deepblue.download_request_data(request_id=request_id)
 regions
 ```
@@ -544,8 +543,7 @@ overlapped = deepblue.aggregate (data_id=query_id,
 # Retrieve the experiments data (The @NAME meta-column is used to include the
 # experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=overlapped,
-    output_format="CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEDIAN,",
-    "@AGG.MEAN,@AGG.VAR,@AGG.SD,@AGG.COUNT")
+    output_format="CHROMOSOME,START,END,@AGG.MEAN,@AGG.SD")
 
 regions = deepblue.download_request_data(request_id=request_id)
 regions
