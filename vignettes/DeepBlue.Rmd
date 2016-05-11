@@ -670,8 +670,7 @@ filtered_zeros = deepblue.filter_regions(query_id=filtered,
 # experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=filtered_zeros,
     output_format=
-    "CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),
-        @AGG.MEAN,@AGG.COUNT")
+    "CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
 
 regions = deepblue.download_request_data(request_id=request_id)
 

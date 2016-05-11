@@ -23,12 +23,15 @@ regions - A string (query id of this aggregation operation)
 Summarize the data regions content in range regions. Use the fields @AGG.MIN, @AGG.MAX, @AGG.MEDIAN, @AGG.MEAN, @AGG.VAR, @AGG.SD, @AGG.COUNT in the get_regions command format parameter for retrieving the computed values.
 }
 \examples{
-annotation_id = deepblue.select_annotations(annotation_name="CpG Islands",
-	genome="hg19", chromosome="chr1")
+annotation_id = deepblue.select_annotations(
+    annotation_name="CpG Islands",
+    genome="hg19", chromosome="chr1")
 data_id = deepblue.select_experiments(
-	experiment_name="E002-H3K9ac.narrowPeak.bed")
-deepblue.aggregate(data_id = data_id, ranges_id=annotation_id,
-	column = "SCORE")
+    experiment_name="E002-H3K9ac.narrowPeak.bed")
+deepblue.aggregate(
+    data_id = data_id,
+    ranges_id=annotation_id,
+    column = "SCORE")
 
 }
 \seealso{

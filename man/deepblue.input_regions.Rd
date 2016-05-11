@@ -31,7 +31,8 @@ chr1	544738	546649
 chr1	713984	714547
 chr1	762416	763445
 chr1	788863	789211"
-deepblue.input_regions(genome = "hg19", region_set = regions_set)
+deepblue.input_regions(genome = "hg19",
+    region_set = regions_set)
 
 }
 \seealso{

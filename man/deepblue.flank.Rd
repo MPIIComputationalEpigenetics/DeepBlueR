@@ -25,10 +25,12 @@ id - A string (id of the new query)
 Generate flanking regions from the given regions.
 }
 \examples{
-annotation_id = deepblue.select_annotations(annotation_name="CpG Islands",
-	genome="hg19", chromosome="chr1")
-deepblue.flank(query_id = annotation_id, start = 0, length = 2000,
-  use_strand = TRUE)
+annotation_id = deepblue.select_annotations(
+    annotation_name="CpG Islands",
+    genome="hg19", chromosome="chr1")
+deepblue.flank(query_id = annotation_id,
+    start = 0, length = 2000,
+    use_strand = TRUE)
 
 }
 \seealso{

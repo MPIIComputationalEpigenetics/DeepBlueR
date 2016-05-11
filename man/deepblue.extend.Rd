@@ -25,10 +25,12 @@ id - A string (id of the new query)
 Extend regions.
 }
 \examples{
-annotation_id = deepblue.select_annotations(annotation_name="CpG Islands",
-	genome="hg19", chromosome="chr1")
-deepblue.extend(query_id = annotation_id, length = 2000, direction = "BOTH",
-  use_strand = TRUE)
+annotation_id = deepblue.select_annotations(
+    annotation_name="CpG Islands",
+    genome="hg19", chromosome="chr1")
+deepblue.extend(query_id = annotation_id,
+    length = 2000, direction = "BOTH",
+    use_strand = TRUE)
 
 }
 \seealso{

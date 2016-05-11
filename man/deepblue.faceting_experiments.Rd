@@ -32,8 +32,9 @@ faceting - A struct (Map with the mandatory fields of the experiments metadata, 
 Experiments faceting.
 }
 \examples{
-deepblue.faceting_experiments(genome = "hg19", type = "peaks",
-  biosource = "blood")
+deepblue.faceting_experiments(genome = "hg19",
+    type = "peaks",
+    biosource = "blood")
 
 }
 \seealso{

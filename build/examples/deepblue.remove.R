@@ -1,1 +1,2 @@
-deepblue.remove(id = data_id, user_key = "my_secret_key")
+deepblue.remove(id = data_id,
+    user_key = "my_secret_key")

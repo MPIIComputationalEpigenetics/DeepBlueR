@@ -2,7 +2,7 @@
 #  devtools::install_github("MPIIComputationalEpigenetics/DeepBlue-R", build_vignettes=TRUE)
 
 ## ---- echo=FALSE, warning=FALSE, message=FALSE, error=FALSE--------------
-library(DeepBlue)
+library(DeepBlueR)
 
 ## ---- echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE--------------
 #  deepblue.info("me")
