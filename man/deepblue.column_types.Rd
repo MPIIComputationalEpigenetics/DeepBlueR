@@ -6,6 +6,9 @@
 \usage{
 deepblue.column_types()
 }
+\value{
+Dictionary will all column names and types
+}
 \description{
 Load the column types from DeepBlue
 }

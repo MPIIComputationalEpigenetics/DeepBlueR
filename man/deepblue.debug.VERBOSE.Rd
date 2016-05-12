@@ -8,6 +8,9 @@
 \usage{
 deepblue.debug.VERBOSE
 }
+\value{
+if this package must print some debugging outputs
+}
 \description{
 Show or hide debugging messages
 }

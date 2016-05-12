@@ -1,9 +1,9 @@
 #'@title DeepBlueCommand class
 #'@export
 #'@import methods
-#'@description An S4 class returned when calling 
+#'@description An S4 class returned when calling
 #'a DeepBlue-R function. It holds information about
-#'the original call, the query / request status, 
+#'the original call, the query / request status,
 #'previous commands, the user_key, and results in GRanges format once
 #'a request is downloaded.
 #'@param call language
@@ -12,6 +12,7 @@
 #'@param previous_commands list
 #'@param user_key character
 #'@param result GRanges
+#'@return class for managin DeepBlue commands
 DeepBlueCommand <- setClass("DeepBlueCommand",
                             slots = c(call = "language",
                                       status = "character",

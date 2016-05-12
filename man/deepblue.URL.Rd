@@ -8,6 +8,9 @@
 \usage{
 deepblue.URL
 }
+\value{
+URL to access DeepBlue Data Server
+}
 \description{
 Location of the DeepBlue XML-RPC server
 }

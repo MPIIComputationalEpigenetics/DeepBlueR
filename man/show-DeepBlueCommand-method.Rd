@@ -10,6 +10,9 @@
 \arguments{
 \item{object}{DeepBlueCommand object}
 }
+\value{
+query ID of the object
+}
 \description{
 Provides a summary of a DeepBlue command object
 }

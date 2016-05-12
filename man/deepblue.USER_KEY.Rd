@@ -8,6 +8,9 @@
 \usage{
 deepblue.USER_KEY
 }
+\value{
+default user key for accessing DeepBlue
+}
 \description{
 Default anonymous user key
 }

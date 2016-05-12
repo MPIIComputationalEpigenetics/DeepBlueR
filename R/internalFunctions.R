@@ -1,6 +1,7 @@
 #'@title deepblue.wait_request
 #'@description Process the user request. Takes in three parameters;
 #'requested regions, sleep time, and user key.
+#'@return request_id info
 #'@param request_id A string with the request_id
 #'@param sleep_time An integer with default value 1s
 #'@param user_key A string
@@ -10,7 +11,8 @@ setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1,
     info = deepblue.info(request_id, user_key)[[1]]
     state = info$state
     if(is.null(state)) stop("no state information found")
-    while (!state %in% c('done','error','failed') && !is.null(sleep_time) )
+    while (!state %in% c('done','error','failed') &&
+      !is.null(sleep_time) )
     {
         Sys.sleep(sleep_time)
         info = deepblue.info(request_id, user_key)[[1]]
@@ -44,8 +46,10 @@ setGeneric("deepblue.download_request_data",
         stop(request_info$message)
     }
 
-    regions_string = deepblue.switch_get_request_data(request_id = request_id,
-                                                      user_key = user_key)
+    regions_string = deepblue.switch_get_request_data(
+      request_id = request_id,
+      user_key = user_key
+    )
 
     if (type == "string") {
         return (regions_string)
@@ -67,6 +71,7 @@ setGeneric("deepblue.download_request_data",
 #' with deepblue.get_request_data
 #' @param user_key the user_key used to submit the request.
 #' @description Download the requested data from DeepBlue.
+#' @return request data
 #' Can be either region sets,
 #' a region count, a list of experiments, or a score matrix.
 #' @aliases get_request_data
@@ -82,11 +87,17 @@ deepblue.switch_get_request_data = function(request_id,
 
     command = request_info$command
     switch(command,
-           "count_regions" = deepblue.get_request_data(request_id, user_key),
-           "get_experiments_by_query" = deepblue.get_request_data(request_id,
-                                                                  user_key),
+           "count_regions" = deepblue.get_request_data(
+              request_id, user_key
+            ),
+           "get_experiments_by_query" = deepblue.get_request_data(
+              request_id,
+              user_key
+            ),
            "get_regions" = {
-               url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=",
+              url =
+                paste(
+                  "http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=",
                            request_id, "&key=", user_key, sep="")
                temp_download <- tempfile()
                download.file(url, temp_download, mode="wb")
@@ -96,7 +107,8 @@ deepblue.switch_get_request_data = function(request_id,
                return(result)
            },
            "score_matrix" = {
-               url = paste("http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=",
+               url = paste(
+                "http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=",
                            request_id, "&key=", user_key, sep="")
                temp_download <- tempfile()
                download.file(url, temp_download, mode="wb")
@@ -113,13 +125,14 @@ deepblue.switch_get_request_data = function(request_id,
 #'@importFrom data.table fread
 #'@description save output in a data frame for further processing.
 #'Expects two parameters; the output string from method
-#'deepblue.get_request_data and request information from method process_request.
+#'deepblue.get_request_data and request information from process_request
 #'@param string_to_parse A string
 #'@param request_info The request information returned by DeepBlue
 #'@param dict The data structure that contains the DeepBlue columns types
 #'@return regions A data frame
 #'@keywords internal
-deepblue.convert_to_df = function(string_to_parse, request_info, dict=col_dict){
+deepblue.convert_to_df = function(string_to_parse, request_info,
+    dict=col_dict){
 
     if("format" %in% names(request_info)) {
         if (request_info$format == "") {
@@ -181,6 +194,7 @@ deepblue.convert_to_grange = function (df = NULL)
 
 #' @description Load the column types from DeepBlue
 #' @title get columns
+#' @return Dictionary will all column names and types
 #' @keywords internal
 deepblue.column_types = function()
 {
@@ -229,6 +243,7 @@ col_dict = deepblue.column_types()
 #' @description Parse the GTF semicolon separated attributes into a data frame
 #' @title deepblue.parse_gtf
 #' @param all_gtf a character vector of GTF attributes for a single region.
+#' @return the parsed GTF data
 #' @keywords internal
 #' @importFrom dplyr bind_rows
 #' @importFrom stringr str_split

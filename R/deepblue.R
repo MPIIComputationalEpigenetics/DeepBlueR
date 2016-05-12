@@ -1,17 +1,23 @@
 # Accessing Deepblue through R
 # For DeepBlue version 1.7.7
 
-# We include a modified version of the XML-RPC library (http://bioconductor.org/packages/release/extra/html/XMLRPC.html) for R in this file.
+# We include a modified version of the XML-RPC library:
+# http://bioconductor.org/packages/release/extra/html/XMLRPC.html
+# for R in this file.
+
 #' @title deepblue URL
 #' @description Location of the DeepBlue XML-RPC server
 #' @keywords internal
+#' @return URL to access DeepBlue Data Server
 deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
 #' @description Default anonymous user key
+#' @return default user key for accessing DeepBlue
 #' @keywords internal
 deepblue.USER_KEY = "anonymous_key"
 #' @title Verbose
 #' @description Show or hide debugging messages
+#' @return if this package must print some debugging outputs
 #' @keywords internal
 deepblue.debug.VERBOSE = FALSE
 
@@ -2737,32 +2743,33 @@ deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
 
 #' @title xml.rpc
 #' @keywords internal
+#' @return XML RPC request data converted to R objects
 #' @description perform an XML-RPC call
 xml.rpc =
     function(url, method, ..., .args = list(...),
              .opts = list(),
-             .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"), 
-                                 followlocation = TRUE, 
+             .defaultOpts = list(httpheader = c('Content-Type' = "text/xml"),
+                                 followlocation = TRUE,
                                  useragent = useragent),
-             .convert = TRUE, 
-             .curl = getCurlHandle(), 
-             useragent = "DeepBlue-R-XMLRPC", 
+             .convert = TRUE,
+             .curl = getCurlHandle(),
+             useragent = "DeepBlue-R-XMLRPC",
              verbose=deepblue.debug.VERBOSE)
     {
         # Turn the method and arguments to an RPC body.
         body = createBody(method,  .args)
         if(verbose)
             print(body)
-        
+
         # merge the .defaultOpts and the .opts into one list.
         .defaultOpts[["postfields"]] = saveXML(body)
         if(length(.opts))
             .defaultOpts[names(.opts)] = .opts
-        
+
         rdr = dynCurlReader(.curl, baseURL = url)
         .defaultOpts[["headerfunction"]] = rdr$update
         postForm(url, .opts = .defaultOpts, style = "POST", curl = .curl)
-        
+
         hdr = parseHTTPHeader(rdr$header())
         if(as.integer(hdr[["status"]]) %/% 100 !=  2) {
             print(hdr["status"])
@@ -2772,15 +2779,15 @@ xml.rpc =
         ans = rdr$value()
         if (verbose)
             print(ans)
-        
+
         # Now either convert using the default converter fnction (convertToR)
-        # or return as is or allow the caller to specify a 
+        # or return as is or allow the caller to specify a
         # function to use for conversion.
         if(is.logical(.convert)) {
             if(.convert){
                 convertToR(ans)
             }
-            
+
             else
                 ans
         } else if(is.function(.convert))
@@ -2794,8 +2801,8 @@ createBody =
     {
         top = newXMLNode("methodCall", newXMLNode("methodName", method))
         params = newXMLNode("params", parent = top)
-        sapply(args, function(x) newXMLNode("param", 
-                                            rpc.serialize(x), 
+        sapply(args, function(x) newXMLNode("param",
+                                            rpc.serialize(x),
                                             parent = params))
         top
     }
@@ -2807,15 +2814,15 @@ setMethod("rpc.serialize", "ANY",
           function(x, ...) {
               if(isS4(x))
                   return(rpc.serialize.S4Object(x, ...))
-              
-              stop("Not sure how to convert this type of object to XMLRPC format")
+
+              stop("Not sure how to convert this type")
           })
 
 rpc.serialize.S4Object =
     function(x, ...)
     {
         els = slotNames(x)
-        rpc.serialize(structure(lapply(els, function(id) slot(x, id)), 
+        rpc.serialize(structure(lapply(els, function(id) slot(x, id)),
                                 names = els), ...)
     }
 
@@ -2880,16 +2887,16 @@ setMethod("rpc.serialize", "vector",
           function(x, ...) {
               type = basicTypeMap[typeof(x)]
               x = cast(x)
-              
+
               if(length(names(x))) {
                   warning("Skipping names on vector!")
                   names(x) = NULL
               }
-              
+
               if(length(x) == 1)
                   newXMLNode("value", newXMLNode(type, if(type == "string") {
                       newXMLCDataNode(x)
-                  } 
+                  }
                   else x))
               else {
                   vectorArray(x, type)
@@ -2909,7 +2916,7 @@ vectorArray =
         top = newXMLNode("value")
         a = newXMLNode("array", parent = top)
         data = newXMLNode("data", parent = a)
-        
+
         tmpl = if(type == "string")  # is.character(x))
             sprintf("<value><%s><![CDATA[%%s]]></%s></value>", type, type)
         else if(type == "dateTime.iso8601") {
@@ -2924,14 +2931,14 @@ vectorArray =
                 pct = "%s"
             } else
                 pct = FormatStrings[type]
-            
+
             if(is.na(pct)) pct = "%s"
             sprintf("<value><%s>%s</%s></value>", type, pct, type)
         }
-        
+
         txt = sprintf(tmpl, x)
         parseXMLAndAdd(txt, data)
-        
+
         top
     }
 
@@ -2964,7 +2971,7 @@ setMethod('convertToR', 'XMLInternalDocument', function(node)
     fault = getNodeSet(node,path="//methodResponse/fault/value/struct")
     if (length(fault) > 0) {
         fault = xmlRPCToR(fault[[1]])
-        e = simpleError(paste("faultCode: ",  fault$faultCode, 
+        e = simpleError(paste("faultCode: ",  fault$faultCode,
                               " faultString: ", fault$faultString))
         class(e) = c("XMLRPCError", class(e))
         stop(e)
@@ -2980,7 +2987,7 @@ setMethod('convertToR', 'XMLInternalNode',
           function(node)
           {
               if(length(getNodeSet(node, "./param/value"))) {
-                  ans = xpathApply(node, "./param/value", xmlRPCToR, 
+                  ans = xpathApply(node, "./param/value", xmlRPCToR,
                                    simplify = FALSE)
               } else
                   xmlToList(node)
@@ -2999,15 +3006,15 @@ xmlRPCToR =
     {
         if(is.null(node))
             return(NULL)
-        
+
         if(xmlName(node) == "value") {
             node = node[[1]]
         }
-        
+
         if(is(node, "XMLInternalTextNode")) {
             return(xmlValue(node))
         }
-        
+
         type = xmlName(node)
         switch(type,
                'array' = xmlRPCToR.array(node, ...),
@@ -3017,12 +3024,12 @@ xmlRPCToR =
                'boolean' = if(xmlValue(node) == "1") TRUE else FALSE,
                'double' = as.numeric(xmlValue(node)),
                'string' = xmlValue(node),
-               'dateTime.iso8601' = as.POSIXct(strptime(xmlValue(node), 
+               'dateTime.iso8601' = as.POSIXct(strptime(xmlValue(node),
                                                         "%Y%m%dT%H:%M:%S")),
                'base64' = base64(xmlValue(node), encode = FALSE),
                xmlValue(node)
         )
-        
+
     }
 
 xmlRPCToR.struct =

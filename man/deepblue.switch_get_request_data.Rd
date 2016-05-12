@@ -13,10 +13,13 @@ with deepblue.get_request_data}
 
 \item{user_key}{the user_key used to submit the request.}
 }
-\description{
-Download the requested data from DeepBlue.
+\value{
+request data
 Can be either region sets,
 a region count, a list of experiments, or a score matrix.
+}
+\description{
+Download the requested data from DeepBlue.
 }
 \keyword{internal}
 
