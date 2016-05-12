@@ -19,7 +19,7 @@ biosources - A array (biosources)
 Lists all existing biosources.
 }
 \examples{
-deepblue.list_biosources(extra_metadata = list(namespace = "uberon"))
+deepblue.list_biosources(extra_metadata = list(ontology_id = "UBERON:0002485"))
 
 }
 \seealso{

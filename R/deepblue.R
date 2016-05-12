@@ -1344,7 +1344,7 @@ deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) 
 #' @return biosources - A array (biosources)
 #'
 #' @examples
-#' deepblue.list_biosources(extra_metadata = list(namespace = "uberon"))
+#' deepblue.list_biosources(extra_metadata = list(ontology_id = "UBERON:0002485"))
 #'
 deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
 

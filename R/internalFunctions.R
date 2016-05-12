@@ -31,8 +31,13 @@ setGeneric("deepblue.wait_request", function(request_id, sleep_time = 1,
 #'@param user_key A string
 #'@param type To which type the downloaded data will be converted:
 #''string', 'df', or 'grange'.
-#'
 #'@return grange_regions Final output in GRanges format
+#'@examples
+#' data_id = deepblue.select_experiments(
+#' experiment_name="E002-H3K9ac.narrowPeak.bed", chromosome="chr1")
+#' request_id = deepblue.get_regions(query_id =data_id,
+#'   output_format = "CHROMOSOME,START,END")
+#' request_data = deepblue.download_request_data(request_id)
 setGeneric("deepblue.download_request_data",
            function(request_id,
                     user_key=deepblue.USER_KEY,
