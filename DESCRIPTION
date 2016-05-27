@@ -11,8 +11,9 @@ Imports: GenomicRanges,
     data.table,
     stringr,
     dplyr,
-    methods
-Depends: R (>= 3.2.0),
+    methods,
+    utils
+Depends: R (>= 3.3),
     XML,
     RCurl
 Collate:

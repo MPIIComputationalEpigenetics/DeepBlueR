@@ -138,7 +138,6 @@ deepblue.switch_get_request_data = function(request_id,
 #'@keywords internal
 deepblue.convert_to_df = function(string_to_parse, request_info,
     dict=col_dict){
-    browser()
     if("format" %in% names(request_info)) {
         if (request_info$format == "") {
             request_info$format = "CHROMOSOME,START,END"
