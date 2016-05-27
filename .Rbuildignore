@@ -1,3 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\build\$
+.RData
+.Rhistory
+.gitignore
+.Rproj.user
+.git
+
