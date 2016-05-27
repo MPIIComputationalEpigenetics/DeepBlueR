@@ -1,6 +1,7 @@
 #'@title DeepBlueCommand class
 #'@export
 #'@import methods
+#'@importFrom utils write.table download.file
 #'@description An S4 class returned when calling
 #'a DeepBlue-R function. It holds information about
 #'the original call, the query / request status,

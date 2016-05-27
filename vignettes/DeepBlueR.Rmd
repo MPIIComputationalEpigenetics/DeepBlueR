@@ -449,8 +449,7 @@ query_id = deepblue.select_experiments(
 overlapped = deepblue.intersection(query_a_id=query_id, 
                                    query_b_id=tataa_regions)
 request_id=deepblue.get_regions(overlapped,
-    "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,
-    @NAME,@BIOSOURCE,@LENGTH,@SEQUENCE")
+    "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE,@PROJECT")
 regions = deepblue.download_request_data(request_id=request_id)
 head(regions, 5)
 ```
@@ -674,8 +673,7 @@ filtered_zeros = deepblue.filter_regions(query_id=filtered,
 # experiment name and @BIOSOURCE for experiment's biosource
 request_id = deepblue.get_regions(query_id=filtered_zeros,
     output_format=
-    "CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),
-    @AGG.MEAN,@AGG.COUNT")
+    "CHROMOSOME,START,END,@CALCULATED(return math.log(value_of('@AGG.MEAN'))),@AGG.MEAN,@AGG.COUNT")
 
 regions = deepblue.download_request_data(request_id=request_id)
 
