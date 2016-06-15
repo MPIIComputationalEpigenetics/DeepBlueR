@@ -8,7 +8,7 @@ chr1    544738  546649
 chr1    713984  714547
 chr1    762416  763445
 chr1    788863  789211"
-deepblue.add_experiment(name="Interesting experiment", genome="hg19",
+deepblue_add_experiment(name="Interesting experiment", genome="hg19",
     epigenetic_mark="H3k27ac", sample="s123456", technique="Chip-seq",
     project="My Own project",
     description="It is an experiment with some interesting regions", data=data,

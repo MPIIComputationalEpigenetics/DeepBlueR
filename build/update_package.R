@@ -11,6 +11,7 @@ if(api_update == 0)
     setwd("../")
     
     #update the documentation and check the package
+    devtools::document(roclets=c('rd', 'collate', 'namespace', 'vignette'))
     check <- devtools::check()
     
     #if there are no errors install package

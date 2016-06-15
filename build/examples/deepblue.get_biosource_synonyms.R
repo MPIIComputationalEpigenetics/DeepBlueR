@@ -1,1 +1,1 @@
-deepblue.get_biosource_synonyms(biosource = "prostate gland")
+deepblue_get_biosource_synonyms(biosource = "prostate gland")

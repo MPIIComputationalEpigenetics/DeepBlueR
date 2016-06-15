@@ -1,6 +1,6 @@
-tiling_regions = deepblue.tiling_regions(
+tiling_regions = deepblue_tiling_regions(
     size=100000, genome="hg19", chromosome="chr1")
-deepblue.score_matrix(
+deepblue_score_matrix(
     experiments_columns =
         list(ENCFF721EKA="VALUE", ENCFF781VVH="VALUE"),
   aggregation_function = "mean",

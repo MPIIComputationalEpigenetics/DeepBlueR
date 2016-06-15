@@ -1,1 +1,1 @@
-deepblue.list_in_use(controlled_vocabulary = "biosources")
+deepblue_list_in_use(controlled_vocabulary = "biosources")

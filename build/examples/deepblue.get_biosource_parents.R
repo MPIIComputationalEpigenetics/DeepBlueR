@@ -1,1 +1,1 @@
-deepblue.get_biosource_parents(biosource = "Blood")
+deepblue_get_biosource_parents(biosource = "Blood")

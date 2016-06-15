@@ -11,7 +11,7 @@ xml.rpc =
              .convert = TRUE,
              .curl = getCurlHandle(),
              useragent = "DeepBlue-R-XMLRPC",
-             verbose=deepblue.debug.VERBOSE)
+             verbose=deepblue_debug_VERBOSE)
     {
         # Turn the method and arguments to an RPC body.
         body = createBody(method,  .args)

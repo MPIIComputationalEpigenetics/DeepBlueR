@@ -8,7 +8,7 @@ chr1    544738  546649
 chr1    713984  714547
 chr1    762416  763445
 chr1    788863  789211"
-deepblue.add_annotation(name="Interesting annotation", genome="hg19",
+deepblue_add_annotation(name="Interesting annotation", genome="hg19",
     description="It is an annotation with some interesting regions",
     data=data, format="CHROMOSOME,START,END",
     extra_metadata=list(source="My own experiments"),

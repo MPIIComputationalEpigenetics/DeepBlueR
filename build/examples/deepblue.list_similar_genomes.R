@@ -1,1 +1,1 @@
-deepblue.list_similar_genomes(name = "grc")
+deepblue_list_similar_genomes(name = "grc")

@@ -1,4 +1,4 @@
-deepblue.tiling_regions(
+deepblue_tiling_regions(
     size = 10000,
     genome = "hg19",
     chromosome = "chr1")

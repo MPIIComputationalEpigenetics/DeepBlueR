@@ -1,1 +1,1 @@
-deepblue.list_projects()
+deepblue_list_projects()

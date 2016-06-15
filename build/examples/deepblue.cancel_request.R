@@ -1,1 +1,1 @@
-deepblue.cancel_request(id = "r12345")
+deepblue_cancel_request(id = "r12345")

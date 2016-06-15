@@ -1,1 +1,1 @@
-deepblue.commands()
+deepblue_commands()

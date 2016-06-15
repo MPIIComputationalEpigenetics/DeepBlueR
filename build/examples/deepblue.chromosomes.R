@@ -1,1 +1,1 @@
-deepblue.chromosomes(genome = "g1")
+deepblue_chromosomes(genome = "g1")

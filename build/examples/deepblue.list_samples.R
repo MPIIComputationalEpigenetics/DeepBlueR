@@ -1,1 +1,1 @@
-deepblue.list_samples(biosource = "Blood")
+deepblue_list_samples(biosource = "Blood")

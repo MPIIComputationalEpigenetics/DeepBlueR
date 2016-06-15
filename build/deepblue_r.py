@@ -42,7 +42,7 @@ cmd_documentation_tmpl = """
 
 cmd_tmpl = """
 %(documentation)s
-deepblue.%(name)s <- function(%(parameter_names)s) {
+deepblue_%(name)s <- function(%(parameter_names)s) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -123,7 +123,7 @@ def main():
     for p in cmd["parameters"]:
 
       if p[0] == "user_key":
-        param_names.append("user_key=deepblue.USER_KEY")
+        param_names.append("user_key=deepblue_USER_KEY")
       elif p[0] == "extra_metadata":
         param_names.append("extra_metadata=NULL")
       else:
@@ -175,7 +175,7 @@ def main():
                            "parameter_convertion": parameters_list_convertion,
                            "name": name,
                            "documentation": command_description,
-                           'url': "deepblue.URL"}
+                           'url': "deepblue_URL"}
 
   print commands_long_doc
 

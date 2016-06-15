@@ -1,2 +1,2 @@
-deepblue.search(keyword = "DNA Methylation BLUEPRINT",
+deepblue_search(keyword = "DNA Methylation BLUEPRINT",
     type = "experiments")

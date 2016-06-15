@@ -1,1 +1,1 @@
-deepblue.list_epigenetic_marks()
+deepblue_list_epigenetic_marks()

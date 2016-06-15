@@ -9,15 +9,15 @@ message("We list and extract all samples IDs with the
         biosource H1-hESC from the ENCODE project.")
 readline("press any key to continue")
 
-H1_hESC_samples = deepblue.list_samples("H1-hESC", list("source"="ENCODE"))
-H1_hESC_samples_ids = deepblue.extract_ids(H1_hESC_samples)
+H1_hESC_samples = deepblue_list_samples("H1-hESC", list("source"="ENCODE"))
+H1_hESC_samples_ids = deepblue_extract_ids(H1_hESC_samples)
 
 message("We list all peaks experiments that contains the previously 
         selected samples IDS, the histone modification H3K4me3 
         from the ENCODE project.")
 readline("press any key to continue")
 
-experiments = deepblue.list_experiments(genome="hg19", 
+experiments = deepblue_list_experiments(genome="hg19", 
                                         type="peaks", 
                                         epigenetic_mark="H3K4me3", 
                                         sample=H1_hESC_samples_ids, 
@@ -28,8 +28,8 @@ message("Obtain information about the experiment using the ID")
 
 readline("press any key to continue")
 
-experiments_id = deepblue.extract_ids(experiments)
-exps_infos = deepblue.info(experiments_id)
+experiments_id = deepblue_extract_ids(experiments)
+exps_infos = deepblue_info(experiments_id)
 
 message("and generate a list of experiments that the original 
         file name ends with 'bed.gz'.")
@@ -54,19 +54,19 @@ message("We select the regions of the selected h1-hESC H3K4me3 experiment.")
 readline("press any key to continue")
 
 h1_hESC_H3K4me3_exp = h1_hESC_H3K4me3_experiment_name[[1]]
-h1_hESC_H3K4me3 = deepblue.select_experiments(experiment_name=
+h1_hESC_H3K4me3 = deepblue_select_experiments(experiment_name=
                                                   h1_hESC_H3K4me3_exp)
 
 message("Then, we list and extract the names of the DNA Methylation experiments 
         that contain liver or hepatocyte biosource.")
 readline("press any key to continue")
 
-liver_experiments = deepblue.list_experiments(
+liver_experiments = deepblue_list_experiments(
     genome="hg19", 
     epigenetic_mark="DNA Methylation", 
     biosource=c('liver', 'hepatocyte'))
 
-liver_experiments_names = deepblue.extract_names(liver_experiments)
+liver_experiments_names = deepblue_extract_names(liver_experiments)
 
 print(liver_experiments_names)
 
@@ -78,15 +78,15 @@ requests = lapply(liver_experiments_names, function (liver_experiment) {
     
     
     # Selecting the regions of the experiment
-    q_liver_data = deepblue.select_experiments(experiment_name=liver_experiment)
+    q_liver_data = deepblue_select_experiments(experiment_name=liver_experiment)
     # We aggregate the selected regions using the H1-hESC regions. 
     # We perform the aggregation on the column 'SCORE'.
-    agg_id = deepblue.aggregate(data_id=q_liver_data, 
+    agg_id = deepblue_aggregate(data_id=q_liver_data, 
                                 ranges_id=h1_hESC_H3K4me3, 
                                 column='SCORE')
     # We filter and remove the aggregated regions 
     # that did not aggregate any region.
-    q_filter = deepblue.filter_regions(query_id=agg_id, 
+    q_filter = deepblue_filter_regions(query_id=agg_id, 
                                        field="@AGG.COUNT", 
                                        operation=">", 
                                        value="0", 
@@ -94,10 +94,9 @@ requests = lapply(liver_experiments_names, function (liver_experiment) {
     
     # Finally, we request the regions with the desired columns.
     # We return the request ID that will be used to download the data.
-    deepblue.get_regions(
+    deepblue_get_regions(
         query_id=q_filter, 
-        output_format="CHROMOSOME,START,END,@AGG.MEAN,
-	    @AGG.COUNT,@AGG.MAX,@AGG.MIN")
+        output_format="CHROMOSOME,START,END,@AGG.MEAN,@AGG.COUNT,@AGG.MAX,@AGG.MIN")
 })
 
 head(requests)
@@ -105,7 +104,7 @@ head(requests)
 message("We use the auxiliar function batch_export_results 
         to download and store the request data in the target.directory")
 readline("press any key to continue")
-results <- deepblue.batch_export_results(requests, 
+results <- deepblue_batch_export_results(requests, 
                                          target.directory="liver_aggregation")
 
 message("Some of the requests failed. 
@@ -119,4 +118,4 @@ message("This will allow you to chceck this errors individually,
         for example with the first error")
 readline("press any key to finish")
 
-deepblue.download_request_data(attr(results, "errors")[[1]])
+deepblue_download_request_data(attr(results, "errors")[[1]])

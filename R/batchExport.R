@@ -10,17 +10,17 @@
 #'@param user_key A string used to authenticate the user
 #'@return A list containing the requests IDs data
 #' @examples
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #' experiment_name="E002-H3K9ac.narrowPeak.bed", chromosome="chr1")
-#' request_id = deepblue.get_regions(query_id =data_id,
+#' request_id = deepblue_get_regions(query_id =data_id,
 #'   output_format = "CHROMOSOME,START,END")
-#' request_data = deepblue.batch_export_results(list(request_id))
-deepblue.batch_export_results <- function(requests,
+#' request_data = deepblue_batch_export_results(list(request_id))
+deepblue_batch_export_results <- function(requests,
                                           target.directory=NULL,
                                           suffix="result",
                                           prefix="DeepBlue",
                                           sleep.time = 1,
-                                          user_key = deepblue.USER_KEY){
+                                          user_key = deepblue_USER_KEY){
     #to store results
     all.results <- list()
     if(is.na(requests) || is.null(requests))
@@ -59,14 +59,14 @@ deepblue.batch_export_results <- function(requests,
             request_id <- requests[[request]]
 
             #update info
-            request_info <- deepblue.info(request_id, user_key = user_key)[[1]]
+            request_info <- deepblue_info(request_id, user_key = user_key)[[1]]
 
             if(request_info$state == "done" && need.saving[request])
             {
                 #download data
                 message(paste("Downloading results for id",
                               request_id@query_id))
-                result <- deepblue.download_request_data(request_id)
+                result <- deepblue_download_request_data(request_id)
                 all.results[[request_id@query_id]] <- result
 
                 if(!is.null(target.directory)){

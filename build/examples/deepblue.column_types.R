@@ -1,1 +1,1 @@
-deepblue.column_types()
+deepblue_column_types()

@@ -1,1 +1,1 @@
-deepblue.list_similar_techniques(name = "chip seq")
+deepblue_list_similar_techniques(name = "chip seq")

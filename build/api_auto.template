@@ -9,17 +9,17 @@
 #' @description Location of the DeepBlue XML-RPC server
 #' @keywords internal
 #' @return URL to access DeepBlue Data Server
-deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
+deepblue_URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
 #' @description Default anonymous user key
 #' @return default user key for accessing DeepBlue
 #' @keywords internal
-deepblue.USER_KEY = "anonymous_key"
+deepblue_USER_KEY = "anonymous_key"
 #' @title Verbose
 #' @description Show or hide debugging messages
 #' @return if this package must print some debugging outputs
 #' @keywords internal
-deepblue.debug.VERBOSE = FALSE
+deepblue_debug_VERBOSE = FALSE
 
 {{ commands }}
 

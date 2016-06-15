@@ -1,1 +1,1 @@
-deepblue.list_recent_experiments(days = 2, genome = "hg19")
+deepblue_list_recent_experiments(days = 2, genome = "hg19")

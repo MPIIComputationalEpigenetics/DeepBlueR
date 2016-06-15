@@ -1,1 +1,1 @@
-deepblue.list_similar_projects(name = "BLUEPRINT")
+deepblue_list_similar_projects(name = "BLUEPRINT")

@@ -1,1 +1,1 @@
-deepblue.echo(user_key = "anonymous_key")
+deepblue_echo(user_key = "anonymous_key")

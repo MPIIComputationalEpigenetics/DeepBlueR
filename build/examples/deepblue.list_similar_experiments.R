@@ -1,1 +1,1 @@
-deepblue.list_similar_experiments(name = "blood", genome = "hg19")
+deepblue_list_similar_experiments(name = "blood", genome = "hg19")

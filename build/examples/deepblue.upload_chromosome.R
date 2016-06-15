@@ -1,5 +1,5 @@
 data = "ACTGAGCTCAGC"
-deepblue.upload_chromosome(
+deepblue_upload_chromosome(
     genome = "genome_name",
     chromosome = "chromosome_name",
     data = NULL,

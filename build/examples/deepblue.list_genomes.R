@@ -1,1 +1,1 @@
-deepblue.list_genomes()
+deepblue_list_genomes()

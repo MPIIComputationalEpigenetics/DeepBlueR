@@ -1,1 +1,1 @@
-deepblue.list_similar_biosources(name = "blood")
+deepblue_list_similar_biosources(name = "blood")

@@ -9,17 +9,17 @@
 #' @description Location of the DeepBlue XML-RPC server
 #' @keywords internal
 #' @return URL to access DeepBlue Data Server
-deepblue.URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
+deepblue_URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
 #' @title default User Key
 #' @description Default anonymous user key
 #' @return default user key for accessing DeepBlue
 #' @keywords internal
-deepblue.USER_KEY = "anonymous_key"
+deepblue_USER_KEY = "anonymous_key"
 #' @title Verbose
 #' @description Show or hide debugging messages
 #' @return if this package must print some debugging outputs
 #' @keywords internal
-deepblue.debug.VERBOSE = FALSE
+deepblue_debug_VERBOSE = FALSE
 
 
 
@@ -38,17 +38,17 @@ deepblue.debug.VERBOSE = FALSE
 #' @return regions - A string (query id of this aggregation operation)
 #'
 #' @examples
-#' annotation_id = deepblue.select_annotations(
+#' annotation_id = deepblue_select_annotations(
 #'     annotation_name="CpG Islands",
 #'     genome="hg19", chromosome="chr1")
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed")
-#' deepblue.aggregate(
+#' deepblue_aggregate(
 #'     data_id = data_id,
 #'     ranges_id=annotation_id,
 #'     column = "SCORE")
 #'
-deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, user_key=deepblue.USER_KEY) {
+deepblue_aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -61,7 +61,7 @@ deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'aggregate', data_id, ranges_id, column, user_key)
+    value <- xml.rpc(deepblue_URL, 'aggregate', data_id, ranges_id, column, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -95,9 +95,9 @@ deepblue.aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
 #' @return id - A string (ID of the canceled request)
 #'
 #' @examples
-#' deepblue.cancel_request(id = "r12345")
+#' deepblue_cancel_request(id = "r12345")
 #'
-deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_cancel_request <- function(id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -110,7 +110,7 @@ deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'cancel_request', id, user_key)
+    value <- xml.rpc(deepblue_URL, 'cancel_request', id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -144,9 +144,9 @@ deepblue.cancel_request <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' @return chromosomes - A array (A list containing all chromosomes, with theirs names and sizes)
 #'
 #' @examples
-#' deepblue.chromosomes(genome = "g1")
+#' deepblue_chromosomes(genome = "g1")
 #'
-deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
+deepblue_chromosomes <- function(genome= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -159,7 +159,7 @@ deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'chromosomes', genome, user_key)
+    value <- xml.rpc(deepblue_URL, 'chromosomes', genome, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -200,12 +200,12 @@ deepblue.chromosomes <- function(genome= NULL, user_key=deepblue.USER_KEY) {
 #' @return terms - A array (controlled_vocabulary terms with count)
 #'
 #' @examples
-#' deepblue.collection_experiments_count(
+#' deepblue_collection_experiments_count(
 #' 	controlled_vocabulary="epigenetic_marks",
 #'     genome = "hg19", type = "peaks",
 #'     biosource = "blood")
 #'
-deepblue.collection_experiments_count <- function(controlled_vocabulary= NULL, genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
+deepblue_collection_experiments_count <- function(controlled_vocabulary= NULL, genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -218,7 +218,7 @@ deepblue.collection_experiments_count <- function(controlled_vocabulary= NULL, g
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'collection_experiments_count', controlled_vocabulary, genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
+    value <- xml.rpc(deepblue_URL, 'collection_experiments_count', controlled_vocabulary, genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -250,9 +250,9 @@ deepblue.collection_experiments_count <- function(controlled_vocabulary= NULL, g
 #' @return commands - A struct (command descriptions)
 #'
 #' @examples
-#' deepblue.commands()
+#' deepblue_commands()
 #'
-deepblue.commands <- function() {
+deepblue_commands <- function() {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -265,7 +265,7 @@ deepblue.commands <- function() {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'commands')
+    value <- xml.rpc(deepblue_URL, 'commands')
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -299,11 +299,11 @@ deepblue.commands <- function() {
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 #'
 #' @examples
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed")
-#' deepblue.count_regions(query_id = data_id)
+#' deepblue_count_regions(query_id = data_id)
 #'
-deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_count_regions <- function(query_id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -316,7 +316,7 @@ deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'count_regions', query_id, user_key)
+    value <- xml.rpc(deepblue_URL, 'count_regions', query_id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -349,9 +349,9 @@ deepblue.count_regions <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
 #' @return message - A string (echo message including version)
 #'
 #' @examples
-#' deepblue.echo(user_key = "anonymous_key")
+#' deepblue_echo(user_key = "anonymous_key")
 #'
-deepblue.echo <- function(user_key=deepblue.USER_KEY) {
+deepblue_echo <- function(user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -364,7 +364,7 @@ deepblue.echo <- function(user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'echo', user_key)
+    value <- xml.rpc(deepblue_URL, 'echo', user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -401,14 +401,14 @@ deepblue.echo <- function(user_key=deepblue.USER_KEY) {
 #' @return id - A string (id of the new query)
 #'
 #' @examples
-#' annotation_id = deepblue.select_annotations(
+#' annotation_id = deepblue_select_annotations(
 #'     annotation_name="CpG Islands",
 #'     genome="hg19", chromosome="chr1")
-#' deepblue.extend(query_id = annotation_id,
+#' deepblue_extend(query_id = annotation_id,
 #'     length = 2000, direction = "BOTH",
 #'     use_strand = TRUE)
 #'
-deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_strand= NULL, user_key=deepblue.USER_KEY) {
+deepblue_extend <- function(query_id= NULL, length= NULL, direction= NULL, use_strand= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -421,7 +421,7 @@ deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'extend', query_id, if (is.null(length)) NULL else as.integer(length), direction, use_strand, user_key)
+    value <- xml.rpc(deepblue_URL, 'extend', query_id, if (is.null(length)) NULL else as.integer(length), direction, use_strand, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -454,11 +454,11 @@ deepblue.extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
 #' @return ids - A array (list containing the extracted IDs)
 #'
 #' @examples
-#' deepblue.extract_ids(
+#' deepblue_extract_ids(
 #'     list = list(list("a124", "Annotation 1"),
 #'     list("a1235", "Annotation 2")))
 #'
-deepblue.extract_ids <- function(list= NULL) {
+deepblue_extract_ids <- function(list= NULL) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -471,7 +471,7 @@ deepblue.extract_ids <- function(list= NULL) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'extract_ids', list)
+    value <- xml.rpc(deepblue_URL, 'extract_ids', list)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -504,11 +504,11 @@ deepblue.extract_ids <- function(list= NULL) {
 #' @return names - A array (list containing the extracted names)
 #'
 #' @examples
-#' deepblue.extract_names(
+#' deepblue_extract_names(
 #'     list = list(list("a124", "Annotation 1"),
 #'         list("a1235", "Annotation 2")))
 #'
-deepblue.extract_names <- function(list= NULL) {
+deepblue_extract_names <- function(list= NULL) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -521,7 +521,7 @@ deepblue.extract_names <- function(list= NULL) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'extract_names', list)
+    value <- xml.rpc(deepblue_URL, 'extract_names', list)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -561,11 +561,11 @@ deepblue.extract_names <- function(list= NULL) {
 #' @return faceting - A struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)
 #'
 #' @examples
-#' deepblue.faceting_experiments(genome = "hg19",
+#' deepblue_faceting_experiments(genome = "hg19",
 #'     type = "peaks",
 #'     biosource = "blood")
 #'
-deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
+deepblue_faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -578,7 +578,7 @@ deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'faceting_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
+    value <- xml.rpc(deepblue_URL, 'faceting_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -616,14 +616,14 @@ deepblue.faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
 #' @return id - A string (id of filtered query)
 #'
 #' @examples
-#' deepblue.filter_regions(query_id = "q12345",
+#' deepblue_filter_regions(query_id = "q12345",
 #'     field = "VALUE",
 #'     operation = ">",
 #'     value = "100",
 #'     type = "number",
 #'     user_key = "anonymous_key")
 #'
-deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL, value= NULL, type= NULL, user_key=deepblue.USER_KEY) {
+deepblue_filter_regions <- function(query_id= NULL, field= NULL, operation= NULL, value= NULL, type= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -636,7 +636,7 @@ deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'filter_regions', query_id, field, operation, value, type, user_key)
+    value <- xml.rpc(deepblue_URL, 'filter_regions', query_id, field, operation, value, type, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -673,14 +673,14 @@ deepblue.filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 #' @return id - A string (id of the new query)
 #'
 #' @examples
-#' annotation_id = deepblue.select_annotations(
+#' annotation_id = deepblue_select_annotations(
 #'     annotation_name="CpG Islands",
 #'     genome="hg19", chromosome="chr1")
-#' deepblue.flank(query_id = annotation_id,
+#' deepblue_flank(query_id = annotation_id,
 #'     start = 0, length = 2000,
 #'     use_strand = TRUE)
 #'
-deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand= NULL, user_key=deepblue.USER_KEY) {
+deepblue_flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -693,7 +693,7 @@ deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'flank', query_id, if (is.null(start)) NULL else as.integer(start), if (is.null(length)) NULL else as.integer(length), use_strand, user_key)
+    value <- xml.rpc(deepblue_URL, 'flank', query_id, if (is.null(start)) NULL else as.integer(start), if (is.null(length)) NULL else as.integer(length), use_strand, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -727,9 +727,9 @@ deepblue.flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
 #' @return biosources - A array (related biosources)
 #'
 #' @examples
-#' deepblue.get_biosource_children(biosource = "Blood")
+#' deepblue_get_biosource_children(biosource = "Blood")
 #'
-deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
+deepblue_get_biosource_children <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -742,7 +742,7 @@ deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.U
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'get_biosource_children', biosource, user_key)
+    value <- xml.rpc(deepblue_URL, 'get_biosource_children', biosource, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -776,9 +776,9 @@ deepblue.get_biosource_children <- function(biosource= NULL, user_key=deepblue.U
 #' @return biosources - A array (parents biosources)
 #'
 #' @examples
-#' deepblue.get_biosource_parents(biosource = "Blood")
+#' deepblue_get_biosource_parents(biosource = "Blood")
 #'
-deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
+deepblue_get_biosource_parents <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -791,7 +791,7 @@ deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.US
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'get_biosource_parents', biosource, user_key)
+    value <- xml.rpc(deepblue_URL, 'get_biosource_parents', biosource, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -825,9 +825,9 @@ deepblue.get_biosource_parents <- function(biosource= NULL, user_key=deepblue.US
 #' @return biosources - A array (related biosources)
 #'
 #' @examples
-#' deepblue.get_biosource_related(biosource = "Blood")
+#' deepblue_get_biosource_related(biosource = "Blood")
 #'
-deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
+deepblue_get_biosource_related <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -840,7 +840,7 @@ deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.US
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'get_biosource_related', biosource, user_key)
+    value <- xml.rpc(deepblue_URL, 'get_biosource_related', biosource, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -874,9 +874,9 @@ deepblue.get_biosource_related <- function(biosource= NULL, user_key=deepblue.US
 #' @return synonyms - A array (synonyms of the biosource)
 #'
 #' @examples
-#' deepblue.get_biosource_synonyms(biosource = "prostate gland")
+#' deepblue_get_biosource_synonyms(biosource = "prostate gland")
 #'
-deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.USER_KEY) {
+deepblue_get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -889,7 +889,7 @@ deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.U
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'get_biosource_synonyms', biosource, user_key)
+    value <- xml.rpc(deepblue_URL, 'get_biosource_synonyms', biosource, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -923,9 +923,9 @@ deepblue.get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue.U
 #' @return experiments - A array (List containing experiments names and ids)
 #'
 #' @examples
-#' deepblue.get_experiments_by_query(query_id = "q12345")
+#' deepblue_get_experiments_by_query(query_id = "q12345")
 #'
-deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_get_experiments_by_query <- function(query_id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -938,7 +938,7 @@ deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'get_experiments_by_query', query_id, user_key)
+    value <- xml.rpc(deepblue_URL, 'get_experiments_by_query', query_id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -973,12 +973,12 @@ deepblue.get_experiments_by_query <- function(query_id= NULL, user_key=deepblue.
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 #'
 #' @examples
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed")
-#' deepblue.get_regions(query_id =data_id,
+#' deepblue_get_regions(query_id =data_id,
 #'     output_format = "CHROMOSOME,START,END")
 #'
-deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=deepblue.USER_KEY) {
+deepblue_get_regions <- function(query_id= NULL, output_format= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -991,7 +991,7 @@ deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'get_regions', query_id, output_format, user_key)
+    value <- xml.rpc(deepblue_URL, 'get_regions', query_id, output_format, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1025,15 +1025,15 @@ deepblue.get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
 #' @return data - A string or a vector of string (The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).)
 #'
 #' @examples
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed",
 #'     chromosome="chr1")
-#' request_id = deepblue.get_regions(
+#' request_id = deepblue_get_regions(
 #'     query_id =data_id,
 #'     output_format = "CHROMOSOME,START,END")
-#' deepblue.get_request_data(request_id = request_id)
+#' deepblue_get_request_data(request_id = request_id)
 #'
-deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_get_request_data <- function(request_id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1046,7 +1046,7 @@ deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_K
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'get_request_data', request_id, user_key)
+    value <- xml.rpc(deepblue_URL, 'get_request_data', request_id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1080,9 +1080,9 @@ deepblue.get_request_data <- function(request_id= NULL, user_key=deepblue.USER_K
 #' @return information - A array or a vector of array (List of Maps, where each map contains the info of an object.)
 #'
 #' @examples
-#' deepblue.info(id = "e30035")
+#' deepblue_info(id = "e30035")
 #'
-deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_info <- function(id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1095,7 +1095,7 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'info', id, user_key)
+    value <- xml.rpc(deepblue_URL, 'info', id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1140,10 +1140,10 @@ deepblue.info <- function(id= NULL, user_key=deepblue.USER_KEY) {
 #' chr1	713984	714547
 #' chr1	762416	763445
 #' chr1	788863	789211"
-#' deepblue.input_regions(genome = "hg19",
+#' deepblue_input_regions(genome = "hg19",
 #'     region_set = regions_set)
 #'
-deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deepblue.USER_KEY) {
+deepblue_input_regions <- function(genome= NULL, region_set= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1156,7 +1156,7 @@ deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'input_regions', genome, region_set, user_key)
+    value <- xml.rpc(deepblue_URL, 'input_regions', genome, region_set, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1191,15 +1191,15 @@ deepblue.input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
 #' @return id - A string (id of the new query)
 #'
 #' @examples
-#' annotation_id = deepblue.select_annotations(
+#' annotation_id = deepblue_select_annotations(
 #'     annotation_name="CpG Islands",
 #'     genome="hg19", chromosome="chr1")
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed")
-#' deepblue.intersection(query_a_id = annotation_id,
+#' deepblue_intersection(query_a_id = annotation_id,
 #'     query_b_id = data_id)
 #'
-deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1212,7 +1212,7 @@ deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=d
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'intersection', query_a_id, query_b_id, user_key)
+    value <- xml.rpc(deepblue_URL, 'intersection', query_a_id, query_b_id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1246,9 +1246,9 @@ deepblue.intersection <- function(query_a_id= NULL, query_b_id= NULL, user_key=d
 #' @return information - A string or a vector of string (A string containing the biosource name)
 #'
 #' @examples
-#' deepblue.is_biosource(biosource_name = "blood")
+#' deepblue_is_biosource(biosource_name = "blood")
 #'
-deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_KEY) {
+deepblue_is_biosource <- function(biosource_name= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1261,7 +1261,7 @@ deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_K
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'is_biosource', biosource_name, user_key)
+    value <- xml.rpc(deepblue_URL, 'is_biosource', biosource_name, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1295,9 +1295,9 @@ deepblue.is_biosource <- function(biosource_name= NULL, user_key=deepblue.USER_K
 #' @return annotations - A array (annotation ids)
 #'
 #' @examples
-#' deepblue.list_annotations(genome = "hg19")
+#' deepblue_list_annotations(genome = "hg19")
 #'
-deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_annotations <- function(genome= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1310,7 +1310,7 @@ deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) 
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_annotations', genome, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_annotations', genome, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1344,9 +1344,9 @@ deepblue.list_annotations <- function(genome= NULL, user_key=deepblue.USER_KEY) 
 #' @return biosources - A array (biosources)
 #'
 #' @examples
-#' deepblue.list_biosources(extra_metadata = list(ontology_id = "UBERON:0002485"))
+#' deepblue_list_biosources(extra_metadata = list(ontology_id = "UBERON:0002485"))
 #'
-deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_biosources <- function(extra_metadata=NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1359,7 +1359,7 @@ deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_biosources', extra_metadata, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_biosources', extra_metadata, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1392,9 +1392,9 @@ deepblue.list_biosources <- function(extra_metadata=NULL, user_key=deepblue.USER
 #' @return column_types - A array (column types)
 #'
 #' @examples
-#' deepblue.list_column_types()
+#' deepblue_list_column_types()
 #'
-deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
+deepblue_list_column_types <- function(user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1407,7 +1407,7 @@ deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_column_types', user_key)
+    value <- xml.rpc(deepblue_URL, 'list_column_types', user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1441,9 +1441,9 @@ deepblue.list_column_types <- function(user_key=deepblue.USER_KEY) {
 #' @return epigenetic_marks - A array (epigenetic mark names)
 #'
 #' @examples
-#' deepblue.list_epigenetic_marks()
+#' deepblue_list_epigenetic_marks()
 #'
-deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1456,7 +1456,7 @@ deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_epigenetic_marks', extra_metadata, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_epigenetic_marks', extra_metadata, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1496,10 +1496,10 @@ deepblue.list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
 #' @return experiments - A array (experiment names)
 #'
 #' @examples
-#' deepblue.list_experiments(genome = "hg19", type = "peaks",
+#' deepblue_list_experiments(genome = "hg19", type = "peaks",
 #'   epigenetic_mark = "H3K27ac", biosource = "blood")
 #'
-deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1512,7 +1512,7 @@ deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_experiments', genome, type, epigenetic_mark, biosource, sample, technique, project, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1545,9 +1545,9 @@ deepblue.list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #' @return genomes - A array (genome names)
 #'
 #' @examples
-#' deepblue.list_genomes()
+#' deepblue_list_genomes()
 #'
-deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
+deepblue_list_genomes <- function(user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1560,7 +1560,7 @@ deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_genomes', user_key)
+    value <- xml.rpc(deepblue_URL, 'list_genomes', user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1594,9 +1594,9 @@ deepblue.list_genomes <- function(user_key=deepblue.USER_KEY) {
 #' @return terms - A array (controlled_vocabulary terms with count)
 #'
 #' @examples
-#' deepblue.list_in_use(controlled_vocabulary = "biosources")
+#' deepblue_list_in_use(controlled_vocabulary = "biosources")
 #'
-deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1609,7 +1609,7 @@ deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_in_use', controlled_vocabulary, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_in_use', controlled_vocabulary, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1642,9 +1642,9 @@ deepblue.list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue.
 #' @return projects - A array (project names)
 #'
 #' @examples
-#' deepblue.list_projects()
+#' deepblue_list_projects()
 #'
-deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
+deepblue_list_projects <- function(user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1657,7 +1657,7 @@ deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_projects', user_key)
+    value <- xml.rpc(deepblue_URL, 'list_projects', user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1696,9 +1696,9 @@ deepblue.list_projects <- function(user_key=deepblue.USER_KEY) {
 #' @return experiments - A array (names of recent experiments)
 #'
 #' @examples
-#' deepblue.list_recent_experiments(days = 2, genome = "hg19")
+#' deepblue_list_recent_experiments(days = 2, genome = "hg19")
 #'
-deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_recent_experiments <- function(days= NULL, genome= NULL, epigenetic_mark= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1711,7 +1711,7 @@ deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_recent_experiments', days, genome, epigenetic_mark, sample, technique, project, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_recent_experiments', days, genome, epigenetic_mark, sample, technique, project, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1745,9 +1745,9 @@ deepblue.list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
 #' @return data_state - A array (Request-IDs and their state)
 #'
 #' @examples
-#' deepblue.list_requests(request_state = 'running')
+#' deepblue_list_requests(request_state = 'running')
 #'
-deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_requests <- function(request_state= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1760,7 +1760,7 @@ deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_K
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_requests', request_state, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_requests', request_state, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1795,9 +1795,9 @@ deepblue.list_requests <- function(request_state= NULL, user_key=deepblue.USER_K
 #' @return samples - A array (samples id with their content)
 #'
 #' @examples
-#' deepblue.list_samples(biosource = "Blood")
+#' deepblue_list_samples(biosource = "Blood")
 #'
-deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1810,7 +1810,7 @@ deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_samples', biosource, extra_metadata, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_samples', biosource, extra_metadata, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1844,9 +1844,9 @@ deepblue.list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
 #' @return biosources - A array (similar biosources)
 #'
 #' @examples
-#' deepblue.list_similar_biosources(name = "blood")
+#' deepblue_list_similar_biosources(name = "blood")
 #'
-deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_similar_biosources <- function(name= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1859,7 +1859,7 @@ deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_similar_biosources', name, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_similar_biosources', name, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1893,9 +1893,9 @@ deepblue.list_similar_biosources <- function(name= NULL, user_key=deepblue.USER_
 #' @return epigenetic_marks - A array (similar epigenetic mark names)
 #'
 #' @examples
-#' deepblue.list_similar_epigenetic_marks(name = "H3k27ac")
+#' deepblue_list_similar_epigenetic_marks(name = "H3k27ac")
 #'
-deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1908,7 +1908,7 @@ deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_similar_epigenetic_marks', name, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_similar_epigenetic_marks', name, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1943,9 +1943,9 @@ deepblue.list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
 #' @return experiments - A array (similar experiment names)
 #'
 #' @examples
-#' deepblue.list_similar_experiments(name = "blood", genome = "hg19")
+#' deepblue_list_similar_experiments(name = "blood", genome = "hg19")
 #'
-deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_similar_experiments <- function(name= NULL, genome= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1958,7 +1958,7 @@ deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_similar_experiments', name, genome, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_similar_experiments', name, genome, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -1992,9 +1992,9 @@ deepblue.list_similar_experiments <- function(name= NULL, genome= NULL, user_key
 #' @return genomes - A array (similar genome names)
 #'
 #' @examples
-#' deepblue.list_similar_genomes(name = "grc")
+#' deepblue_list_similar_genomes(name = "grc")
 #'
-deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_similar_genomes <- function(name= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2007,7 +2007,7 @@ deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_similar_genomes', name, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_similar_genomes', name, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2041,9 +2041,9 @@ deepblue.list_similar_genomes <- function(name= NULL, user_key=deepblue.USER_KEY
 #' @return projects - A array (similar project names)
 #'
 #' @examples
-#' deepblue.list_similar_projects(name = "BLUEPRINT")
+#' deepblue_list_similar_projects(name = "BLUEPRINT")
 #'
-deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_similar_projects <- function(name= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2056,7 +2056,7 @@ deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KE
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_similar_projects', name, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_similar_projects', name, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2090,9 +2090,9 @@ deepblue.list_similar_projects <- function(name= NULL, user_key=deepblue.USER_KE
 #' @return techniques - A array (similar techniques)
 #'
 #' @examples
-#' deepblue.list_similar_techniques(name = "chip seq")
+#' deepblue_list_similar_techniques(name = "chip seq")
 #'
-deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_KEY) {
+deepblue_list_similar_techniques <- function(name= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2105,7 +2105,7 @@ deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_similar_techniques', name, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_similar_techniques', name, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2138,9 +2138,9 @@ deepblue.list_similar_techniques <- function(name= NULL, user_key=deepblue.USER_
 #' @return techniques - A array (techniques)
 #'
 #' @examples
-#' deepblue.list_techniques()
+#' deepblue_list_techniques()
 #'
-deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
+deepblue_list_techniques <- function(user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2153,7 +2153,7 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'list_techniques', user_key)
+    value <- xml.rpc(deepblue_URL, 'list_techniques', user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2188,16 +2188,16 @@ deepblue.list_techniques <- function(user_key=deepblue.USER_KEY) {
 #' @return id - A string (new query id)
 #'
 #' @examples
-#' annotation_id = deepblue.select_annotations(
+#' annotation_id = deepblue_select_annotations(
 #'     annotation_name="CpG Islands",
 #'     genome="hg19", chromosome="chr1")
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed")
-#' deepblue.merge_queries(
+#' deepblue_merge_queries(
 #'     query_a_id = annotation_id,
 #'     query_b_id = data_id)
 #'
-deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2210,7 +2210,7 @@ deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'merge_queries', query_a_id, query_b_id, user_key)
+    value <- xml.rpc(deepblue_URL, 'merge_queries', query_a_id, query_b_id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2245,18 +2245,18 @@ deepblue.merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
 #' @return information - A string (New query ID.)
 #'
 #' @examples
-#' annotation_id = deepblue.select_annotations(
+#' annotation_id = deepblue_select_annotations(
 #'     annotation_name="CpG Islands",
 #'     genome="hg19", chromosome="chr1")
-#' data_id = deepblue.select_experiments(
+#' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed")
-#' merged_regions = deepblue.merge_queries(
+#' merged_regions = deepblue_merge_queries(
 #'     query_a_id = annotation_id,
 #'     query_b_id = data_id)
-#' deepblue.query_cache(
+#' deepblue_query_cache(
 #'     query_id = merged_regions, cache = TRUE)
 #'
-deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.USER_KEY) {
+deepblue_query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2269,7 +2269,7 @@ deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'query_cache', query_id, cache, user_key)
+    value <- xml.rpc(deepblue_URL, 'query_cache', query_id, cache, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2304,16 +2304,16 @@ deepblue.query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue.
 #' @return information - A string (New query ID.)
 #'
 #' @examples
-#' h3k27ac_regions = deepblue.select_regions(
+#' h3k27ac_regions = deepblue_select_regions(
 #'     genome ='GRCh38',
 #'     epigenetic_mark ='H3k27ac',
 #'     project ='BLUEPRINT Epigenome',
 #'     chromosome ='chr1')
-#' deepblue.query_experiment_type(
+#' deepblue_query_experiment_type(
 #'     query_id = h3k27ac_regions,
 #'     type = "peaks")
 #'
-deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=deepblue.USER_KEY) {
+deepblue_query_experiment_type <- function(query_id= NULL, type= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2326,7 +2326,7 @@ deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'query_experiment_type', query_id, type, user_key)
+    value <- xml.rpc(deepblue_URL, 'query_experiment_type', query_id, type, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2362,16 +2362,16 @@ deepblue.query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
 #' @return regions - A string (BED formated regions)
 #'
 #' @examples
-#' tiling_regions = deepblue.tiling_regions(
+#' tiling_regions = deepblue_tiling_regions(
 #'     size=100000, genome="hg19", chromosome="chr1")
-#' deepblue.score_matrix(
+#' deepblue_score_matrix(
 #'     experiments_columns =
 #'         list(ENCFF721EKA="VALUE", ENCFF781VVH="VALUE"),
 #'   aggregation_function = "mean",
 #'   aggregation_regions_id = tiling_regions)
 
 #'
-deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_function= NULL, aggregation_regions_id= NULL, user_key=deepblue.USER_KEY) {
+deepblue_score_matrix <- function(experiments_columns= NULL, aggregation_function= NULL, aggregation_regions_id= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2384,7 +2384,7 @@ deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_functio
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'score_matrix', experiments_columns, aggregation_function, aggregation_regions_id, user_key)
+    value <- xml.rpc(deepblue_URL, 'score_matrix', experiments_columns, aggregation_function, aggregation_regions_id, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2419,11 +2419,11 @@ deepblue.score_matrix <- function(experiments_columns= NULL, aggregation_functio
 #' @return results - A array (search results as [id, name, type])
 #'
 #' @examples
-#' deepblue.search(keyword = "DNA Methylation BLUEPRINT",
+#' deepblue_search(keyword = "DNA Methylation BLUEPRINT",
 #'     type = "experiments")
 
 #'
-deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KEY) {
+deepblue_search <- function(keyword= NULL, type= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2436,7 +2436,7 @@ deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KE
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'search', keyword, type, user_key)
+    value <- xml.rpc(deepblue_URL, 'search', keyword, type, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2474,14 +2474,14 @@ deepblue.search <- function(keyword= NULL, type= NULL, user_key=deepblue.USER_KE
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.select_annotations(
+#' deepblue_select_annotations(
 #'     annotation_name = "Cpg Islands",
 #'     genome = "hg19",
 #'     chromosome = "chr1",
 #'     start = 0,
 #'     end = 2000000)
 #'
-deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
+deepblue_select_annotations <- function(annotation_name= NULL, genome= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2494,7 +2494,7 @@ deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chr
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'select_annotations', annotation_name, genome, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    value <- xml.rpc(deepblue_URL, 'select_annotations', annotation_name, genome, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2531,12 +2531,12 @@ deepblue.select_annotations <- function(annotation_name= NULL, genome= NULL, chr
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.select_experiments(
+#' deepblue_select_experiments(
 #' 	experiment_name = c("E002-H3K9ac.narrowPeak.bed",
 #' 						"E001-H3K4me3.gappedPeak.bed")
 #' )
 #'
-deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
+deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2549,7 +2549,7 @@ deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL,
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'select_experiments', experiment_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    value <- xml.rpc(deepblue_URL, 'select_experiments', experiment_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2589,11 +2589,11 @@ deepblue.select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' @examples
 #' genes_names =
 #'     c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
-#' deepblue.select_genes(
+#' deepblue_select_genes(
 #'     genes_name = genes_names,
 #'     gene_set = "gencode v23")
 #'
-deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
+deepblue_select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2606,7 +2606,7 @@ deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= 
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'select_genes', genes_name, gene_set, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    value <- xml.rpc(deepblue_URL, 'select_genes', genes_name, gene_set, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2648,12 +2648,12 @@ deepblue.select_genes <- function(genes_name= NULL, gene_set= NULL, chromosome= 
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.select_regions(
+#' deepblue_select_regions(
 #'     genome="hg19",
 #'     epigenetic_mark = "H3K27ac",
 #'     project = " BLUEPRINT Epigenome")
 #'
-deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigenetic_mark= NULL, sample_id= NULL, technique= NULL, project= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue.USER_KEY) {
+deepblue_select_regions <- function(experiment_name= NULL, genome= NULL, epigenetic_mark= NULL, sample_id= NULL, technique= NULL, project= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2666,7 +2666,7 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'select_regions', experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    value <- xml.rpc(deepblue_URL, 'select_regions', experiment_name, genome, epigenetic_mark, sample_id, technique, project, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2702,12 +2702,12 @@ deepblue.select_regions <- function(experiment_name= NULL, genome= NULL, epigene
 #' @return id - A string (query id)
 #'
 #' @examples
-#' deepblue.tiling_regions(
+#' deepblue_tiling_regions(
 #'     size = 10000,
 #'     genome = "hg19",
 #'     chromosome = "chr1")
 #'
-deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, user_key=deepblue.USER_KEY) {
+deepblue_tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2720,7 +2720,7 @@ deepblue.tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
             }
         }
     }
-    value <- xml.rpc(deepblue.URL, 'tiling_regions', if (is.null(size)) NULL else as.integer(size), genome, chromosome, user_key)
+    value <- xml.rpc(deepblue_URL, 'tiling_regions', if (is.null(size)) NULL else as.integer(size), genome, chromosome, user_key)
     status = value[[1]]
     message(paste("Reported status was:", status))
     if (status == "error") {
@@ -2754,7 +2754,7 @@ xml.rpc =
              .convert = TRUE,
              .curl = getCurlHandle(),
              useragent = "DeepBlue-R-XMLRPC",
-             verbose=deepblue.debug.VERBOSE)
+             verbose=deepblue_debug_VERBOSE)
     {
         # Turn the method and arguments to an RPC body.
         body = createBody(method,  .args)

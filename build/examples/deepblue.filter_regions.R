@@ -1,4 +1,4 @@
-deepblue.filter_regions(query_id = "q12345",
+deepblue_filter_regions(query_id = "q12345",
     field = "VALUE",
     operation = ">",
     value = "100",

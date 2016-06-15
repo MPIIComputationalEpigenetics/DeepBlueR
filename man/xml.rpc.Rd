@@ -8,7 +8,7 @@ xml.rpc(url, method, ..., .args = list(...), .opts = list(),
   .defaultOpts = list(httpheader = c(`Content-Type` = "text/xml"),
   followlocation = TRUE, useragent = useragent), .convert = TRUE,
   .curl = getCurlHandle(), useragent = "DeepBlue-R-XMLRPC",
-  verbose = deepblue.debug.VERBOSE)
+  verbose = deepblue_debug_VERBOSE)
 }
 \value{
 XML RPC request data converted to R objects

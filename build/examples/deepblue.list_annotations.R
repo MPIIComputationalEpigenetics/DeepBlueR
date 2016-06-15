@@ -1,1 +1,1 @@
-deepblue.list_annotations(genome = "hg19")
+deepblue_list_annotations(genome = "hg19")
