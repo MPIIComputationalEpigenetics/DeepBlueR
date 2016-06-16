@@ -16,7 +16,7 @@ deepblue_get_biosource_related(biosource = NULL,
 biosources - A array (related biosources)
 }
 \description{
-Gets biosources related to the given one. e.g. the children terms and theirs synonyms.
+Obtain the children biosource terms and theirs synonyms of the specified biosource. The children terms are more specific terms that are defined in the imported ontologies. Synonyms are different aliases for the same biosource.
 }
 \examples{
 deepblue_get_biosource_related(biosource = "Blood")

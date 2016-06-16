@@ -12,10 +12,10 @@ deepblue_get_request_data(request_id = NULL, user_key = deepblue_USER_KEY)
 \item{user_key}{- A string (users token key)}
 }
 \value{
-data - A string or a vector of string (The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).)
+data - A string or a vector of string (the request data)
 }
 \description{
-Get the request data.
+Download the request data. The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).
 }
 \examples{
 data_id = deepblue_select_experiments(

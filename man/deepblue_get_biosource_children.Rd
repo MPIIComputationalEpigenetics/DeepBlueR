@@ -16,7 +16,7 @@ deepblue_get_biosource_children(biosource = NULL,
 biosources - A array (related biosources)
 }
 \description{
-Gets the scope for the biosource.
+Obtain the children biosource terms of the specified biosource. The children terms are more specific terms that are defined in the imported ontologies.
 }
 \examples{
 deepblue_get_biosource_children(biosource = "Blood")

@@ -18,7 +18,7 @@ deepblue_query_experiment_type(query_id = NULL, type = NULL,
 information - A string (New query ID.)
 }
 \description{
-Return information for the given ID (or IDs).
+Filter the query ID for selecting only regions from experiments of the given type. For example, it is possible to select only peaks using this command with the 'peaks' parameter.
 }
 \examples{
 h3k27ac_regions = deepblue_select_regions(

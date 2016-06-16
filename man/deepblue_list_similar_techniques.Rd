@@ -15,7 +15,7 @@ deepblue_list_similar_techniques(name = NULL, user_key = deepblue_USER_KEY)
 techniques - A array (similar techniques)
 }
 \description{
-Lists all techniques similar to the one provided.
+Lists Techniques biosources that have a similar name compared to the provided name.
 }
 \examples{
 deepblue_list_similar_techniques(name = "chip seq")

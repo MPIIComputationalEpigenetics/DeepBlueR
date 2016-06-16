@@ -13,7 +13,7 @@ deepblue_list_genomes(user_key = deepblue_USER_KEY)
 genomes - A array (genome names)
 }
 \description{
-Lists all existing genomes.
+Lists the Genomes assemblies that are registered in DeepBlue.
 }
 \examples{
 deepblue_list_genomes()

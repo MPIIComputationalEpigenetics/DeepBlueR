@@ -20,7 +20,7 @@ custom_table = do.call("rbind", lapply(experiments_found, function(experiment){
   experiment_info = info[[1]]
   # Print the experiment name, project, biosource, and epigenetic mark.
   with(experiment_info, { data.frame(name = name, project = project,
-    biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark) 
+    biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark)
       })
 }))
   head(custom_table)
@@ -95,7 +95,7 @@ query_id = deepblue_select_experiments(
 promoters_id = deepblue_select_annotations(annotation_name="promoters",
     genome="GRCh38", chromosome="chr1")
 intersect_id = deepblue_intersection(
-    query_a_id=query_id, query_b_id=promoters_id)
+    query_data_id=query_id, query_filter_id=promoters_id)
 request_id = deepblue_get_regions(
     query_id=intersect_id,
     output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
@@ -135,8 +135,8 @@ query_id = deepblue_select_experiments(
     experiment_name= c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed",
         "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"),
     chromosome="chr1", start=0, end=50000000)
-overlapped = deepblue_intersection(query_a_id=query_id, 
-                                   query_b_id=tataa_regions)
+overlapped = deepblue_intersection(query_data_id=query_id,
+                                   query_filter_id=tataa_regions)
 request_id=deepblue_get_regions(overlapped,
     "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE,@PROJECT")
 regions = deepblue_download_request_data(request_id=request_id)

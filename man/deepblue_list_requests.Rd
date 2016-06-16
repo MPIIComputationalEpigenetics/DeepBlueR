@@ -15,7 +15,7 @@ deepblue_list_requests(request_state = NULL, user_key = deepblue_USER_KEY)
 data_state - A array (Request-IDs and their state)
 }
 \description{
-Lists all requests in given state.
+Lists the Requests made by an user. It is possible to obtain only the requests of a given state.
 }
 \examples{
 deepblue_list_requests(request_state = 'running')

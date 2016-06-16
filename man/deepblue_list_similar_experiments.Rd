@@ -18,7 +18,7 @@ deepblue_list_similar_experiments(name = NULL, genome = NULL,
 experiments - A array (similar experiment names)
 }
 \description{
-Lists all experiments similar to the one provided.
+Lists all Experiments that have a similar name compared to the provided name.
 }
 \examples{
 deepblue_list_similar_experiments(name = "blood", genome = "hg19")

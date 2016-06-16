@@ -3,5 +3,5 @@ annotation_id = deepblue_select_annotations(
     genome="hg19", chromosome="chr1")
 data_id = deepblue_select_experiments(
     experiment_name="E002-H3K9ac.narrowPeak.bed")
-deepblue_intersection(query_a_id = annotation_id,
-    query_b_id = data_id)
+deepblue_intersection(query_data_id = annotation_id,
+    query_filter_id = data_id)

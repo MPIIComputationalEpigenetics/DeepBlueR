@@ -15,7 +15,7 @@ deepblue_list_similar_biosources(name = NULL, user_key = deepblue_USER_KEY)
 biosources - A array (similar biosources)
 }
 \description{
-Lists all biosources similar to the one provided.
+Lists all BioSources that have a similar name compared to the provided name.
 }
 \examples{
 deepblue_list_similar_biosources(name = "blood")

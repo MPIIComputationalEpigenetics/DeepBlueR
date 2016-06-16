@@ -4,13 +4,13 @@
 \alias{deepblue_intersection}
 \title{intersection}
 \usage{
-deepblue_intersection(query_a_id = NULL, query_b_id = NULL,
+deepblue_intersection(query_data_id = NULL, query_filter_id = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{query_a_id}{- A string (id of the first query)}
+\item{query_data_id}{- A string (query data that will be filtered.)}
 
-\item{query_b_id}{- A string (id of the second query)}
+\item{query_filter_id}{- A string (query containing the regions that the regions of the query_data_id must overlap.)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -18,7 +18,7 @@ deepblue_intersection(query_a_id = NULL, query_b_id = NULL,
 id - A string (id of the new query)
 }
 \description{
-Select regions from the first query that does intersect with at least one second query region.
+Select regions that intersect with at least one region of the second query.
 }
 \examples{
 annotation_id = deepblue_select_annotations(
@@ -26,8 +26,8 @@ annotation_id = deepblue_select_annotations(
     genome="hg19", chromosome="chr1")
 data_id = deepblue_select_experiments(
     experiment_name="E002-H3K9ac.narrowPeak.bed")
-deepblue_intersection(query_a_id = annotation_id,
-    query_b_id = data_id)
+deepblue_intersection(query_data_id = annotation_id,
+    query_filter_id = data_id)
 
 }
 \seealso{

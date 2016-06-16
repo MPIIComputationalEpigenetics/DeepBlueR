@@ -13,7 +13,7 @@ deepblue_list_column_types(user_key = deepblue_USER_KEY)
 column_types - A array (column types)
 }
 \description{
-Lists all available column types.
+Lists the ColumnTypes included in DeepBlue.
 }
 \examples{
 deepblue_list_column_types()

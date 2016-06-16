@@ -20,7 +20,7 @@ deepblue_tiling_regions(size = NULL, genome = NULL, chromosome = NULL,
 id - A string (query id)
 }
 \description{
-Creates regions with the tiling size over the chromosomes.
+Generate tiling regions across the genome chromosomes. This command usage is interesting for the 'aggregate' and 'score_matrix' commands.
 }
 \examples{
 deepblue_tiling_regions(

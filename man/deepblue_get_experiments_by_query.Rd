@@ -16,7 +16,7 @@ deepblue_get_experiments_by_query(query_id = NULL,
 experiments - A array (List containing experiments names and ids)
 }
 \description{
-Return a list of experiments and annotations that have at least one region in the data set represented by the query.
+List the experiments and annotations that have at least one region in the final query data result.
 }
 \examples{
 deepblue_get_experiments_by_query(query_id = "q12345")

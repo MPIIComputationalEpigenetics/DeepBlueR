@@ -16,7 +16,7 @@ deepblue_list_similar_epigenetic_marks(name = NULL,
 epigenetic_marks - A array (similar epigenetic mark names)
 }
 \description{
-Lists all epigenetic marks similar to the one provided.
+Lists all Epigenetic Marks that have a similar name compared to the provided name.
 }
 \examples{
 deepblue_list_similar_epigenetic_marks(name = "H3k27ac")

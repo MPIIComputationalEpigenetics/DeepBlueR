@@ -10,7 +10,7 @@ deepblue_commands()
 commands - A struct (command descriptions)
 }
 \description{
-Lists all existing commands.
+Lists all available DeepBlue commands.
 }
 \examples{
 deepblue_commands()

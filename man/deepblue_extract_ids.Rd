@@ -7,13 +7,13 @@
 deepblue_extract_ids(list = NULL)
 }
 \arguments{
-\item{list}{- A array (list of lists of IDs and Names)}
+\item{list}{- A array (list of lists of IDs and names)}
 }
 \value{
 ids - A array (list containing the extracted IDs)
 }
 \description{
-Extract the names from a list of ID and Names.
+An utility command that returns a list of IDs extracted from a list of ID and names.
 }
 \examples{
 deepblue_extract_ids(

@@ -8,7 +8,7 @@ deepblue_list_epigenetic_marks(extra_metadata = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{extra_metadata}{- A struct (Key-value that must match the biosource extra_metadata.)}
+\item{extra_metadata}{- A struct (Key-value that must match the epigenetic marks extra_metadata.)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -16,7 +16,7 @@ deepblue_list_epigenetic_marks(extra_metadata = NULL,
 epigenetic_marks - A array (epigenetic mark names)
 }
 \description{
-Lists all existing epigenetic marks.
+Lists the Epigenetic Marks included in DeepBlue. It is possible to filter the Epigenetic Marks by their extra_metadata fields contents.
 }
 \examples{
 deepblue_list_epigenetic_marks()

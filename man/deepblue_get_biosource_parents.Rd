@@ -16,7 +16,7 @@ deepblue_get_biosource_parents(biosource = NULL,
 biosources - A array (parents biosources)
 }
 \description{
-Gets the biosources that are parents of the given biosource.
+Obtain the parents biosource terms of the specified biosource. The parent terms are more generic terms that are defined in the imported ontologies.
 }
 \examples{
 deepblue_get_biosource_parents(biosource = "Blood")

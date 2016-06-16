@@ -25,7 +25,7 @@ deepblue_select_genes(genes_name = NULL, gene_set = NULL,
 id - A string (query id)
 }
 \description{
-Selects genes as regions.
+Selects genes (by their name or ID) as genomic regions from the specified gene model.
 }
 \examples{
 genes_names =

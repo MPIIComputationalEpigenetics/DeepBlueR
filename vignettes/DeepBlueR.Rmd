@@ -92,9 +92,9 @@ filtering, summarizing and downloading annotated genomic region sets. Downloaded
   existing R packages such as LOLA or GViz.
 
 A list of all commands available by DeepBlue is provided in its
- [API page](http://deepblue.mpi-inf.mpg.de/api.php). The vast majority of 
+ [API page](http://deepblue.mpi-inf.mpg.de/api.php). The vast majority of
  these commands is also available through this R package and can be listed as follows:
- 
+
  ```
  help(package="DeepBlueR")
  ```
@@ -172,7 +172,7 @@ custom_table = do.call("rbind", lapply(experiments_found, function(experiment){
   experiment_info = info[[1]]
   # Print the experiment name, project, biosource, and epigenetic mark.
   with(experiment_info, { data.frame(name = name, project = project,
-    biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark) 
+    biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark)
       })
 }))
   head(custom_table)
@@ -258,7 +258,7 @@ We use the ```list_samples``` command to obtain all samples from the biosource
 myeloid cell from the BLUEPRINT project. The ```list_samples``` returns a list
 of samples with their IDs and content.
 
-We extract the IDs from this list and use it in the ```select_regions``` 
+We extract the IDs from this list and use it in the ```select_regions```
 command.
 
 The ```select_regions``` command selects the genomic regions that are in the
@@ -304,7 +304,7 @@ returned by the select_experiments and the desired file columns.
 The columns @NAME and @BIOSOURCE include the experiment name and the experiment
 biosource in the row output.
 
-The ```get_regions``` command is asynchronous. It means that the user receives 
+The ```get_regions``` command is asynchronous. It means that the user receives
 a ```request_id``` and should check the status of this request. The specific
 DeepBlueR package command ```download_request_data``` wait for the processing
 finishes in the server, download the data, and convert to a GRanges object.
@@ -354,7 +354,7 @@ query_id = deepblue_select_experiments(
 promoters_id = deepblue_select_annotations(annotation_name="promoters",
     genome="GRCh38", chromosome="chr1")
 intersect_id = deepblue_intersection(
-    query_a_id=query_id, query_b_id=promoters_id)
+    query_data_id=query_id, query_filter_id=promoters_id)
 request_id = deepblue_get_regions(
     query_id=intersect_id,
     output_format="CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE")
@@ -452,8 +452,8 @@ query_id = deepblue_select_experiments(
     experiment_name= c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed",
         "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"),
     chromosome="chr1", start=0, end=50000000)
-overlapped = deepblue_intersection(query_a_id=query_id, 
-                                   query_b_id=tataa_regions)
+overlapped = deepblue_intersection(query_data_id=query_id,
+                                   query_filter_id=tataa_regions)
 request_id=deepblue_get_regions(overlapped,
     "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE,@PROJECT")
 regions = deepblue_download_request_data(request_id=request_id)
@@ -527,7 +527,7 @@ the ```select_experiments``` and the desired file columns.
 We use the ```tiling_regions``` command to generate a set of consecutive genomic
 regions of size 100,000 on the chromosome 1 of the genome assembly GRCh38.
 
-The command ```aggregate``` aggregates the ```query_id``` regions by their 
+The command ```aggregate``` aggregates the ```query_id``` regions by their
 column named VALUE, using the ```cpg_islands``` regions as boundaries.
 
 The aggregation values can be accessed through the @AGG meta-columns.
@@ -633,7 +633,7 @@ We use the ```select_annotations``` command to select the genomic regions, from
 position 0 to 50,000,000 in the chromosome 1 of the annotation CpG Islands of
 the genome assembly GRCh38.
 
-The command ```aggregate``` aggregates the ```query_id``` regions by their 
+The command ```aggregate``` aggregates the ```query_id``` regions by their
 column named VALUE, using the ```cpg_islands``` regions as boundaries.
 
 We select the ```aggregated``` regions that aggregated at least one region from

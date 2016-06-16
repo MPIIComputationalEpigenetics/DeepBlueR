@@ -18,7 +18,7 @@ deepblue_list_samples(biosource = NULL, extra_metadata = NULL,
 samples - A array (samples id with their content)
 }
 \description{
-Lists all existing samples that matches the given biosource and metadata.
+Lists the Samples included in DeepBlue. It is possible to filter by the BioSource and by extra_metadata fields content
 }
 \examples{
 deepblue_list_samples(biosource = "Blood")

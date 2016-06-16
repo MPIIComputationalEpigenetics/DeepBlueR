@@ -29,7 +29,7 @@ deepblue_faceting_experiments(genome = NULL, type = NULL,
 faceting - A struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)
 }
 \description{
-Experiments faceting.
+Aggregate the number of experiments that matches the selection criteria in each term of all controlled vocabularies in DeepBlue.
 }
 \examples{
 deepblue_faceting_experiments(genome = "hg19",

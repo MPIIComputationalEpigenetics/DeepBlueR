@@ -16,7 +16,7 @@ deepblue_list_biosources(extra_metadata = NULL,
 biosources - A array (biosources)
 }
 \description{
-Lists all existing biosources.
+Lists the BioSources included in DeepBlue. It is possible to filter the BioSources by their extra_metadata fields content.
 }
 \examples{
 deepblue_list_biosources(extra_metadata = list(ontology_id = "UBERON:0002485"))

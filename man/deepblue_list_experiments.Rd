@@ -29,7 +29,7 @@ deepblue_list_experiments(genome = NULL, type = NULL,
 experiments - A array (experiment names)
 }
 \description{
-Lists all existing experiments.
+Lists the DeepBlue Experiments that matches the informed criteria.
 }
 \examples{
 deepblue_list_experiments(genome = "hg19", type = "peaks",

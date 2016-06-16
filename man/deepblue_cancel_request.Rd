@@ -15,7 +15,7 @@ deepblue_cancel_request(id = NULL, user_key = deepblue_USER_KEY)
 id - A string (ID of the canceled request)
 }
 \description{
-Stop, cancel, and remove request data. Its data will be remove if the request did finish.
+Stop, cancel, and remove request data. The request processed data is remove if its processing was finished.
 }
 \examples{
 deepblue_cancel_request(id = "r12345")

@@ -32,7 +32,7 @@ deepblue_collection_experiments_count(controlled_vocabulary = NULL,
 terms - A array (controlled_vocabulary terms with count)
 }
 \description{
-Count the number of elements of the given collection that contains experiments.
+Aggregate the number of experiments that matches the selection criteria in each term of the selected controlled_vocabulary.
 }
 \examples{
 deepblue_collection_experiments_count(

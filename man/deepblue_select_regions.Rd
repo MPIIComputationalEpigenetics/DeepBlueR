@@ -34,7 +34,7 @@ deepblue_select_regions(experiment_name = NULL, genome = NULL,
 id - A string (query id)
 }
 \description{
-Selects experiment regions matching the given parameters.
+Selects Experiment regions that matches the informed criteria.
 }
 \examples{
 deepblue_select_regions(

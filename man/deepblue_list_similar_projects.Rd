@@ -15,7 +15,7 @@ deepblue_list_similar_projects(name = NULL, user_key = deepblue_USER_KEY)
 projects - A array (similar project names)
 }
 \description{
-Lists all projects similar to the one provided.
+Lists all Projects that have a similar name compared to the provided name
 }
 \examples{
 deepblue_list_similar_projects(name = "BLUEPRINT")

@@ -15,7 +15,7 @@ deepblue_list_similar_genomes(name = NULL, user_key = deepblue_USER_KEY)
 genomes - A array (similar genome names)
 }
 \description{
-Lists all genomes similar to the one provided.
+Lists all Genomes biosources that have a similar name compared to the provided name.
 }
 \examples{
 deepblue_list_similar_genomes(name = "grc")

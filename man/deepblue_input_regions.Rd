@@ -18,7 +18,7 @@ deepblue_input_regions(genome = NULL, region_set = NULL,
 id - A string (query id)
 }
 \description{
-Include a region set that will be used by the follow ups operations.
+Upload a set of genomic regions that can be accessed by a query ID. An interesting usage case for this command is to upload a set of regions that will be used with the intersection data for selecting specif regions of interest.
 }
 \examples{
 regions_set = "chr1	28735	29810

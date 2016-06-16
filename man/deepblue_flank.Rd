@@ -22,7 +22,7 @@ deepblue_flank(query_id = NULL, start = NULL, length = NULL,
 id - A string (id of the new query)
 }
 \description{
-Generate flanking regions from the given regions.
+Create regions that flank the query regions. The original regions are removed from the query. Use the merge command to combine flanking regions with the original query.
 }
 \examples{
 annotation_id = deepblue_select_annotations(

@@ -13,7 +13,7 @@ deepblue_echo(user_key = deepblue_USER_KEY)
 message - A string (echo message including version)
 }
 \description{
-Echos the server's version.
+Greets the user with the DeepBlue version.
 }
 \examples{
 deepblue_echo(user_key = "anonymous_key")

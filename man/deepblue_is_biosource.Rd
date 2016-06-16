@@ -15,7 +15,7 @@ deepblue_is_biosource(biosource_name = NULL, user_key = deepblue_USER_KEY)
 information - A string or a vector of string (A string containing the biosource name)
 }
 \description{
-Return information for the given biosource name.
+Verify if the name is an existing and valid DeepBlue BioSource name.
 }
 \examples{
 deepblue_is_biosource(biosource_name = "blood")

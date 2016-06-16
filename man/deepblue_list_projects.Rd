@@ -13,7 +13,7 @@ deepblue_list_projects(user_key = deepblue_USER_KEY)
 projects - A array (project names)
 }
 \description{
-Lists all existing projects.
+Lists the Projects included in DeepBlue.
 }
 \examples{
 deepblue_list_projects()

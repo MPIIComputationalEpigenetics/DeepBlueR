@@ -16,7 +16,7 @@ deepblue_list_in_use(controlled_vocabulary = NULL,
 terms - A array (controlled_vocabulary terms with count)
 }
 \description{
-Lists all terms from the given controlled vocabulary that are used.
+Lists all terms from the given controlled vocabulary that have at least one Experiment or Annotation using them.
 }
 \examples{
 deepblue_list_in_use(controlled_vocabulary = "biosources")

@@ -15,7 +15,7 @@ deepblue_count_regions(query_id = NULL, user_key = deepblue_USER_KEY)
 request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 }
 \description{
-Send a request to count the number of regions in the result of the given query.
+Request a regions count of genomic regions present in the query.
 }
 \examples{
 data_id = deepblue_select_experiments(

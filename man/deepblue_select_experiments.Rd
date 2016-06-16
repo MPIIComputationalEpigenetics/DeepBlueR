@@ -22,7 +22,7 @@ deepblue_select_experiments(experiment_name = NULL, chromosome = NULL,
 id - A string (query id)
 }
 \description{
-Selects experiments data. It is a simpler version of the select_regions command.
+Selects regions from Experiments by the experiments names.
 }
 \examples{
 deepblue_select_experiments(

@@ -25,7 +25,7 @@ deepblue_select_annotations(annotation_name = NULL, genome = NULL,
 id - A string (query id)
 }
 \description{
-Selects annotation regions matching the given parameters.
+Selects regions from the Annotations that match the selection criteria.
 }
 \examples{
 deepblue_select_annotations(

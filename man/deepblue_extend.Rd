@@ -22,7 +22,7 @@ deepblue_extend(query_id = NULL, length = NULL, direction = NULL,
 id - A string (id of the new query)
 }
 \description{
-Extend regions.
+Extend the regions included in the query. It is possible to extend downstream, upstream or to both directions.
 }
 \examples{
 annotation_id = deepblue_select_annotations(

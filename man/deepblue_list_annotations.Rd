@@ -15,7 +15,7 @@ deepblue_list_annotations(genome = NULL, user_key = deepblue_USER_KEY)
 annotations - A array (annotation ids)
 }
 \description{
-Lists all existing annotations.
+Lists the DeepBlue Annotations.
 }
 \examples{
 deepblue_list_annotations(genome = "hg19")
