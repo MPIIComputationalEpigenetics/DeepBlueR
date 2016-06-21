@@ -20,7 +20,7 @@ deepblue_aggregate(data_id = NULL, ranges_id = NULL, column = NULL,
 regions - A string (query id of this aggregation operation)
 }
 \description{
-Summarize the data_id data content using the regions in the ranges_id as boundaries. Use the fields @AGG.MIN, @AGG.MAX, @AGG.MEDIAN, @AGG.MEAN, @AGG.VAR, @AGG.SD, @AGG.COUNT in 'get_regions' command 'format' parameter to retrieve the computed values.
+Summarize the data_id content using the regions specified in ranges_id as boundaries. Use the fields @AGG.MIN, @AGG.MAX, @AGG.MEDIAN, @AGG.MEAN, @AGG.VAR, @AGG.SD, @AGG.COUNT in 'get_regions' command 'format' parameter to retrieve the computed values minimum, maximum, median, mean, variance, standard deviation and number of regions, respectively.
 }
 \examples{
 annotation_id = deepblue_select_annotations(
@@ -36,6 +36,7 @@ deepblue_aggregate(
 }
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

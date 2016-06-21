@@ -8,15 +8,15 @@ deepblue_list_biosources(extra_metadata = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{extra_metadata}{- A struct (Key-value that must match the biosource extra_metadata.)}
+\item{extra_metadata}{- A struct (Metadata that must be matched)}
 
 \item{user_key}{- A string (users token key)}
 }
 \value{
-biosources - A array (biosources)
+biosources - A array (biosources names and IDS)
 }
 \description{
-Lists the BioSources included in DeepBlue. It is possible to filter the BioSources by their extra_metadata fields content.
+List BioSources included in DeepBlue. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. It is possible to filter the BioSources by their extra_metadata fields content. These fields vary depending on the original data source.
 }
 \examples{
 deepblue_list_biosources(extra_metadata = list(ontology_id = "UBERON:0002485"))

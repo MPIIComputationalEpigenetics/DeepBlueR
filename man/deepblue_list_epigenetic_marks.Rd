@@ -8,15 +8,15 @@ deepblue_list_epigenetic_marks(extra_metadata = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{extra_metadata}{- A struct (Key-value that must match the epigenetic marks extra_metadata.)}
+\item{extra_metadata}{- A struct (Metadata that must be matched)}
 
 \item{user_key}{- A string (users token key)}
 }
 \value{
-epigenetic_marks - A array (epigenetic mark names)
+epigenetic_marks - A array (epigenetic mark names and IDS)
 }
 \description{
-Lists the Epigenetic Marks included in DeepBlue. It is possible to filter the Epigenetic Marks by their extra_metadata fields contents.
+List Epigenetic Marks included in DeepBlue. This includes histone marks, DNA methylation, DNA sensitivity, etc. It is possible to filter the Epigenetic Marks by their extra_metadata field content.
 }
 \examples{
 deepblue_list_epigenetic_marks()

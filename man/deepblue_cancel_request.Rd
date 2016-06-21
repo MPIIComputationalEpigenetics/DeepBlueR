@@ -25,6 +25,7 @@ deepblue_cancel_request(id = "r12345")
 Other Commands for all types of data: \code{\link{deepblue_info}},
   \code{\link{deepblue_is_biosource}},
   \code{\link{deepblue_list_in_use}},
+  \code{\link{deepblue_name_to_id}},
   \code{\link{deepblue_search}}
 }
 

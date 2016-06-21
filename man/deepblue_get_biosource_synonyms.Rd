@@ -16,7 +16,7 @@ deepblue_get_biosource_synonyms(biosource = NULL,
 synonyms - A array (synonyms of the biosource)
 }
 \description{
-Obtain the synonyms of the specified biosource. Synonyms are different aliases for the same biosource.
+Obtain the synonyms of the specified biosource. Synonyms are different aliases for the same biosource. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line.
 }
 \examples{
 deepblue_get_biosource_synonyms(biosource = "prostate gland")

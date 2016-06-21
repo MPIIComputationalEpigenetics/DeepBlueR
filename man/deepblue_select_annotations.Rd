@@ -25,7 +25,7 @@ deepblue_select_annotations(annotation_name = NULL, genome = NULL,
 id - A string (query id)
 }
 \description{
-Selects regions from the Annotations that match the selection criteria.
+Select regions from the Annotations that match the selection criteria.
 }
 \examples{
 deepblue_select_annotations(
@@ -39,6 +39,7 @@ deepblue_select_annotations(
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

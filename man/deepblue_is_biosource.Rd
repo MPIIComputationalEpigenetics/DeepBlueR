@@ -4,10 +4,10 @@
 \alias{deepblue_is_biosource}
 \title{is_biosource}
 \usage{
-deepblue_is_biosource(biosource_name = NULL, user_key = deepblue_USER_KEY)
+deepblue_is_biosource(biosource = NULL, user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{biosource_name}{- A string (Name of the biosource)}
+\item{biosource}{- A string (biosource name)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -15,7 +15,7 @@ deepblue_is_biosource(biosource_name = NULL, user_key = deepblue_USER_KEY)
 information - A string or a vector of string (A string containing the biosource name)
 }
 \description{
-Verify if the name is an existing and valid DeepBlue BioSource name.
+Verify if the name is an existing and valid DeepBlue BioSource name. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line.
 }
 \examples{
 deepblue_is_biosource(biosource_name = "blood")
@@ -25,6 +25,7 @@ deepblue_is_biosource(biosource_name = "blood")
 Other Commands for all types of data: \code{\link{deepblue_cancel_request}},
   \code{\link{deepblue_info}},
   \code{\link{deepblue_list_in_use}},
+  \code{\link{deepblue_name_to_id}},
   \code{\link{deepblue_search}}
 }
 

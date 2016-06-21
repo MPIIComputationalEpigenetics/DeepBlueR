@@ -22,7 +22,7 @@ deepblue_flank(query_id = NULL, start = NULL, length = NULL,
 id - A string (id of the new query)
 }
 \description{
-Create regions that flank the query regions. The original regions are removed from the query. Use the merge command to combine flanking regions with the original query.
+Create a set of genomic regions that flank the query regions. The original regions are removed from the query. Use the merge command to combine flanking regions with the original query.
 }
 \examples{
 annotation_id = deepblue_select_annotations(
@@ -36,6 +36,7 @@ deepblue_flank(query_id = annotation_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_get_experiments_by_query}},

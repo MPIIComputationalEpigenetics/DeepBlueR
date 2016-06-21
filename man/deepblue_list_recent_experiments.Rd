@@ -27,7 +27,7 @@ deepblue_list_recent_experiments(days = NULL, genome = NULL,
 experiments - A array (names of recent experiments)
 }
 \description{
-Lists the latest Experiments included in DeepBlue that match the defined criteria.
+List the latest Experiments included in DeepBlue that match criteria defined in the parameters. The returned experiments are sorted by insertion date.
 }
 \examples{
 deepblue_list_recent_experiments(days = 2, genome = "hg19")

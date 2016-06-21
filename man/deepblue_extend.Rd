@@ -22,7 +22,7 @@ deepblue_extend(query_id = NULL, length = NULL, direction = NULL,
 id - A string (id of the new query)
 }
 \description{
-Extend the regions included in the query. It is possible to extend downstream, upstream or to both directions.
+Extend the genomic regions included in the query. It is possible to extend downstream, upstream or in both directions.
 }
 \examples{
 annotation_id = deepblue_select_annotations(
@@ -36,6 +36,7 @@ deepblue_extend(query_id = annotation_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},
   \code{\link{deepblue_get_experiments_by_query}},

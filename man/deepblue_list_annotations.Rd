@@ -12,10 +12,10 @@ deepblue_list_annotations(genome = NULL, user_key = deepblue_USER_KEY)
 \item{user_key}{- A string (users token key)}
 }
 \value{
-annotations - A array (annotation ids)
+annotations - A array (annotations names and IDs)
 }
 \description{
-Lists the DeepBlue Annotations.
+List all annotations of genomic regions currently available in DeepBlue.
 }
 \examples{
 deepblue_list_annotations(genome = "hg19")

@@ -34,7 +34,7 @@ deepblue_select_regions(experiment_name = NULL, genome = NULL,
 id - A string (query id)
 }
 \description{
-Selects Experiment regions that matches the informed criteria.
+Selects Experiment regions that matches the criteria informed by the operation parameters.
 }
 \examples{
 deepblue_select_regions(
@@ -46,6 +46,7 @@ deepblue_select_regions(
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

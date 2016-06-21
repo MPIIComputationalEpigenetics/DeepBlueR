@@ -29,7 +29,7 @@ deepblue_faceting_experiments(genome = NULL, type = NULL,
 faceting - A struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)
 }
 \description{
-Aggregate the number of experiments that matches the selection criteria in each term of all controlled vocabularies in DeepBlue.
+Summarize the controlled_vocabulary fields, from experiments that match the selection criteria. It is similar to the 'collection_experiments_count' command, but this command return the summarization for all controlled_vocabulary terms.
 }
 \examples{
 deepblue_faceting_experiments(genome = "hg19",

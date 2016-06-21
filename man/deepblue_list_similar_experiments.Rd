@@ -18,7 +18,7 @@ deepblue_list_similar_experiments(name = NULL, genome = NULL,
 experiments - A array (similar experiment names)
 }
 \description{
-Lists all Experiments that have a similar name compared to the provided name.
+List all Experiments that have a similar name compared to the provided name. The similarity is calculated using the Levenshtein method.
 }
 \examples{
 deepblue_list_similar_experiments(name = "blood", genome = "hg19")

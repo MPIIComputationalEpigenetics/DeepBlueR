@@ -32,7 +32,7 @@ deepblue_collection_experiments_count(controlled_vocabulary = NULL,
 terms - A array (controlled_vocabulary terms with count)
 }
 \description{
-Aggregate the number of experiments that matches the selection criteria in each term of the selected controlled_vocabulary.
+Count the number of experiments that match the selection criteria in each term of the selected controlled_vocabulary. The selection can be achieved through specifying a list of BioSources, experimental Techniques, Epigenetic Marks, Samples or Projects.
 }
 \examples{
 deepblue_collection_experiments_count(

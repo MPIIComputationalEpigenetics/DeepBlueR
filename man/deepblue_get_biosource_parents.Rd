@@ -8,7 +8,7 @@ deepblue_get_biosource_parents(biosource = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{biosource}{- A string (name of the biosource)}
+\item{biosource}{- A string (biosource name)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -16,7 +16,7 @@ deepblue_get_biosource_parents(biosource = NULL,
 biosources - A array (parents biosources)
 }
 \description{
-Obtain the parents biosource terms of the specified biosource. The parent terms are more generic terms that are defined in the imported ontologies.
+A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. These form a hierarchy in which the parent of a BioSource term can be fetched with this command. Parent terms are more generic terms that are defined in the imported ontologies.
 }
 \examples{
 deepblue_get_biosource_parents(biosource = "Blood")

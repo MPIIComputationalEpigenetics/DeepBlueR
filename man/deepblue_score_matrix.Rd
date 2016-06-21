@@ -21,7 +21,7 @@ deepblue_score_matrix(experiments_columns = NULL,
 regions - A string (BED formated regions)
 }
 \description{
-Build a matrix containing the aggregation result of the the experiments data by aggregation regions boundaries.
+Build a matrix containing the aggregation result of the the experiments data by the aggregation boundaries.
 }
 \examples{
 tiling_regions = deepblue_tiling_regions(
@@ -36,6 +36,7 @@ deepblue_score_matrix(
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

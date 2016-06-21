@@ -10,7 +10,7 @@ deepblue_list_column_types(user_key = deepblue_USER_KEY)
 \item{user_key}{- A string (users token key)}
 }
 \value{
-column_types - A array (column types)
+column_types - A array (column types names and IDS)
 }
 \description{
 Lists the ColumnTypes included in DeepBlue.

@@ -16,7 +16,7 @@ deepblue_list_in_use(controlled_vocabulary = NULL,
 terms - A array (controlled_vocabulary terms with count)
 }
 \description{
-Lists all terms from the given controlled vocabulary that have at least one Experiment or Annotation using them.
+List all terms used by the Experiments mandatory metadata that have at least one Experiment or Annotation using them.
 }
 \examples{
 deepblue_list_in_use(controlled_vocabulary = "biosources")
@@ -26,6 +26,7 @@ deepblue_list_in_use(controlled_vocabulary = "biosources")
 Other Commands for all types of data: \code{\link{deepblue_cancel_request}},
   \code{\link{deepblue_info}},
   \code{\link{deepblue_is_biosource}},
+  \code{\link{deepblue_name_to_id}},
   \code{\link{deepblue_search}}
 }
 

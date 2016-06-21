@@ -13,7 +13,7 @@ deepblue_extract_names(list = NULL)
 names - A array (list containing the extracted names)
 }
 \description{
-An utility command that returns a list of names extracted from a list of ID and names.
+A utility command that returns a list of names extracted from a list of ID and names.
 }
 \examples{
 deepblue_extract_names(

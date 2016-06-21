@@ -8,9 +8,9 @@ deepblue_list_samples(biosource = NULL, extra_metadata = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{biosource}{- A string or a vector of string (biosource name)}
+\item{biosource}{- A string or a vector of string (name(s) of selected biosource(s))}
 
-\item{extra_metadata}{- A struct (Key-value that must match the sample extra_metadata.)}
+\item{extra_metadata}{- A struct (Metadata that must be matched)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -18,7 +18,7 @@ deepblue_list_samples(biosource = NULL, extra_metadata = NULL,
 samples - A array (samples id with their content)
 }
 \description{
-Lists the Samples included in DeepBlue. It is possible to filter by the BioSource and by extra_metadata fields content
+List Samples included in DeepBlue. It is possible to filter by the BioSource and by extra_metadata fields content.
 }
 \examples{
 deepblue_list_samples(biosource = "Blood")

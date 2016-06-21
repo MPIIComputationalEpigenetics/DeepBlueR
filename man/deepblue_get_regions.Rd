@@ -18,7 +18,7 @@ deepblue_get_regions(query_id = NULL, output_format = NULL,
 request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 }
 \description{
-Request the processing of the query's genomic regions. The output is a column based format with the columns defined in the 'output_format' parameter. Use the command 'info' for verifying the processing, the 'get_request_data' to download the regions using the programmatic interface, or download using the URL: http://deepblue.mpi-inf.mpg.de/download?r_id=<REQUEST_ID>&key=<USER_KEY>.
+Trigger the processing of the query's genomic regions. The output is a column based format with columns as defined in the 'output_format' parameter. Use the command 'info' for verifying the processing status. The 'get_request_data' command is used to download the regions using the programmatic interface. Alternatively, results can be download using the URL: http://deepblue.mpi-inf.mpg.de/download?r_id=<request_id>&key=<user_key>.
 }
 \examples{
 data_id = deepblue_select_experiments(
@@ -30,6 +30,7 @@ deepblue_get_regions(query_id =data_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

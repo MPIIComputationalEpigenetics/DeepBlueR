@@ -4,14 +4,14 @@
 \alias{deepblue_select_genes}
 \title{select_genes}
 \usage{
-deepblue_select_genes(genes_name = NULL, gene_set = NULL,
+deepblue_select_genes(genes_name = NULL, gene_model = NULL,
   chromosome = NULL, start = NULL, end = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
 \item{genes_name}{- A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)}
 
-\item{gene_set}{- A string (gene set name)}
+\item{gene_model}{- A string (gene model name)}
 
 \item{chromosome}{- A string or a vector of string (chromosome name(s))}
 
@@ -25,7 +25,7 @@ deepblue_select_genes(genes_name = NULL, gene_set = NULL,
 id - A string (query id)
 }
 \description{
-Selects genes (by their name or ID) as genomic regions from the specified gene model.
+Select genes (by their name or ID) as genomic regions from the specified gene model.
 }
 \examples{
 genes_names =
@@ -34,5 +34,10 @@ deepblue_select_genes(
     genes_name = genes_names,
     gene_set = "gencode v23")
 
+}
+\seealso{
+Other Operations on gene sets and genes identifiers: \code{\link{deepblue_add_gene_model}},
+  \code{\link{deepblue_list_gene_models}},
+  \code{\link{deepblue_list_genes}}
 }
 

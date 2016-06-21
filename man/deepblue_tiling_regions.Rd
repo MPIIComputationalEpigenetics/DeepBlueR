@@ -20,7 +20,7 @@ deepblue_tiling_regions(size = NULL, genome = NULL, chromosome = NULL,
 id - A string (query id)
 }
 \description{
-Generate tiling regions across the genome chromosomes. This command usage is interesting for the 'aggregate' and 'score_matrix' commands.
+Generate tiling regions across the genome chromosomes. The idea is to "bin" genomic regions systematically in order to obtain discrete regions over which one can aggregate. Using the 'score_matrix' command, these bins (tiles) can be compared directly across experiments.
 }
 \examples{
 deepblue_tiling_regions(
@@ -32,6 +32,7 @@ deepblue_tiling_regions(
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

@@ -26,10 +26,10 @@ deepblue_list_experiments(genome = NULL, type = NULL,
 \item{user_key}{- A string (users token key)}
 }
 \value{
-experiments - A array (experiment names)
+experiments - A array (experiment names and IDS)
 }
 \description{
-Lists the DeepBlue Experiments that matches the informed criteria.
+List the DeepBlue Experiments that matches the search criteria defined by this command parameters.
 }
 \examples{
 deepblue_list_experiments(genome = "hg19", type = "peaks",

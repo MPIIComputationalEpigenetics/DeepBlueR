@@ -18,7 +18,7 @@ deepblue_merge_queries(query_a_id = NULL, query_b_id = NULL,
 id - A string (new query id)
 }
 \description{
-Merge the queries regions in a new query.
+Merge regions from two queries in a new query.
 }
 \examples{
 annotation_id = deepblue_select_annotations(
@@ -34,6 +34,7 @@ deepblue_merge_queries(
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

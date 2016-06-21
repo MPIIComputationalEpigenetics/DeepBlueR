@@ -12,10 +12,10 @@ deepblue_list_similar_biosources(name = NULL, user_key = deepblue_USER_KEY)
 \item{user_key}{- A string (users token key)}
 }
 \value{
-biosources - A array (similar biosources)
+biosource - A string (biosource name)
 }
 \description{
-Lists all BioSources that have a similar name compared to the provided name.
+List all BioSources that have a similar name compared to the provided name. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. The similarity is calculated using the Levenshtein method.
 }
 \examples{
 deepblue_list_similar_biosources(name = "blood")

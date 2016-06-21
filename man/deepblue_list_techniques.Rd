@@ -13,7 +13,7 @@ deepblue_list_techniques(user_key = deepblue_USER_KEY)
 techniques - A array (techniques)
 }
 \description{
-Lists the Projects included in DeepBlue.
+List the Techniques included in DeepBlue.
 }
 \examples{
 deepblue_list_techniques()

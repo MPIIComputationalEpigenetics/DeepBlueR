@@ -15,7 +15,7 @@ deepblue_get_request_data(request_id = NULL, user_key = deepblue_USER_KEY)
 data - A string or a vector of string (the request data)
 }
 \description{
-Download the request data. The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query).
+Download the requested data. The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query), or (iii) a struct (coverage).
 }
 \examples{
 data_id = deepblue_select_experiments(

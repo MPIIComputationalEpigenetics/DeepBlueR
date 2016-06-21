@@ -189,6 +189,7 @@ def main():
     template = template.replace("{{ commands }}", commands_long_doc)
     template = template.replace("{{ serialize_r }}", serialize_code)
 
+  print "'" + template[105029:105089] + "'"
   with open("../R/deepblue.R", 'w') as f:
     f.write(template)
 

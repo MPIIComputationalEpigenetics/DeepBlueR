@@ -24,7 +24,7 @@ deepblue_filter_regions(query_id = NULL, field = NULL, operation = NULL,
 id - A string (id of filtered query)
 }
 \description{
-Remove the genomic regions that does not match the specified criteria.
+Filter the genomic regions by their content.
 }
 \examples{
 deepblue_filter_regions(query_id = "q12345",
@@ -38,6 +38,7 @@ deepblue_filter_regions(query_id = "q12345",
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_flank}},
   \code{\link{deepblue_get_experiments_by_query}},

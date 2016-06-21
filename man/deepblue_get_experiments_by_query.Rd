@@ -16,7 +16,7 @@ deepblue_get_experiments_by_query(query_id = NULL,
 experiments - A array (List containing experiments names and ids)
 }
 \description{
-List the experiments and annotations that have at least one region in the final query data result.
+List the experiments and annotations that have at least one genomic region in the final query result.
 }
 \examples{
 deepblue_get_experiments_by_query(query_id = "q12345")
@@ -25,6 +25,7 @@ deepblue_get_experiments_by_query(query_id = "q12345")
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

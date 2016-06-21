@@ -18,7 +18,7 @@ deepblue_input_regions(genome = NULL, region_set = NULL,
 id - A string (query id)
 }
 \description{
-Upload a set of genomic regions that can be accessed by a query ID. An interesting usage case for this command is to upload a set of regions that will be used with the intersection data for selecting specif regions of interest.
+Upload a set of genomic regions that can be accessed through a query ID. An interesting use case for this command is to upload a set of custom regions for intersecting with genomic regions in DeepBlue to specifically select regions of interest.
 }
 \examples{
 regions_set = "chr1	28735	29810
@@ -38,6 +38,7 @@ deepblue_input_regions(genome = "hg19",
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

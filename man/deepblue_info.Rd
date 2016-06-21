@@ -15,7 +15,7 @@ deepblue_info(id = NULL, user_key = deepblue_USER_KEY)
 information - A array or a vector of array (List of Maps, where each map contains the info of an object.)
 }
 \description{
-Information about a DeepBlue data ID. Any DeepBlue data ID can be queried with this command. For example, it is possible to obtain all available information about an Experiment using its ID, or obtain the actual Request processing status, or the information about a Sample, an user can obtain information about itself using the value 'me' in the parameter 'id'. Multiple IDs can be informed in the same operation.
+Information about a DeepBlue data identifier (ID). Any DeepBlue data ID can be queried with this command. For example, it is possible to obtain all available information about an Experiment using its ID, to obtain the actual Request processing status or the information about a Sample. A user can obtain information about him- or herself using the value 'me' in the parameter 'id'. Multiple IDs can be queried in the same operation.
 }
 \examples{
 deepblue_info(id = "e30035")
@@ -25,6 +25,7 @@ deepblue_info(id = "e30035")
 Other Commands for all types of data: \code{\link{deepblue_cancel_request}},
   \code{\link{deepblue_is_biosource}},
   \code{\link{deepblue_list_in_use}},
+  \code{\link{deepblue_name_to_id}},
   \code{\link{deepblue_search}}
 }
 

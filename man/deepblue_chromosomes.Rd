@@ -15,7 +15,7 @@ deepblue_chromosomes(genome = NULL, user_key = deepblue_USER_KEY)
 chromosomes - A array (A list containing all chromosomes, with theirs names and sizes)
 }
 \description{
-List the genome chromosomes.
+List the chromosomes of a given Genome.
 }
 \examples{
 deepblue_chromosomes(genome = "g1")

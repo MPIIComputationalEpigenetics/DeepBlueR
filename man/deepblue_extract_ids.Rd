@@ -13,7 +13,7 @@ deepblue_extract_ids(list = NULL)
 ids - A array (list containing the extracted IDs)
 }
 \description{
-An utility command that returns a list of IDs extracted from a list of ID and names.
+A utility command that returns a list of IDs extracted from a list of ID and names.
 }
 \examples{
 deepblue_extract_ids(

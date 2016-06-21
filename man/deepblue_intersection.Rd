@@ -18,7 +18,7 @@ deepblue_intersection(query_data_id = NULL, query_filter_id = NULL,
 id - A string (id of the new query)
 }
 \description{
-Select regions that intersect with at least one region of the second query.
+Select genomic regions that intersect with at least one region of the second query.
 }
 \examples{
 annotation_id = deepblue_select_annotations(
@@ -33,6 +33,7 @@ deepblue_intersection(query_data_id = annotation_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_count_regions}},
+  \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},
