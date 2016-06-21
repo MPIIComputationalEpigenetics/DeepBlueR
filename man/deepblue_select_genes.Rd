@@ -36,7 +36,7 @@ deepblue_select_genes(
 
 }
 \seealso{
-Other Operations on gene sets and genes identifiers: \code{\link{deepblue_add_gene_model}},
+Other Gene models and genes identifiers: \code{\link{deepblue_add_gene_model}},
   \code{\link{deepblue_list_gene_models}},
   \code{\link{deepblue_list_genes}}
 }

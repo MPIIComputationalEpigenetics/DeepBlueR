@@ -28,7 +28,7 @@ deepblue_debug_VERBOSE = FALSE
 #' 
 #' @title add_gene_model 
 #' @description Include a Gene Model in DeepBlue. The data must be in the GTF format. Important: this command will include only the lines where the column 'feature' is 'genes'.
-#' @family Operations on gene sets and genes identifiers
+#' @family Gene models and genes identifiers
 #' 
 #' @param name - A string (gene model name)
 #' @param description - A string (description of the annotation)
@@ -1654,7 +1654,7 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #' 
 #' @title list_gene_models 
 #' @description List all the Gene Models currently available in DeepBlue. A gene model is a set of genes usually imported from GENCODE. For example Gencode v22.
-#' @family Operations on gene sets and genes identifiers
+#' @family Gene models and genes identifiers
 #' 
 #' @param user_key - A string (users token key)
 #'
@@ -1702,7 +1702,7 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 #' 
 #' @title list_genes 
 #' @description List all the Gene currently available in DeepBlue.
-#' @family Operations on gene sets and genes identifiers
+#' @family Gene models and genes identifiers
 #' 
 #' @param gene_models - A string or a vector of string (the gene model)
 #' @param user_key - A string (users token key)
@@ -2840,7 +2840,7 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' 
 #' @title select_genes 
 #' @description Select genes (by their name or ID) as genomic regions from the specified gene model.
-#' @family Operations on gene sets and genes identifiers
+#' @family Gene models and genes identifiers
 #' 
 #' @param genes_name - A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)
 #' @param gene_model - A string (gene model name)

@@ -42,7 +42,7 @@ deepblue_add_gene_set(name = "My new gene set", description = "A gene set",
 
 }
 \seealso{
-Other Operations on gene sets and genes identifiers: \code{\link{deepblue_list_gene_models}},
+Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_models}},
   \code{\link{deepblue_list_genes}},
   \code{\link{deepblue_select_genes}}
 }

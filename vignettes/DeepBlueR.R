@@ -143,7 +143,7 @@ regions = deepblue_download_request_data(request_id=request_id)
 head(regions, 5)
 
 ## ---- echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE----------------
-#  q_genes = deepblue_select_genes(genes_name="RP11-34P13", gene_set="gencode v23")
+#  q_genes = deepblue_select_genes(genes_name="RP11-34P13", gene_model="gencode v23")
 #  q_filter = deepblue_filter_regions(query_id=q_genes,
 #      field="@GENE_ATTRIBUTE(gene_type)", operation="==",
 #      value="lincRNA", type="string")
@@ -209,7 +209,7 @@ print(AGG.plot)
 q_genes = deepblue_select_genes(
     genes_name=
         c("RNU6-1100P", "CICP7", "MRPL20", "ANKRD65",
-            "HES2", "ACOT7", "HES3", "ICMT"), gene_set="gencode v19")
+            "HES2", "ACOT7", "HES3", "ICMT"), gene_model="gencode v19")
 
 # Obtain the regions that starts 2500 bases pair before the regions start and
 # have 2000 base pairs.
