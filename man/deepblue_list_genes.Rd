@@ -18,12 +18,11 @@ genes - A array (genes names and IDs)
 List all the Gene currently available in DeepBlue.
 }
 \examples{
-deepblue.list_genes('Gencode v22')
+deepblue_list_genes('Gencode v22')
 
 }
 \seealso{
-Other Gene models and genes identifiers: \code{\link{deepblue_add_gene_model}},
-  \code{\link{deepblue_list_gene_models}},
+Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_models}},
   \code{\link{deepblue_select_genes}}
 }
 

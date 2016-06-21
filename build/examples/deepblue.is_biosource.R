@@ -1,1 +1,1 @@
-deepblue_is_biosource(biosource_name = "blood")
+deepblue_is_biosource(biosource = "blood")

@@ -1,1 +1,1 @@
-deepblue.list_genes('Gencode v22')
+deepblue_list_genes('Gencode v22')

@@ -81,7 +81,7 @@ def main():
   client = xmlrpclib.Server("http://deepblue.mpi-inf.mpg.de/xmlrpc", allow_none=True)
 
   #list of commands to ignore
-  exclude = ['get_state', 'add_annotation', 'add_biosource', 'add_epigenetic_mark', 'add_experiment', 'add_gene_set', 'add_genome', 'add_project', 'add_sample', 'add_sample_from_gsm', 'add_technique', 'add_user_to_project', 'set_biosource_parent', 'set_biosource_synonym', 'set_project_public', 'upload_chromosome', 'change_extra_metadata', 'clone_dataset', 'create_column_type_calculated', 'create_column_type_simple', 'create_column_type_range', 'create_column_type_category', 'find_pattern', 'remove']
+  exclude = ['get_state', 'add_annotation', 'add_biosource', 'add_epigenetic_mark', 'add_experiment', 'add_gene_model', 'add_genome', 'add_project', 'add_sample', 'add_sample_from_gsm', 'add_technique', 'add_user_to_project', 'set_biosource_parent', 'set_biosource_synonym', 'set_project_public', 'upload_chromosome', 'change_extra_metadata', 'clone_dataset', 'create_column_type_calculated', 'create_column_type_simple', 'create_column_type_range', 'create_column_type_category', 'find_pattern', 'remove']
 
   (s, v) = client.echo(None)
 

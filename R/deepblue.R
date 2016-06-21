@@ -26,70 +26,6 @@ deepblue_debug_VERBOSE = FALSE
 
 #' @export 
 #' 
-#' @title add_gene_model 
-#' @description Include a Gene Model in DeepBlue. The data must be in the GTF format. Important: this command will include only the lines where the column 'feature' is 'genes'.
-#' @family Gene models and genes identifiers
-#' 
-#' @param name - A string (gene model name)
-#' @param description - A string (description of the annotation)
-#' @param data - A string (the BED formatted data)
-#' @param format - A string (Currently, it is only supported GTF.)
-#' @param extra_metadata - A struct (additional metadata)
-#' @param user_key - A string (users token key)
-#'
-#' @return id - A string (id of the newly inserted annotation)
-#'
-#' @examples
-#' gs = 'chr1HAVANA\tgene\t11869\t14409\t.\t+\t.\tgene_id "ENSG00000223972.5";",
-#'      "gene_type "transcribed_unprocessed_pseudogene"; gene_status "KNOWN"; ",
-#'      "gene_name "DDX11L1";  level 2; havana_gene "OTTHUMG00000000961.2";\n",
-#'      "chr1\tHAVANA\tgene\t14404\t29570\t.\t-\t.\tgene_id "ENSG00000227232.5";",
-#'      " gene_type "unprocessed_pseudogene"; gene_status "KNOWN"; ",
-#'      "gene_name "WASH7P";  level 2; havana_gene "OTTHUMG00000000958.1";\n",
-#'      "chr1\tENSEMBL\tgene\t17369\t17436\t.\t-\t.\tgene_id "ENSG00000278267.1";",
-#'      " gene_type "miRNA"; gene_status "KNOWN"; gene_name "MIR6859-3";  level 3;'
-#' 
-#' deepblue_add_gene_set(name = "My new gene set", description = "A gene set",
-#'     data = gs, format = "gtf", extra_metadata = NULL,
-#'     user_key = "my_secret_key")
-#'
-deepblue_add_gene_model <- function(name= NULL, description= NULL, data= NULL, format= NULL, extra_metadata=NULL, user_key=deepblue_USER_KEY) {
-
-    previous_commands <- list()
-    arg.names <- names(as.list(match.call()))
-    for(command_object_name in arg.names[which(arg.names != "")]){
-        if(exists(command_object_name)){
-            command_object <- get(command_object_name)
-            if(is(command_object, "DeepBlueCommand")){
-                previous_commands <- append(previous_commands, command_object)
-                assign(command_object_name, command_object@query_id)
-            }
-        }
-    }
-    value <- xml.rpc(deepblue_URL, 'add_gene_model', name, description, data, format, extra_metadata, user_key)
-    status = value[[1]]
-    message(paste("Reported status was:", status))
-    if (status == "error") {
-        stop(value[[2]])
-    }
-    if (!exists("user_key")) {
-        user_key = NULL
-    }
-    if(length(value) == 1) return(NULL)
-    else if(!is.list(value[[2]])){
-        DeepBlueCommand(call = sys.call(),
-            status = value[[1]],
-            query_id = value[[2]],
-            previous_commands = previous_commands,
-            user_key = user_key
-        )
-    } else return(value[[2]])
-}
-
-
-
-#' @export 
-#' 
 #' @title aggregate 
 #' @description Summarize the data_id content using the regions specified in ranges_id as boundaries. Use the fields @AGG.MIN, @AGG.MAX, @AGG.MEDIAN, @AGG.MEAN, @AGG.VAR, @AGG.SD, @AGG.COUNT in 'get_regions' command 'format' parameter to retrieve the computed values minimum, maximum, median, mean, variance, standard deviation and number of regions, respectively.
 #' @family Operating on the data regions
@@ -417,7 +353,7 @@ deepblue_count_regions <- function(query_id= NULL, user_key=deepblue_USER_KEY) {
 #' @examples
 #' data_id = deepblue_select_experiments(
 #'     experiment_name="E002-H3K9ac.narrowPeak.bed")
-#' deepblue_coverage(query_id = data_id)
+#' deepblue_coverage(query_id = data_id, genome="hg19")
 #'
 deepblue_coverage <- function(query_id= NULL, genome= NULL, user_key=deepblue_USER_KEY) {
 
@@ -1362,7 +1298,7 @@ deepblue_intersection <- function(query_data_id= NULL, query_filter_id= NULL, us
 #' @return information - A string or a vector of string (A string containing the biosource name)
 #'
 #' @examples
-#' deepblue_is_biosource(biosource_name = "blood")
+#' deepblue_is_biosource(biosource = "blood")
 #'
 deepblue_is_biosource <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
 
@@ -1710,7 +1646,7 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 #' @return genes - A array (genes names and IDs)
 #'
 #' @examples
-#' deepblue.list_genes('Gencode v22')
+#' deepblue_list_genes('Gencode v22')
 #'
 deepblue_list_genes <- function(gene_models= NULL, user_key=deepblue_USER_KEY) {
 
@@ -2459,7 +2395,7 @@ deepblue_merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
 #'
 #' @examples
 #' deepblue_name_to_id("E002-H3K9ac.narrowPeak.bed", "experiments")
-#' deepblue_name_to_id("prostate duct", "bisources")
+#' deepblue_name_to_id("prostate duct", "biosources")
 #' deepblue_name_to_id("DNA Methylation", "Epigenetic_marks")
 #'
 deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_USER_KEY) {
@@ -2856,7 +2792,7 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #'     c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
 #' deepblue_select_genes(
 #'     genes_name = genes_names,
-#'     gene_set = "gencode v23")
+#'     gene_model = "gencode v23")
 #'
 deepblue_select_genes <- function(genes_name= NULL, gene_model= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
 

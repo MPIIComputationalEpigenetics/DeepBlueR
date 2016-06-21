@@ -18,7 +18,7 @@ information - A string or a vector of string (A string containing the biosource 
 Verify if the name is an existing and valid DeepBlue BioSource name. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line.
 }
 \examples{
-deepblue_is_biosource(biosource_name = "blood")
+deepblue_is_biosource(biosource = "blood")
 
 }
 \seealso{
