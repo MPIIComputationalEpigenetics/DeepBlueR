@@ -69,15 +69,10 @@ Automatic installation of DeepBlueR and its companion packages can be
 performed using the devtools package. All you have to do is to execute the
 following command in your R environment:
 
-Installing from Github (```recommended```)
+Currently, only installation through Github code is available:
 ```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
 library(devtools)
 install_github("MPIIComputationalEpigenetics/muPipeR")
-```
-
-Using Bioconductor package (not yet available):
-```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
-biocLite("DeepBlueR")
 ```
 
 The package name is ```DeepBlue``` and it can be loaded via:
