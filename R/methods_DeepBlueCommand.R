@@ -40,14 +40,20 @@ setMethod("deepblue_download_request_data",
                   stop(request_info$message)
               }
 
-              regions_string = deepblue_switch_get_request_data(
+              request_data = deepblue_switch_get_request_data(
                   request_id = request_id, user_key = user_key)
 
               if(request_info$command == "count_regions")
-                  return(as.numeric(regions_string))
+                  return(as.numeric(request_data))
+
+              # Only the get_regions and score_matrix commands can have
+              # the data converted to tables.
+              if (!request_info$command %in% c('get_regions','score_matrix')) {
+                return(request_data)
+              }
 
               regions_df = deepblue_convert_to_df(
-                  string_to_parse=regions_string, request_info=request_info)
+                  string_to_parse=request_data, request_info=request_info)
 
               if (request_info$command %in%
                   c("score_matrix", "get_experiments_by_query") ||

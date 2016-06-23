@@ -51,16 +51,25 @@ setGeneric("deepblue_download_request_data",
         stop(request_info$message)
     }
 
-    regions_string = deepblue_switch_get_request_data(
+    request_data = deepblue_switch_get_request_data(
       request_id = request_id,
       user_key = user_key
     )
 
     if (type == "string") {
-        return (regions_string)
+        return (request_data)
     }
 
-    regions_df = deepblue_convert_to_df(string_to_parse=regions_string,
+    command = request_info$command
+
+    if(command == "count_regions")
+        return(as.numeric(request_data))
+
+    if (!command %in% c('get_regions','score_matrix')) {
+      return(request_data)
+    }
+
+    regions_df = deepblue_convert_to_df(string_to_parse=request_data,
                                         request_info=request_info)
 
     if (type == "df") {
