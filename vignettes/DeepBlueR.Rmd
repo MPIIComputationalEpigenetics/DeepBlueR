@@ -66,10 +66,11 @@ provided by the epigenome mapping consortia.
 ## Installation
 
 Automatic installation of DeepBlueR and its companion packages can be
-performed using the devtools package. All you have to do is to execute the
-following command in your R environment:
+performed through the Bioconductor installer:
 
 ```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
 biocLite("DeepBlueR")
 ```
 
