@@ -92,13 +92,6 @@ deepblue_switch_get_request_data = function(request_id,
 
     command = request_info$command
     switch(command,
-           "count_regions" = deepblue_get_request_data(
-              request_id, user_key
-            ),
-           "get_experiments_by_query" = deepblue_get_request_data(
-              request_id,
-              user_key
-            ),
            "get_regions" = {
               url =
                 paste(
@@ -122,7 +115,14 @@ deepblue_switch_get_request_data = function(request_id,
                close(handle)
                return(result)
            },
-           stop(paste("Unknow command", command)))
+           {
+               # DEFAULT
+               # count_regions
+               # get_experiments_by_query
+               # coverage
+               deepblue_get_request_data(request_id, user_key)
+           }
+    )
 }
 
 #'@title convert_to_df
