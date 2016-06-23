@@ -72,7 +72,7 @@ following command in your R environment:
 Currently, only installation through Github code is available:
 ```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
 library(devtools)
-install_github("MPIIComputationalEpigenetics/muPipeR")
+install_github("MPIIComputationalEpigenetics/DeepBlueR")
 ```
 
 The package name is ```DeepBlue``` and it can be loaded via:
