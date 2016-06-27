@@ -41,7 +41,7 @@ setGeneric("deepblue_wait_request", function(request_id, sleep_time = 1,
 setGeneric("deepblue_download_request_data",
            function(request_id,
                     user_key=deepblue_USER_KEY,
-                    type="grange")
+                    type="granges")
            {
     request_info = deepblue_wait_request(request_id, user_key=user_key)
 
