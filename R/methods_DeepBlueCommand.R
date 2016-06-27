@@ -57,8 +57,9 @@ setMethod("deepblue_download_request_data",
 
               if (request_info$command %in%
                   c("score_matrix", "get_experiments_by_query") ||
-                  request_info$format == "")
+                  request_info$format == "") {
                   return (regions_df)
+              }
 
               else if(request_info$command == "get_regions"){
                   if(nrow(regions_df) > 0)
