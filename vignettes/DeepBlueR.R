@@ -1,5 +1,6 @@
 ## ---- eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE--------------
-#  biocLite("DeepBlueR")
+#  library(devtools)
+#  install_github("MPIIComputationalEpigenetics/DeepBlueR")
 
 ## ---- echo=FALSE, warning=FALSE, message=FALSE, error=FALSE--------------
 library(DeepBlueR)

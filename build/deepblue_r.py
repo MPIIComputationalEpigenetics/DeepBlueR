@@ -57,6 +57,8 @@ deepblue_%(name)s <- function(%(parameter_names)s) {
     }
     value <- xml.rpc(%(url)s, '%(name)s'%(parameter_convertion)s)
     status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
     message(paste("Reported status was:", status))
     if (status == "error") {
         stop(value[[2]])
@@ -72,7 +74,22 @@ deepblue_%(name)s <- function(%(parameter_names)s) {
             previous_commands = previous_commands,
             user_key = user_key
         )
-    } else return(value[[2]])
+    }
+    else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
+        new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
+        new_df <- as.data.frame(new_df)
+        
+        if(ncol(new_df) == 2){
+            colnames(new_df) = c("id", "name")
+            return(new_df)
+        } else if(ncol(new_df) == 3)
+        {
+            colnames(new_df) = c("id", "name", "count")
+            new_df$count <- as.integer(new_df$count)
+            return(new_df)
+        }
+    }
+    return(value[[2]])
 }
 """
 
