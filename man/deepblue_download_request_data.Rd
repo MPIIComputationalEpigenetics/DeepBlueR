@@ -10,12 +10,9 @@ deepblue_download_request_data(request_id, user_key = deepblue_USER_KEY)
 \item{request_id}{- Id of the request that will be downloaded}
 
 \item{user_key}{A string}
-
-\item{type}{To which type the downloaded data will be converted:
-'string', 'df', or 'grange'.}
 }
 \value{
-grange_regions Final output in GRanges format
+grange_regions Final output in GRanges format or as data frame
 }
 \description{
 Returns the requested data as the expected type object.
