@@ -4,8 +4,7 @@
 \alias{deepblue_download_request_data}
 \title{deepblue_download_request_data}
 \usage{
-deepblue_download_request_data(request_id, user_key = deepblue_USER_KEY,
-  type = "grange")
+deepblue_download_request_data(request_id, user_key = deepblue_USER_KEY)
 }
 \arguments{
 \item{request_id}{- Id of the request that will be downloaded}

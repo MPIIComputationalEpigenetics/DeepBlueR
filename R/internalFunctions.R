@@ -29,9 +29,7 @@ setGeneric("deepblue_wait_request", function(request_id, sleep_time = 1,
 #'
 #'@param request_id - Id of the request that will be downloaded
 #'@param user_key A string
-#'@param type To which type the downloaded data will be converted:
-#''string', 'df', or 'grange'.
-#'@return grange_regions Final output in GRanges format
+#'@return grange_regions Final output in GRanges format or as data frame
 #'@examples
 #' data_id = deepblue_select_experiments(
 #' experiment_name="E002-H3K9ac.narrowPeak.bed", chromosome="chr1")
@@ -40,43 +38,10 @@ setGeneric("deepblue_wait_request", function(request_id, sleep_time = 1,
 #' request_data = deepblue_download_request_data(request_id)
 setGeneric("deepblue_download_request_data",
            function(request_id,
-                    user_key=deepblue_USER_KEY,
-                    type="granges")
+                    user_key=deepblue_USER_KEY)
            {
-    request_info = deepblue_wait_request(request_id, user_key=user_key)
-
-    if (request_info$state == "done") {
-        message("The request was processed successfully.")
-    } else {
-        stop(request_info$message)
-    }
-
-    request_data = deepblue_switch_get_request_data(
-      request_id = request_id,
-      user_key = user_key
-    )
-
-    if (type == "string") {
-        return (request_data)
-    }
-
-    command = request_info$command
-
-    if(command == "count_regions")
-        return(as.numeric(request_data))
-
-    if (!command %in% c('get_regions','score_matrix')) {
-      return(request_data)
-    }
-
-    regions_df = deepblue_convert_to_df(string_to_parse=request_data,
-                                        request_info=request_info)
-
-    if (type == "df") {
-        return (regions_df)
-    }
-
-    return(deepblue_convert_to_grange(df=regions_df))
+    deepblue_switch_get_request_data(request_id = request_id,
+                                     user_key = user_key)
 })
 
 #' @import XML RCurl
@@ -98,7 +63,6 @@ deepblue_switch_get_request_data = function(request_id,
         stop("Processing was not finished.
              Please, check it status with deepblue_info(request_id)");
     }
-
     command = request_info$command
     switch(command,
            "get_regions" = {
@@ -111,7 +75,7 @@ deepblue_switch_get_request_data = function(request_id,
                handle <-  bzfile(temp_download)
                result <- paste(readLines(handle), collapse="\n")
                close(handle)
-               return(result)
+               request_data <- result
            },
            "score_matrix" = {
                url = paste(
@@ -122,16 +86,41 @@ deepblue_switch_get_request_data = function(request_id,
                handle <-  bzfile(temp_download)
                result <- paste(readLines(handle), collapse="\n")
                close(handle)
-               return(result)
+               request_data <- result
            },
            {
                # DEFAULT
                # count_regions
                # get_experiments_by_query
                # coverage
-               deepblue_get_request_data(request_id, user_key)
+               request_data <- deepblue_get_request_data(request_id, user_key)
            }
     )
+    
+    if(command == "count_regions")
+        return(as.numeric(request_data))
+    
+    # Only the get_regions and score_matrix commands can have
+    # the data converted to tables.
+    if (!command %in% c('get_regions','score_matrix')) {
+        return(request_data)
+    }
+    
+    regions_df = deepblue_convert_to_df(
+        string_to_parse=request_data, request_info=request_info)
+    
+    if (request_info$command %in%
+        c("score_matrix", "get_experiments_by_query") ||
+        request_info$format == "") {
+        return (regions_df)
+    }
+    
+    else if(command == "get_regions"){
+        if(nrow(regions_df) > 0)
+            return(deepblue_convert_to_grange(df=regions_df))
+        else
+            stop("No regions were returned in this request.")
+    }
 }
 
 #'@title convert_to_df
