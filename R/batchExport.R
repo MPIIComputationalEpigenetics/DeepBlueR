@@ -64,10 +64,9 @@ deepblue_batch_export_results <- function(requests,
             if(request_info$state == "done" && need.saving[request])
             {
                 #download data
-                message(paste("Downloading results for id",
-                              request_id@query_id))
+                message(paste("Downloading results for id", request_id))
                 result <- deepblue_download_request_data(request_id)
-                all.results[[request_id@query_id]] <- result
+                all.results[[request_id]] <- result
 
                 if(!is.null(target.directory)){
                     #save to disk
@@ -81,7 +80,7 @@ deepblue_batch_export_results <- function(requests,
                                 file = file.path(target.directory,
                                                  paste(paste(
                                                      prefix,
-                                                     request_id@query_id,
+                                                     request_id,
                                                      suffix, sep="_"),
                                                      ".txt",
                                                      sep="")))
@@ -92,7 +91,7 @@ deepblue_batch_export_results <- function(requests,
             else if(request_info$state %in% c("failed", "error")
                     && need.saving[request]){
                 need.saving[request] <- FALSE
-                error_commands[[request_id@query_id]] <- request_id
+                error_commands[[request_id]] <- request_id
                 errors <- errors + 1
             }
         }
