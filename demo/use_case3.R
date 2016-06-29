@@ -14,31 +14,25 @@ q_genes_regions = deepblue_filter_regions(
     field = "@GENE_ATTRIBUTE(gene_type)",
     operation = "==", value = "protein_coding", type = "string")
 
-#Select all liver and hepatocyte biosources
-biosources = c('liver', 'Hematopoietic', 'hematopoietic stem cell')
-liver_biosource_names = c()
-for (biosource in biosources)
-{
-    related_biosources = deepblue_get_biosource_related(biosource)
-    related_biosources_names = as.character(related_biosources$name)
-    liver_biosource_names = c(liver_biosource_names, related_biosources_names)
-}
+#Select all T cell related biosources
+related_biosources = deepblue_get_biosource_related("Regulatory T cell")
+biosource_names = as.character(related_biosources$name)
 
 # Obtain the mRNA experiments names
 
 experiments = deepblue_list_experiments(genome = "GRCh38",
                                         type = "signal",
                                         epigenetic_mark = "mRNA",
-                                        biosource = liver_biosource_names,
+                                        biosource = biosource_names,
                                         project = "BLUEPRINT Epigenome")
-hsc_experiment_names = as.character(experiments$name)
+experiment_names = as.character(experiments$name)
 
 #perform aggregation
 
-requests = lapply(hsc_experiment_names, function (hsc_experiment) {
-    print(paste("Sending request for aggregating", hsc_experiment))
+requests = lapply(experiment_names, function (experiment) {
+    print(paste("Sending request for aggregating", experiment))
     
-    q_exp = deepblue_select_experiments(experiment_name = hsc_experiment)
+    q_exp = deepblue_select_experiments(experiment_name = experiment)
     q_agg = deepblue_aggregate(data_id = q_exp, 
                                ranges_id = q_genes_regions, 
                                column='VALUE')
@@ -55,7 +49,8 @@ requests = lapply(hsc_experiment_names, function (hsc_experiment) {
 #download the results and save them to disk
 results <- deepblue_batch_export_results(
     requests,
-    target.directory="data/hsc_aggregation")
+    target.directory="data/reg_t_cell_aggregation")
 
-#look at first three results
-head(results, 3)
+#look at the results. from the four experiments listed, two contained the
+#information we needed.
+results
