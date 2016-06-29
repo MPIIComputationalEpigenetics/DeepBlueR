@@ -20,8 +20,8 @@ liver_biosource_names = c()
 for (biosource in biosources)
 {
     related_biosources = deepblue_get_biosource_related(biosource)
-    related_biosources_names = deepblue_extract_names(related_biosources)
-    liver_biosource_names =c(liver_biosource_names, related_biosources_names)
+    related_biosources_names = as.character(related_biosources$name)
+    liver_biosource_names = c(liver_biosource_names, related_biosources_names)
 }
 
 # Obtain the mRNA experiments names
@@ -31,7 +31,7 @@ experiments = deepblue_list_experiments(genome = "GRCh38",
                                         epigenetic_mark = "mRNA",
                                         biosource = liver_biosource_names,
                                         project = "BLUEPRINT Epigenome")
-hsc_experiment_names = deepblue_extract_names(experiments)
+hsc_experiment_names = as.character(experiments$name)
 
 #perform aggregation
 

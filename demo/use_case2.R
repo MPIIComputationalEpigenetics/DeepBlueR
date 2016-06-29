@@ -10,7 +10,7 @@ message("We list and extract all samples IDs with the
 readline("press any key to continue")
 
 H1_hESC_samples = deepblue_list_samples("H1-hESC", list("source"="ENCODE"))
-H1_hESC_samples_ids = deepblue_extract_ids(H1_hESC_samples)
+H1_hESC_samples_ids = as.character(H1_hESC_samples$id)
 
 message("We list all peaks experiments that contains the previously 
         selected samples IDS, the histone modification H3K4me3 
@@ -28,7 +28,7 @@ message("Obtain information about the experiment using the ID")
 
 readline("press any key to continue")
 
-experiments_id = deepblue_extract_ids(experiments)
+experiments_id = as.character(experiments$id)
 exps_infos = deepblue_info(experiments_id)
 
 message("and generate a list of experiments that the original 
@@ -66,7 +66,7 @@ liver_experiments = deepblue_list_experiments(
     epigenetic_mark="DNA Methylation", 
     biosource=c('liver', 'hepatocyte'))
 
-liver_experiments_names = deepblue_extract_names(liver_experiments)
+liver_experiments_names = as.character(liver_experiments$name)
 
 print(liver_experiments_names)
 
@@ -118,4 +118,4 @@ message("This will allow you to chceck this errors individually,
         for example with the first error")
 readline("press any key to finish")
 
-deepblue_download_request_data(attr(results, "errors")[[1]])
+deepblue_info(attr(results, "errors")[[1]])[[1]]$message

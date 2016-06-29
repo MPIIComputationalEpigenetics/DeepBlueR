@@ -281,7 +281,7 @@ finishes in the server, download the data, and convert to a GRanges object.
 samples = deepblue_list_samples(
     biosource="myeloid cell",
     extra_metadata = list("source" = "BLUEPRINT Epigenome"))
-samples_ids = deepblue_extract_ids(samples)
+samples_ids = as.character(samples$id)
 query_id = deepblue_select_regions(genome="GRCh38", sample=samples_ids,
     chromosome="chr1", start=0, end=50000)
 request_id = deepblue_get_regions(query_id=query_id,
@@ -296,9 +296,9 @@ regions from the experiments that are in the
 chromosome 1, position 0 to 50,000,000.
 
 We filter the genomic regions that have the value of the column SIGNAL_VALUE
-higher than 10.
+larger than 10.
 
-We filter the genomic regions that have the value of the column PEAK higher
+We filter the genomic regions that have the value of the column PEAK larger
 than 1000.
 
 Then, we use the ```get_regions``` command with the parameters: ```query_id```
