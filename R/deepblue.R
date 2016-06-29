@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.7.18
+# For DeepBlue version 1.7.19
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -84,7 +84,7 @@ deepblue_aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -150,7 +150,7 @@ deepblue_cancel_request <- function(id= NULL, user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -216,7 +216,7 @@ deepblue_chromosomes <- function(genome= NULL, user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -292,7 +292,7 @@ deepblue_collection_experiments_count <- function(controlled_vocabulary= NULL, g
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -356,7 +356,7 @@ deepblue_commands <- function() {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -424,7 +424,7 @@ deepblue_count_regions <- function(query_id= NULL, user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -493,7 +493,7 @@ deepblue_coverage <- function(query_id= NULL, genome= NULL, user_key=deepblue_US
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -558,7 +558,7 @@ deepblue_echo <- function(user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -632,7 +632,7 @@ deepblue_extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -699,7 +699,7 @@ deepblue_extract_ids <- function(list= NULL) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -766,7 +766,7 @@ deepblue_extract_names <- function(list= NULL) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -840,7 +840,7 @@ deepblue_faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -915,7 +915,7 @@ deepblue_filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -989,7 +989,7 @@ deepblue_flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1055,7 +1055,7 @@ deepblue_get_biosource_children <- function(biosource= NULL, user_key=deepblue_U
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1121,7 +1121,7 @@ deepblue_get_biosource_parents <- function(biosource= NULL, user_key=deepblue_US
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1187,7 +1187,7 @@ deepblue_get_biosource_related <- function(biosource= NULL, user_key=deepblue_US
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1253,7 +1253,7 @@ deepblue_get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue_U
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1319,7 +1319,7 @@ deepblue_get_experiments_by_query <- function(query_id= NULL, user_key=deepblue_
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1389,7 +1389,7 @@ deepblue_get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1461,7 +1461,7 @@ deepblue_get_request_data <- function(request_id= NULL, user_key=deepblue_USER_K
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1527,7 +1527,7 @@ deepblue_info <- function(id= NULL, user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1605,7 +1605,7 @@ deepblue_input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1678,7 +1678,7 @@ deepblue_intersection <- function(query_data_id= NULL, query_filter_id= NULL, us
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1744,7 +1744,7 @@ deepblue_is_biosource <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1810,7 +1810,7 @@ deepblue_list_annotations <- function(genome= NULL, user_key=deepblue_USER_KEY) 
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1876,7 +1876,7 @@ deepblue_list_biosources <- function(extra_metadata=NULL, user_key=deepblue_USER
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -1941,7 +1941,7 @@ deepblue_list_column_types <- function(user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2007,7 +2007,7 @@ deepblue_list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2080,7 +2080,7 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2145,7 +2145,7 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2167,15 +2167,19 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 #' @description List all the Gene currently available in DeepBlue.
 #' @family Gene models and genes identifiers
 #' 
+#' @param gene_id_or_name - A string or a vector of string (Name(s) or ID(s) (ensembl id) of the selected gene(s))
+#' @param chromosome - A string or a vector of string (chromosome name(s))
+#' @param start - A int (minimum start region)
+#' @param end - A int (maximum end region)
 #' @param gene_models - A string or a vector of string (the gene model)
 #' @param user_key - A string (users token key)
 #'
-#' @return genes - A array (genes names and IDs)
+#' @return genes - A array (genes names and its content)
 #'
 #' @examples
-#' deepblue_list_genes('Gencode v22')
+#' deepblue_list_genes(gene_id_or_name="Pax", gene_models='Gencode v22')
 #'
-deepblue_list_genes <- function(gene_models= NULL, user_key=deepblue_USER_KEY) {
+deepblue_list_genes <- function(gene_id_or_name= NULL, chromosome= NULL, start= NULL, end= NULL, gene_models= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2188,7 +2192,7 @@ deepblue_list_genes <- function(gene_models= NULL, user_key=deepblue_USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'list_genes', gene_models, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_genes', gene_id_or_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), gene_models, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -2211,7 +2215,7 @@ deepblue_list_genes <- function(gene_models= NULL, user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2276,7 +2280,7 @@ deepblue_list_genomes <- function(user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2342,7 +2346,7 @@ deepblue_list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue_
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2407,7 +2411,7 @@ deepblue_list_projects <- function(user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2478,7 +2482,7 @@ deepblue_list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2544,7 +2548,7 @@ deepblue_list_requests <- function(request_state= NULL, user_key=deepblue_USER_K
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2611,7 +2615,7 @@ deepblue_list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2677,7 +2681,7 @@ deepblue_list_similar_biosources <- function(name= NULL, user_key=deepblue_USER_
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2743,7 +2747,7 @@ deepblue_list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2810,7 +2814,7 @@ deepblue_list_similar_experiments <- function(name= NULL, genome= NULL, user_key
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2876,7 +2880,7 @@ deepblue_list_similar_genomes <- function(name= NULL, user_key=deepblue_USER_KEY
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -2942,7 +2946,7 @@ deepblue_list_similar_projects <- function(name= NULL, user_key=deepblue_USER_KE
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3008,7 +3012,7 @@ deepblue_list_similar_techniques <- function(name= NULL, user_key=deepblue_USER_
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3073,7 +3077,7 @@ deepblue_list_techniques <- function(user_key=deepblue_USER_KEY) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3147,7 +3151,7 @@ deepblue_merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3216,7 +3220,7 @@ deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3292,7 +3296,7 @@ deepblue_query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue_
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3366,7 +3370,7 @@ deepblue_query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3441,7 +3445,7 @@ deepblue_score_matrix <- function(experiments_columns= NULL, aggregation_functio
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3510,7 +3514,7 @@ deepblue_search <- function(keyword= NULL, type= NULL, user_key=deepblue_USER_KE
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3585,7 +3589,7 @@ deepblue_select_annotations <- function(annotation_name= NULL, genome= NULL, chr
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3657,7 +3661,7 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3731,7 +3735,7 @@ deepblue_select_genes <- function(genes_name= NULL, gene_model= NULL, chromosome
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3808,7 +3812,7 @@ deepblue_select_regions <- function(experiment_name= NULL, genome= NULL, epigene
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)
@@ -3879,7 +3883,7 @@ deepblue_tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)

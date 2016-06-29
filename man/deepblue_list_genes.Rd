@@ -18,7 +18,7 @@ genes - A array (genes names and IDs)
 List all the Gene currently available in DeepBlue.
 }
 \examples{
-deepblue_list_genes('Gencode v22')
+deepblue_list_genes(gene_id_or_name="Pax", gene_models='Gencode v22')
 
 }
 \seealso{
