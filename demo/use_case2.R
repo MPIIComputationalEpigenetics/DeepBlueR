@@ -10,7 +10,7 @@ message("We list and extract all samples IDs with the
 readline("press any key to continue")
 
 H1_hESC_samples = deepblue_list_samples("H1-hESC", list("source"="ENCODE"))
-H1_hESC_samples_ids = as.character(H1_hESC_samples$id)
+H1_hESC_samples_ids = deepblue_extract_ids(H1_hESC_samples)
 
 message("We list all peaks experiments that contains the previously 
         selected samples IDS, the histone modification H3K4me3 

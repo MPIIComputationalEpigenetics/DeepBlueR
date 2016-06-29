@@ -16,7 +16,7 @@ q_genes_regions = deepblue_filter_regions(
 
 #Select all T cell related biosources
 related_biosources = deepblue_get_biosource_related("Regulatory T cell")
-biosource_names = as.character(related_biosources$name)
+biosource_names = deepblue_extract_names(related_biosources)
 
 # Obtain the mRNA experiments names
 
@@ -25,7 +25,7 @@ experiments = deepblue_list_experiments(genome = "GRCh38",
                                         epigenetic_mark = "mRNA",
                                         biosource = biosource_names,
                                         project = "BLUEPRINT Epigenome")
-experiment_names = as.character(experiments$name)
+experiment_names = deepblue_extract_names(experiments)
 
 #perform aggregation
 

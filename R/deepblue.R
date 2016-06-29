@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.7.18
+# For DeepBlue version 1.7.19
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -2149,15 +2149,19 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 #' @description List all the Gene currently available in DeepBlue.
 #' @family Gene models and genes identifiers
 #' 
+#' @param gene_id_or_name - A string or a vector of string (Name(s) or ID(s) (ensembl id) of the selected gene(s))
+#' @param chromosome - A string or a vector of string (chromosome name(s))
+#' @param start - A int (minimum start region)
+#' @param end - A int (maximum end region)
 #' @param gene_models - A string or a vector of string (the gene model)
 #' @param user_key - A string (users token key)
 #'
-#' @return genes - A array (genes names and IDs)
+#' @return genes - A array (genes names and its content)
 #'
 #' @examples
 #' deepblue_list_genes(gene_id_or_name="Pax", gene_models='Gencode v22')
 #'
-deepblue_list_genes <- function(gene_models= NULL, user_key=deepblue_USER_KEY) {
+deepblue_list_genes <- function(gene_id_or_name= NULL, chromosome= NULL, start= NULL, end= NULL, gene_models= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2170,7 +2174,7 @@ deepblue_list_genes <- function(gene_models= NULL, user_key=deepblue_USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'list_genes', gene_models, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_genes', gene_id_or_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), gene_models, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
