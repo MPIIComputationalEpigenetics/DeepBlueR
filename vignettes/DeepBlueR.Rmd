@@ -52,10 +52,10 @@ for example, CpG Islands, promoter regions, and genes. DeepBlue provides
 different types of commands, such as listing and searching commands as well as
 commands for data retrieval. A typical work-flow for the latter is to select,
 filter, transform, and finally download the selected data. For a more thorough
-description of DeepBlue you may find additional material in
-[DeepBlue's publication](http://dx.doi.org/10.1093/nar/gkw211).
-If you find DeepBlue useful and use it in your project consider citing this
-paper.
+description of DeepBlue we refer to the 
+[DeepBlue publication](http://dx.doi.org/10.1093/nar/gkw211) in the 2016 NAR
+webserver issue. If you find DeepBlue useful and use it in your project consider 
+citing this paper.
 
 
 Important note: With the exception of data aggregation tasks,
