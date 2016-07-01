@@ -65,7 +65,7 @@ deepblue_batch_export_results <- function(requests,
             {
                 #download data
                 message(paste("Downloading results for id", request_id))
-                result <- deepblue_download_request_data(request_id)
+                result <- deepblue_download_request_data(request_id, user_key = user_key)
                 all.results[[request_id]] <- result
 
                 if(!is.null(target.directory)){
