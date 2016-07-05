@@ -58,6 +58,8 @@ setGeneric("deepblue_download_request_data",
 deepblue_switch_get_request_data = function(request_id,
                                             user_key=deepblue_USER_KEY)
 {
+    deepblue_wait_request(request_id, user_key=user_key)
+
     request_info = deepblue_info(request_id, user_key)[[1]]
     if (request_info$state != "done") {
         stop("Processing was not finished.
@@ -96,25 +98,25 @@ deepblue_switch_get_request_data = function(request_id,
                request_data <- deepblue_get_request_data(request_id, user_key)
            }
     )
-    
+
     if(command == "count_regions")
         return(as.numeric(request_data))
-    
+
     # Only the get_regions and score_matrix commands can have
     # the data converted to tables.
     if (!command %in% c('get_regions','score_matrix')) {
         return(request_data)
     }
-    
+
     regions_df = deepblue_convert_to_df(
         string_to_parse=request_data, request_info=request_info)
-    
+
     if (request_info$command %in%
         c("score_matrix", "get_experiments_by_query") ||
         request_info$format == "") {
         return (regions_df)
     }
-    
+
     else if(command == "get_regions"){
         if(nrow(regions_df) > 0)
             return(deepblue_convert_to_grange(df=regions_df))
@@ -145,6 +147,11 @@ deepblue_convert_to_df = function(string_to_parse, request_info,
         #get column types from dictionary
         col_types <- sapply(col_names, function(x){
             col_type <- dict[[x]]
+
+            # Meta columns that have arguments.
+            if (grepl("@COUNT.NON-OVERLAP" , x)) return ("integer")
+            else if (grepl("@COUNT.OVERLAP" , x)) return ("integer")
+
             #return column type, defaults to character
             if(is.null(col_type)) return("character")
             #need to change string to character
