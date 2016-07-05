@@ -2146,10 +2146,10 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 #' @export 
 #' 
 #' @title list_genes 
-#' @description List all the Gene currently available in DeepBlue.
+#' @description List the Genes currently available in DeepBlue.
 #' @family Gene models and genes identifiers
 #' 
-#' @param gene_id_or_name - A string or a vector of string (Name(s) or ID(s) (ensembl id) of the selected gene(s))
+#' @param gene_id_or_name - A string or a vector of string (Regular expression with the Name(s) or ID(s) (ensembl id) of the selected gene(s).)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
 #' @param end - A int (maximum end region)
@@ -3240,6 +3240,76 @@ deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_
         }
     }
     value <- xml.rpc(deepblue_URL, 'name_to_id', name, collection, user_key)
+    status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
+    message(paste("Reported status was:", status))
+    if (status == "error") {
+        stop(value[[2]])
+    }
+    if (!exists("user_key")) {
+        user_key = NULL
+    }
+    if(length(value) == 1) return(NULL)
+    else if(!is.list(value[[2]])){
+        DeepBlueCommand(call = sys.call(),
+            status = value[[1]],
+            query_id = value[[2]],
+            previous_commands = previous_commands,
+            user_key = user_key
+        )
+    }
+    else if(grepl("list|count|related" , method_name) && !grepl("genes|column_types", method_name)){
+        new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
+        new_df <- as.data.frame(new_df)
+        
+        if(ncol(new_df) == 2){
+            colnames(new_df) = c("id", "name")
+            return(new_df)
+        } else if(ncol(new_df) == 3)
+        {
+            colnames(new_df) = c("id", "name", "count")
+            new_df$count <- as.integer(new_df$count)
+            return(new_df)
+        }
+        else{
+            colnames(new_df)[1] = "id"
+            return(new_df)
+        }
+    }
+    return(value[[2]])
+}
+
+
+
+#' @export 
+#' 
+#' @title preview_experiment 
+#' @description  List the DeepBlue Experiments that matches the search criteria defined by this command parameters.
+#' @family Inserting and listing experiments
+#' 
+#' @param experiment_name - A string (name(s) of selected experiment(s))
+#' @param user_key - A string (users token key)
+#'
+#' @return experiment - A string (experiment's regions)
+#'
+#' @examples
+#' preview = deepblue_preview_experiment('experiment_name')
+#'
+deepblue_preview_experiment <- function(experiment_name= NULL, user_key=deepblue_USER_KEY) {
+
+    previous_commands <- list()
+    arg.names <- names(as.list(match.call()))
+    for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+    }
+    value <- xml.rpc(deepblue_URL, 'preview_experiment', experiment_name, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
