@@ -1,6 +1,6 @@
 # DeepBlue Epigenomic Data Server - R access library
 # Use Case 1
-# Author: Nadia Ashraf, Markus List
+# Author: Markus List
 
 #Extract all H3k27ac from BLUEPRINT Epigenome project (for chromosome 1 only)
 

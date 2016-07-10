@@ -3,7 +3,7 @@ Title: DeepBlueR
 Type: Package
 Description: Accessing the DeepBlue Epigenetics Data Server through R.
 Version: 0.99.2
-Author: Felipe Albrecht, Markus List, Nadia Ashraf
+Author: Felipe Albrecht, Markus List
 Maintainer: Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>, Markus List <markus.list@mpi-inf.mpg.de>
 License: GPL (>=2.0)
 Imports: GenomicRanges,
