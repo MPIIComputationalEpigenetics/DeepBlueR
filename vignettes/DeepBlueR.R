@@ -64,7 +64,7 @@ regions
 samples = deepblue_list_samples(
     biosource="myeloid cell",
     extra_metadata = list("source" = "BLUEPRINT Epigenome"))
-samples_ids = as.character(samples$id)
+samples_ids = deepblue_extract_ids(samples)
 query_id = deepblue_select_regions(genome="GRCh38", sample=samples_ids,
     chromosome="chr1", start=0, end=50000)
 request_id = deepblue_get_regions(query_id=query_id,

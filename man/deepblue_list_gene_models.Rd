@@ -20,7 +20,9 @@ deepblue_list_gene_models()
 
 }
 \seealso{
-Other Gene models and genes identifiers: \code{\link{deepblue_list_genes}},
+Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_expressions}},
+  \code{\link{deepblue_list_genes}},
+  \code{\link{deepblue_select_gene_expressions}},
   \code{\link{deepblue_select_genes}}
 }
 

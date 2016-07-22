@@ -45,6 +45,7 @@ deepblue_collection_experiments_count(
 Other Inserting and listing experiments: \code{\link{deepblue_faceting_experiments}},
   \code{\link{deepblue_list_experiments}},
   \code{\link{deepblue_list_recent_experiments}},
-  \code{\link{deepblue_list_similar_experiments}}
+  \code{\link{deepblue_list_similar_experiments}},
+  \code{\link{deepblue_preview_experiment}}
 }
 
