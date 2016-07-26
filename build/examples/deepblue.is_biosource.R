@@ -1,0 +1,1 @@
+deepblue_is_biosource(biosource = "blood")

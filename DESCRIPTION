@@ -3,19 +3,41 @@ Title: DeepBlueR
 Type: Package
 Description: Accessing the DeepBlue Epigenetics Data Server through R.
 Version: 0.99.2
-Author: Felipe Albrecht, Markus List, Nadia Ashraf
-Maintainer: Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>, Markus
-        List <markus.list@mpi-inf.mpg.de>
+Author: Felipe Albrecht, Markus List
+Maintainer: Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>, Markus List <markus.list@mpi-inf.mpg.de>
 License: GPL (>=2.0)
-Imports: GenomicRanges, data.table, stringr, dplyr, methods, utils
-Depends: R (>= 3.3), XML, RCurl
-Collate: class_DeepBlueCommand.R deepblue.R internalFunctions.R
-        batchExport.R helperFunctions.R methods_DeepBlueCommand.R
+Imports: GenomicRanges,
+    data.table,
+    stringr,
+    dplyr,
+    methods,
+    utils
+Depends: R (>= 3.3),
+    XML,
+    RCurl
+Collate:
+    class_DeepBlueCommand.R
+	deepblue.R
+	internalFunctions.R
+	batchExport.R
+	helperFunctions.R
+	methods_DeepBlueCommand.R
 BuildVignettes: TRUE
 RoxygenNote: 5.0.1
-Suggests: knitr, rmarkdown, LOLA, Gviz, ggplot2, tidyr
+Suggests: knitr,
+    rmarkdown,
+    LOLA,
+    Gviz,
+    ggplot2,
+    tidyr
 VignetteBuilder: knitr
-biocViews: DataImport, DataRepresentation, ThirdPartyClient,
-        GeneRegulation, GenomeAnnotation, CpGIsland, DNAMethylation,
-        Epigenetics, Annotation, Preprocessing
-NeedsCompilation: no
+biocViews: DataImport,
+    DataRepresentation,
+    ThirdPartyClient,
+    GeneRegulation,
+    GenomeAnnotation,
+    CpGIsland,
+    DNAMethylation,
+    Epigenetics,
+    Annotation,
+    Preprocessing
