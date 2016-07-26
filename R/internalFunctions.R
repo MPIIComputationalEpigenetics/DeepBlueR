@@ -58,8 +58,6 @@ setGeneric("deepblue_download_request_data",
 deepblue_switch_get_request_data = function(request_id,
                                             user_key=deepblue_USER_KEY)
 {
-    deepblue_wait_request(request_id, user_key=user_key)
-
     request_info = deepblue_info(request_id, user_key)[[1]]
     if (request_info$state != "done") {
         stop("Processing was not finished.
@@ -147,11 +145,6 @@ deepblue_convert_to_df = function(string_to_parse, request_info,
         #get column types from dictionary
         col_types <- sapply(col_names, function(x){
             col_type <- dict[[x]]
-
-            # Meta columns that have arguments.
-            if (grepl("@COUNT.NON-OVERLAP" , x)) return ("integer")
-            else if (grepl("@COUNT.OVERLAP" , x)) return ("integer")
-
             #return column type, defaults to character
             if(is.null(col_type)) return("character")
             #need to change string to character
@@ -232,8 +225,6 @@ deepblue_column_types = function()
     dict[["@PROJECT"]] = "string"
     dict[["@BIOSOURCE"]] = "string"
     dict[["@SAMPLE_ID"]] = "string"
-    dict[["@GENE_NAME"]] = "string"
-    dict[["@GENE_ID"]] = "string"
     dict[["@AGG.MIN"]] = "double"
     dict[["@AGG.MAX"]] = "double"
     dict[["@AGG.MEDIAN"]] = "double"
