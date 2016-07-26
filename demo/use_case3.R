@@ -51,6 +51,5 @@ results <- deepblue_batch_export_results(
     requests,
     target.directory="data/reg_t_cell_aggregation")
 
-#look at the results. from the four experiments listed, two contained the
-#information we needed.
+#look at the results. Them contained the information we needed.
 results
