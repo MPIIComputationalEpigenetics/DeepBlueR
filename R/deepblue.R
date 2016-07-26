@@ -24,12 +24,12 @@ deepblue_debug_VERBOSE = FALSE
 
 
 
-#' @export 
-#' 
-#' @title aggregate 
+#' @export
+#'
+#' @title aggregate
 #' @description Summarize the data_id content using the regions specified in ranges_id as boundaries. Use the fields @AGG.MIN, @AGG.MAX, @AGG.MEDIAN, @AGG.MEAN, @AGG.VAR, @AGG.SD, @AGG.COUNT in 'get_regions' command 'format' parameter to retrieve the computed values minimum, maximum, median, mean, variance, standard deviation and number of regions, respectively.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param data_id - A string (id of the query with the data)
 #' @param ranges_id - A string (id of the query with the regions range)
 #' @param column - A string (name of the column that will be used in the aggregation)
@@ -100,12 +100,12 @@ deepblue_aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
 
 
 
-#' @export 
-#' 
-#' @title cancel_request 
+#' @export
+#'
+#' @title cancel_request
 #' @description Stop, cancel, and remove request data. The request processed data is remove if its processing was finished.
 #' @family Commands for all types of data
-#' 
+#'
 #' @param id - A string (Request ID to be canceled, stopped or removed.)
 #' @param user_key - A string (users token key)
 #'
@@ -166,12 +166,12 @@ deepblue_cancel_request <- function(id= NULL, user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title chromosomes 
+#' @export
+#'
+#' @title chromosomes
 #' @description List the chromosomes of a given Genome.
 #' @family Inserting and listing genomes
-#' 
+#'
 #' @param genome - A string (the target genome)
 #' @param user_key - A string (users token key)
 #'
@@ -232,12 +232,12 @@ deepblue_chromosomes <- function(genome= NULL, user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title collection_experiments_count 
+#' @export
+#'
+#' @title collection_experiments_count
 #' @description Count the number of experiments that match the selection criteria in each term of the selected controlled_vocabulary. The selection can be achieved through specifying a list of BioSources, experimental Techniques, Epigenetic Marks, Samples or Projects.
 #' @family Inserting and listing experiments
-#' 
+#'
 #' @param controlled_vocabulary - A string (controlled vocabulary name)
 #' @param genome - A string or a vector of string (the target genome)
 #' @param type - A string or a vector of string (type of the experiment: peaks or signal)
@@ -252,7 +252,7 @@ deepblue_chromosomes <- function(genome= NULL, user_key=deepblue_USER_KEY) {
 #'
 #' @examples
 #' deepblue_collection_experiments_count(
-#' 	controlled_vocabulary="epigenetic_marks",
+#'  controlled_vocabulary="epigenetic_marks",
 #'     genome = "hg19", type = "peaks",
 #'     biosource = "blood")
 #'
@@ -308,12 +308,12 @@ deepblue_collection_experiments_count <- function(controlled_vocabulary= NULL, g
 
 
 
-#' @export 
-#' 
-#' @title commands 
+#' @export
+#'
+#' @title commands
 #' @description List all available DeepBlue commands.
 #' @family Checking DeepBlue status
-#' 
+#'
 #'
 #' @return commands - A struct (command descriptions)
 #'
@@ -372,12 +372,12 @@ deepblue_commands <- function() {
 
 
 
-#' @export 
-#' 
-#' @title count_regions 
+#' @export
+#'
+#' @title count_regions
 #' @description  Return the number of genomic regions present in the query.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (Query ID)
 #' @param user_key - A string (users token key)
 #'
@@ -440,12 +440,12 @@ deepblue_count_regions <- function(query_id= NULL, user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title coverage 
+#' @export
+#'
+#' @title coverage
 #' @description Send a request to count the number of regions in the result of the given query.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (Query ID)
 #' @param genome - A string (Genome where the coverage will be calculated to)
 #' @param user_key - A string (users token key)
@@ -509,12 +509,12 @@ deepblue_coverage <- function(query_id= NULL, genome= NULL, user_key=deepblue_US
 
 
 
-#' @export 
-#' 
-#' @title echo 
+#' @export
+#'
+#' @title echo
 #' @description Greet the user with the DeepBlue version.
 #' @family Checking DeepBlue status
-#' 
+#'
 #' @param user_key - A string (users token key)
 #'
 #' @return message - A string (echo message including version)
@@ -574,12 +574,12 @@ deepblue_echo <- function(user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title extend 
+#' @export
+#'
+#' @title extend
 #' @description Extend the genomic regions included in the query. It is possible to extend downstream, upstream or in both directions.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (id of the query that contains the regions)
 #' @param length - A int (The new region length)
 #' @param direction - A string (The direction that the region will be extended: 'BACKWARD', 'FORWARD', 'BOTH'. (Empty value will be used for both direction.)
@@ -648,12 +648,12 @@ deepblue_extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
 
 
 
-#' @export 
-#' 
-#' @title extract_ids 
+#' @export
+#'
+#' @title extract_ids
 #' @description A utility command that returns a list of IDs extracted from a list of ID and names.
 #' @family Utilities for connecting operations
-#' 
+#'
 #' @param list - A array (list of lists of IDs and names)
 #'
 #' @return ids - A array (list containing the extracted IDs)
@@ -715,12 +715,12 @@ deepblue_extract_ids <- function(list= NULL) {
 
 
 
-#' @export 
-#' 
-#' @title extract_names 
+#' @export
+#'
+#' @title extract_names
 #' @description A utility command that returns a list of names extracted from a list of ID and names.
 #' @family Utilities for connecting operations
-#' 
+#'
 #' @param list - A array (list of lists of IDs and Names)
 #'
 #' @return names - A array (list containing the extracted names)
@@ -782,12 +782,12 @@ deepblue_extract_names <- function(list= NULL) {
 
 
 
-#' @export 
-#' 
-#' @title faceting_experiments 
+#' @export
+#'
+#' @title faceting_experiments
 #' @description Summarize the controlled_vocabulary fields, from experiments that match the selection criteria. It is similar to the 'collection_experiments_count' command, but this command return the summarization for all controlled_vocabulary terms.
 #' @family Inserting and listing experiments
-#' 
+#'
 #' @param genome - A string or a vector of string (the target genome)
 #' @param type - A string or a vector of string (type of the experiment: peaks or signal)
 #' @param epigenetic_mark - A string or a vector of string (name(s) of selected epigenetic mark(s))
@@ -856,12 +856,12 @@ deepblue_faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
 
 
 
-#' @export 
-#' 
-#' @title filter_regions 
+#' @export
+#'
+#' @title filter_regions
 #' @description Filter the genomic regions by their content.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (id of the query to be filtered)
 #' @param field - A string (field that is filtered by)
 #' @param operation - A string (operation used for filtering. For 'string' must be '==' or '!=' and for 'number' must be one of these: ==,!=,>,>=,<,<=)
@@ -931,12 +931,12 @@ deepblue_filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 
 
 
-#' @export 
-#' 
-#' @title flank 
+#' @export
+#'
+#' @title flank
 #' @description Create a set of genomic regions that flank the query regions. The original regions are removed from the query. Use the merge command to combine flanking regions with the original query.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (id of the query that contains the regions)
 #' @param start - A int (Number of base pairs after the end of the region. Use a negative number to denote the number of base pairs before the start of the region.)
 #' @param length - A int (The new region length)
@@ -1005,12 +1005,12 @@ deepblue_flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
 
 
 
-#' @export 
-#' 
-#' @title get_biosource_children 
+#' @export
+#'
+#' @title get_biosource_children
 #' @description A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. These form a hierarchy in which children of a BioSource term can be fetched with this command. Children terms are more specific terms that are defined in the imported ontologies.
 #' @family Set the relationship between different biosources
-#' 
+#'
 #' @param biosource - A string (biosource name)
 #' @param user_key - A string (users token key)
 #'
@@ -1071,12 +1071,12 @@ deepblue_get_biosource_children <- function(biosource= NULL, user_key=deepblue_U
 
 
 
-#' @export 
-#' 
-#' @title get_biosource_parents 
+#' @export
+#'
+#' @title get_biosource_parents
 #' @description A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. These form a hierarchy in which the parent of a BioSource term can be fetched with this command. Parent terms are more generic terms that are defined in the imported ontologies.
 #' @family Set the relationship between different biosources
-#' 
+#'
 #' @param biosource - A string (biosource name)
 #' @param user_key - A string (users token key)
 #'
@@ -1137,12 +1137,12 @@ deepblue_get_biosource_parents <- function(biosource= NULL, user_key=deepblue_US
 
 
 
-#' @export 
-#' 
-#' @title get_biosource_related 
+#' @export
+#'
+#' @title get_biosource_related
 #' @description A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. These form a hierarchy in which the children of a BioSource term and its synonyms can be fetched with this command. Children terms are more specific terms that are defined in the imported ontologies. Synonyms are different aliases for the same biosource.
 #' @family Set the relationship between different biosources
-#' 
+#'
 #' @param biosource - A string (biosource name)
 #' @param user_key - A string (users token key)
 #'
@@ -1203,12 +1203,12 @@ deepblue_get_biosource_related <- function(biosource= NULL, user_key=deepblue_US
 
 
 
-#' @export 
-#' 
-#' @title get_biosource_synonyms 
+#' @export
+#'
+#' @title get_biosource_synonyms
 #' @description Obtain the synonyms of the specified biosource. Synonyms are different aliases for the same biosource. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line.
 #' @family Set the relationship between different biosources
-#' 
+#'
 #' @param biosource - A string (name of the biosource)
 #' @param user_key - A string (users token key)
 #'
@@ -1269,12 +1269,12 @@ deepblue_get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue_U
 
 
 
-#' @export 
-#' 
-#' @title get_experiments_by_query 
+#' @export
+#'
+#' @title get_experiments_by_query
 #' @description List the experiments and annotations that have at least one genomic region in the final query result.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (id of the query)
 #' @param user_key - A string (users token key)
 #'
@@ -1335,12 +1335,12 @@ deepblue_get_experiments_by_query <- function(query_id= NULL, user_key=deepblue_
 
 
 
-#' @export 
-#' 
-#' @title get_regions 
+#' @export
+#'
+#' @title get_regions
 #' @description Trigger the processing of the query's genomic regions. The output is a column based format with columns as defined in the 'output_format' parameter. Use the command 'info' for verifying the processing status. The 'get_request_data' command is used to download the regions using the programmatic interface. Alternatively, results can be download using the URL: http://deepblue.mpi-inf.mpg.de/download?r_id=<request_id>&key=<user_key>.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (Query ID)
 #' @param output_format - A string (Output format)
 #' @param user_key - A string (users token key)
@@ -1405,12 +1405,12 @@ deepblue_get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
 
 
 
-#' @export 
-#' 
-#' @title get_request_data 
+#' @export
+#'
+#' @title get_request_data
 #' @description Download the requested data. The output can be (i) a string (get_regions, score_matrix, and count_regions), or (ii) a list of ID and names (get_experiments_by_query), or (iii) a struct (coverage).
 #' @family Requests status information and results
-#' 
+#'
 #' @param request_id - A string (ID of the request)
 #' @param user_key - A string (users token key)
 #'
@@ -1477,12 +1477,12 @@ deepblue_get_request_data <- function(request_id= NULL, user_key=deepblue_USER_K
 
 
 
-#' @export 
-#' 
-#' @title info 
+#' @export
+#'
+#' @title info
 #' @description Information about a DeepBlue data identifier (ID). Any DeepBlue data ID can be queried with this command. For example, it is possible to obtain all available information about an Experiment using its ID, to obtain the actual Request processing status or the information about a Sample. A user can obtain information about him- or herself using the value 'me' in the parameter 'id'. Multiple IDs can be queried in the same operation.
 #' @family Commands for all types of data
-#' 
+#'
 #' @param id - A string or a vector of string (ID or an array of IDs)
 #' @param user_key - A string (users token key)
 #'
@@ -1543,29 +1543,29 @@ deepblue_info <- function(id= NULL, user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title input_regions 
+#' @export
+#'
+#' @title input_regions
 #' @description Upload a set of genomic regions that can be accessed through a query ID. An interesting use case for this command is to upload a set of custom regions for intersecting with genomic regions in DeepBlue to specifically select regions of interest.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param genome - A string (the target genome)
-#' @param region_set - A string (Regions in CHROMOSOME	START	END format)
+#' @param region_set - A string (Regions in CHROMOSOME  START   END format)
 #' @param user_key - A string (users token key)
 #'
 #' @return id - A string (query id)
 #'
 #' @examples
-#' regions_set = "chr1	28735	29810
-#' chr1	135124	135563
-#' chr1	327790	328229
-#' chr1	437151	438164
-#' chr1	449273	450544
-#' chr1	533219	534114
-#' chr1	544738	546649
-#' chr1	713984	714547
-#' chr1	762416	763445
-#' chr1	788863	789211"
+#' regions_set = "chr1  28735   29810
+#' chr1 135124  135563
+#' chr1 327790  328229
+#' chr1 437151  438164
+#' chr1 449273  450544
+#' chr1 533219  534114
+#' chr1 544738  546649
+#' chr1 713984  714547
+#' chr1 762416  763445
+#' chr1 788863  789211"
 #' deepblue_input_regions(genome = "hg19",
 #'     region_set = regions_set)
 #'
@@ -1621,12 +1621,12 @@ deepblue_input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
 
 
 
-#' @export 
-#' 
-#' @title intersection 
+#' @export
+#'
+#' @title intersection
 #' @description Select genomic regions that intersect with at least one region of the second query.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_data_id - A string (query data that will be filtered.)
 #' @param query_filter_id - A string (query containing the regions that the regions of the query_data_id must overlap.)
 #' @param user_key - A string (users token key)
@@ -1694,12 +1694,12 @@ deepblue_intersection <- function(query_data_id= NULL, query_filter_id= NULL, us
 
 
 
-#' @export 
-#' 
-#' @title is_biosource 
+#' @export
+#'
+#' @title is_biosource
 #' @description Verify if the name is an existing and valid DeepBlue BioSource name. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line.
 #' @family Commands for all types of data
-#' 
+#'
 #' @param biosource - A string (biosource name)
 #' @param user_key - A string (users token key)
 #'
@@ -1760,12 +1760,12 @@ deepblue_is_biosource <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title list_annotations 
+#' @export
+#'
+#' @title list_annotations
 #' @description List all annotations of genomic regions currently available in DeepBlue.
 #' @family Inserting and listing annotations
-#' 
+#'
 #' @param genome - A string or a vector of string (the target genome)
 #' @param user_key - A string (users token key)
 #'
@@ -1826,12 +1826,12 @@ deepblue_list_annotations <- function(genome= NULL, user_key=deepblue_USER_KEY) 
 
 
 
-#' @export 
-#' 
-#' @title list_biosources 
+#' @export
+#'
+#' @title list_biosources
 #' @description List BioSources included in DeepBlue. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. It is possible to filter the BioSources by their extra_metadata fields content. These fields vary depending on the original data source.
 #' @family Inserting and listing biosources
-#' 
+#'
 #' @param extra_metadata - A struct (Metadata that must be matched)
 #' @param user_key - A string (users token key)
 #'
@@ -1892,12 +1892,12 @@ deepblue_list_biosources <- function(extra_metadata=NULL, user_key=deepblue_USER
 
 
 
-#' @export 
-#' 
-#' @title list_column_types 
+#' @export
+#'
+#' @title list_column_types
 #' @description Lists the ColumnTypes included in DeepBlue.
 #' @family Inserting and listing different column types
-#' 
+#'
 #' @param user_key - A string (users token key)
 #'
 #' @return column_types - A array (column types names and IDS)
@@ -1957,12 +1957,12 @@ deepblue_list_column_types <- function(user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title list_epigenetic_marks 
+#' @export
+#'
+#' @title list_epigenetic_marks
 #' @description List Epigenetic Marks included in DeepBlue. This includes histone marks, DNA methylation, DNA sensitivity, etc. It is possible to filter the Epigenetic Marks by their extra_metadata field content.
 #' @family Inserting and listing epigenetic marks
-#' 
+#'
 #' @param extra_metadata - A struct (Metadata that must be matched)
 #' @param user_key - A string (users token key)
 #'
@@ -2023,12 +2023,12 @@ deepblue_list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
 
 
 
-#' @export 
-#' 
-#' @title list_experiments 
+#' @export
+#'
+#' @title list_experiments
 #' @description  List the DeepBlue Experiments that matches the search criteria defined by this command parameters.
 #' @family Inserting and listing experiments
-#' 
+#'
 #' @param genome - A string or a vector of string (the target genome)
 #' @param type - A string or a vector of string (type of the experiment: peaks or signal)
 #' @param epigenetic_mark - A string or a vector of string (name(s) of selected epigenetic mark(s))
@@ -2096,12 +2096,12 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 
 
 
-#' @export 
-#' 
-#' @title list_gene_models 
+#' @export
+#'
+#' @title list_gene_models
 #' @description List all the Gene Models currently available in DeepBlue. A gene model is a set of genes usually imported from GENCODE. For example Gencode v22.
 #' @family Gene models and genes identifiers
-#' 
+#'
 #' @param user_key - A string (users token key)
 #'
 #' @return gene_models - A array (gene models names and IDS)
@@ -2161,12 +2161,12 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title list_genes 
+#' @export
+#'
+#' @title list_genes
 #' @description List all the Gene currently available in DeepBlue.
 #' @family Gene models and genes identifiers
-#' 
+#'
 #' @param gene_id_or_name - A string or a vector of string (Name(s) or ID(s) (ensembl id) of the selected gene(s))
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
@@ -2231,12 +2231,12 @@ deepblue_list_genes <- function(gene_id_or_name= NULL, chromosome= NULL, start= 
 
 
 
-#' @export 
-#' 
-#' @title list_genomes 
+#' @export
+#'
+#' @title list_genomes
 #' @description List Genomes assemblies that are registered in DeepBlue.
 #' @family Inserting and listing genomes
-#' 
+#'
 #' @param user_key - A string (users token key)
 #'
 #' @return genomes - A array (genome names)
@@ -2296,12 +2296,12 @@ deepblue_list_genomes <- function(user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title list_in_use 
+#' @export
+#'
+#' @title list_in_use
 #' @description List all terms used by the Experiments mandatory metadata that have at least one Experiment or Annotation using them.
 #' @family Commands for all types of data
-#' 
+#'
 #' @param controlled_vocabulary - A string (controlled vocabulary name)
 #' @param user_key - A string (users token key)
 #'
@@ -2362,12 +2362,12 @@ deepblue_list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue_
 
 
 
-#' @export 
-#' 
-#' @title list_projects 
+#' @export
+#'
+#' @title list_projects
 #' @description List Projects included in DeepBlue.
 #' @family Inserting and listing projects
-#' 
+#'
 #' @param user_key - A string (users token key)
 #'
 #' @return projects - A array (project names)
@@ -2427,12 +2427,12 @@ deepblue_list_projects <- function(user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title list_recent_experiments 
+#' @export
+#'
+#' @title list_recent_experiments
 #' @description List the latest Experiments included in DeepBlue that match criteria defined in the parameters. The returned experiments are sorted by insertion date.
 #' @family Inserting and listing experiments
-#' 
+#'
 #' @param days - A double (maximum days ago the experiments were added)
 #' @param genome - A string or a vector of string (the target genome)
 #' @param epigenetic_mark - A string or a vector of string (name(s) of selected epigenetic mark(s))
@@ -2498,12 +2498,12 @@ deepblue_list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
 
 
 
-#' @export 
-#' 
-#' @title list_requests 
+#' @export
+#'
+#' @title list_requests
 #' @description List the Requests made by the user. It is possible to obtain only the requests of a given state.
 #' @family Requests status information and results
-#' 
+#'
 #' @param request_state - A string (Name of the state to get requests for. The valid states are: new, running, done, and failed.)
 #' @param user_key - A string (users token key)
 #'
@@ -2564,12 +2564,12 @@ deepblue_list_requests <- function(request_state= NULL, user_key=deepblue_USER_K
 
 
 
-#' @export 
-#' 
-#' @title list_samples 
+#' @export
+#'
+#' @title list_samples
 #' @description List Samples included in DeepBlue. It is possible to filter by the BioSource and by extra_metadata fields content.
 #' @family Inserting and listing samples
-#' 
+#'
 #' @param biosource - A string or a vector of string (name(s) of selected biosource(s))
 #' @param extra_metadata - A struct (Metadata that must be matched)
 #' @param user_key - A string (users token key)
@@ -2631,12 +2631,12 @@ deepblue_list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
 
 
 
-#' @export 
-#' 
-#' @title list_similar_biosources 
+#' @export
+#'
+#' @title list_similar_biosources
 #' @description List all BioSources that have a similar name compared to the provided name. A BioSource refers to a term describing the origin of a given sample, such as a tissue or cell line. The similarity is calculated using the Levenshtein method.
 #' @family Inserting and listing biosources
-#' 
+#'
 #' @param name - A string (biosource name)
 #' @param user_key - A string (users token key)
 #'
@@ -2697,12 +2697,12 @@ deepblue_list_similar_biosources <- function(name= NULL, user_key=deepblue_USER_
 
 
 
-#' @export 
-#' 
-#' @title list_similar_epigenetic_marks 
+#' @export
+#'
+#' @title list_similar_epigenetic_marks
 #' @description List all Epigenetic Marks that have a similar name compared to the provided name. The similarity is calculated using the Levenshtein method.
 #' @family Inserting and listing epigenetic marks
-#' 
+#'
 #' @param name - A string (epigenetic mark name)
 #' @param user_key - A string (users token key)
 #'
@@ -2763,12 +2763,12 @@ deepblue_list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
 
 
 
-#' @export 
-#' 
-#' @title list_similar_experiments 
+#' @export
+#'
+#' @title list_similar_experiments
 #' @description List all Experiments that have a similar name compared to the provided name. The similarity is calculated using the Levenshtein method.
 #' @family Inserting and listing experiments
-#' 
+#'
 #' @param name - A string (experiment name)
 #' @param genome - A string or a vector of string (the target genome)
 #' @param user_key - A string (users token key)
@@ -2830,12 +2830,12 @@ deepblue_list_similar_experiments <- function(name= NULL, genome= NULL, user_key
 
 
 
-#' @export 
-#' 
-#' @title list_similar_genomes 
+#' @export
+#'
+#' @title list_similar_genomes
 #' @description Lists all Genomes that have a similar name compared to the provided name. The similarity is calculated using the Levenshtein method.
 #' @family Inserting and listing genomes
-#' 
+#'
 #' @param name - A string (genome name)
 #' @param user_key - A string (users token key)
 #'
@@ -2896,12 +2896,12 @@ deepblue_list_similar_genomes <- function(name= NULL, user_key=deepblue_USER_KEY
 
 
 
-#' @export 
-#' 
-#' @title list_similar_projects 
+#' @export
+#'
+#' @title list_similar_projects
 #' @description List Projects that have a similar name compared to the provided name. The similarity is calculated using the Levenshtein method.
 #' @family Inserting and listing projects
-#' 
+#'
 #' @param name - A string (project name)
 #' @param user_key - A string (users token key)
 #'
@@ -2962,12 +2962,12 @@ deepblue_list_similar_projects <- function(name= NULL, user_key=deepblue_USER_KE
 
 
 
-#' @export 
-#' 
-#' @title list_similar_techniques 
+#' @export
+#'
+#' @title list_similar_techniques
 #' @description List Techniques that have a similar name compared to the provided name. The similarity is calculated using the Levenshtein method.
 #' @family Inserting and listing techniques
-#' 
+#'
 #' @param name - A string (technique name)
 #' @param user_key - A string (users token key)
 #'
@@ -3028,12 +3028,12 @@ deepblue_list_similar_techniques <- function(name= NULL, user_key=deepblue_USER_
 
 
 
-#' @export 
-#' 
-#' @title list_techniques 
+#' @export
+#'
+#' @title list_techniques
 #' @description List the Techniques included in DeepBlue.
 #' @family Inserting and listing techniques
-#' 
+#'
 #' @param user_key - A string (users token key)
 #'
 #' @return techniques - A array (techniques)
@@ -3093,12 +3093,12 @@ deepblue_list_techniques <- function(user_key=deepblue_USER_KEY) {
 
 
 
-#' @export 
-#' 
-#' @title merge_queries 
+#' @export
+#'
+#' @title merge_queries
 #' @description Merge regions from two queries in a new query.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_a_id - A string (id of the first query)
 #' @param query_b_id - A string (id of the second query)
 #' @param user_key - A string (users token key)
@@ -3167,12 +3167,12 @@ deepblue_merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
 
 
 
-#' @export 
-#' 
-#' @title name_to_id 
+#' @export
+#'
+#' @title name_to_id
 #' @description Obtain the data ID(s) from the informed data name(s).
 #' @family Commands for all types of data
-#' 
+#'
 #' @param name - A string or a vector of string (ID or an array of IDs)
 #' @param collection - A string (Collection where the data name is in )
 #' @param user_key - A string (users token key)
@@ -3236,12 +3236,12 @@ deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_
 
 
 
-#' @export 
-#' 
-#' @title query_cache 
+#' @export
+#'
+#' @title query_cache
 #' @description Cache a query result in DeepBlue memory. This command is useful when the same query ID is used multiple times in different requests. The command is an advice for DeepBlue to cache the query result and there is no guarantee that this query data access will be faster.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (query ID)
 #' @param cache - A boolean (set or unset this query caching)
 #' @param user_key - A string (users token key)
@@ -3312,12 +3312,12 @@ deepblue_query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue_
 
 
 
-#' @export 
-#' 
-#' @title query_experiment_type 
+#' @export
+#'
+#' @title query_experiment_type
 #' @description Filter the query ID for regions associated with experiments of a given type. For example, it is possible to select only peaks using this command with the 'peaks' parameter.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param query_id - A string (query ID)
 #' @param type - A string (experiment type (peaks or signal))
 #' @param user_key - A string (users token key)
@@ -3386,12 +3386,12 @@ deepblue_query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
 
 
 
-#' @export 
-#' 
-#' @title score_matrix 
+#' @export
+#'
+#' @title score_matrix
 #' @description Build a matrix containing the aggregation result of the the experiments data by the aggregation boundaries.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param experiments_columns - A struct (map with experiments names and columns to be processed. Example : {'wgEncodeBroadHistoneDnd41H3k27acSig.wig':'VALUE', 'wgEncodeBroadHistoneCd20ro01794H3k27acSig.wig':'VALUE'})
 #' @param aggregation_function - A string (aggregation function name: min, max, mean, var, sd, median, count, boolean)
 #' @param aggregation_regions_id - A string (query ID of the regions that will be used as the aggregation boundaries)
@@ -3461,12 +3461,12 @@ deepblue_score_matrix <- function(experiments_columns= NULL, aggregation_functio
 
 
 
-#' @export 
-#' 
-#' @title search 
+#' @export
+#'
+#' @title search
 #' @description Search all data of all types for the given keyword. A minus (-) character in front of a keyword searches for data without the given keyword. The search can be restricted to the following data types are: Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Genes, Projects, Samples, Techniques, Tilings.
 #' @family Commands for all types of data
-#' 
+#'
 #' @param keyword - A string (keyword to search by)
 #' @param type - A string or a vector of string (type of data to search for - Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Genes, Projects, Samples, Techniques, Tilings)
 #' @param user_key - A string (users token key)
@@ -3530,12 +3530,12 @@ deepblue_search <- function(keyword= NULL, type= NULL, user_key=deepblue_USER_KE
 
 
 
-#' @export 
-#' 
-#' @title select_annotations 
-#' @description Select regions from the Annotations that match the selection criteria. 
+#' @export
+#'
+#' @title select_annotations
+#' @description Select regions from the Annotations that match the selection criteria.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param annotation_name - A string or a vector of string (name(s) of selected annotation(s))
 #' @param genome - A string or a vector of string (the target genome)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
@@ -3605,12 +3605,12 @@ deepblue_select_annotations <- function(annotation_name= NULL, genome= NULL, chr
 
 
 
-#' @export 
-#' 
-#' @title select_experiments 
+#' @export
+#'
+#' @title select_experiments
 #' @description Selects regions from Experiments by the experiments names.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param experiment_name - A string or a vector of string (name(s) of selected experiment(s))
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
@@ -3621,8 +3621,8 @@ deepblue_select_annotations <- function(annotation_name= NULL, genome= NULL, chr
 #'
 #' @examples
 #' deepblue_select_experiments(
-#' 	experiment_name = c("E002-H3K9ac.narrowPeak.bed",
-#' 						"E001-H3K4me3.gappedPeak.bed")
+#'  experiment_name = c("E002-H3K9ac.narrowPeak.bed",
+#'                      "E001-H3K4me3.gappedPeak.bed")
 #' )
 #'
 deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
@@ -3677,12 +3677,12 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 
 
 
-#' @export 
-#' 
-#' @title select_genes 
+#' @export
+#'
+#' @title select_genes
 #' @description Select genes (by their name or ID) as genomic regions from the specified gene model.
 #' @family Gene models and genes identifiers
-#' 
+#'
 #' @param genes_name - A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)
 #' @param gene_model - A string (gene model name)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
@@ -3751,12 +3751,12 @@ deepblue_select_genes <- function(genes_name= NULL, gene_model= NULL, chromosome
 
 
 
-#' @export 
-#' 
-#' @title select_regions 
+#' @export
+#'
+#' @title select_regions
 #' @description Selects Experiment regions that matches the criteria informed by the operation parameters.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param experiment_name - A string or a vector of string (name(s) of selected experiment(s))
 #' @param genome - A string or a vector of string (the target genome)
 #' @param epigenetic_mark - A string or a vector of string (name(s) of selected epigenetic mark(s))
@@ -3828,12 +3828,12 @@ deepblue_select_regions <- function(experiment_name= NULL, genome= NULL, epigene
 
 
 
-#' @export 
-#' 
-#' @title tiling_regions 
+#' @export
+#'
+#' @title tiling_regions
 #' @description Generate tiling regions across the genome chromosomes. The idea is to "bin" genomic regions systematically in order to obtain discrete regions over which one can aggregate. Using the 'score_matrix' command, these bins (tiles) can be compared directly across experiments.
 #' @family Operating on the data regions
-#' 
+#'
 #' @param size - A int (tiling size)
 #' @param genome - A string (the target genome)
 #' @param chromosome - A string or a vector of string (chromosome name(s))

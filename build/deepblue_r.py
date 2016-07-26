@@ -78,7 +78,7 @@ deepblue_%(name)s <- function(%(parameter_names)s) {
     else if(grepl("list|count" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
-        
+
         if(ncol(new_df) == 2){
             colnames(new_df) = c("id", "name")
             return(new_df)

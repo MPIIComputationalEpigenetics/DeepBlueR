@@ -6,7 +6,7 @@
 \usage{
 deepblue_select_regions(experiment_name = NULL, genome = NULL,
   epigenetic_mark = NULL, sample_id = NULL, technique = NULL,
-  project = NULL, chromosome = NULL, start = NULL, end = NULL,
+  project = NULL, chromosomes = NULL, start = NULL, end = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
@@ -22,7 +22,7 @@ deepblue_select_regions(experiment_name = NULL, genome = NULL,
 
 \item{project}{- A string or a vector of string (name(s) of selected projects)}
 
-\item{chromosome}{- A string or a vector of string (chromosome name(s))}
+\item{chromosomes}{- A string or a vector of string (chromosome name(s))}
 
 \item{start}{- A int (minimum start region)}
 

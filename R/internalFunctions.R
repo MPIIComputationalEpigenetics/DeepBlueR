@@ -96,25 +96,25 @@ deepblue_switch_get_request_data = function(request_id,
                request_data <- deepblue_get_request_data(request_id, user_key)
            }
     )
-    
+
     if(command == "count_regions")
         return(as.numeric(request_data))
-    
+
     # Only the get_regions and score_matrix commands can have
     # the data converted to tables.
     if (!command %in% c('get_regions','score_matrix')) {
         return(request_data)
     }
-    
+
     regions_df = deepblue_convert_to_df(
         string_to_parse=request_data, request_info=request_info)
-    
+
     if (request_info$command %in%
         c("score_matrix", "get_experiments_by_query") ||
         request_info$format == "") {
         return (regions_df)
     }
-    
+
     else if(command == "get_regions"){
         if(nrow(regions_df) > 0)
             return(deepblue_convert_to_grange(df=regions_df))
