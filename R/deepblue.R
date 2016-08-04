@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.8.0
+# For DeepBlue version 1.8.5
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -2080,6 +2080,9 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #' @description List all the Gene Expression currently available in DeepBlue. A gene expression is a set of genes with their expression values.
 #' @family Gene models and genes identifiers
 #' 
+#' @param sample_id - A string (sample ID(s))
+#' @param replica - A int or a vector of int (replica(s))
+#' @param project - A string or a vector of string (project(s) name)
 #' @param user_key - A string (users token key)
 #'
 #' @return gene_expressions - A array (gene expressions names and IDS)
@@ -2087,7 +2090,7 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #' @examples
 #' deepblue_list_gene_expressions()
 #'
-deepblue_list_gene_expressions <- function(user_key=deepblue_USER_KEY) {
+deepblue_list_gene_expressions <- function(sample_id= NULL, replica= NULL, project= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -2100,7 +2103,7 @@ deepblue_list_gene_expressions <- function(user_key=deepblue_USER_KEY) {
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'list_gene_expressions', user_key)
+    value <- xml.rpc(deepblue_URL, 'list_gene_expressions', sample_id, if (is.null(replica)) NULL else as.integer(replica), project, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -3895,6 +3898,7 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' @param sample_ids - A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)
 #' @param replicas - A int or a vector of int (replica(s))
 #' @param genes - A string or a vector of string (genes(s))
+#' @param projects - A string or a vector of string (projects(s))
 #' @param gene_model - A string (gene model name)
 #' @param user_key - A string (users token key)
 #'
@@ -3908,7 +3912,7 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #'     genes = genes_names,
 #'     gene_model = "gencode v23")
 #'
-deepblue_select_gene_expressions <- function(sample_ids= NULL, replicas= NULL, genes= NULL, gene_model= NULL, user_key=deepblue_USER_KEY) {
+deepblue_select_gene_expressions <- function(sample_ids= NULL, replicas= NULL, genes= NULL, projects= NULL, gene_model= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -3921,7 +3925,7 @@ deepblue_select_gene_expressions <- function(sample_ids= NULL, replicas= NULL, g
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'select_gene_expressions', sample_ids, if (is.null(replicas)) NULL else as.integer(replicas), genes, gene_model, user_key)
+    value <- xml.rpc(deepblue_URL, 'select_gene_expressions', sample_ids, if (is.null(replicas)) NULL else as.integer(replicas), genes, projects, gene_model, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))

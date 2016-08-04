@@ -5,7 +5,8 @@
 \title{select_gene_expressions}
 \usage{
 deepblue_select_gene_expressions(sample_ids = NULL, replicas = NULL,
-  genes = NULL, gene_model = NULL, user_key = deepblue_USER_KEY)
+  genes = NULL, projects = NULL, gene_model = NULL,
+  user_key = deepblue_USER_KEY)
 }
 \arguments{
 \item{sample_ids}{- A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)}
@@ -13,6 +14,8 @@ deepblue_select_gene_expressions(sample_ids = NULL, replicas = NULL,
 \item{replicas}{- A int or a vector of int (replica(s))}
 
 \item{genes}{- A string or a vector of string (genes(s))}
+
+\item{projects}{- A string or a vector of string (projects(s))}
 
 \item{gene_model}{- A string (gene model name)}
 

@@ -4,9 +4,16 @@
 \alias{deepblue_list_gene_expressions}
 \title{list_gene_expressions}
 \usage{
-deepblue_list_gene_expressions(user_key = deepblue_USER_KEY)
+deepblue_list_gene_expressions(sample_id = NULL, replica = NULL,
+  project = NULL, user_key = deepblue_USER_KEY)
 }
 \arguments{
+\item{sample_id}{- A string (sample ID(s))}
+
+\item{replica}{- A int or a vector of int (replica(s))}
+
+\item{project}{- A string or a vector of string (project(s) name)}
+
 \item{user_key}{- A string (users token key)}
 }
 \value{
