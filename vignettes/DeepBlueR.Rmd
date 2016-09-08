@@ -52,9 +52,9 @@ for example, CpG Islands, promoter regions, and genes. DeepBlue provides
 different types of commands, such as listing and searching commands as well as
 commands for data retrieval. A typical work-flow for the latter is to select,
 filter, transform, and finally download the selected data. For a more thorough
-description of DeepBlue we refer to the 
+description of DeepBlue we refer to the
 [DeepBlue publication](http://dx.doi.org/10.1093/nar/gkw211) in the 2016 NAR
-webserver issue. If you find DeepBlue useful and use it in your project consider 
+webserver issue. If you find DeepBlue useful and use it in your project consider
 citing this paper.
 
 
@@ -505,7 +505,7 @@ The aggregate values can be accessed through the @AGG meta-columns.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 query_id = deepblue_select_experiments (
-    experiment=c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig"),
+    experiment=c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig"),
     chromosome="chr1", start=0, end=50000000)
 cpg_islands = deepblue_select_annotations(annotation_name="CpG Islands",
     genome="GRCh38", chromosome="chr1", start=0, end=50000000)
@@ -536,11 +536,11 @@ The aggregation values can be accessed through the @AGG meta-columns.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 # Selecting the data from 2 experiments:
-#    GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig
+#    GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig
 # As we already know the experiments names, we keep all others fields empty.
 # We are selecting all regions of chromosome 1
 query_id = deepblue_select_experiments(
-    experiment=c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig"),
+    experiment=c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig"),
     chromosome="chr1")
 
 #  Tiling regions of 100.000 base pairs
@@ -653,11 +653,11 @@ value to its log scale value.
 # Select the RP11-34P13 gene locations from gencode v23
 
 # Selecting the data from 2 experiments:
-#    GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig
+#    GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig
 # As we already know the experiments names, we keep all others fields empty.
 # We are selecting all regions of chromosome 1
 query_id = deepblue_select_experiments(
-    experiment="GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
+    experiment="GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
     chromosome="chr1")
 
 # Select the CpG Islands annotation from GRCh38
@@ -731,15 +731,15 @@ finishes in the server, download the data, and convert to a GRanges object.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 experiments =
-    c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "C003N351.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "C005VG51.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "S002R551.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "NBC_NC11_41.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "bmPCs-V156.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "S00BS451.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "S00D1DA1.CPG_methylation_calls.bs_call.GRCh38.20150707.wig",
-        "S00D39A1.CPG_methylation_calls.bs_call.GRCh38.20150707.wig")
+    c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "C003N351.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "C005VG51.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "S002R551.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "NBC_NC11_41.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "bmPCs-V156.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "S00BS451.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "S00D1DA1.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+        "S00D39A1.CPG_methylation_calls.bs_call.GRCh38.20160531.wig")
 
 experiments_columns = list()
 for (experiment_name in experiments) {

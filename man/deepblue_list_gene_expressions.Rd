@@ -8,7 +8,7 @@ deepblue_list_gene_expressions(sample_id = NULL, replica = NULL,
   project = NULL, user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{sample_id}{- A string (sample ID(s))}
+\item{sample_id}{- A string or a vector of string (sample ID(s))}
 
 \item{replica}{- A int or a vector of int (replica(s))}
 

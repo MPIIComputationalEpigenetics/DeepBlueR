@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.8.5
+# For DeepBlue version 1.8.7
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -2080,7 +2080,7 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 #' @description List all the Gene Expression currently available in DeepBlue. A gene expression is a set of genes with their expression values.
 #' @family Gene models and genes identifiers
 #' 
-#' @param sample_id - A string (sample ID(s))
+#' @param sample_id - A string or a vector of string (sample ID(s))
 #' @param replica - A int or a vector of int (replica(s))
 #' @param project - A string or a vector of string (project(s) name)
 #' @param user_key - A string (users token key)
@@ -3895,9 +3895,9 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' @description Select genes (by their name or ID) as genomic regions from the specified gene model.
 #' @family Gene models and genes identifiers
 #' 
-#' @param sample_ids - A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)
+#' @param sample_ids - A string or a vector of string (id(s) of selected sample(s))
 #' @param replicas - A int or a vector of int (replica(s))
-#' @param genes - A string or a vector of string (genes(s))
+#' @param genes - A string or a vector of string (genes(s) - ensembl ID or ENSB name. It does accept regular expressions. For example: '.*' to select all genes.)
 #' @param projects - A string or a vector of string (projects(s))
 #' @param gene_model - A string (gene model name)
 #' @param user_key - A string (users token key)

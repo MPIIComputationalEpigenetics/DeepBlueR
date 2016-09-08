@@ -9,11 +9,11 @@ deepblue_select_gene_expressions(sample_ids = NULL, replicas = NULL,
   user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{sample_ids}{- A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)}
+\item{sample_ids}{- A string or a vector of string (id(s) of selected sample(s))}
 
 \item{replicas}{- A int or a vector of int (replica(s))}
 
-\item{genes}{- A string or a vector of string (genes(s))}
+\item{genes}{- A string or a vector of string (genes(s) - ensembl ID or ENSB name. It does accept regular expressions. For example: '.*' to select all genes.)}
 
 \item{projects}{- A string or a vector of string (projects(s))}
 
