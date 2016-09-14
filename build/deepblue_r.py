@@ -115,6 +115,7 @@ def main():
   'add_sample_from_gsm',
   'add_technique',
   'add_user_to_project',
+  'create_experiments_set',
   'set_biosource_parent',
   'set_biosource_synonym',
   'set_project_public',
