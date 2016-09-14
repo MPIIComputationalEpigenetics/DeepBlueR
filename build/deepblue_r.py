@@ -75,7 +75,7 @@ deepblue_%(name)s <- function(%(parameter_names)s) {
             user_key = user_key
         )
     }
-    else if(grepl("list|count|related" , method_name) && !grepl("genes|column_types", method_name)){
+    else if(grepl("get|list|count|related" , method_name) && !grepl("genes|column_types", method_name)){
         new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
         new_df <- as.data.frame(new_df)
 
