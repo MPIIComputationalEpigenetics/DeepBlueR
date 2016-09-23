@@ -11,7 +11,7 @@
 
 <meta name="author" content="Felipe Albrecht" />
 
-<meta name="date" content="2016-09-14" />
+<meta name="date" content="2016-09-23" />
 
 <title>The DeepBlue epigenomic data server - R package</title>
 
@@ -118,7 +118,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">The DeepBlue epigenomic data server - R package</h1>
 <h4 class="author"><em>Felipe Albrecht</em></h4>
-<h4 class="date"><em>2016-09-14</em></h4>
+<h4 class="date"><em>2016-09-23</em></h4>
 
 </div>
 
@@ -144,6 +144,7 @@ $(document).ready(function () {
 <li><a href="#dna-pattern-matching-operations">DNA pattern matching operations</a></li>
 <li><a href="#genes">Genes</a></li>
 <li><a href="#aggregate-and-summarize-regions">Aggregate and summarize regions</a></li>
+<li><a href="#gene-expressions">Gene expressions</a></li>
 <li><a href="#tiling-regions">Tiling regions</a></li>
 <li><a href="#flanking-regions">Flanking regions</a></li>
 <li><a href="#calculated-columns">Calculated columns</a></li>
@@ -254,55 +255,60 @@ install_github(&quot;MPIIComputationalEpigenetics/DeepBlueR&quot;)</code></pre>
 </tr>
 <tr class="odd">
 <td align="left"></td>
+<td align="left">select_gene_expressions</td>
+<td align="left">Select genes expression data</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
 <td align="left">tiling_regions</td>
 <td align="left">Generate tiling regions</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">input_regions</td>
 <td align="left">Upload and use a small region-set</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Operation</td>
 <td align="left">aggregate</td>
 <td align="left">Aggregate and summarize regions</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">filter_regions</td>
 <td align="left">Filter regions by theirs attributes</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">flank</td>
 <td align="left">Generate flanking regions</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">intersection</td>
 <td align="left">Filter overlapping regions</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">merge_queries</td>
 <td align="left">Merge two regions set</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Result</td>
 <td align="left">count_regions</td>
 <td align="left">Count selected regions</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">score_matrix</td>
 <td align="left">Request a score matrix</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">get_regions</td>
 <td align="left">Request the selected regions</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Request</td>
 <td align="left">get_request data</td>
 <td align="left">Obtain the requested data</td>
@@ -466,7 +472,7 @@ regions</code></pre>
 <p>The <code>get_regions</code> command is asynchronous. It means that the user receives a <code>request_id</code> and should check the status of this request. The specific DeepBlueR package command <code>download_request_data</code> wait for the processing finishes in the server, download the data, and convert to a GRanges object.</p>
 <pre class="r"><code>samples = deepblue_list_samples(
     biosource=&quot;myeloid cell&quot;,
-    extra_metadata = list(&quot;source&quot; = &quot;BLUEPRINT Epigenomics&quot;))
+    extra_metadata = list(&quot;source&quot; = &quot;BLUEPRINT Epigenome&quot;))
 samples_ids = deepblue_extract_ids(samples)
 query_id = deepblue_select_regions(genome=&quot;GRCh38&quot;, sample=samples_ids,
     chromosome=&quot;chr1&quot;, start=0, end=50000)
@@ -760,6 +766,37 @@ regions</code></pre>
 ##   [1100]    0.0009         0
 ##   -------
 ##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
+</div>
+<div id="gene-expressions" class="section level3">
+<h3>Gene expressions</h3>
+<p>We use the <code>select_gene_expressions</code> command to select the expression and map to a genomic coordinates. In the following example we get the gene expression of 3 genes NOX3, NOXA1, and NOX4 from all biosources related to the <code>hematopoietic stem cell</code> from the BLUEPRINT project.</p>
+<pre class="r"><code>hsc_children = deepblue_get_biosource_children(&quot;hematopoietic stem cell&quot;)
+
+hsc_children_name = deepblue_extract_names(hsc_children)
+
+hsc_children_samples = deepblue_list_samples(
+    biosource = hsc_children_name,
+    extra_metadata = list(source=&quot;BLUEPRINT Epigenome&quot;))
+
+hsc_samples_ids = deepblue_extract_ids(hsc_children_samples)
+
+# Unhapilly the gene expression data in BLUEPRINT uses the ENS IDs, so
+# we used our page:
+# http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_genes.php
+# to obtained the following gene ids from the gencode v22
+# ENSG00000074771.3 - NOX3
+# ENSG00000188747.7 - NOXA1
+# ENSG00000086991.11 - NOX4
+gene_exprs_query = deepblue_select_gene_expressions(
+    sample_ids = hsc_samples_ids,
+    genes = c(&quot;ENSG00000074771.3&quot;, &quot;ENSG00000188747.7&quot;, &quot;ENSG00000086991.11&quot;),
+    gene_model = &quot;gencode v22&quot;)
+
+request_id = deepblue_get_regions(
+    query_id = gene_exprs_query,
+    output_format =&quot;@GENE_NAME(gencode v22),CHROMOSOME,START,END,FPKM,@BIOSOURCE&quot;)
+
+regions = deepblue_download_request_data(request_id = request_id)</code></pre>
 </div>
 <div id="tiling-regions" class="section level3">
 <h3>Tiling regions</h3>

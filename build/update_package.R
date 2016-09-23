@@ -9,11 +9,11 @@ if(!require(devtools)) stop("Package devtools needs to be installed.")
 if(api_update == 0)
 {
     setwd("../")
-    
+
     #update the documentation and check the package
     devtools::document(roclets=c('rd', 'collate', 'namespace', 'vignette'))
     check <- devtools::check()
-    
+
     #if there are no errors install package
     if(!is.list(check)) {
         devtools::install(build_vignettes = TRUE)

@@ -18,7 +18,7 @@ deepblue_score_matrix(experiments_columns = NULL,
 \item{user_key}{- A string (users token key)}
 }
 \value{
-regions - A string (BED formated regions)
+score_matrix - A string (the score matrix containing the summarized data)
 }
 \description{
 Build a matrix containing the aggregation result of the the experiments data by the aggregation boundaries.

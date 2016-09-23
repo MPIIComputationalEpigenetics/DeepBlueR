@@ -261,18 +261,14 @@ setMethod('convertToR', 'character',
 xmlRPCToR =
     function(node, ...)
     {
-        if(is.null(node))
-            return(NULL)
-
-        if(xmlName(node) == "value") {
-            node = node[[1]]
-        }
-
-        if(is(node, "XMLInternalTextNode")) {
-            return(xmlValue(node))
-        }
-
         type = xmlName(node)
+
+        # if the node is a 'value' node, get its child element
+        if (type == "value") {
+          node = node[[1]]
+          type = xmlName(node)
+        }
+
         switch(type,
                'array' = xmlRPCToR.array(node, ...),
                'struct' = xmlRPCToR.struct(node, ...),
@@ -292,21 +288,19 @@ xmlRPCToR =
 xmlRPCToR.struct =
     function(node, ...)
     {
-        ans = xmlApply(node, function(x) xmlRPCToR(x[["value"]][[1]], ...))
-        names(ans) = xmlSApply(node, function(x) xmlValue(x[["name"]]))
+        ans = xmlApply(node, function(x) xmlRPCToR(x[[2]][[1]], ...))
+        names(ans) = xmlSApply(node, function(x) xmlValue(x[[1]]))
         ans
     }
 
 xmlRPCToR.array =
     function(node, ...)
     {
-        i <- 1
-        result <- list()
-        while(!is.null(node[["data"]][[i]])){
-            result <- append(result, list(xmlRPCToR(node[["data"]][[i]])))
-            i <- i + 1
-        }
-        return(result)
+      result <- list()
+      for (element in xmlChildren(node[[1]])) {
+        result <- append(result, list(xmlRPCToR(element)))
+      }
+      return(result)
     }
 
 check_value =

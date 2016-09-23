@@ -181,6 +181,7 @@ deepblue_convert_to_df = function(string_to_parse, request_info,
 #'@description Converts the requested data into GRanges object.
 #'Expects one input; A dataframe with requested data.
 #'@importFrom GenomicRanges makeGRangesFromDataFrame
+#'@importFrom GenomicRanges as.data.frame
 #'@param df A data frame
 #'@return region_gr A GRanges object
 #'

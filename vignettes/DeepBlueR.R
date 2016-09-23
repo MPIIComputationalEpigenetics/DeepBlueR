@@ -63,7 +63,7 @@ regions
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 samples = deepblue_list_samples(
     biosource="myeloid cell",
-    extra_metadata = list("source" = "BLUEPRINT Epigenomics"))
+    extra_metadata = list("source" = "BLUEPRINT Epigenome"))
 samples_ids = deepblue_extract_ids(samples)
 query_id = deepblue_select_regions(genome="GRCh38", sample=samples_ids,
     chromosome="chr1", start=0, end=50000)
@@ -168,6 +168,35 @@ request_id = deepblue_get_regions(query_id=overlapped,
       "CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEAN,@AGG.VAR")
 regions = deepblue_download_request_data(request_id=request_id)
 regions
+
+## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
+hsc_children = deepblue_get_biosource_children("hematopoietic stem cell")
+
+hsc_children_name = deepblue_extract_names(hsc_children)
+
+hsc_children_samples = deepblue_list_samples(
+    biosource = hsc_children_name,
+    extra_metadata = list(source="BLUEPRINT Epigenome"))
+
+hsc_samples_ids = deepblue_extract_ids(hsc_children_samples)
+
+# Unhapilly the gene expression data in BLUEPRINT uses the ENS IDs, so
+# we used our page:
+# http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_genes.php
+# to obtained the following gene ids from the gencode v22
+# ENSG00000074771.3 - NOX3
+# ENSG00000188747.7 - NOXA1
+# ENSG00000086991.11 - NOX4
+gene_exprs_query = deepblue_select_gene_expressions(
+    sample_ids = hsc_samples_ids,
+    genes = c("ENSG00000074771.3", "ENSG00000188747.7", "ENSG00000086991.11"),
+    gene_model = "gencode v22")
+
+request_id = deepblue_get_regions(
+    query_id = gene_exprs_query,
+    output_format ="@GENE_NAME(gencode v22),CHROMOSOME,START,END,FPKM,@BIOSOURCE")
+
+regions = deepblue_download_request_data(request_id = request_id)
 
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 # Selecting the data from 2 experiments:
