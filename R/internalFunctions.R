@@ -8,14 +8,14 @@
 setGeneric("deepblue_wait_request", function(request_id, sleep_time = 1,
                                              user_key=deepblue_USER_KEY)
 {
-    info = deepblue_info(request_id, user_key)[[1]]
+    info = deepblue_info(request_id, user_key)
     state = info$state
     if(is.null(state)) stop("no state information found")
     while (!state %in% c('done','error','failed') &&
       !is.null(sleep_time) )
     {
         Sys.sleep(sleep_time)
-        info = deepblue_info(request_id, user_key)[[1]]
+        info = deepblue_info(request_id, user_key)
         state = info$state
     }
     return (info)
@@ -60,7 +60,7 @@ deepblue_switch_get_request_data = function(request_id,
 {
     deepblue_wait_request(request_id, user_key=user_key)
 
-    request_info = deepblue_info(request_id, user_key)[[1]]
+    request_info = deepblue_info(request_id, user_key)
     if (request_info$state != "done") {
         stop("Processing was not finished.
              Please, check it status with deepblue_info(request_id)");
@@ -118,8 +118,11 @@ deepblue_switch_get_request_data = function(request_id,
     }
 
     else if(command == "get_regions"){
-        if(nrow(regions_df) > 0)
+        if(nrow(regions_df) > 0){
+            regions_df$START <- as.integer(regions_df$START)
+            regions_df$END <- as.integer(regions_df$END)
             return(deepblue_convert_to_grange(df=regions_df))
+        }
         else
             stop("No regions were returned in this request.")
     }
@@ -209,20 +212,11 @@ deepblue_convert_to_grange = function (df = NULL)
 deepblue_column_types = function()
 {
     cols = deepblue_list_column_types()
-    col_ids = c()
-    for (i in 1:length(cols))
-    {
-        co=cols[[i]][[1]]
-        col_ids = c(col_ids,co)
-    }
-
-    col_names=c()
-    col_types = c()
-    col_info = deepblue_info(col_ids)
+    col_info = deepblue_info(cols$id)
     dict=new.env()
     for (i in 1:length(col_info))
     {
-        dict[[col_info[[i]]$name]] = col_info[[i]]$column_type
+        dict[[col_info$name[i]]] = col_info$column_type[i]
     }
 
     #add extra column types not reported by DeepBlue

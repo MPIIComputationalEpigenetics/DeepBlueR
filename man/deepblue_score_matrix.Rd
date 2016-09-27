@@ -11,7 +11,7 @@ deepblue_score_matrix(experiments_columns = NULL,
 \arguments{
 \item{experiments_columns}{- A struct (map with experiments names and columns to be processed. Example : {'wgEncodeBroadHistoneDnd41H3k27acSig.wig':'VALUE', 'wgEncodeBroadHistoneCd20ro01794H3k27acSig.wig':'VALUE'})}
 
-\item{aggregation_function}{- A string (aggregation function name: min, max, mean, var, sd, median, count, boolean)}
+\item{aggregation_function}{- A string (aggregation function name: min, max, sum, mean, var, sd, median, count, boolean)}
 
 \item{aggregation_regions_id}{- A string (query ID of the regions that will be used as the aggregation boundaries)}
 

@@ -75,24 +75,13 @@ deepblue_%(name)s <- function(%(parameter_names)s) {
             user_key = user_key
         )
     }
-    else if(grepl("get|list|count|related" , method_name) && !grepl("genes|column_types", method_name)){
-        new_df <- do.call("rbind", lapply(value[[2]], function(x){ unlist(x) }))
-        new_df <- as.data.frame(new_df)
-
-        if(ncol(new_df) == 2){
-            colnames(new_df) = c("id", "name")
-            return(new_df)
-        } else if(ncol(new_df) == 3)
-        {
-            colnames(new_df) = c("id", "name", "count")
-            new_df$count <- as.integer(new_df$count)
-            return(new_df)
-        }
-        else{
-            colnames(new_df)[1] = "id"
-            return(new_df)
-        }
+    
+    if(is.data.frame(value[[2]]) && "count" %%in%% colnames(value[[2]])){
+        result <- value[[2]]
+        result$count <- as.integer(result$count)
+        return(result)
     }
+    
     return(value[[2]])
 }
 """

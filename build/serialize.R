@@ -288,19 +288,67 @@ xmlRPCToR =
 xmlRPCToR.struct =
     function(node, ...)
     {
-        ans = xmlApply(node, function(x) xmlRPCToR(x[[2]][[1]], ...))
-        names(ans) = xmlSApply(node, function(x) xmlValue(x[[1]]))
-        ans
+        #check if our structure is nested
+        descendant_struct <- getNodeSet(node, ".//struct")
+        
+        #case where we have tabular data
+        if(length(descendant_struct) == 0){
+            strings <- xpathSApply(node, "./member", getChildrenStrings)
+            values <- as.list(strings[2,])
+            names(values) <- strings[1,]
+            return(values)
+        }
+        
+        #further structs means recursive processing
+        else{
+            ans = xmlApply(node, function(x) xmlRPCToR(x[[2]][[1]], ...))
+            names(ans) = xmlSApply(node, function(x) xmlValue(x[[1]]))
+            return(ans)
+        }
     }
 
 xmlRPCToR.array =
     function(node, ...)
     {
-      result <- list()
-      for (element in xmlChildren(node[[1]])) {
-        result <- append(result, list(xmlRPCToR(element)))
-      }
-      return(result)
+        nodeSize <- xmlSize(node[[1]])
+        status <- NULL
+        elements <- xmlChildren(node[[1]])
+        
+        if(nodeSize == 2){
+            status <- xmlRPCToR(elements[[1]])
+            result <- xmlRPCToR(elements[[2]])
+        }
+        else{
+            result <- vector("list", nodeSize)
+            for(element in 1:nodeSize) {
+                result[[element]] <- xmlRPCToR(elements[[element]])
+            }
+            
+            for(r in 1:length(result)){
+                test_result <- result[[r]]
+                if(is.null(names(test_result))){
+                    if(length(test_result) == 2){
+                        names(result[[r]]) = c("id", "name")
+                        
+                        if(length(result[[r]]$name) > 1)
+                            result[[r]] <- c(id = result[[r]]$id, result[[r]]$name)
+                    } 
+                    else if(length(test_result) == 3)
+                    {
+                        names(result[[r]]) = c("id", "name", "count")
+                    }
+                }
+            }
+            if(is.list(result) && length(result) == 1) return(result[[1]])
+            
+            framed_result <- tryCatch(data.table::rbindlist(result, fill = TRUE),
+                                      error = function(e){ return(result)})
+            
+            return(framed_result)
+            
+        }
+        if(is.null(status)) return(result)
+        else return(list(status, result))
     }
 
 check_value =

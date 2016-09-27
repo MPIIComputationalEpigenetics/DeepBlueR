@@ -11,7 +11,7 @@
 
 <meta name="author" content="Felipe Albrecht" />
 
-<meta name="date" content="2016-09-23" />
+<meta name="date" content="2016-09-27" />
 
 <title>The DeepBlue epigenomic data server - R package</title>
 
@@ -118,7 +118,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">The DeepBlue epigenomic data server - R package</h1>
 <h4 class="author"><em>Felipe Albrecht</em></h4>
-<h4 class="date"><em>2016-09-23</em></h4>
+<h4 class="date"><em>2016-09-27</em></h4>
 
 </div>
 
@@ -144,7 +144,7 @@ $(document).ready(function () {
 <li><a href="#dna-pattern-matching-operations">DNA pattern matching operations</a></li>
 <li><a href="#genes">Genes</a></li>
 <li><a href="#aggregate-and-summarize-regions">Aggregate and summarize regions</a></li>
-<li><a href="#gene-expressions">Gene expressions</a></li>
+<li><a href="#gene-expression">Gene expression</a></li>
 <li><a href="#tiling-regions">Tiling regions</a></li>
 <li><a href="#flanking-regions">Flanking regions</a></li>
 <li><a href="#calculated-columns">Calculated columns</a></li>
@@ -356,13 +356,13 @@ install_github(&quot;MPIIComputationalEpigenetics/DeepBlueR&quot;)</code></pre>
 experiments_found = deepblue_search(
     keyword=&quot;'H3k27AC' 'blood' 'peak'&quot;, type=&quot;experiments&quot;)
 
-custom_table = do.call(&quot;rbind&quot;, lapply(experiments_found, function(experiment){
-  experiment_id = experiment[[1]]
+custom_table = do.call(&quot;rbind&quot;, apply(experiments_found, 1, function(experiment){
+  experiment_id = experiment[1]
   # Obtain the information about the experiment_id
   info = deepblue_info(experiment_id)
-  experiment_info = info[[1]]
+ 
   # Print the experiment name, project, biosource, and epigenetic mark.
-  with(experiment_info, { data.frame(name = name, project = project,
+  with(info, { data.frame(name = name, project = project,
     biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark)
       })
 }))
@@ -387,21 +387,13 @@ custom_table = do.call(&quot;rbind&quot;, lapply(experiments_found, function(exp
 <p>We use the <code>list_experiments</code> command to list all experiments with the corresponding values in theirs metadata.</p>
 <pre class="r"><code>experiments = deepblue_list_experiments(type=&quot;peaks&quot;, epigenetic_mark=&quot;H3K4me3&quot;,
     biosource=c(&quot;inflammatory macrophage&quot;, &quot;macrophage&quot;),
-    project=&quot;BLUEPRINT Epigenome&quot;)
-do.call(&quot;rbind&quot;, lapply(experiments,
-    function(x){ data.frame(id = x[[1]], experiment_name = x[[2]])}))</code></pre>
-<pre><code>##                                                       id
-## id                                                e92827
-## name S01H5IH1.ERX1304131.H3K4me3.bwa.GRCh38.20160310.bed
-##                                         experiment_name
-## id                                               e92444
-## name S0018AH2.ERX240840.H3K4me3.bwa.GRCh38.20150527.bed</code></pre>
+    project=&quot;BLUEPRINT Epigenome&quot;)</code></pre>
 </div>
 <div id="accessing-the-extra-metadata" class="section level3">
 <h3>Accessing the extra-metadata</h3>
 <p>The extra-metadata is important because it contains information that is not stored in the mandatory metadata fields. We use the info command to access an experiment’s metadata and its extra-metadata fields. The following example prints the <code>file_url</code> attribute that it is contained in the data imported from the ENCODE project.</p>
 <pre class="r"><code>info = deepblue_info(&quot;e30000&quot;)
-print(info[[1]]$extra_metadata$file_url)</code></pre>
+print(info$extra_metadata$file_url)</code></pre>
 <pre><code>## [1] &quot;https://www.encodeproject.org/files/ENCFF001YBB/&quot;</code></pre>
 </div>
 <div id="select-epigenomic-data" class="section level3">
@@ -435,7 +427,7 @@ regions = deepblue_download_request_data(request_id=request_id)
 regions</code></pre>
 <pre><code>## GRanges object with 3782 ranges and 4 metadata columns:
 ##          seqnames               ranges strand   | SIGNAL_VALUE      PEAK
-##             &lt;Rle&gt;            &lt;IRanges&gt;  &lt;Rle&gt;   |    &lt;numeric&gt; &lt;integer&gt;
+##             &lt;Rle&gt;            &lt;IRanges&gt;  &lt;Rle&gt;   |  &lt;character&gt; &lt;integer&gt;
 ##      [1]     chr1     [270668, 270987]      *   |       6.5758        39
 ##      [2]     chr1     [271277, 271468]      *   |       6.2148       136
 ##      [3]     chr1     [273768, 274209]      *   |      14.1567       164
@@ -516,7 +508,7 @@ regions = deepblue_download_request_data(request_id=request_id)
 regions</code></pre>
 <pre><code>## GRanges object with 160 ranges and 4 metadata columns:
 ##         seqnames               ranges strand   | SIGNAL_VALUE      PEAK
-##            &lt;Rle&gt;            &lt;IRanges&gt;  &lt;Rle&gt;   |    &lt;numeric&gt; &lt;integer&gt;
+##            &lt;Rle&gt;            &lt;IRanges&gt;  &lt;Rle&gt;   |  &lt;character&gt; &lt;integer&gt;
 ##     [1]     chr1   [1142428, 1144001]      *   |      10.9313      1275
 ##     [2]     chr1   [1573400, 1575582]      *   |      17.8805      1094
 ##     [3]     chr1   [1612814, 1616174]      *   |      32.2064      2802
@@ -566,7 +558,7 @@ regions = deepblue_download_request_data(request_id=request_id)
 regions</code></pre>
 <pre><code>## GRanges object with 608 ranges and 4 metadata columns:
 ##         seqnames               ranges strand   | SIGNAL_VALUE      PEAK
-##            &lt;Rle&gt;            &lt;IRanges&gt;  &lt;Rle&gt;   |    &lt;numeric&gt; &lt;integer&gt;
+##            &lt;Rle&gt;            &lt;IRanges&gt;  &lt;Rle&gt;   |  &lt;character&gt; &lt;integer&gt;
 ##     [1]     chr1     [903997, 904177]      *   |       4.7708        89
 ##     [2]     chr1     [904302, 905111]      *   |       5.4928       560
 ##     [3]     chr1     [910269, 910975]      *   |       4.7201       136
@@ -664,7 +656,7 @@ regions = deepblue_download_request_data(request_id=request_id)
 head(regions, 5)</code></pre>
 <pre><code>## GRanges object with 5 ranges and 7 metadata columns:
 ##       seqnames             ranges strand | SIGNAL_VALUE      PEAK
-##          &lt;Rle&gt;          &lt;IRanges&gt;  &lt;Rle&gt; |    &lt;numeric&gt; &lt;integer&gt;
+##          &lt;Rle&gt;          &lt;IRanges&gt;  &lt;Rle&gt; |  &lt;character&gt; &lt;integer&gt;
 ##   [1]     chr1 [ 273768,  274209]      * |      14.1567       164
 ##   [2]     chr1 [ 911203,  911477]      * |       4.8558       105
 ##   [3]     chr1 [ 916813,  917682]      * |      10.5467       183
@@ -713,7 +705,8 @@ q_filter = deepblue_filter_regions(query_id=q_genes,
     field=&quot;@GENE_ATTRIBUTE(gene_type)&quot;, operation=&quot;==&quot;,
     value=&quot;lincRNA&quot;, type=&quot;string&quot;)
 request_id=deepblue_get_regions(q_filter, &quot;CHROMOSOME,START,END,GTF_ATTRIBUTES&quot;)
-regions = deepblue_download_request_data(request_id=request_id)</code></pre>
+regions = deepblue_download_request_data(request_id=request_id)
+regions</code></pre>
 </div>
 <div id="aggregate-and-summarize-regions" class="section level3">
 <h3>Aggregate and summarize regions</h3>
@@ -767,8 +760,8 @@ regions</code></pre>
 ##   -------
 ##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
 </div>
-<div id="gene-expressions" class="section level3">
-<h3>Gene expressions</h3>
+<div id="gene-expression" class="section level3">
+<h3>Gene expression</h3>
 <p>We use the <code>select_gene_expressions</code> command to select the expression and map to a genomic coordinates. In the following example we get the gene expression of 3 genes NOX3, NOXA1, and NOX4 from all biosources related to the <code>hematopoietic stem cell</code> from the BLUEPRINT project.</p>
 <pre class="r"><code>hsc_children = deepblue_get_biosource_children(&quot;hematopoietic stem cell&quot;)
 
@@ -780,13 +773,7 @@ hsc_children_samples = deepblue_list_samples(
 
 hsc_samples_ids = deepblue_extract_ids(hsc_children_samples)
 
-# Unhapilly the gene expression data in BLUEPRINT uses the ENS IDs, so
-# we used our page:
-# http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_genes.php
-# to obtained the following gene ids from the gencode v22
-# ENSG00000074771.3 - NOX3
-# ENSG00000188747.7 - NOXA1
-# ENSG00000086991.11 - NOX4
+# Note that BLUEPRINT uses Ensembl Gene IDs
 gene_exprs_query = deepblue_select_gene_expressions(
     sample_ids = hsc_samples_ids,
     genes = c(&quot;ENSG00000074771.3&quot;, &quot;ENSG00000188747.7&quot;, &quot;ENSG00000086991.11&quot;),
@@ -796,7 +783,37 @@ request_id = deepblue_get_regions(
     query_id = gene_exprs_query,
     output_format =&quot;@GENE_NAME(gencode v22),CHROMOSOME,START,END,FPKM,@BIOSOURCE&quot;)
 
-regions = deepblue_download_request_data(request_id = request_id)</code></pre>
+regions = deepblue_download_request_data(request_id = request_id)
+regions</code></pre>
+<pre><code>## GRanges object with 617 ranges and 3 metadata columns:
+##         seqnames                 ranges strand   | @GENE_NAME(gencode v22)
+##            &lt;Rle&gt;              &lt;IRanges&gt;  &lt;Rle&gt;   |             &lt;character&gt;
+##     [1]     chr9 [137423350, 137434406]      *   |                   NOXA1
+##     [2]     chr9 [137423350, 137434406]      *   |                   NOXA1
+##     [3]     chr9 [137423350, 137434406]      *   |                   NOXA1
+##     [4]     chr9 [137423350, 137434406]      *   |                   NOXA1
+##     [5]     chr9 [137423350, 137434406]      *   |                   NOXA1
+##     ...      ...                    ...    ... ...                     ...
+##   [613]     chr6 [155395370, 155455903]      *   |                    NOX3
+##   [614]     chr6 [155395370, 155455903]      *   |                    NOX3
+##   [615]     chr6 [155395370, 155455903]      *   |                    NOX3
+##   [616]     chr6 [155395370, 155455903]      *   |                    NOX3
+##   [617]     chr6 [155395370, 155455903]      *   |                    NOX3
+##                FPKM                                      @BIOSOURCE
+##         &lt;character&gt;                                     &lt;character&gt;
+##     [1]      1.0700                                        monocyte
+##     [2]      1.2300                      CD38-negative naive B cell
+##     [3]      0.4600                    class switched memory B cell
+##     [4]      0.6600                                   memory B cell
+##     [5]      2.1800 CD14-positive, CD16-negative classical monocyte
+##     ...         ...                                             ...
+##   [613]      0.0000                       common myeloid progenitor
+##   [614]      0.0000            granulocyte monocyte progenitor cell
+##   [615]      0.0000                         hematopoietic stem cell
+##   [616]      0.0000         megakaryocyte-erythroid progenitor cell
+##   [617]      0.0000 CD14-positive, CD16-negative classical monocyte
+##   -------
+##   seqinfo: 3 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
 <div id="tiling-regions" class="section level3">
 <h3>Tiling regions</h3>

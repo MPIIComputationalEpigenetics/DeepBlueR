@@ -14,13 +14,13 @@ library(DeepBlueR)
 experiments_found = deepblue_search(
     keyword="'H3k27AC' 'blood' 'peak'", type="experiments")
 
-custom_table = do.call("rbind", lapply(experiments_found, function(experiment){
-  experiment_id = experiment[[1]]
+custom_table = do.call("rbind", apply(experiments_found, 1, function(experiment){
+  experiment_id = experiment[1]
   # Obtain the information about the experiment_id
   info = deepblue_info(experiment_id)
-  experiment_info = info[[1]]
+ 
   # Print the experiment name, project, biosource, and epigenetic mark.
-  with(experiment_info, { data.frame(name = name, project = project,
+  with(info, { data.frame(name = name, project = project,
     biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark)
       })
 }))
@@ -30,12 +30,10 @@ custom_table = do.call("rbind", lapply(experiments_found, function(experiment){
 experiments = deepblue_list_experiments(type="peaks", epigenetic_mark="H3K4me3",
     biosource=c("inflammatory macrophage", "macrophage"),
     project="BLUEPRINT Epigenome")
-do.call("rbind", lapply(experiments,
-    function(x){ data.frame(id = x[[1]], experiment_name = x[[2]])}))
 
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 info = deepblue_info("e30000")
-print(info[[1]]$extra_metadata$file_url)
+print(info$extra_metadata$file_url)
 
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 query_id = deepblue_select_experiments(
@@ -150,6 +148,7 @@ head(regions, 5)
 #      value="lincRNA", type="string")
 #  request_id=deepblue_get_regions(q_filter, "CHROMOSOME,START,END,GTF_ATTRIBUTES")
 #  regions = deepblue_download_request_data(request_id=request_id)
+#  regions
 
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 query_id = deepblue_select_experiments (
@@ -180,13 +179,7 @@ hsc_children_samples = deepblue_list_samples(
 
 hsc_samples_ids = deepblue_extract_ids(hsc_children_samples)
 
-# Unhapilly the gene expression data in BLUEPRINT uses the ENS IDs, so
-# we used our page:
-# http://deepblue.mpi-inf.mpg.de/dashboard.php#ajax/deepblue_view_genes.php
-# to obtained the following gene ids from the gencode v22
-# ENSG00000074771.3 - NOX3
-# ENSG00000188747.7 - NOXA1
-# ENSG00000086991.11 - NOX4
+# Note that BLUEPRINT uses Ensembl Gene IDs
 gene_exprs_query = deepblue_select_gene_expressions(
     sample_ids = hsc_samples_ids,
     genes = c("ENSG00000074771.3", "ENSG00000188747.7", "ENSG00000086991.11"),
@@ -197,6 +190,7 @@ request_id = deepblue_get_regions(
     output_format ="@GENE_NAME(gencode v22),CHROMOSOME,START,END,FPKM,@BIOSOURCE")
 
 regions = deepblue_download_request_data(request_id = request_id)
+regions
 
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 # Selecting the data from 2 experiments:
