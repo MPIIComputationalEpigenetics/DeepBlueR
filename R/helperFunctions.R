@@ -57,3 +57,33 @@ deepblue_extract_names <- function(df = NULL) {
     
     return(as.character(df$name))
 }
+
+#' @export 
+#' 
+#' @importFrom diffr diffr
+#' @importFrom stringr str_replace_all
+#' @importFrom rjson toJSON
+#' @title diff 
+#' @description A utility command that creates a diff view of info 
+#' for two DeepBlue ids
+#' @family Utilities for information processing
+#' 
+#' @param id1 - A DeepBlue id
+#' @param id2 - Another DeepBlue id
+#' @param user_key - A string (users token key)
+#'
+#' @return None
+#' @examples
+#' deepblue_diff(
+#'     id1 = "e16918",
+#'     id2 = "e16919")
+#'
+deepblue_diff <- function(id1, id2, user_key = deepblue_USER_KEY){
+    file1 = tempfile()
+    file1_info <- deepblue_info(id1, user_key = user_key)
+    writeLines(str_replace_all(rjson::toJSON(file1_info), ",", ",\n"), con = file1)
+    file2 = tempfile()
+    file2_info <- deepblue_info(id2, user_key = user_key)
+    writeLines(str_replace_all(rjson::toJSON(file2_info), ",", ",\n"), con = file2)
+    diffr(file1, file2, before = id1, after = id2)
+}

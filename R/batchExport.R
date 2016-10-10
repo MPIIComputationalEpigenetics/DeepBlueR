@@ -59,7 +59,7 @@ deepblue_batch_export_results <- function(requests,
             request_id <- requests[[request]]
 
             #update info
-            request_info <- deepblue_info(request_id, user_key = user_key)[[1]]
+            request_info <- deepblue_info(request_id, user_key = user_key)
 
             if(request_info$state == "done" && need.saving[request])
             {

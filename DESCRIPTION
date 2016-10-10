@@ -9,8 +9,10 @@ License: GPL (>=2.0)
 Imports: GenomicRanges,
     data.table,
     stringr,
+    diffr,
     dplyr,
     methods,
+    rjson,
     utils
 Depends: R (>= 3.3),
     XML,
