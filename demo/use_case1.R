@@ -15,7 +15,7 @@ sel_regions = deepblue_select_regions(genome = 'GRCh38',
                                       project = 'BLUEPRINT Epigenome',
                                       chromosome = 'chr1')
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #Extract peaks for H3k27ac
 
@@ -25,7 +25,7 @@ readline("press any key to continue")
 sel_regions_peaks = deepblue_query_experiment_type(query_id = sel_regions,
                                                    type = 'peaks')
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #Extract annotated promoter regions from GRCh38 genome assembly
 
@@ -36,7 +36,7 @@ promoters = deepblue_select_annotations(annotation_name = 'promoters',
                                         genome = 'GRCh38',
                                         chromosome = 'chr1')
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #filter for promoter regions having H3k27ac modification associated with them
 
@@ -48,25 +48,25 @@ readline("press any key to continue")
 sel_promoters = deepblue_intersection(query_data_id = sel_regions_peaks,
                                       query_filter_id = promoters)
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #Extract transcription factors AG01,AG02,and AG03 from ENCODE project
 tf = deepblue_select_regions(genome = 'hg19', epigenetic_mark = 'SP1',
                              project = 'ENCODE', chromosome = 'chr1')
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #Extract signal for transcription factors
 sel_tf_signal = deepblue_query_experiment_type(query_id = tf, type = 'signal')
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #Extract TFs overlaping with sel_promoters
 
 sel_tf = deepblue_intersection(query_data_id = tf,
                                query_filter_id = sel_promoters)
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #Get chromosome regions
 
@@ -77,7 +77,7 @@ req_regions = deepblue_get_regions(
     output_format = "CHROMOSOME,START,END,@NAME,@EPIGENETIC_MARK,@BIOSOURCE"
 )
 
-readline("press any key to continue")
+readline("press ENTER key to continue")
 
 #get regions that contains the TFs that overlap with the H3K27ac
 #and the promoters regions.

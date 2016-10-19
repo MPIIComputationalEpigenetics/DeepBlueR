@@ -87,3 +87,41 @@ deepblue_diff <- function(id1, id2, user_key = deepblue_USER_KEY){
     writeLines(str_replace_all(rjson::toJSON(file2_info), ",", ",\n"), con = file2)
     diffr(file1, file2, before = id1, after = id2)
 }
+
+#' @export 
+#' 
+#' @title select column 
+#' @description A utility command that creates a list of experiments 
+#' in which a specific column is selected. Such a list is needed as input
+#' for deepblue_score_matrix.
+#' @family Utilities for information processing
+#' @seealso \code{\link{deepblue_score_matrix}}
+#' @seealso \code{\link{deepblue_list_experiments}}
+#' 
+#' @param experiments - A data frame with experiments obtained from 
+#' deepblue_list_experiments
+#' @param column - The name of the column that is extracted from each experiment
+#' file
+#' @param user_key - A string (users token key)
+#'
+#' @return A list of experiments with the selected column
+#' @examples
+#' blueprint_DNA_meth <- deepblue_list_experiments(
+#' genome = "GRCh38", 
+#' epigenetic_mark = "DNA Methylation",
+#' technique = "Bisulfite-Seq",
+#' project = "BLUEPRINT EPIGENOME")
+#'
+#' blueprint_DNA_meth <- blueprint_DNA_meth[grep("bs_call", 
+#'  deepblue_extract_names(blueprint_DNA_meth)),]
+#'  
+#' exp_columns <- deepblue_select_column(blueprint_DNA_meth, "VALUE")
+deepblue_select_column <- function(experiments, column, user_key = deepblue_USER_KEY){
+    experiments_columns <- list()
+    
+    for(experiment in deepblue_extract_names(experiments)){
+        experiments_columns[[experiment]] <- column
+    }
+    
+    return(experiments_columns)
+}

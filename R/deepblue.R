@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.8.13
+# For DeepBlue version 1.8.14
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -3884,15 +3884,14 @@ xmlRPCToR.struct =
     }
 
 xmlRPCToR.array =
-    function(node, ...)
+    function(node, status = NULL, ...)
     {
         nodeSize <- xmlSize(node[[1]])
-        status <- NULL
         elements <- xmlChildren(node[[1]])
         
-        if(nodeSize == 2){
+        if(is.null(status)){
             status <- xmlRPCToR(elements[[1]])
-            result <- xmlRPCToR(elements[[2]])
+            result <- xmlRPCToR(elements[[2]], status)
         }
         else{
             result <- vector("list", nodeSize)

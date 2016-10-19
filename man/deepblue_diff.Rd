@@ -26,4 +26,7 @@ deepblue_diff(
     id2 = "e16919")
 
 }
+\seealso{
+Other Utilities for information processing: \code{\link{deepblue_select_column}}
+}
 

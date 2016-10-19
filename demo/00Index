@@ -1,3 +1,4 @@
 use_case1	"Identification of H3k27ac peaks that overlap with promoters in all BLUEPRINT datasets and subsequent identification of transcription factor peaks that overlap with these promoters in all ENCODE datasets."
 use_case2	"Summarizing DNA methylation levels in liver tissue across H3K4me3 peaks regions derived from human embryonic stem cells."
 use_case3	"Calculating the mRNA expression level for your favorite genes across all hematopoietic cell types and subsequent filtering regarding those genes regions where the value of the column named score is higher than a given threshold."
+use_case4	"In this use case we will show how DeepBlueR can be used to generate a nice overview heatmap for all BLUEPRINT DNA Methylation experiments."

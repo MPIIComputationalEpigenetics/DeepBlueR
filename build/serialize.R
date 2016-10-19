@@ -308,15 +308,14 @@ xmlRPCToR.struct =
     }
 
 xmlRPCToR.array =
-    function(node, ...)
+    function(node, status = NULL, ...)
     {
         nodeSize <- xmlSize(node[[1]])
-        status <- NULL
         elements <- xmlChildren(node[[1]])
         
-        if(nodeSize == 2){
+        if(is.null(status)){
             status <- xmlRPCToR(elements[[1]])
-            result <- xmlRPCToR(elements[[2]])
+            result <- xmlRPCToR(elements[[2]], status)
         }
         else{
             result <- vector("list", nodeSize)

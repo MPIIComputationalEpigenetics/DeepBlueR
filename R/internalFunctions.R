@@ -44,7 +44,8 @@ setGeneric("deepblue_download_request_data",
                                      user_key = user_key)
 })
 
-#' @import XML RCurl
+#' @import XML RCurl 
+#' @importFrom R.utils bunzip2
 #' @title switch_get_request_data
 #' @param request_id The request command generated
 #' with deepblue_get_request_data
@@ -66,50 +67,39 @@ deepblue_switch_get_request_data = function(request_id,
              Please, check it status with deepblue_info(request_id)");
     }
     command = request_info$command
-    switch(command,
-           "get_regions" = {
-              url =
-                paste(
-                  "http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=",
-                           request_id, "&key=", user_key, sep="")
-               temp_download <- tempfile()
-               download.file(url, temp_download, mode="wb")
-               handle <-  bzfile(temp_download)
-               result <- paste(readLines(handle), collapse="\n")
-               close(handle)
-               request_data <- result
-           },
-           "score_matrix" = {
-               url = paste(
+    
+    if(command %in% c("get_regions", "score_matrix")){
+        url =
+            paste(
                 "http://deepblue.mpi-inf.mpg.de/xmlrpc/download/?r=",
-                           request_id, "&key=", user_key, sep="")
-               temp_download <- tempfile()
-               download.file(url, temp_download, mode="wb")
-               handle <-  bzfile(temp_download)
-               result <- paste(readLines(handle), collapse="\n")
-               close(handle)
-               request_data <- result
-           },
-           {
-               # DEFAULT
-               # count_regions
-               # get_experiments_by_query
-               # coverage
-               request_data <- deepblue_get_request_data(request_id, user_key)
-           }
-    )
-
-    if(command == "count_regions")
-        return(as.numeric(request_data))
+                request_id, "&key=", user_key, sep="")
+        temp_download <- tempfile()
+        download.file(url, temp_download, mode="wb")
+        unzipped_request <- paste(temp_download, "_uncompress", sep="")
+        message(paste("Decompressing downloaded file to",unzipped_request))
+        R.utils::bunzip2(temp_download, unzipped_request, remove = FALSE, skip = TRUE)
+        file.remove(temp_download)
+        on.exit(file.remove(unzipped_request))
+    } 
+    else{
+        # DEFAULT
+        # count_regions
+        # get_experiments_by_query
+        # coverage
+        request_data <- deepblue_get_request_data(request_id, user_key)
+        
+        if(command == "count_regions")
+            return(as.numeric(request_data))
+        else return(request_data)
+        
+    }
 
     # Only the get_regions and score_matrix commands can have
     # the data converted to tables.
-    if (!command %in% c('get_regions','score_matrix')) {
-        return(request_data)
-    }
-
+    message(paste("Reading file from", unzipped_request))
+    
     regions_df = deepblue_convert_to_df(
-        string_to_parse=request_data, request_info=request_info)
+        file_to_parse=unzipped_request, request_info=request_info)
 
     if (request_info$command %in%
         c("score_matrix", "get_experiments_by_query") ||
@@ -119,9 +109,16 @@ deepblue_switch_get_request_data = function(request_id,
 
     else if(command == "get_regions"){
         if(nrow(regions_df) > 0){
-            regions_df$START <- as.integer(regions_df$START)
-            regions_df$END <- as.integer(regions_df$END)
-            return(deepblue_convert_to_grange(df=regions_df))
+            
+            if("START" %in% colnames(regions_df) &&
+               "END" %in% colnames(regions_df)){
+                regions_df$START <- as.integer(regions_df$START)
+                regions_df$END <- as.integer(regions_df$END)
+                return(deepblue_convert_to_grange(df=regions_df))
+            }
+            else{
+                return(regions_df)
+            }
         }
         else
             stop("No regions were returned in this request.")
@@ -139,8 +136,9 @@ deepblue_switch_get_request_data = function(request_id,
 #'@param dict The data structure that contains the DeepBlue columns types
 #'@return regions A data frame
 #'@keywords internal
-deepblue_convert_to_df = function(string_to_parse, request_info,
+deepblue_convert_to_df = function(file_to_parse, request_info,
     dict=col_dict){
+    
     if("format" %in% names(request_info)) {
         if (request_info$format == "") {
             request_info$format = "CHROMOSOME,START,END"
@@ -161,23 +159,24 @@ deepblue_convert_to_df = function(string_to_parse, request_info,
             else if(col_type == "string") return("character")
             else if (col_type == 'category') return ('factor')
             else return(col_type)
-        })
-
-        input <- paste(paste(col_names,
-                             collapse="\t"), "\n", string_to_parse, sep="")
+        }, USE.NAMES = FALSE)
+        
+        fread(input = file_to_parse,
+              sep="\t",
+              colClasses = col_types,
+              header = FALSE,
+              col.names = col_names,
+              strip.white = FALSE,
+              stringsAsFactors = FALSE,
+              data.table = TRUE)
     } else{
-        col_types <- NULL
-        input <- string_to_parse
+        fread(input = file_to_parse,
+              sep="\t",
+              header = TRUE,
+              strip.white = FALSE,
+              stringsAsFactors = FALSE,
+              data.table = TRUE)    
     }
-    #read data frame efficiently from string
-    #paste a header in front so that fread accepts colClasses
-    fread(input = input,
-          sep="\t",
-          colClasses = col_types,
-          header=TRUE,
-          strip.white = FALSE,
-          stringsAsFactors = FALSE,
-          data.table = FALSE)
 }
 
 #'@title convert_to_grange

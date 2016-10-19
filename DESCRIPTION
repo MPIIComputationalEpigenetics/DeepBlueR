@@ -13,7 +13,8 @@ Imports: GenomicRanges,
     dplyr,
     methods,
     rjson,
-    utils
+    utils,
+    R.utils
 Depends: R (>= 3.3),
     XML,
     RCurl

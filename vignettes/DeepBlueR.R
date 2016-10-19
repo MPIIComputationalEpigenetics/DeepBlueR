@@ -1,4 +1,8 @@
 ## ---- eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE--------------
+#  source("https://bioconductor.org/biocLite.R")
+#  biocLite("DeepBlueR")
+
+## ---- eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE--------------
 #  library(devtools)
 #  install_github("MPIIComputationalEpigenetics/DeepBlueR")
 

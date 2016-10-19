@@ -4,14 +4,14 @@
 \alias{deepblue_convert_to_df}
 \title{convert_to_df}
 \usage{
-deepblue_convert_to_df(string_to_parse, request_info, dict = col_dict)
+deepblue_convert_to_df(file_to_parse, request_info, dict = col_dict)
 }
 \arguments{
-\item{string_to_parse}{A string}
-
 \item{request_info}{The request information returned by DeepBlue}
 
 \item{dict}{The data structure that contains the DeepBlue columns types}
+
+\item{string_to_parse}{A string}
 }
 \value{
 regions A data frame
