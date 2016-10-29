@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.8.14
+# For DeepBlue version 1.9.0
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -1768,21 +1768,23 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
 
 #' @export 
 #' 
-#' @title list_gene_expressions 
-#' @description List all the Gene Expression currently available in DeepBlue. A gene expression is a set of genes with their expression values.
-#' @family Gene models and genes identifiers
+#' @title list_expressions 
+#' @description List the Expression currently available in DeepBlue. A expression is a set of data with an identifier and an expression value.
+#' @family Expression data
 #' 
+#' @param expression_type - A string (expression type (supported: 'gene'))
 #' @param sample_id - A string or a vector of string (sample ID(s))
 #' @param replica - A int or a vector of int (replica(s))
 #' @param project - A string or a vector of string (project(s) name)
 #' @param user_key - A string (users token key)
 #'
-#' @return gene_expressions - A array (gene expressions names and IDS)
+#' @return expressions - A array (expressions names and IDS)
 #'
 #' @examples
-#' deepblue_list_gene_expressions()
+#' deepblue_list_expressions(expression_type='gene')
+
 #'
-deepblue_list_gene_expressions <- function(sample_id= NULL, replica= NULL, project= NULL, user_key=deepblue_USER_KEY) {
+deepblue_list_expressions <- function(expression_type= NULL, sample_id= NULL, replica= NULL, project= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1795,7 +1797,7 @@ deepblue_list_gene_expressions <- function(sample_id= NULL, replica= NULL, proje
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'list_gene_expressions', sample_id, if (is.null(replica)) NULL else as.integer(replica), project, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_expressions', expression_type, sample_id, if (is.null(replica)) NULL else as.integer(replica), project, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -1891,7 +1893,7 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 #' @description List the Genes currently available in DeepBlue.
 #' @family Gene models and genes identifiers
 #' 
-#' @param gene_id_or_name - A string or a vector of string (Regular expression with the Name(s) or ID(s) (ensembl id) of the selected gene(s).)
+#' @param genes - A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
 #' @param end - A int (maximum end region)
@@ -1901,9 +1903,14 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
 #' @return genes - A array (genes names and its content)
 #'
 #' @examples
-#' deepblue_list_genes(gene_id_or_name="Pax", gene_models='Gencode v22')
+#' deepblue_list_genes(
+#'   chromosome="chr20", 
+#'   start=10000000, 
+#'   end=21696620, 
+#' gene_models='Gencode v22')
+
 #'
-deepblue_list_genes <- function(gene_id_or_name= NULL, chromosome= NULL, start= NULL, end= NULL, gene_models= NULL, user_key=deepblue_USER_KEY) {
+deepblue_list_genes <- function(genes= NULL, chromosome= NULL, start= NULL, end= NULL, gene_models= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1916,7 +1923,7 @@ deepblue_list_genes <- function(gene_id_or_name= NULL, chromosome= NULL, start= 
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'list_genes', gene_id_or_name, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), gene_models, user_key)
+    value <- xml.rpc(deepblue_URL, 'list_genes', genes, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), gene_models, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -3308,13 +3315,14 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 
 #' @export 
 #' 
-#' @title select_gene_expressions 
-#' @description Select genes (by their name or ID) as genomic regions from the specified gene model.
-#' @family Gene models and genes identifiers
+#' @title select_expressions 
+#' @description Select expressions (by their name or ID) as genomic regions from the specified model.
+#' @family Expression data
 #' 
+#' @param expression_type - A string (expression type (supported: 'gene'))
 #' @param sample_ids - A string or a vector of string (id(s) of selected sample(s))
 #' @param replicas - A int or a vector of int (replica(s))
-#' @param genes - A string or a vector of string (genes(s) - ensembl ID or ENSB name. It does accept regular expressions. For example: '.*' to select all genes.)
+#' @param identifiers - A string or a vector of string (identifier(s) (for genes: ensembl ID or ENSB name).)
 #' @param projects - A string or a vector of string (projects(s))
 #' @param gene_model - A string (gene model name)
 #' @param user_key - A string (users token key)
@@ -3324,12 +3332,14 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
 #' @examples
 #' genes_names =
 #'     c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
-#' deepblue_select_gene_expressions(
-#' 	sample_ids="s10205",
-#'     genes = genes_names,
+#' deepblue_select_expressions(
+#'     expression_type="gene",
+#'     sample_ids="s10205",
+#'     identifiers = genes_names,
 #'     gene_model = "gencode v23")
+
 #'
-deepblue_select_gene_expressions <- function(sample_ids= NULL, replicas= NULL, genes= NULL, projects= NULL, gene_model= NULL, user_key=deepblue_USER_KEY) {
+deepblue_select_expressions <- function(expression_type= NULL, sample_ids= NULL, replicas= NULL, identifiers= NULL, projects= NULL, gene_model= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -3342,7 +3352,7 @@ deepblue_select_gene_expressions <- function(sample_ids= NULL, replicas= NULL, g
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'select_gene_expressions', sample_ids, if (is.null(replicas)) NULL else as.integer(replicas), genes, projects, gene_model, user_key)
+    value <- xml.rpc(deepblue_URL, 'select_expressions', expression_type, sample_ids, if (is.null(replicas)) NULL else as.integer(replicas), identifiers, projects, gene_model, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -3380,7 +3390,7 @@ deepblue_select_gene_expressions <- function(sample_ids= NULL, replicas= NULL, g
 #' @description Select genes (by their name or ID) as genomic regions from the specified gene model.
 #' @family Gene models and genes identifiers
 #' 
-#' @param genes_name - A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)
+#' @param genes - A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)
 #' @param gene_model - A string (gene model name)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
@@ -3393,10 +3403,11 @@ deepblue_select_gene_expressions <- function(sample_ids= NULL, replicas= NULL, g
 #' genes_names =
 #'     c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
 #' deepblue_select_genes(
-#'     genes_name = genes_names,
+#'     genes = genes_names,
 #'     gene_model = "gencode v23")
+
 #'
-deepblue_select_genes <- function(genes_name= NULL, gene_model= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
+deepblue_select_genes <- function(genes= NULL, gene_model= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_USER_KEY) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -3409,7 +3420,7 @@ deepblue_select_genes <- function(genes_name= NULL, gene_model= NULL, chromosome
             }
         }
     }
-    value <- xml.rpc(deepblue_URL, 'select_genes', genes_name, gene_model, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    value <- xml.rpc(deepblue_URL, 'select_genes', genes, gene_model, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))

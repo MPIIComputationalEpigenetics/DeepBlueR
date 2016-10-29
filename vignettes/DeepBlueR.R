@@ -22,7 +22,7 @@ custom_table = do.call("rbind", apply(experiments_found, 1, function(experiment)
   experiment_id = experiment[1]
   # Obtain the information about the experiment_id
   info = deepblue_info(experiment_id)
- 
+
   # Print the experiment name, project, biosource, and epigenetic mark.
   with(info, { data.frame(name = name, project = project,
     biosource = sample_info$biosource_name, epigenetic_mark = epigenetic_mark)
@@ -146,7 +146,7 @@ regions = deepblue_download_request_data(request_id=request_id)
 head(regions, 5)
 
 ## ---- echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE----------------
-#  q_genes = deepblue_select_genes(genes_name="RP11-34P13", gene_model="gencode v23")
+#  q_genes = deepblue_select_genes(genes="RP11-34P13", gene_model="gencode v23")
 #  q_filter = deepblue_filter_regions(query_id=q_genes,
 #      field="@GENE_ATTRIBUTE(gene_type)", operation="==",
 #      value="lincRNA", type="string")
@@ -184,9 +184,10 @@ hsc_children_samples = deepblue_list_samples(
 hsc_samples_ids = deepblue_extract_ids(hsc_children_samples)
 
 # Note that BLUEPRINT uses Ensembl Gene IDs
-gene_exprs_query = deepblue_select_gene_expressions(
+gene_exprs_query = deepblue_select_expressions(
+    expression_type = "gene",
     sample_ids = hsc_samples_ids,
-    genes = c("ENSG00000074771.3", "ENSG00000188747.7", "ENSG00000086991.11"),
+    identifiers = c("ENSG00000074771.3", "ENSG00000188747.7", "ENSG00000086991.11"),
     gene_model = "gencode v22")
 
 request_id = deepblue_get_regions(
@@ -235,7 +236,7 @@ print(AGG.plot)
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 # Select the RP11-34P13 gene locations from gencode v23
 q_genes = deepblue_select_genes(
-    genes_name=
+    genes=
         c("RNU6-1100P", "CICP7", "MRPL20", "ANKRD65",
             "HES2", "ACOT7", "HES3", "ICMT"), gene_model="gencode v19")
 

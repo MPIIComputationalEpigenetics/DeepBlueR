@@ -4,12 +4,11 @@
 \alias{deepblue_select_genes}
 \title{select_genes}
 \usage{
-deepblue_select_genes(genes_name = NULL, gene_model = NULL,
-  chromosome = NULL, start = NULL, end = NULL,
-  user_key = deepblue_USER_KEY)
+deepblue_select_genes(genes = NULL, gene_model = NULL, chromosome = NULL,
+  start = NULL, end = NULL, user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{genes_name}{- A string or a vector of string (genes(s) - ENSB ID or ENSB name. Use the regular expression '.*' for selecting all.)}
+\item{genes}{- A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)}
 
 \item{gene_model}{- A string (gene model name)}
 
@@ -31,14 +30,12 @@ Select genes (by their name or ID) as genomic regions from the specified gene mo
 genes_names =
     c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
 deepblue_select_genes(
-    genes_name = genes_names,
+    genes = genes_names,
     gene_model = "gencode v23")
 
 }
 \seealso{
-Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_expressions}},
-  \code{\link{deepblue_list_gene_models}},
-  \code{\link{deepblue_list_genes}},
-  \code{\link{deepblue_select_gene_expressions}}
+Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_models}},
+  \code{\link{deepblue_list_genes}}
 }
 

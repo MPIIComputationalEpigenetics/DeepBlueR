@@ -1,1 +1,5 @@
-deepblue_list_genes(gene_id_or_name="Pax", gene_models='Gencode v22')
+deepblue_list_genes(
+  chromosome="chr20", 
+  start=10000000, 
+  end=21696620, 
+gene_models='Gencode v22')

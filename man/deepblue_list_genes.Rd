@@ -4,12 +4,11 @@
 \alias{deepblue_list_genes}
 \title{list_genes}
 \usage{
-deepblue_list_genes(gene_id_or_name = NULL, chromosome = NULL,
-  start = NULL, end = NULL, gene_models = NULL,
-  user_key = deepblue_USER_KEY)
+deepblue_list_genes(genes = NULL, chromosome = NULL, start = NULL,
+  end = NULL, gene_models = NULL, user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{gene_id_or_name}{- A string or a vector of string (Regular expression with the Name(s) or ID(s) (ensembl id) of the selected gene(s).)}
+\item{genes}{- A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)}
 
 \item{chromosome}{- A string or a vector of string (chromosome name(s))}
 
@@ -28,13 +27,15 @@ genes - A array (genes names and its content)
 List the Genes currently available in DeepBlue.
 }
 \examples{
-deepblue_list_genes(gene_id_or_name="Pax", gene_models='Gencode v22')
+deepblue_list_genes(
+  chromosome="chr20", 
+  start=10000000, 
+  end=21696620, 
+gene_models='Gencode v22')
 
 }
 \seealso{
-Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_expressions}},
-  \code{\link{deepblue_list_gene_models}},
-  \code{\link{deepblue_select_gene_expressions}},
+Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_models}},
   \code{\link{deepblue_select_genes}}
 }
 

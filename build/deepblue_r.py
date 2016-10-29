@@ -96,7 +96,7 @@ def main():
   'add_biosource',
   'add_epigenetic_mark',
   'add_experiment',
-  'add_gene_expression',
+  'add_expression',
   'add_gene_model',
   'add_genome',
   'add_project',
