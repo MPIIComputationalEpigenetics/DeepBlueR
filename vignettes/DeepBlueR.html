@@ -11,7 +11,7 @@
 
 <meta name="author" content="Felipe Albrecht" />
 
-<meta name="date" content="2016-10-29" />
+<meta name="date" content="2016-11-04" />
 
 <title>The DeepBlue epigenomic data server - R package</title>
 
@@ -95,6 +95,7 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
@@ -118,7 +119,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">The DeepBlue epigenomic data server - R package</h1>
 <h4 class="author"><em>Felipe Albrecht</em></h4>
-<h4 class="date"><em>2016-10-29</em></h4>
+<h4 class="date"><em>2016-11-04</em></h4>
 
 </div>
 
@@ -142,6 +143,7 @@ $(document).ready(function () {
 <li><a href="#find-overlapping-regions">Find overlapping regions</a></li>
 <li><a href="#retrieve-dna-sequences">Retrieve DNA sequences</a></li>
 <li><a href="#dna-pattern-matching-operations">DNA pattern matching operations</a></li>
+<li><a href="#counting-motifs-in-a-region">Counting motifs in a region</a></li>
 <li><a href="#genes">Genes</a></li>
 <li><a href="#aggregate-and-summarize-regions">Aggregate and summarize regions</a></li>
 <li><a href="#gene-expression">Gene expression</a></li>
@@ -655,45 +657,63 @@ overlapped = deepblue_intersection(query_data_id=query_id,
 request_id=deepblue_get_regions(overlapped,
     &quot;CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE,@PROJECT&quot;)
 regions = deepblue_download_request_data(request_id=request_id)
-head(regions, 5)</code></pre>
-<pre><code>## GRanges object with 5 ranges and 7 metadata columns:
-##       seqnames             ranges strand | SIGNAL_VALUE      PEAK
-##          &lt;Rle&gt;          &lt;IRanges&gt;  &lt;Rle&gt; |  &lt;character&gt; &lt;integer&gt;
-##   [1]     chr1 [ 273768,  274209]      * |      14.1567       164
-##   [2]     chr1 [ 911203,  911477]      * |       4.8558       105
-##   [3]     chr1 [ 916813,  917682]      * |      10.5467       183
-##   [4]     chr1 [1231079, 1231868]      * |       7.1834       310
-##   [5]     chr1 [1398379, 1398826]      * |       4.3725       345
+head(regions, 3)</code></pre>
+<pre><code>## GRanges object with 3 ranges and 7 metadata columns:
+##       seqnames           ranges strand | SIGNAL_VALUE      PEAK
+##          &lt;Rle&gt;        &lt;IRanges&gt;  &lt;Rle&gt; |  &lt;character&gt; &lt;integer&gt;
+##   [1]     chr1 [273768, 274209]      * |      14.1567       164
+##   [2]     chr1 [911203, 911477]      * |       4.8558       105
+##   [3]     chr1 [916813, 917682]      * |      10.5467       183
 ##                                                    @NAME   @BIOSOURCE
 ##                                              &lt;character&gt;  &lt;character&gt;
 ##   [1] S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed myeloid cell
 ##   [2] S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed myeloid cell
 ##   [3] S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed myeloid cell
-##   [4] BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed         BL-2
-##   [5] BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed         BL-2
 ##         @LENGTH
 ##       &lt;integer&gt;
 ##   [1]       441
 ##   [2]       274
 ##   [3]       869
-##   [4]       789
-##   [5]       447
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @SEQUENCE
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 &lt;character&gt;
-##   [1]                                                                                                                                                                                                                                                                                                                                                             AGCCAAAGGTGATATTTTCATGATAACATCCTGTGATTGCTTTGTTCTTCGTCTTGTATGTTCTTCCTAGATGGGCTCAGAACATACAAGAATTAAGTACACATCTTATTTTCCAGTGATAATGCTACCGGCAAATTCTGTTGTTTGTATAAACATCAGCCAAGTTTATATAACTAAACTAGTGTTTTGTTTTGTCAATTCAGCAAGAAATTAGACCAAATGGTGGCTTAATGCTGCATTGATTTGACTATCAATTTGTTTTCACTTTTCTGCAAAATAATTAATACATTATTAAATTGAGTTATGCTGATGCCACAGTTGTTCTTATCTCAAGTGTCTTAAAATTCATTTAATTTGTTTTTCCTTTGGTTTCATTATTCAGATTTTAACTTCAGTTCTCAAGATTTTATCTGATGGAAGAGATGGAGTCCATTACTAAGG
-##   [2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ATAAACAGGCAGGAGTCTTCCTTCCAGCCTCCCTCTGGGGCGGGCAGGCAGCACGGCGATCACCTGCCCCCACTCCCTCATCTATCACCCTGAACTGTGTTCACGGTAAAATTACTCATCCTCAGCCAGTGATAAATGGCATCAGTCTAGAGCCAGCCCGCGGCAGGGGGTGGGGCTCCCTGCTCAGGGTTCCCAGGCCTGGGCCAGATAAACCTGGTGAGCTGCGCCTTTGTGCTCACACGCAGCTGGCAATGGCAAGTCAGTGGATTTGTAC
-##   [3]                                                                                                   TTTATTGCACAAATTATTAACGACCAGAGAATGAATGACTCTGTAATCAGATCAGGTTGCCAGCACTTTTCATTGCATTTATTTGTATAAATTCTGAAGTCGGGGTCTGCCCTAAGCTCAGCAAGCCAGCGTCGTGCTGGCTGGGCGCCCAGGCCCCCACCCAGAAGGAACACCCGTCCCTCACCCTGCCCACGGGTTCCAGAGGACAGAGGGCTCAGGAAGGGGTGCAGGGAACTGCTCTGAGCCAGAAGCCGAGTTCATAGGCACCCAAAGCAGCCCTGGGCCAGGGTCAGAGCTCTGTCCTTGAACCTGCCTCAGGGAAGATTCCCAACTGTCCTCAGAGCCAGGGGCACCCAGGGCTTGGGAGCTGAAGGGGGGTGGGTCTGAGACCAGGAGAAGGCTCCCCAGCCCTGAGGGAACCCTCATCACCCCCCTGCTCTCCTCGATCCAGGAACCGTCCCAGGGTTGCCCCAGGCCTCCTGGCTCTCCCGCCTCCATCCCGTGGGCTTCCCGGGAGCCCCAGGCTGGTCTCCCACCTGCCCCCTCCTTTTCTGGTCTTGCCTGGGCTGGGCCCAGGGGCTCTGGCTGTGGGTTTTCTGTGCAGCACCTCGCAGTGAGCCTGACGCTGGTCCTCTCCTGAGCCCCCGTTTAATCTTATTGACCTCTCGTTACGCTACAGAGCGTAAATTCA
-##   [4] AAGACCCTGTCTCGAAAAAGGGGGAATAAAAAGTAACCCAAAAGTAACTATAAATATCAGGAGTCCATCAAGTGGCGCTTCCTCTCCTGGCTTCAGAGTATCTATTCATCACGGTGTGCCAGGTTCGCAGCACAGCGGAGCGGGCCGGTCCCACCGGAATGGGGTTTCGACTTCGCCATCCCCTAGCAGCTCAGTTCCCAGCAAGGAATCAACACACCCTTGCAAAACGGACGTGGGAAACAGCTTAGGCAGAGACGCTATTTCTTTGCCATCCCTGGGCTTCAGCTCTGGTGGAACGAGGCTATTTCTGGCAGTTAACAACACACACGGTTAGATTCTAAAAGCTCAACAGGGTTCATAACACCGCCTCTGAGCCAGACATCAAGGGCTCCACACAGCCGACTTCACATCTCCAAATCCTACTAACTGGGGATGAGGGTCCACGCGGTTCAGAAGCGGAAGCGCAGGCGCAGGGAAGCGGGGCAGCTTGTCCAAGGTCGCCTCGCCGATAAACGCGAGTCCAACCAGACCCCTTGGGCCTCCGTTTCCCGGTGGCATTCGTAGGTTTTGGCCAGTAGGAGACCAGACGTGCCGGCGGCCGGGGAGGCCAGCGTCGTCGGCCTGTCCCTGCCCCCGGGAACCCCGGGAGCCCCGGTGGCGGCGGAGTCTCGCCAGGGCTCAAGGCCGAGCGGACGGACGATGCCCCAGCCCAAGGCGGGAGGCGGCGGCGGCCTCCAGACCCGCCCTCGCCGTCCGGCCGGCGTACACTTGGCCCCGCGGCCTGCAGCG
-##   [5]                                                                                                                                                                                                                                                                                                                                                       CCAGCCACGGCGTCCTGACGGCCGCCAAAGGCTTGAGGGCTATTCAGACCAAAAGGGAGGTGCACCCAGGGGAAAAAAAAAGTCAAGAAACAGAACCCTCCGGCACAGAGCTCAGACTGGGGGGCAAGTACTCACTCCCTTAGTAACCGGGCAAAGTAACAAACCGTTTTACCCTCAACATACTTCGCTGGGAATGAAGTGCAGGAGGAAGCCTTACCTCCATGGAGTGCTTCACGAAGGACTTGGTATAAAAGAACCGCTGGAACAACACCTGCCCGGTAGCCATGGCCACCTAGAGTAGAAGAAAGTTTCCGTATTTTCAAACGCACCATTCAAAGCCTTCGCGGCCGAAAGTCATCGAGTAACGTGGGACTCCCCACGCAGAACCAAACACTGAAACGCTTCCCACGTCCACAAAGGCTCTTCGCGTCCCGCCGTCTCGGGATC
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @SEQUENCE
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               &lt;character&gt;
+##   [1]                                                                                                                                                                                                                                                           AGCCAAAGGTGATATTTTCATGATAACATCCTGTGATTGCTTTGTTCTTCGTCTTGTATGTTCTTCCTAGATGGGCTCAGAACATACAAGAATTAAGTACACATCTTATTTTCCAGTGATAATGCTACCGGCAAATTCTGTTGTTTGTATAAACATCAGCCAAGTTTATATAACTAAACTAGTGTTTTGTTTTGTCAATTCAGCAAGAAATTAGACCAAATGGTGGCTTAATGCTGCATTGATTTGACTATCAATTTGTTTTCACTTTTCTGCAAAATAATTAATACATTATTAAATTGAGTTATGCTGATGCCACAGTTGTTCTTATCTCAAGTGTCTTAAAATTCATTTAATTTGTTTTTCCTTTGGTTTCATTATTCAGATTTTAACTTCAGTTCTCAAGATTTTATCTGATGGAAGAGATGGAGTCCATTACTAAGG
+##   [2]                                                                                                                                                                                                                                                                                                                                                                                                                                  ATAAACAGGCAGGAGTCTTCCTTCCAGCCTCCCTCTGGGGCGGGCAGGCAGCACGGCGATCACCTGCCCCCACTCCCTCATCTATCACCCTGAACTGTGTTCACGGTAAAATTACTCATCCTCAGCCAGTGATAAATGGCATCAGTCTAGAGCCAGCCCGCGGCAGGGGGTGGGGCTCCCTGCTCAGGGTTCCCAGGCCTGGGCCAGATAAACCTGGTGAGCTGCGCCTTTGTGCTCACACGCAGCTGGCAATGGCAAGTCAGTGGATTTGTAC
+##   [3] TTTATTGCACAAATTATTAACGACCAGAGAATGAATGACTCTGTAATCAGATCAGGTTGCCAGCACTTTTCATTGCATTTATTTGTATAAATTCTGAAGTCGGGGTCTGCCCTAAGCTCAGCAAGCCAGCGTCGTGCTGGCTGGGCGCCCAGGCCCCCACCCAGAAGGAACACCCGTCCCTCACCCTGCCCACGGGTTCCAGAGGACAGAGGGCTCAGGAAGGGGTGCAGGGAACTGCTCTGAGCCAGAAGCCGAGTTCATAGGCACCCAAAGCAGCCCTGGGCCAGGGTCAGAGCTCTGTCCTTGAACCTGCCTCAGGGAAGATTCCCAACTGTCCTCAGAGCCAGGGGCACCCAGGGCTTGGGAGCTGAAGGGGGGTGGGTCTGAGACCAGGAGAAGGCTCCCCAGCCCTGAGGGAACCCTCATCACCCCCCTGCTCTCCTCGATCCAGGAACCGTCCCAGGGTTGCCCCAGGCCTCCTGGCTCTCCCGCCTCCATCCCGTGGGCTTCCCGGGAGCCCCAGGCTGGTCTCCCACCTGCCCCCTCCTTTTCTGGTCTTGCCTGGGCTGGGCCCAGGGGCTCTGGCTGTGGGTTTTCTGTGCAGCACCTCGCAGTGAGCCTGACGCTGGTCCTCTCCTGAGCCCCCGTTTAATCTTATTGACCTCTCGTTACGCTACAGAGCGTAAATTCA
 ##                  @PROJECT
 ##               &lt;character&gt;
 ##   [1] BLUEPRINT Epigenome
 ##   [2] BLUEPRINT Epigenome
 ##   [3] BLUEPRINT Epigenome
-##   [4] BLUEPRINT Epigenome
-##   [5] BLUEPRINT Epigenome
 ##   -------
 ##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
+</div>
+<div id="counting-motifs-in-a-region" class="section level3">
+<h3>Counting motifs in a region</h3>
+<p>The meta column <code>@COUNT.MOTIF()</code> allows to count how many times a motif appears in the genomic region. For example, the following code return the experiment regions with the region length, the numbers of <code>G</code>, <code>CG</code>, <code>GC</code>, and the DNA sequence.</p>
+<pre class="r"><code>experiment_data = deepblue_select_experiments(
+  &quot;DG-75_c01.ERX297417.H3K27ac.bwa.GRCh38.20150527.bed&quot;)
+fmt = &quot;CHROMOSOME,START,END,@LENGTH,@COUNT.MOTIF(C),@COUNT.MOTIF(G),@COUNT.MOTIF(CG),@COUNT.MOTIF(GC),@SEQUENCE&quot;
+request_id=deepblue_get_regions(experiment_data, fmt)
+regions = deepblue_download_request_data(request_id=request_id)
+head(regions, 3)</code></pre>
+<pre><code>## GRanges object with 3 ranges and 6 metadata columns:
+##       seqnames           ranges strand |   @LENGTH @COUNT.MOTIF(C)
+##          &lt;Rle&gt;        &lt;IRanges&gt;  &lt;Rle&gt; | &lt;integer&gt;     &lt;character&gt;
+##   [1]     chr1 [779094, 779379]      * |       285              83
+##   [2]     chr1 [826755, 827064]      * |       309             109
+##   [3]     chr1 [958700, 959105]      * |       405             121
+##       @COUNT.MOTIF(G) @COUNT.MOTIF(CG) @COUNT.MOTIF(GC)
+##           &lt;character&gt;      &lt;character&gt;      &lt;character&gt;
+##   [1]              85               15               24
+##   [2]              78               15               18
+##   [3]             124               29               32
+##                                                                                                                                                                                                                                                                                                                                                                                                                   @SEQUENCE
+##                                                                                                                                                                                                                                                                                                                                                                                                                 &lt;character&gt;
+##   [1]                                                                                                                         ACGTGCGCTCCACAACGCCTCCCCCAGCCAGGGCCCGGGGATCCCCGGGAGCGTCCCCGGCTACCTGGCGCCGCTCATCCTGGGTAGGGTCGGCCCCCTGAGGCTGCCCGGCATGAGGGAGTTGCACCCCTGAGCTTGACCTCTGACGGTCCTTTGTAATAGCATTAAGTCTTTGAAACTTGTAGCGGGGTAGAAGGGGCTAGGAAATGAAGAAAACATCTTTTTAAAAATATAAGCAGTCGGCTGGGCGAGGTGGCCCACACCTGTAATCCCAGCACTTTGGGA
+##   [2]                                                                                                 ACCCATCCACTTCCCATCTAAACTTCCCTCCCCTTTTCTCGCTCGTTGGCTCTACCTCCCTCCTCTCTGTTTTCTCCTCACTCTCCTGCCCCACCTCGACATCCACAGCGAGGCAATGAAGAAGCCCCTGCCAAGGAGGAGCCCGCTTCTCAGTGGGACACCGGGAAGGTAGACACCCAACAGTCACCGCTAGTGGGAGGCGATTGTGCAGAAGCACGAGGGTTGTTACAGGATCGGGCAGGTCCCCTACCCCAGTCTCGGACTCAGGGTCCTGTCTGAGGCGGCCACCCCGAAGCGTGGGGTTTGCGG
+##   [3] GAGATTTTTGCACAACTCACCAACATACGCTCCCTGCCTAGGACAGAGTTTGGCACGGAACAGGAGCTCAGTAAACATCGGATGAAAGAGTAAGTTAAGCTGAAAGGACTGGGGGGCAGAGGTCGGCGATCCTTAGGCCTTGGCCCTGAGACCCCAGGCGAGGTCAGCAACCCAACCGGGGTGGGACAGGACGAGCAAGAGGTTCTGCTCACGCATGTCCCCACTAACCTGGCCGAGGGGCTCCCGCCCGGCTTATCCGGACTCCGGGCAGCCTCGCGTGCTTCCCGTGTCTCCGCTTGTGGAGAATTTTCGGACTCGGATTCGGACTCGGAGTCAAAGCCCGAAGCTAGGAACTCGTCCACCGTCAGCTCCGCCAGGCGCCTGCGGGTCACGCAGGAGTCACAG
+##   -------
+##   seqinfo: 36 sequences from an unspecified genome; no seqlengths</code></pre>
 </div>
 <div id="genes" class="section level3">
 <h3>Genes</h3>
@@ -1130,6 +1150,7 @@ ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) +
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

@@ -143,7 +143,15 @@ overlapped = deepblue_intersection(query_data_id=query_id,
 request_id=deepblue_get_regions(overlapped,
     "CHROMOSOME,START,END,SIGNAL_VALUE,PEAK,@NAME,@BIOSOURCE,@LENGTH,@SEQUENCE,@PROJECT")
 regions = deepblue_download_request_data(request_id=request_id)
-head(regions, 5)
+head(regions, 3)
+
+## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
+experiment_data = deepblue_select_experiments(
+  "DG-75_c01.ERX297417.H3K27ac.bwa.GRCh38.20150527.bed")
+fmt = "CHROMOSOME,START,END,@LENGTH,@COUNT.MOTIF(C),@COUNT.MOTIF(G),@COUNT.MOTIF(CG),@COUNT.MOTIF(GC),@SEQUENCE"
+request_id=deepblue_get_regions(experiment_data, fmt)
+regions = deepblue_download_request_data(request_id=request_id)
+head(regions, 3)
 
 ## ---- echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE----------------
 #  q_genes = deepblue_select_genes(genes="RP11-34P13", gene_model="gencode v23")
