@@ -81,7 +81,7 @@ names(color_vector) <-  biosource_colors$biosource
 
 # We remove the first three columns (CHROMOSOME, START, END)
 # and convert the data frame to a numeric matrix
-filtered_score_matrix <- as.matrix(score_matrix[,-c(1:3)])
+filtered_score_matrix <- as.matrix(score_matrix[,-c(1:3), with = FALSE])
 
 # We compute row variance
 filtered_score_matrix_rowVars <- rowVars(filtered_score_matrix, na.rm = T)
