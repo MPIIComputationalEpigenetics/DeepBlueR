@@ -35,6 +35,7 @@ deepblue_query_cache(
 }
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
+  \code{\link{deepblue_binning}},
   \code{\link{deepblue_count_regions}},
   \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
@@ -45,6 +46,7 @@ Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_input_regions}},
   \code{\link{deepblue_intersection}},
   \code{\link{deepblue_merge_queries}},
+  \code{\link{deepblue_overlap}},
   \code{\link{deepblue_query_experiment_type}},
   \code{\link{deepblue_score_matrix}},
   \code{\link{deepblue_select_annotations}},

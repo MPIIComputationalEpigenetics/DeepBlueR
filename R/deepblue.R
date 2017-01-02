@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.9.1
+# For DeepBlue version 1.10.1
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -62,6 +62,72 @@ deepblue_aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
         }
     }
     value <- xml.rpc(deepblue_URL, 'aggregate', data_id, ranges_id, column, user_key)
+    status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
+    message(paste("Reported status was:", status))
+    if (status == "error") {
+        stop(value[[2]])
+    }
+    if (!exists("user_key")) {
+        user_key = NULL
+    }
+    if(length(value) == 1) return(NULL)
+    else if(!is.list(value[[2]])){
+        DeepBlueCommand(call = sys.call(),
+            status = value[[1]],
+            query_id = value[[2]],
+            previous_commands = previous_commands,
+            user_key = user_key
+        )
+    }
+    
+    if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
+        result <- value[[2]]
+        result$count <- as.integer(result$count)
+        return(result)
+    }
+    
+    return(value[[2]])
+}
+
+
+
+#' @export 
+#' 
+#' @title binning 
+#' @description ---
+#' @family Operating on the data regions
+#' 
+#' @param query_data_id - A string (query data that will made by the binning.)
+#' @param column - A string (name of the column that will be used in the aggregation)
+#' @param bins - A int (number of of bins)
+#' @param user_key - A string (users token key)
+#'
+#' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
+#'
+#' @examples
+#' experiment_id = deepblue_select_experiments(
+#'     experiment_name="S00XDKH1.ERX712765.H3K27ac.bwa.GRCh38.20150527.bed")
+#' deepblue_binning (query_data_id=experiment_id, 
+#'     column="SIGNAL_VALUE",
+#'     bins=40)
+
+#'
+deepblue_binning <- function(query_data_id= NULL, column= NULL, bins= NULL, user_key=deepblue_USER_KEY) {
+
+    previous_commands <- list()
+    arg.names <- names(as.list(match.call()))
+    for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+    }
+    value <- xml.rpc(deepblue_URL, 'binning', query_data_id, column, if (is.null(bins)) NULL else as.integer(bins), user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -1343,7 +1409,7 @@ deepblue_input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
 #' @export 
 #' 
 #' @title intersection 
-#' @description Select genomic regions that intersect with at least one region of the second query.
+#' @description Select genomic regions that intersect with at least one region of the second query. This command is a simplified version of the 'overlap' command.
 #' @family Operating on the data regions
 #' 
 #' @param query_data_id - A string (query data that will be filtered.)
@@ -2824,6 +2890,77 @@ deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_
         }
     }
     value <- xml.rpc(deepblue_URL, 'name_to_id', name, collection, user_key)
+    status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
+    message(paste("Reported status was:", status))
+    if (status == "error") {
+        stop(value[[2]])
+    }
+    if (!exists("user_key")) {
+        user_key = NULL
+    }
+    if(length(value) == 1) return(NULL)
+    else if(!is.list(value[[2]])){
+        DeepBlueCommand(call = sys.call(),
+            status = value[[1]],
+            query_id = value[[2]],
+            previous_commands = previous_commands,
+            user_key = user_key
+        )
+    }
+    
+    if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
+        result <- value[[2]]
+        result$count <- as.integer(result$count)
+        return(result)
+    }
+    
+    return(value[[2]])
+}
+
+
+
+#' @export 
+#' 
+#' @title overlap 
+#' @description Select genomic regions that overlap or not overlap with with the specified number of regions of the second query. Important: This command is still experimental and changes may occour.
+#' @family Operating on the data regions
+#' 
+#' @param query_data_id - A string (query data that will be filtered.)
+#' @param query_filter_id - A string (query containing the regions that the regions of the query_data_id must overlap.)
+#' @param overlap - A boolean (True if must overlap, or false if must not overlap.)
+#' @param amount - A int (Amount of regions that must overlap. Use the parameter 'amount_type' ('bp'' or '%') to specify the unit.  For example, use the value '10' with the amount_type '%' to specify that 10% of the bases in both regions must overlap, or use '10' with the amount_type 'bp' to specify that at least 10 bases must or must not overlap.)
+#' @param amount_type - A string (Type of the amount: 'bp' for base pairs and '%' for percentage. )
+#' @param user_key - A string (users token key)
+#'
+#' @return id - A string (id of the new query)
+#'
+#' @examples
+#' annotation_id = deepblue_select_annotations(
+#'     annotation_name="CpG Islands",
+#'     genome="hg19", chromosome="chr1")
+#' experiment_id = deepblue_select_experiments(
+#'     experiment_name="S00XDKH1.ERX712765.H3K27ac.bwa.GRCh38.20150527.bed")
+#' deepblue_overlap(query_data_id = experiment_id, query_filter_id = annotation_id, 
+#'     overlap = TRUE, amount=10, amount_type="%")
+#' 
+
+#'
+deepblue_overlap <- function(query_data_id= NULL, query_filter_id= NULL, overlap= NULL, amount= NULL, amount_type= NULL, user_key=deepblue_USER_KEY) {
+
+    previous_commands <- list()
+    arg.names <- names(as.list(match.call()))
+    for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+    }
+    value <- xml.rpc(deepblue_URL, 'overlap', query_data_id, query_filter_id, overlap, if (is.null(amount)) NULL else as.integer(amount), amount_type, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))

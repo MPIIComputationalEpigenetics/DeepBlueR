@@ -1098,7 +1098,7 @@ More precisely, we convert the Spearman correlation, a similarity
 measure, to a distance such that it can be used with hierarchical clustering.
 
 ```{r, fig.width=11}
-par(mar=c(5.1, 8.1, 4.1, 4.1), xpd=TRUE)
+#par(mar=c(5.1, 8.1, 4.1, 4.1), xpd=TRUE)
 
 heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
           trace = "none", ColSideColors = color_vector,
@@ -1106,18 +1106,19 @@ heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
           distfun=function(x) as.dist(1-cor(t(x), method = "pearson")),
           Rowv = TRUE, dendrogram = "column",
           key.xlab = "beta value", denscol = "black", keysize = 1.5,
-          key.par = list(mar = c(8.5, 2.5, 1, 1)), key.title = NA)
+          key.title = NA)
+          #key.par = list(mar = c(8.5, 2.5, 1, 1)), key.title = NA)
 
-par(lend = 1)
+#par(lend = 1)
 legend("bottomleft",
        legend = color_map$biosource,
        col = as.character(color_map$color),
-       text.width = 0.28,
-       lty= 1,
-       lwd = 8,
-       cex = 0.7,
-       y.intersp = 0.7,
-       inset=c(-0.21,-0.11))
+       text.width = 0.28)
+       #lty= 1,
+       #lwd = 8,
+       #cex = 0.7,
+       #y.intersp = 0.7,
+       #inset=c(-0.21,-0.11))
 ```
 
 # Further reading material
@@ -1154,8 +1155,6 @@ conveniently in the [web interface](http://deepblue.mpi-inf.mpg.de). The web
 interface also allows you to select experiments in a grid like view. These can
 then be downloaded to R for further analysis by simple copy and paste of the
 provided code as shown in Figure 1.
-
-![Screenshot of grid view where a selection of experiments can be exported to R.](web_interface_export.png)
 
 # Final remarks
 

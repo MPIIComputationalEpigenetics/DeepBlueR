@@ -2,10 +2,6 @@
 #  source("https://bioconductor.org/biocLite.R")
 #  biocLite("DeepBlueR")
 
-## ---- eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE--------------
-#  library(devtools)
-#  install_github("MPIIComputationalEpigenetics/DeepBlueR")
-
 ## ---- echo=FALSE, warning=FALSE, message=FALSE, error=FALSE--------------
 library(DeepBlueR)
 
@@ -365,4 +361,157 @@ score_matrix$START <- as.factor(score_matrix$START)
 ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) +
     geom_tile() +
     theme(axis.text.x=element_text(angle=-90))
+
+## ----dependencies, message=FALSE, warning=FALSE--------------------------
+library(DeepBlueR)
+library(gplots)
+library(RColorBrewer)
+library(matrixStats)
+library(stringr)
+
+## ------------------------------------------------------------------------
+blueprint_DNA_meth <- deepblue_list_experiments(genome = "GRCh38",
+                          epigenetic_mark = "DNA Methylation",
+                          technique = "Bisulfite-Seq",
+                          project = "BLUEPRINT EPIGENOME")
+
+blueprint_DNA_meth
+
+## ------------------------------------------------------------------------
+blueprint_DNA_meth <- blueprint_DNA_meth[grep("bs_call",
+    deepblue_extract_names(blueprint_DNA_meth)),]
+
+blueprint_DNA_meth
+
+## ------------------------------------------------------------------------
+exp_columns <- list(nrow(blueprint_DNA_meth))
+
+for(i in 1:nrow(blueprint_DNA_meth)){
+    exp_columns[[i]] <- "VALUE"
+}
+names(exp_columns) <- deepblue_extract_names(blueprint_DNA_meth)
+
+## ------------------------------------------------------------------------
+exp_columns <- deepblue_select_column(blueprint_DNA_meth, "VALUE")
+
+## ------------------------------------------------------------------------
+blueprint_regulatory_regions <- deepblue_select_annotations(
+    annotation_name = "Blueprint Ensembl Regulatory Build",
+    genome = "GRCh38")
+
+blueprint_regulatory_regions
+
+## ---- eval=FALSE---------------------------------------------------------
+#  deepblue_select_annotations(annotation_name = "Cpg Islands",
+#                              genome = "GRCh38")
+
+## ------------------------------------------------------------------------
+deepblue_list_annotations(genome = "GRCh38")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  tiling_regions <- deepblue_tiling_regions(size=5000,
+#                                            genome="GRCh38")
+
+## ------------------------------------------------------------------------
+request_id <- deepblue_score_matrix(
+    experiments_columns = exp_columns,
+    aggregation_function = "mean",
+    aggregation_regions_id = blueprint_regulatory_regions)
+
+request_id
+
+## ------------------------------------------------------------------------
+deepblue_info(request_id)$state
+
+## ------------------------------------------------------------------------
+score_matrix <- deepblue_download_request_data(request_id = request_id)
+score_matrix[,1:5, with=FALSE]
+
+## ------------------------------------------------------------------------
+getPalette <- colorRampPalette(brewer.pal(9, "Set1"))
+
+## ------------------------------------------------------------------------
+experiments_info <- deepblue_info(deepblue_extract_ids(blueprint_DNA_meth))
+
+## ------------------------------------------------------------------------
+experiments_info[[1]]
+
+## ------------------------------------------------------------------------
+biosource <- unlist(lapply(experiments_info, function(x){ x$sample_info$biosource_name}))
+head(biosource)
+
+## ------------------------------------------------------------------------
+biosource <- str_replace_all(biosource, "-positive", "+")
+biosource <- str_replace_all(biosource, "-negative", "-")
+
+## ------------------------------------------------------------------------
+biosource <- str_replace(biosource, ", terminally differentiated", "")
+
+## ------------------------------------------------------------------------
+color_map <- data.frame(biosource = unique(biosource),
+                        color = getPalette(length(unique(biosource))))
+
+head(color_map)
+
+## ------------------------------------------------------------------------
+exp_names <- unlist(lapply(experiments_info, function(x){ x$name}))
+
+biosource_colors <- data.frame(name = exp_names, biosource = biosource)
+biosource_colors <- dplyr::left_join(biosource_colors, color_map, by = "biosource")
+head(biosource_colors)
+
+## ------------------------------------------------------------------------
+color_vector <- as.character(biosource_colors$color)
+names(color_vector) <-  biosource_colors$biosource
+head(color_vector)
+
+## ------------------------------------------------------------------------
+filtered_score_matrix <- as.matrix(score_matrix[,-c(1:3), with=FALSE])
+head(filtered_score_matrix[,1:3])
+
+## ------------------------------------------------------------------------
+message("regions before: ", nrow(filtered_score_matrix))
+filtered_score_matrix_rowVars <- rowVars(filtered_score_matrix, na.rm = T)
+filtered_score_matrix <- filtered_score_matrix[which(filtered_score_matrix_rowVars > 0.05),]
+message("regions after: ", nrow(filtered_score_matrix))
+
+## ------------------------------------------------------------------------
+message("regions before: ", nrow(filtered_score_matrix))
+filtered_score_matrix <- filtered_score_matrix[which(complete.cases(filtered_score_matrix)),]
+message("regions after: ", nrow(filtered_score_matrix))
+
+## ------------------------------------------------------------------------
+filtered_score_matrix <- filtered_score_matrix[,exp_names]
+
+## ---- fig.width=11-------------------------------------------------------
+#par(mar=c(5.1, 8.1, 4.1, 4.1), xpd=TRUE)
+
+heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
+          trace = "none", ColSideColors = color_vector,
+          hclust=function(x) hclust(x,method="complete"),
+          distfun=function(x) as.dist(1-cor(t(x), method = "pearson")),
+          Rowv = TRUE, dendrogram = "column",
+          key.xlab = "beta value", denscol = "black", keysize = 1.5,
+          key.title = NA)
+          #key.par = list(mar = c(8.5, 2.5, 1, 1)), key.title = NA)
+
+#par(lend = 1)
+legend("bottomleft",
+       legend = color_map$biosource,
+       col = as.character(color_map$color),
+       text.width = 0.28)
+       #lty= 1,
+       #lwd = 8,
+       #cex = 0.7,
+       #y.intersp = 0.7,
+       #inset=c(-0.21,-0.11))
+
+## ---- eval = FALSE-------------------------------------------------------
+#  vignette("DeepBlueR")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  demo(package = "DeepBlueR")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  demo("use_case1", package = "DeepBlueR")
 
