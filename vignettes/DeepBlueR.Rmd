@@ -1,6 +1,6 @@
 ---
-title: "The DeepBlue epigenomic data server - R package"
-author: "Felipe Albrecht"
+title: "DeepBlueR - DeepBlue Epigenomic Data Server - R package"
+author: "Felipe Albrecht, Markus List"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -14,7 +14,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-![DeepBlueR logo](logo.png)
+![](logo.png)
 
 # Introduction
 
@@ -817,15 +817,12 @@ ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) +
 ```
 
 
-# Manuscript section
+# Complete example: Data retrieval and analysis with DeepBlueR
 
-
-# Aim
+## Example aim
 
 In this use case we will show how DeepBlueR can be used to generate an
 overview heatmap of variable positions in all BLUEPRINT DNA Methylation experiments
-
-# Data retrieval with DeepBlueR
 
 ## Dependencies
 
@@ -977,9 +974,9 @@ than can be handled in R on most desktop computers. We next show how this score
 matrix can be used to show that samples cluster by their cell type and how to
 reproduce the heatmap shown as Figure 1 in the main manuscript.
 
-# Generating a heatmap
+## Generating a heatmap
 
-## Meta data and colors
+### Meta data and colors
 
 In preparation of the heatmap plot, we need to generate an RColorBrewer palette.
 This allows us to create a color palette for more than 9 colors.
@@ -997,7 +994,7 @@ a description of available meta data. Here, we show the meta data associated
 with just one of the samples.
 
 ```{r}
-experiments_info[[1]]
+head(experiments_info[[1]], 10)
 ```
 
 For this analysis, we are only interested in the biosource name,
@@ -1050,7 +1047,7 @@ names(color_vector) <-  biosource_colors$biosource
 head(color_vector)
 ```
 
-## Processing the input data
+### Processing the input data
 
 We remove the first three columns (CHROMOSOME, START, END)
 and convert the data frame to a numeric matrix.
@@ -1090,7 +1087,7 @@ sure we assign the correct cell type to each sample!
 filtered_score_matrix <- filtered_score_matrix[,exp_names]
 ```
 
-## Plotting
+### Plotting
 
 We plot a heatmap in which the variable regions are shown across all samples
 On top of the columns we create a dendrogram based on Spearman correlation
@@ -1113,29 +1110,24 @@ heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
 legend("bottomleft",
        legend = color_map$biosource,
        col = as.character(color_map$color),
-       text.width = 0.28)
-       #lty= 1,
-       #lwd = 8,
-       #cex = 0.7,
-       #y.intersp = 0.7,
-       #inset=c(-0.21,-0.11))
+       text.width = 0.28
+       lty= 1,
+       lwd = 8,
+       cex = 0.7,
+       y.intersp = 0.7,
+       inset=c(-0.21,-0.11))
 ```
 
 # Further reading material
 
 To obtain a general overview of DeepBlue, we recommend starting with the
 [DeepBlue publication](http://nar.oxfordjournals.org/lookup/doi/10.1093/nar/gkw211)
+and a list of all DeepBlue commands is available in
+its [API page](http://deepblue.mpi-inf.mpg.de/api.php).
 
-This usecase is meant as a glimpse at the potential of the DeepBlueR package.
-However, much can be learned and we provide ample documentation to help new
-users to get started. We recommend you start by reading the vignette
 
-```{r, eval = FALSE}
-vignette("DeepBlueR")
-```
-
-Next, you should have a look at the use cases included in the R package. You
-can list them with
+You can have a look at the other use cases included in the R package.
+You can list them with
 ```{r, eval=FALSE}
 demo(package = "DeepBlueR")
 ```
@@ -1148,7 +1140,8 @@ demo("use_case1", package = "DeepBlueR")
 
 Note that the use case in this document corresponds to use case 4 in the R package.
 
-Finally, we encourage you to try to reproduce [Python examples](http://deepblue.mpi-inf.mpg.de/examples.php) in R and to read the [DeepBlue manual](https://www.gitbook.com/book/felipealbrecht/deepblue-epigenomic-data-server-manual/details).
+Finally, we encourage you to try to reproduce [Python examples](http://deepblue.mpi-inf.mpg.de/examples.php)
+in R and to read the [DeepBlue manual](https://www.gitbook.com/book/felipealbrecht/deepblue-epigenomic-data-server-manual/details).
 
 Finally, we want to highlight the possibility to browse and access existing data in DeepBlue
 conveniently in the [web interface](http://deepblue.mpi-inf.mpg.de). The web
@@ -1159,7 +1152,8 @@ provided code as shown in Figure 1.
 # Final remarks
 
 Should you encounter any problems with DeepBlueR, we kindly ask you to create
-an issue on our [github repository](https://github.com/MPIIComputationalEpigenetics/DeepBlueR/issues).
+an issue in the BioConductor's [DeepBlueR support page](https://support.bioconductor.org/t/deepbluer/).
+
 The R code in the DeepBlueR package is under the GPLv3 license and we welcome
 contributions of other developers via github. Finally, we would like to thank the
 Bioconductor team for its support in making DeepBlueR available to a wide

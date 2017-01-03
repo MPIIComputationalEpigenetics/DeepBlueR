@@ -434,7 +434,7 @@ getPalette <- colorRampPalette(brewer.pal(9, "Set1"))
 experiments_info <- deepblue_info(deepblue_extract_ids(blueprint_DNA_meth))
 
 ## ------------------------------------------------------------------------
-experiments_info[[1]]
+head(experiments_info[[1]], 10)
 
 ## ------------------------------------------------------------------------
 biosource <- unlist(lapply(experiments_info, function(x){ x$sample_info$biosource_name}))
@@ -482,36 +482,4 @@ message("regions after: ", nrow(filtered_score_matrix))
 
 ## ------------------------------------------------------------------------
 filtered_score_matrix <- filtered_score_matrix[,exp_names]
-
-## ---- fig.width=11-------------------------------------------------------
-#par(mar=c(5.1, 8.1, 4.1, 4.1), xpd=TRUE)
-
-heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
-          trace = "none", ColSideColors = color_vector,
-          hclust=function(x) hclust(x,method="complete"),
-          distfun=function(x) as.dist(1-cor(t(x), method = "pearson")),
-          Rowv = TRUE, dendrogram = "column",
-          key.xlab = "beta value", denscol = "black", keysize = 1.5,
-          key.title = NA)
-          #key.par = list(mar = c(8.5, 2.5, 1, 1)), key.title = NA)
-
-#par(lend = 1)
-legend("bottomleft",
-       legend = color_map$biosource,
-       col = as.character(color_map$color),
-       text.width = 0.28)
-       #lty= 1,
-       #lwd = 8,
-       #cex = 0.7,
-       #y.intersp = 0.7,
-       #inset=c(-0.21,-0.11))
-
-## ---- eval = FALSE-------------------------------------------------------
-#  vignette("DeepBlueR")
-
-## ---- eval=FALSE---------------------------------------------------------
-#  demo(package = "DeepBlueR")
-
-## ---- eval=FALSE---------------------------------------------------------
-#  demo("use_case1", package = "DeepBlueR")
 
