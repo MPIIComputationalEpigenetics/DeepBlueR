@@ -2930,7 +2930,7 @@ deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_
 #' @param query_data_id - A string (query data that will be filtered.)
 #' @param query_filter_id - A string (query containing the regions that the regions of the query_data_id must overlap.)
 #' @param overlap - A boolean (True if must overlap, or false if must not overlap.)
-#' @param amount - A int (Amount of regions that must overlap. Use the parameter 'amount_type' ('bp'' or '%') to specify the unit.  For example, use the value '10' with the amount_type '%' to specify that 10% of the bases in both regions must overlap, or use '10' with the amount_type 'bp' to specify that at least 10 bases must or must not overlap.)
+#' @param amount - A int (Amount of regions that must overlap. Use the parameter 'amount_type' ('bp' or '%') to specify the unit.  For example, use the value '10' with the amount_type '%' to specify that 10% of the bases in both regions must overlap, or use '10' with the amount_type 'bp' to specify that at least 10 bases must or must not overlap.)
 #' @param amount_type - A string (Type of the amount: 'bp' for base pairs and '%' for percentage. )
 #' @param user_key - A string (users token key)
 #'

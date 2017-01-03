@@ -1103,8 +1103,7 @@ heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
           distfun=function(x) as.dist(1-cor(t(x), method = "pearson")),
           Rowv = TRUE, dendrogram = "column",
           key.xlab = "beta value", denscol = "black", keysize = 1.5,
-          key.title = NA)
-          #key.par = list(mar = c(8.5, 2.5, 1, 1)), key.title = NA)
+          key.par = list(mar = c(8.5, 2.5, 1, 1)), key.title = NA)
 
 #par(lend = 1)
 legend("bottomleft",
