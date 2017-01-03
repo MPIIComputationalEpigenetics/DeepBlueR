@@ -534,7 +534,6 @@ request_id = deepblue_get_regions(query_id=overlapped,
     output_format=
       "CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEAN,@AGG.VAR")
 regions = deepblue_download_request_data(request_id=request_id)
-regions
 ```
 
 ### Gene expression
@@ -806,23 +805,95 @@ score_matrix = deepblue_download_request_data(request_id=request_id)
 head(score_matrix, 5)
 ```
 
-```{r, warning=FALSE, echo=TRUE, error=FALSE, eval=TRUE}
+```{r, fig.width = 11, warning=FALSE, echo=TRUE, error=FALSE, eval=TRUE}
 library(ggplot2)
-score_matrix = tidyr::gather(score_matrix,
+score_matrix_plot = tidyr::gather(score_matrix,
     "experiment", "methylation", -CHROMOSOME, -START, -END)
-score_matrix$START <- as.factor(score_matrix$START)
-ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) +
+score_matrix_plot$START <- as.factor(score_matrix_plot$START)
+ggplot(score_matrix_plot, aes(x=START, y=experiment, fill=methylation)) +
     geom_tile() +
     theme(axis.text.x=element_text(angle=-90))
 ```
 
+### Data Export
 
-# Complete example: Data retrieval and analysis with DeepBlueR
+DeepBlueR allows you to conveniently save results to disk. Any result can be 
+saved as tab delimited file using ```deepblue_export_tab```, for example we can
+save the score matrix generated in the above example:
 
-## Example aim
+```{r}
+deepblue_export_tab(score_matrix, file.name = "my_score_matrix")
+```
 
-In this use case we will show how DeepBlueR can be used to generate an
-overview heatmap of variable positions in all BLUEPRINT DNA Methylation experiments
+Results obtained with ```get_regions``` are of type GenomicRanges and can be 
+exported as tab delimited files preserving all columns or as BED files, where
+a specific column can optionally be selected to populate the 'score' column of 
+the BED file. To demonstrate this, we use the result from the tiling regions 
+example further above:
+
+```{r, eval=FALSE}
+request_id = deepblue_get_regions(query_id=overlapped,
+    output_format="CHROMOSOME,START,END,@AGG.MEAN,@AGG.SD")
+
+regions = deepblue_download_request_data(request_id=request_id)
+deepblue_export_bed(regions, 
+                    file.name = "my_tiling_regions",
+                    score.field = "@AGG.MEAN")
+```
+
+Furthermore, meta data associated with any id can be stored locally using the
+```deepblue_export_meta``` command. To this end, we first obtain the experiment id of the 
+file we used in the tiling regions example.
+
+```{r, eval=FALSE}
+exp_id <- deepblue_name_to_id(
+    "GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+    collection = "experiments")$id
+
+deepblue_export_meta_data(exp_id, file.name = "GC_T14")
+```
+
+This command can also handle lists of ids, for instance:
+
+```{r, eval=FALSE}
+deepblue_export_meta_data(list("e30035", "e30036"),
+file.name = "test_export")
+```
+
+In some cases, users will perform a series of requests. We provide the
+command ```deepblue_batch_export``` to save these results and their associated
+meta data to disk in one go. This method will save each file as it becomes 
+available, i.e. it will be saved once the request is successfully 
+processed by DeepBlue:
+
+```{r, eval=FALSE}
+experiments = deepblue_list_experiments(type="peaks", epigenetic_mark="H3K4me3",
+    biosource=c("inflammatory macrophage", "macrophage"),
+    project="BLUEPRINT Epigenome")
+experiment_names = deepblue_extract_names(experiments)
+
+request_ids = foreach(experiment = experiment_names) %do%{
+  query_id = deepblue_select_experiments(experiment_name = experiment, 
+                                        chromosome = "chr21")
+  
+  request_id = deepblue_get_regions(query_id =query_id,
+    output_format = "CHROMOSOME,START,END")
+}
+request_data = deepblue_batch_export_results(request_ids, 
+                             target.directory = "BLUEPRINT macrophages chr21")
+```
+
+
+# Large-scale analysis example
+
+## Aim
+
+Here, we will show how DeepBlueR can be used to generate an
+overview heatmap of variable positions in more than 200
+BLUEPRINT DNA Methylation experiments. The amount of data considered here would
+normally be too huge to be processed on a local R installation. However, using
+DeepBlue and server-side processing of the data, we can facilitate this 
+large-scale analysis easily.
 
 ## Dependencies
 
@@ -1095,26 +1166,30 @@ More precisely, we convert the Spearman correlation, a similarity
 measure, to a distance such that it can be used with hierarchical clustering.
 
 ```{r, fig.width=11}
-#par(mar=c(5.1, 8.1, 4.1, 4.1), xpd=TRUE)
-
-heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
+ heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
           trace = "none", ColSideColors = color_vector,
           hclust=function(x) hclust(x,method="complete"),
           distfun=function(x) as.dist(1-cor(t(x), method = "pearson")),
           Rowv = TRUE, dendrogram = "column",
           key.xlab = "beta value", denscol = "black", keysize = 1.5,
-          key.par = list(mar = c(8.5, 2.5, 1, 1)), key.title = NA)
+          key.title = NA)
+ 
+```
 
-#par(lend = 1)
-legend("bottomleft",
+```{r, fig.height=8}
+  plot.new()
+  
+  legend(x = 0, y = 1,
        legend = color_map$biosource,
        col = as.character(color_map$color),
-       text.width = 0.28
+       text.width = 0.6,
        lty= 1,
-       lwd = 8,
+       lwd = 6,
        cex = 0.7,
        y.intersp = 0.7,
+       x.intersp = 0.7,
        inset=c(-0.21,-0.11))
+  
 ```
 
 # Further reading material
@@ -1154,7 +1229,7 @@ Should you encounter any problems with DeepBlueR, we kindly ask you to create
 an issue in the BioConductor's [DeepBlueR support page](https://support.bioconductor.org/t/deepbluer/).
 
 The R code in the DeepBlueR package is under the GPLv3 license and we welcome
-contributions of other developers via github. Finally, we would like to thank the
+contributions of other developers. Finally, we would like to thank the
 Bioconductor team for its support in making DeepBlueR available to a wide
 audience of users.
 

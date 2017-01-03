@@ -15,9 +15,9 @@ deepblue_overlap(query_data_id = NULL, query_filter_id = NULL,
 
 \item{overlap}{- A boolean (True if must overlap, or false if must not overlap.)}
 
-\item{amount}{- A int (Amount of regions that must overlap. Use the parameter 'amount_type' ('bp' or '%') to specify the unit.  For example, use the value '10' with the amount_type '%' to specify that 10% of the bases in both regions must overlap, or use '10' with the amount_type 'bp' to specify that at least 10 bases must or must not overlap.)}
+\item{amount}{- A int (Amount of regions that must overlap. Use the parameter 'amount_type' ('bp' or '\%') to specify the unit.  For example, use the value '10' with the amount_type '\%' to specify that 10\% of the bases in both regions must overlap, or use '10' with the amount_type 'bp' to specify that at least 10 bases must or must not overlap.)}
 
-\item{amount_type}{- A string (Type of the amount: 'bp' for base pairs and '%' for percentage. )}
+\item{amount_type}{- A string (Type of the amount: 'bp' for base pairs and '\%' for percentage. )}
 
 \item{user_key}{- A string (users token key)}
 }

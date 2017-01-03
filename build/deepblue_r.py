@@ -75,13 +75,13 @@ deepblue_%(name)s <- function(%(parameter_names)s) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %%in%% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 """
@@ -178,7 +178,7 @@ def main():
       params_documentation.append(param_tmpl  % {"name": p[0],
                                                  "type": p[1],
                                                  "vector" : s_vector,
-                                                 "description" : p[3]})
+                                                 "description" : p[3].replace('%', '\%')})
     titles.append(title_tmpl % {'name': name})
     results = []
     for r in cmd['results']:

@@ -174,7 +174,6 @@ request_id = deepblue_get_regions(query_id=overlapped,
     output_format=
       "CHROMOSOME,START,END,@AGG.MIN,@AGG.MAX,@AGG.MEAN,@AGG.VAR")
 regions = deepblue_download_request_data(request_id=request_id)
-regions
 
 ## ---- echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE-----------------
 hsc_children = deepblue_get_biosource_children("hematopoietic stem cell")
@@ -353,14 +352,53 @@ request_id = deepblue_score_matrix(
 score_matrix = deepblue_download_request_data(request_id=request_id)
 head(score_matrix, 5)
 
-## ---- warning=FALSE, echo=TRUE, error=FALSE, eval=TRUE-------------------
+## ---- fig.width = 11, warning=FALSE, echo=TRUE, error=FALSE, eval=TRUE----
 library(ggplot2)
-score_matrix = tidyr::gather(score_matrix,
+score_matrix_plot = tidyr::gather(score_matrix,
     "experiment", "methylation", -CHROMOSOME, -START, -END)
-score_matrix$START <- as.factor(score_matrix$START)
-ggplot(score_matrix, aes(x=START, y=experiment, fill=methylation)) +
+score_matrix_plot$START <- as.factor(score_matrix_plot$START)
+ggplot(score_matrix_plot, aes(x=START, y=experiment, fill=methylation)) +
     geom_tile() +
     theme(axis.text.x=element_text(angle=-90))
+
+## ------------------------------------------------------------------------
+deepblue_export_tab(score_matrix, file.name = "my_score_matrix")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  request_id = deepblue_get_regions(query_id=overlapped,
+#      output_format="CHROMOSOME,START,END,@AGG.MEAN,@AGG.SD")
+#  
+#  regions = deepblue_download_request_data(request_id=request_id)
+#  deepblue_export_bed(regions,
+#                      file.name = "my_tiling_regions",
+#                      score.field = "@AGG.MEAN")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  exp_id <- deepblue_name_to_id(
+#      "GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig",
+#      collection = "experiments")$id
+#  
+#  deepblue_export_meta_data(exp_id, file.name = "GC_T14")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  deepblue_export_meta_data(list("e30035", "e30036"),
+#  file.name = "test_export")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  experiments = deepblue_list_experiments(type="peaks", epigenetic_mark="H3K4me3",
+#      biosource=c("inflammatory macrophage", "macrophage"),
+#      project="BLUEPRINT Epigenome")
+#  experiment_names = deepblue_extract_names(experiments)
+#  
+#  request_ids = foreach(experiment = experiment_names) %do%{
+#    query_id = deepblue_select_experiments(experiment_name = experiment,
+#                                          chromosome = "chr21")
+#  
+#    request_id = deepblue_get_regions(query_id =query_id,
+#      output_format = "CHROMOSOME,START,END")
+#  }
+#  request_data = deepblue_batch_export_results(request_ids,
+#                               target.directory = "BLUEPRINT macrophages chr21")
 
 ## ----dependencies, message=FALSE, warning=FALSE--------------------------
 library(DeepBlueR)
@@ -422,4 +460,95 @@ request_id
 
 ## ------------------------------------------------------------------------
 deepblue_info(request_id)$state
+
+## ------------------------------------------------------------------------
+score_matrix <- deepblue_download_request_data(request_id = request_id)
+score_matrix[,1:5, with=FALSE]
+
+## ------------------------------------------------------------------------
+getPalette <- colorRampPalette(brewer.pal(9, "Set1"))
+
+## ------------------------------------------------------------------------
+experiments_info <- deepblue_info(deepblue_extract_ids(blueprint_DNA_meth))
+
+## ------------------------------------------------------------------------
+head(experiments_info[[1]], 10)
+
+## ------------------------------------------------------------------------
+biosource <- unlist(lapply(experiments_info, function(x){ x$sample_info$biosource_name}))
+head(biosource)
+
+## ------------------------------------------------------------------------
+biosource <- str_replace_all(biosource, "-positive", "+")
+biosource <- str_replace_all(biosource, "-negative", "-")
+
+## ------------------------------------------------------------------------
+biosource <- str_replace(biosource, ", terminally differentiated", "")
+
+## ------------------------------------------------------------------------
+color_map <- data.frame(biosource = unique(biosource),
+                        color = getPalette(length(unique(biosource))))
+
+head(color_map)
+
+## ------------------------------------------------------------------------
+exp_names <- unlist(lapply(experiments_info, function(x){ x$name}))
+
+biosource_colors <- data.frame(name = exp_names, biosource = biosource)
+biosource_colors <- dplyr::left_join(biosource_colors, color_map, by = "biosource")
+head(biosource_colors)
+
+## ------------------------------------------------------------------------
+color_vector <- as.character(biosource_colors$color)
+names(color_vector) <-  biosource_colors$biosource
+head(color_vector)
+
+## ------------------------------------------------------------------------
+filtered_score_matrix <- as.matrix(score_matrix[,-c(1:3), with=FALSE])
+head(filtered_score_matrix[,1:3])
+
+## ------------------------------------------------------------------------
+message("regions before: ", nrow(filtered_score_matrix))
+filtered_score_matrix_rowVars <- rowVars(filtered_score_matrix, na.rm = T)
+filtered_score_matrix <- filtered_score_matrix[which(filtered_score_matrix_rowVars > 0.05),]
+message("regions after: ", nrow(filtered_score_matrix))
+
+## ------------------------------------------------------------------------
+message("regions before: ", nrow(filtered_score_matrix))
+filtered_score_matrix <- filtered_score_matrix[which(complete.cases(filtered_score_matrix)),]
+message("regions after: ", nrow(filtered_score_matrix))
+
+## ------------------------------------------------------------------------
+filtered_score_matrix <- filtered_score_matrix[,exp_names]
+
+## ---- fig.width=11-------------------------------------------------------
+ heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
+          trace = "none", ColSideColors = color_vector,
+          hclust=function(x) hclust(x,method="complete"),
+          distfun=function(x) as.dist(1-cor(t(x), method = "pearson")),
+          Rowv = TRUE, dendrogram = "column",
+          key.xlab = "beta value", denscol = "black", keysize = 1.5,
+          key.title = NA)
+ 
+
+## ---- fig.height=8-------------------------------------------------------
+  plot.new()
+  
+  legend(x = 0, y = 1,
+       legend = color_map$biosource,
+       col = as.character(color_map$color),
+       text.width = 0.6,
+       lty= 1,
+       lwd = 6,
+       cex = 0.7,
+       y.intersp = 0.7,
+       x.intersp = 0.7,
+       inset=c(-0.21,-0.11))
+  
+
+## ---- eval=FALSE---------------------------------------------------------
+#  demo(package = "DeepBlueR")
+
+## ---- eval=FALSE---------------------------------------------------------
+#  demo("use_case1", package = "DeepBlueR")
 

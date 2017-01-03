@@ -81,13 +81,13 @@ deepblue_aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -96,7 +96,7 @@ deepblue_aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
 #' @export 
 #' 
 #' @title binning 
-#' @description ---
+#' @description Create set of numbers containing the the count values of the selected data columns
 #' @family Operating on the data regions
 #' 
 #' @param query_data_id - A string (query data that will made by the binning.)
@@ -147,13 +147,13 @@ deepblue_binning <- function(query_data_id= NULL, column= NULL, bins= NULL, user
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -206,13 +206,13 @@ deepblue_cancel_request <- function(id= NULL, user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -265,13 +265,13 @@ deepblue_chromosomes <- function(genome= NULL, user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -334,13 +334,13 @@ deepblue_collection_experiments_count <- function(controlled_vocabulary= NULL, g
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -391,13 +391,13 @@ deepblue_commands <- function() {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -452,13 +452,13 @@ deepblue_count_regions <- function(query_id= NULL, user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -514,13 +514,13 @@ deepblue_coverage <- function(query_id= NULL, genome= NULL, user_key=deepblue_US
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -572,13 +572,13 @@ deepblue_echo <- function(user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -639,13 +639,13 @@ deepblue_extend <- function(query_id= NULL, length= NULL, direction= NULL, use_s
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -706,13 +706,13 @@ deepblue_faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -774,13 +774,13 @@ deepblue_filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -841,13 +841,13 @@ deepblue_flank <- function(query_id= NULL, start= NULL, length= NULL, use_strand
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -900,13 +900,13 @@ deepblue_get_biosource_children <- function(biosource= NULL, user_key=deepblue_U
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -959,13 +959,13 @@ deepblue_get_biosource_parents <- function(biosource= NULL, user_key=deepblue_US
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1018,13 +1018,13 @@ deepblue_get_biosource_related <- function(biosource= NULL, user_key=deepblue_US
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1077,13 +1077,13 @@ deepblue_get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue_U
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1136,13 +1136,13 @@ deepblue_get_experiments_by_query <- function(query_id= NULL, user_key=deepblue_
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1199,13 +1199,13 @@ deepblue_get_regions <- function(query_id= NULL, output_format= NULL, user_key=d
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1264,13 +1264,13 @@ deepblue_get_request_data <- function(request_id= NULL, user_key=deepblue_USER_K
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1323,13 +1323,13 @@ deepblue_info <- function(id= NULL, user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1394,13 +1394,13 @@ deepblue_input_regions <- function(genome= NULL, region_set= NULL, user_key=deep
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1460,13 +1460,13 @@ deepblue_intersection <- function(query_data_id= NULL, query_filter_id= NULL, us
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1519,13 +1519,13 @@ deepblue_is_biosource <- function(biosource= NULL, user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1578,13 +1578,13 @@ deepblue_list_annotations <- function(genome= NULL, user_key=deepblue_USER_KEY) 
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1637,13 +1637,13 @@ deepblue_list_biosources <- function(extra_metadata=NULL, user_key=deepblue_USER
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1695,13 +1695,13 @@ deepblue_list_column_types <- function(user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1754,13 +1754,13 @@ deepblue_list_epigenetic_marks <- function(extra_metadata=NULL, user_key=deepblu
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1820,13 +1820,13 @@ deepblue_list_experiments <- function(genome= NULL, type= NULL, epigenetic_mark=
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1883,13 +1883,13 @@ deepblue_list_expressions <- function(expression_type= NULL, sample_id= NULL, re
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -1941,13 +1941,13 @@ deepblue_list_gene_models <- function(user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2009,13 +2009,13 @@ deepblue_list_genes <- function(genes= NULL, chromosome= NULL, start= NULL, end=
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2067,13 +2067,13 @@ deepblue_list_genomes <- function(user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2126,13 +2126,13 @@ deepblue_list_in_use <- function(controlled_vocabulary= NULL, user_key=deepblue_
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2184,13 +2184,13 @@ deepblue_list_projects <- function(user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2248,13 +2248,13 @@ deepblue_list_recent_experiments <- function(days= NULL, genome= NULL, epigeneti
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2307,13 +2307,13 @@ deepblue_list_requests <- function(request_state= NULL, user_key=deepblue_USER_K
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2367,13 +2367,13 @@ deepblue_list_samples <- function(biosource= NULL, extra_metadata=NULL, user_key
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2426,13 +2426,13 @@ deepblue_list_similar_biosources <- function(name= NULL, user_key=deepblue_USER_
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2485,13 +2485,13 @@ deepblue_list_similar_epigenetic_marks <- function(name= NULL, user_key=deepblue
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2545,13 +2545,13 @@ deepblue_list_similar_experiments <- function(name= NULL, genome= NULL, user_key
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2604,13 +2604,13 @@ deepblue_list_similar_genomes <- function(name= NULL, user_key=deepblue_USER_KEY
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2663,13 +2663,13 @@ deepblue_list_similar_projects <- function(name= NULL, user_key=deepblue_USER_KE
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2722,13 +2722,13 @@ deepblue_list_similar_techniques <- function(name= NULL, user_key=deepblue_USER_
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2780,13 +2780,13 @@ deepblue_list_techniques <- function(user_key=deepblue_USER_KEY) {
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2847,13 +2847,13 @@ deepblue_merge_queries <- function(query_a_id= NULL, query_b_id= NULL, user_key=
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2909,13 +2909,13 @@ deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -2930,8 +2930,8 @@ deepblue_name_to_id <- function(name= NULL, collection= NULL, user_key=deepblue_
 #' @param query_data_id - A string (query data that will be filtered.)
 #' @param query_filter_id - A string (query containing the regions that the regions of the query_data_id must overlap.)
 #' @param overlap - A boolean (True if must overlap, or false if must not overlap.)
-#' @param amount - A int (Amount of regions that must overlap. Use the parameter 'amount_type' ('bp' or '%') to specify the unit.  For example, use the value '10' with the amount_type '%' to specify that 10% of the bases in both regions must overlap, or use '10' with the amount_type 'bp' to specify that at least 10 bases must or must not overlap.)
-#' @param amount_type - A string (Type of the amount: 'bp' for base pairs and '%' for percentage. )
+#' @param amount - A int (Amount of regions that must overlap. Use the parameter 'amount_type' ('bp' or '\%') to specify the unit.  For example, use the value '10' with the amount_type '\%' to specify that 10\% of the bases in both regions must overlap, or use '10' with the amount_type 'bp' to specify that at least 10 bases must or must not overlap.)
+#' @param amount_type - A string (Type of the amount: 'bp' for base pairs and '\%' for percentage. )
 #' @param user_key - A string (users token key)
 #'
 #' @return id - A string (id of the new query)
@@ -2980,13 +2980,13 @@ deepblue_overlap <- function(query_data_id= NULL, query_filter_id= NULL, overlap
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3039,13 +3039,13 @@ deepblue_preview_experiment <- function(experiment_name= NULL, user_key=deepblue
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3108,13 +3108,13 @@ deepblue_query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue_
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3175,13 +3175,13 @@ deepblue_query_experiment_type <- function(query_id= NULL, type= NULL, user_key=
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3243,13 +3243,13 @@ deepblue_score_matrix <- function(experiments_columns= NULL, aggregation_functio
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3305,13 +3305,13 @@ deepblue_search <- function(keyword= NULL, type= NULL, user_key=deepblue_USER_KE
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3373,13 +3373,13 @@ deepblue_select_annotations <- function(annotation_name= NULL, genome= NULL, chr
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3438,13 +3438,13 @@ deepblue_select_experiments <- function(experiment_name= NULL, chromosome= NULL,
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3509,13 +3509,13 @@ deepblue_select_expressions <- function(expression_type= NULL, sample_ids= NULL,
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3577,13 +3577,13 @@ deepblue_select_genes <- function(genes= NULL, gene_model= NULL, chromosome= NUL
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3647,13 +3647,13 @@ deepblue_select_regions <- function(experiment_name= NULL, genome= NULL, epigene
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 
@@ -3711,13 +3711,13 @@ deepblue_tiling_regions <- function(size= NULL, genome= NULL, chromosome= NULL, 
             user_key = user_key
         )
     }
-    
+
     if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
         result <- value[[2]]
         result$count <- as.integer(result$count)
         return(result)
     }
-    
+
     return(value[[2]])
 }
 

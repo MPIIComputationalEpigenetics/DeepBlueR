@@ -2,7 +2,7 @@ Package: DeepBlueR
 Title: DeepBlueR
 Type: Package
 Description: Accessing the DeepBlue Epigenetics Data Server through R.
-Version: 1.1.5
+Version: 1.1.7
 Author: Felipe Albrecht, Markus List
 Maintainer: Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>, Markus List <markus.list@mpi-inf.mpg.de>
 License: GPL (>=2.0)
@@ -14,7 +14,9 @@ Imports: GenomicRanges,
     methods,
     rjson,
     utils,
-    R.utils
+    R.utils,
+    foreach,
+    withr
 Depends: R (>= 3.3),
     XML,
     RCurl
@@ -22,7 +24,7 @@ Collate:
     class_DeepBlueCommand.R
 	deepblue.R
 	internalFunctions.R
-	batchExport.R
+	export.R
 	helperFunctions.R
 	methods_DeepBlueCommand.R
 BuildVignettes: TRUE
