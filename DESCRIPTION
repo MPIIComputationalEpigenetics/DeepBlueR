@@ -31,8 +31,11 @@ Suggests: knitr,
     rmarkdown,
     LOLA,
     Gviz,
+    gplots,
     ggplot2,
-    tidyr
+    tidyr,
+    RColorBrewer,
+    matrixStats
 VignetteBuilder: knitr
 biocViews: DataImport,
     DataRepresentation,
