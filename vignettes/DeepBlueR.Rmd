@@ -142,7 +142,7 @@ the DeepBlue API, such as:
 |----------|-----------------------|-----------------------==--------------------------|
 | Request  | batch_export_results  | Download the results for a list of requests       |
 |          | download_request_data | Download and convert the requested data (blocking)|
-|          | export_meta_data      | Export meta data to a tab delimited file          |
+|          | export_meta_data      | Export metadata to a tab delimited file          |
 |          | export_tab            | Export any result as tab delimited file           |
 |          | export_bed            | Export GenomicRanges results as BED file          |
 
@@ -794,7 +794,7 @@ deepblue_export_bed(regions,
                     score.field = "@AGG.MEAN")
 ```
 
-Furthermore, meta data associated with any id can be stored locally using the
+Furthermore, metadata associated with any id can be stored locally using the
 ```deepblue_export_meta_data``` command. To this end, we first obtain the
 experiment id of the file we used in the tiling regions example.
 
@@ -815,7 +815,7 @@ file.name = "test_export")
 
 In some cases, users will perform a series of requests. We provide the
 command ```deepblue_batch_export``` to save these results and their associated
-meta data to disk in one go. This method will save each file as it becomes
+metadata to disk in one go. This method will save each file as it becomes
 available, i.e. it will be saved once the request is successfully
 processed by DeepBlue:
 
@@ -999,15 +999,15 @@ score_matrix[,1:5, with=FALSE]
 ```
 
 The download is 212.8 MB in size. The size of the data we handled on DeepBlue
-to extract this information is roughly 212 x ~142 MB ~= 30 GB and thus more
+to extract this information is roughly 212 x ~450 MB ~= 95 GB and thus more
 than can be handled in R on most desktop computers. We next show how this score
-matrix can be used to plot a heatmap where samples are clustered by the 
+matrix can be used to plot a heatmap where samples are clustered by the
 Pearson correlation coefficient, revealing that samples originating from
 the same cell type are more similar in DNA methylation.
 
 ## Generating a heatmap
 
-### Meta data and colors
+### Metadata and colors
 
 In preparation of the heatmap plot, we need to generate an RColorBrewer palette.
 This allows us to create a color palette for more than 9 colors.
@@ -1015,12 +1015,12 @@ This allows us to create a color palette for more than 9 colors.
 getPalette <- colorRampPalette(brewer.pal(9, "Set1"))
 ```
 
-For each experiment, we collect meta data.
+For each experiment, we collect metadata.
 ```{r}
 experiments_info <- deepblue_info(deepblue_extract_ids(blueprint_DNA_meth))
 ```
 
-All meta data is parsed to a nested R list. We refer to the DeepBlue paper for
+All metadata is parsed to a nested R list. We refer to the DeepBlue paper for
 a description of available metadata. Here, we show the metadata associated
 with just one of the samples.
 
@@ -1160,7 +1160,7 @@ and a list of all DeepBlue commands is available in
 its [API page](http://deepblue.mpi-inf.mpg.de/api.php).
 
 
-You can have a look at the other use cases included in the R package 
+You can have a look at the other use cases included in the R package
 and list them with
 ```{r, eval=FALSE}
 demo(package = "DeepBlueR")
@@ -1181,7 +1181,7 @@ in R and to read the [DeepBlue manual](https://www.gitbook.com/book/felipealbrec
 
 Finally, we want to highlight the possibility to browse and access existing data in DeepBlue
 conveniently in the [web interface](http://deepblue.mpi-inf.mpg.de). The web
-interface also allows you to select experiments in a grid like view. 
+interface also allows you to select experiments in a grid like view.
 
 
 Should you encounter any problems with DeepBlueR, we kindly ask you to create
