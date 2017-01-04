@@ -959,7 +959,7 @@ tiling_regions <- deepblue_tiling_regions(size=5000,
 
 ## Generate a score matrix
 
-In the above step we defined a set of regions of interest that we want to
+In the above step we have defined a set of regions of interest that we want to
 interrogate in R to, for example, cluster samples. To this end, DeepBlue can
 build a score matrix, in which the selected genomic regions are aggregated on
 the server to reduce the complexity and size of the data. We request such a
@@ -1001,8 +1001,9 @@ score_matrix[,1:5, with=FALSE]
 The download is 212.8 MB in size. The size of the data we handled on DeepBlue
 to extract this information is roughly 212 x ~142 MB ~= 30 GB and thus more
 than can be handled in R on most desktop computers. We next show how this score
-matrix can be used to show that samples cluster by their cell type and how to
-reproduce the heatmap shown as Figure 1 in the main manuscript.
+matrix can be used to plot a heatmap where samples are clustered by the 
+Pearson correlation coefficient, revealing that samples originating from
+the same cell type are more similar in DNA methylation.
 
 ## Generating a heatmap
 
@@ -1020,7 +1021,7 @@ experiments_info <- deepblue_info(deepblue_extract_ids(blueprint_DNA_meth))
 ```
 
 All meta data is parsed to a nested R list. We refer to the DeepBlue paper for
-a description of available meta data. Here, we show the meta data associated
+a description of available metadata. Here, we show the metadata associated
 with just one of the samples.
 
 ```{r}
@@ -1119,10 +1120,10 @@ filtered_score_matrix <- filtered_score_matrix[,exp_names]
 
 ### Plotting
 
-We plot a heatmap in which the variable regions are shown across all samples
-On top of the columns we create a dendrogram based on Pearson correlation
+We plot a heatmap in which the variable regions are shown across all samples.
+On top of the columns, we create a dendrogram based on Pearson correlation
 More precisely, we convert the Pearson correlation, a similarity
-measure, to a distance such that it can be used with hierarchical clustering.
+measure, to a distance, such that it can be used with hierarchical clustering.
 
 ```{r, fig.width=11}
  heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
@@ -1159,8 +1160,8 @@ and a list of all DeepBlue commands is available in
 its [API page](http://deepblue.mpi-inf.mpg.de/api.php).
 
 
-You can have a look at the other use cases included in the R package.
-You can list them with
+You can have a look at the other use cases included in the R package 
+and list them with
 ```{r, eval=FALSE}
 demo(package = "DeepBlueR")
 ```
@@ -1171,21 +1172,20 @@ Individual use cases can be triggered with
 demo("use_case1", package = "DeepBlueR")
 ```
 
-Note that the use case in this document corresponds to use case 4 in the R package.
+Note that the example presented here corresponds to use case 4 in the R package.
+
+# Final remarks
 
 Finally, we encourage you to try to reproduce [Python examples](http://deepblue.mpi-inf.mpg.de/examples.php)
 in R and to read the [DeepBlue manual](https://www.gitbook.com/book/felipealbrecht/deepblue-epigenomic-data-server-manual/details).
 
 Finally, we want to highlight the possibility to browse and access existing data in DeepBlue
 conveniently in the [web interface](http://deepblue.mpi-inf.mpg.de). The web
-interface also allows you to select experiments in a grid like view. These can
-then be downloaded to R for further analysis by simple copy and paste of the
-provided code as shown in Figure 1.
+interface also allows you to select experiments in a grid like view. 
 
-# Final remarks
 
 Should you encounter any problems with DeepBlueR, we kindly ask you to create
-an issue in the BioConductor's [DeepBlueR support page](https://support.bioconductor.org/t/deepbluer/).
+an issue in the BioConductor [DeepBlueR support page](https://support.bioconductor.org/t/deepbluer/).
 
 The R code in the DeepBlueR package is under the GPLv3 license and we welcome
 contributions of other developers. Finally, we would like to thank the
