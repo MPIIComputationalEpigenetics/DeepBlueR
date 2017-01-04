@@ -837,8 +837,7 @@ request_data = deepblue_batch_export_results(request_ids,
 ```
 
 
-# Large-scale analysis of DNA methylation across 212 samples from the
-BLUEPRINT consortium
+# Large-scale analysis of DNA methylation across 212 samples from the BLUEPRINT consortium
 
 ## Aim
 
@@ -868,7 +867,7 @@ Next, we list all available BLUEPRINT DNA methylation experiments.
 (412 files that match the required metadata were available during the edition
  of this vignette.)
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 blueprint_DNA_meth <- deepblue_list_experiments(genome = "GRCh38",
                           epigenetic_mark = "DNA Methylation",
                           technique = "Bisulfite-Seq",
@@ -880,7 +879,7 @@ blueprint_DNA_meth
 We are only interested in a subset of those files and filter for call files
 (opposed to coverage files).
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 blueprint_DNA_meth <- blueprint_DNA_meth[grep("bs_call",
     deepblue_extract_names(blueprint_DNA_meth)),]
 
@@ -897,7 +896,7 @@ First, we assume that the column in question has a different
 name in each file. We thus have to create a list that holds the column name for
 each of them. Such a list can be generated using standard R commands:
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 exp_columns <- list(nrow(blueprint_DNA_meth))
 
 for(i in 1:nrow(blueprint_DNA_meth)){
@@ -910,7 +909,7 @@ In most cases, the same column name will apply for each
 file. We thus implemented a short hand function for generating the above list
 with a single column name for all files.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 exp_columns <- deepblue_select_column(blueprint_DNA_meth, "VALUE")
 ```
 
@@ -924,7 +923,7 @@ that contains promoters, promoter flanking regions, enhancers, CTCF binding site
 transcription factor binding sites and open chromatin regions. As we can see,
 DeepBlueR returns a query id, which we store for later use.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 blueprint_regulatory_regions <- deepblue_select_annotations(
     annotation_name = "Blueprint Ensembl Regulatory Build",
     genome = "GRCh38")
@@ -942,7 +941,7 @@ deepblue_select_annotations(annotation_name = "Cpg Islands",
 
 A list of all annotations currently available for a genome is given by the following command.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 deepblue_list_annotations(genome = "GRCh38")
 ```
 
@@ -967,7 +966,7 @@ score matrix in which regulatory regions are aggregated by the mean as follows.
 Note that we use the variables 'exp_columns' and 'blueprint_regulatory_regions'
 that we have defined above.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 request_id <- deepblue_score_matrix(
     experiments_columns = exp_columns,
     aggregation_function = "mean",
@@ -980,7 +979,7 @@ After triggering this function, DeepBlue queues our task and will execute it
 when resources become available. We also observe that DeepBlue returns a
 request id, which we can use to query the status of the operation.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 deepblue_info(request_id)$state
 ```
 
@@ -993,7 +992,7 @@ in a tab separated file format, which can be processed much faster in R. Finally
 we also compress data on the server side to reduce download time. Here, we only
 show the first five columns out of 215.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 score_matrix <- deepblue_download_request_data(request_id = request_id)
 score_matrix[,1:5, with=FALSE]
 ```
@@ -1011,12 +1010,12 @@ the same cell type are more similar in DNA methylation.
 
 In preparation of the heatmap plot, we need to generate an RColorBrewer palette.
 This allows us to create a color palette for more than 9 colors.
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 getPalette <- colorRampPalette(brewer.pal(9, "Set1"))
 ```
 
 For each experiment, we collect metadata.
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 experiments_info <- deepblue_info(deepblue_extract_ids(blueprint_DNA_meth))
 ```
 
@@ -1024,7 +1023,7 @@ All metadata is parsed to a nested R list. We refer to the DeepBlue paper for
 a description of available metadata. Here, we show the metadata associated
 with just one of the samples.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 head(experiments_info[[1]], 10)
 ```
 
@@ -1032,13 +1031,13 @@ For this analysis, we are only interested in the biosource name,
 i.e. the cell type. We can retrieve this information using standard R syntax.
 Note that we show only the first 6 entries here.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 biosource <- unlist(lapply(experiments_info, function(x){ x$sample_info$biosource_name}))
 head(biosource)
 ```
 
 To save some space on the plot, we replace positive with + and negative with -.
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 biosource <- str_replace_all(biosource, "-positive", "+")
 biosource <- str_replace_all(biosource, "-negative", "-")
 ```
@@ -1046,12 +1045,12 @@ biosource <- str_replace_all(biosource, "-negative", "-")
 For the same reason, we remove the words 'terminally differentiated' from
 one of the cell types.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 biosource <- str_replace(biosource, ", terminally differentiated", "")
 ```
 
 Using above color palette, we can now assign a unique color to each cell type.
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 color_map <- data.frame(biosource = unique(biosource),
                         color = getPalette(length(unique(biosource))))
 
@@ -1061,7 +1060,7 @@ head(color_map)
 Using above table, we can now assign the colors to each experiment
 according to its cell type / biosource.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 exp_names <- unlist(lapply(experiments_info, function(x){ x$name}))
 
 biosource_colors <- data.frame(name = exp_names, biosource = biosource)
@@ -1072,7 +1071,7 @@ head(biosource_colors)
 Finally, we transform this data frame into a vector that is compatible with the
 heatmap function.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 color_vector <- as.character(biosource_colors$color)
 names(color_vector) <-  biosource_colors$biosource
 head(color_vector)
@@ -1083,7 +1082,7 @@ head(color_vector)
 We remove the first three columns (CHROMOSOME, START, END)
 and convert the data frame to a numeric matrix.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 filtered_score_matrix <- as.matrix(score_matrix[,-c(1:3), with=FALSE])
 head(filtered_score_matrix[,1:3])
 ```
@@ -1093,7 +1092,7 @@ with variance > 0.05 for plotting. Plotting all regions would consume too much
 memory and more importantly, regions that do not show variance also do not
 allow us to spot differences between cell types in the heatmap.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 message("regions before: ", nrow(filtered_score_matrix))
 filtered_score_matrix_rowVars <- rowVars(filtered_score_matrix, na.rm = T)
 filtered_score_matrix <- filtered_score_matrix[which(filtered_score_matrix_rowVars > 0.05),]
@@ -1103,7 +1102,7 @@ message("regions after: ", nrow(filtered_score_matrix))
 To be able to cluster samples, we remove regions that have missing values in at
 least one of the experiments.
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 message("regions before: ", nrow(filtered_score_matrix))
 filtered_score_matrix <- filtered_score_matrix[which(complete.cases(filtered_score_matrix)),]
 message("regions after: ", nrow(filtered_score_matrix))
@@ -1114,7 +1113,7 @@ exp_columns list used in the request. We thus have to order the matrix by
 the experiment names in the color map. This is crucial to make
 sure we assign the correct cell type to each sample!
 
-```{r}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 filtered_score_matrix <- filtered_score_matrix[,exp_names]
 ```
 
@@ -1125,7 +1124,7 @@ On top of the columns, we create a dendrogram based on Pearson correlation
 More precisely, we convert the Pearson correlation, a similarity
 measure, to a distance, such that it can be used with hierarchical clustering.
 
-```{r, fig.width=11}
+```{r, fig.width=11, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
  heatmap.2(filtered_score_matrix,labRow = NA, labCol = NA,
           trace = "none", ColSideColors = color_vector,
           hclust=function(x) hclust(x,method="complete"),
@@ -1136,7 +1135,7 @@ measure, to a distance, such that it can be used with hierarchical clustering.
 
 ```
 
-```{r, fig.height=8}
+```{r, fig.height=6, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
   plot.new()
 
   legend(x = 0, y = 1,
