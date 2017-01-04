@@ -932,7 +932,7 @@ blueprint_regulatory_regions <- deepblue_select_annotations(
 blueprint_regulatory_regions
 ```
 
-DeepBlue knows several annotations that can be used to filter for informative
+DeepBlue has several annotations that can be used to filter for informative
 sites. We could, for example, also filter for CpG islands.
 
 ```{r, eval=FALSE}
@@ -946,6 +946,8 @@ A list of all annotations currently available for a genome is given by the follo
 deepblue_list_annotations(genome = "GRCh38")
 ```
 
+New annotations may be included upon users request.
+
 In case we want to include the entire genome in an aggregated version
 DeepBlue supports the concept of tiling regions. In this process, the genomic
 range of interest will be binned into tiles of a given size (here 5kb).
@@ -958,7 +960,7 @@ tiling_regions <- deepblue_tiling_regions(size=5000,
 ## Generate a score matrix
 
 In the above step we defined a set of regions of interest that we want to
-interroagate in R to, for example, cluster samples. To this end, DeepBlue can
+interrogate in R to, for example, cluster samples. To this end, DeepBlue can
 build a score matrix, in which the selected genomic regions are aggregated on
 the server to reduce the complexity and size of the data. We request such a
 score matrix in which regulatory regions are aggregated by the mean as follows.
