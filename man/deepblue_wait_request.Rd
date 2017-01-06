@@ -5,7 +5,7 @@
 \title{deepblue_wait_request}
 \usage{
 deepblue_wait_request(request_id, sleep_time = 1,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{request_id}{A string with the request_id}

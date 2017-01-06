@@ -117,7 +117,7 @@ deepblue_export_bed <- function(result,
 #'
 #' #or experiment ids
 #' deepblue_meta_data_to_table(list("e30035", "e30036"))
-deepblue_meta_data_to_table <- function(ids, user_key = deepblue_USER_KEY)
+deepblue_meta_data_to_table <- function(ids, user_key = deepblue_options("user_key"))
 {
     all_meta_data <- deepblue_info(ids, user_key = user_key)
     if(length(ids) == 1) all_meta_data <- list(all_meta_data)
@@ -160,7 +160,7 @@ deepblue_meta_data_to_table <- function(ids, user_key = deepblue_USER_KEY)
 deepblue_export_meta_data <- function(ids,
                                  target.directory = "./",
                                  file.name,
-                                 user_key = deepblue_USER_KEY)
+                                 user_key = deepblue_options("user_key"))
 {
     meta_data <- deepblue_meta_data_to_table(ids)
 
@@ -200,7 +200,7 @@ deepblue_batch_export_results <- function(requests,
                                           prefix="DeepBlue",
                                           sleep.time = 1,
                                           bed.format = TRUE,
-                                          user_key = deepblue_USER_KEY){
+                                          user_key = deepblue_options("user_key")){
     #to store results
     all.results <- list()
     if(is.na(requests) || is.null(requests))

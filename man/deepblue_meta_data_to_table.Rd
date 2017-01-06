@@ -4,7 +4,7 @@
 \alias{deepblue_meta_data_to_table}
 \title{Convert XML structured meta data to table format}
 \usage{
-deepblue_meta_data_to_table(ids, user_key = deepblue_USER_KEY)
+deepblue_meta_data_to_table(ids, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{ids}{an id or a list of ids}

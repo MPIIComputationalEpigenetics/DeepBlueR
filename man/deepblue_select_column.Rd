@@ -4,7 +4,8 @@
 \alias{deepblue_select_column}
 \title{select column}
 \usage{
-deepblue_select_column(experiments, column, user_key = deepblue_USER_KEY)
+deepblue_select_column(experiments, column,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{experiments}{- A data frame with experiments obtained from

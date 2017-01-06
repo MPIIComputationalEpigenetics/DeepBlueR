@@ -78,7 +78,7 @@ deepblue_extract_names <- function(df = NULL) {
 #'     id1 = "e16918",
 #'     id2 = "e16919")
 #'
-deepblue_diff <- function(id1, id2, user_key = deepblue_USER_KEY){
+deepblue_diff <- function(id1, id2, user_key = deepblue_options("user_key")){
     file1 = tempfile()
     file1_info <- deepblue_info(id1, user_key = user_key)
     writeLines(str_replace_all(rjson::toJSON(file1_info), ",", ",\n"), con = file1)
@@ -116,7 +116,7 @@ deepblue_diff <- function(id1, id2, user_key = deepblue_USER_KEY){
 #'  deepblue_extract_names(blueprint_DNA_meth)),]
 #'
 #' exp_columns <- deepblue_select_column(blueprint_DNA_meth, "VALUE")
-deepblue_select_column <- function(experiments, column, user_key = deepblue_USER_KEY){
+deepblue_select_column <- function(experiments, column, user_key = deepblue_options("user_key")){
     experiments_columns <- list()
 
     for(experiment in deepblue_extract_names(experiments)){

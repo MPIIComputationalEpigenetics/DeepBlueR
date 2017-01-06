@@ -7,6 +7,8 @@
 deepblue_options <- settings::options_manager(
     url="http://deepblue.mpi-inf.mpg.de/xmlrpc",
     user_key = "anonymous_key",
+    do_not_cache = FALSE,
+    force_download = FALSE,
     debug = FALSE)
 
 #' Reset DeepBlueR options

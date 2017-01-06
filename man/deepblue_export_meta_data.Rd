@@ -5,7 +5,7 @@
 \title{Export meta data as tab delimited file}
 \usage{
 deepblue_export_meta_data(ids, target.directory = "./", file.name,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{ids}{an id or a list of DeepBlue ids}

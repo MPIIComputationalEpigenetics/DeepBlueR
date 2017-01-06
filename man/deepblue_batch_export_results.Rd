@@ -6,7 +6,7 @@
 \usage{
 deepblue_batch_export_results(requests, target.directory = NULL,
   suffix = "result", prefix = "DeepBlue", sleep.time = 1,
-  bed.format = TRUE, user_key = deepblue_USER_KEY)
+  bed.format = TRUE, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{requests}{A list of request objects}

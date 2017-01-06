@@ -6,7 +6,7 @@
 #'@param sleep_time An integer with default value 1s
 #'@param user_key A string
 setGeneric("deepblue_wait_request", function(request_id, sleep_time = 1,
-                                             user_key=deepblue_USER_KEY)
+                                             user_key=deepblue_options("user_key"))
 {
     info = deepblue_info(request_id, user_key)
     state = info$state
@@ -41,9 +41,9 @@ setGeneric("deepblue_wait_request", function(request_id, sleep_time = 1,
 #' request_data = deepblue_download_request_data(request_id)
 setGeneric("deepblue_download_request_data",
            function(request_id,
-                    user_key=deepblue_USER_KEY,
-                    force_download = FALSE,
-                    do_not_cache = FALSE)
+                    user_key=deepblue_options("user_key"),
+                    force_download = deepblue_options("force_download"),
+                    do_not_cache = deepblue_options("do_not_cache"))
            {
     deepblue_switch_get_request_data(request_id = request_id,
                                      user_key = user_key,
@@ -67,9 +67,9 @@ setGeneric("deepblue_download_request_data",
 #' @aliases get_request_data
 #' @keywords internal
 deepblue_switch_get_request_data = function(request_id,
-                                            user_key=deepblue_USER_KEY,
-                                            force_download=FALSE,
-                                            do_not_cache=FALSE)
+                                            user_key=deepblue_options("user_key"),
+                                            force_download=deepblue_options("force_download"),
+                                            do_not_cache=deepblue_options("do_not_cache"))
 {
     #check if results is in cache
     if(!do_not_cache){

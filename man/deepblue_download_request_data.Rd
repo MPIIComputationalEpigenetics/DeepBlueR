@@ -4,8 +4,10 @@
 \alias{deepblue_download_request_data}
 \title{deepblue_download_request_data}
 \usage{
-deepblue_download_request_data(request_id, user_key = deepblue_USER_KEY,
-  force_download = FALSE, do_not_cache = FALSE)
+deepblue_download_request_data(request_id,
+  user_key = deepblue_options("user_key"),
+  force_download = deepblue_options("force_download"),
+  do_not_cache = deepblue_options("do_not_cache"))
 }
 \arguments{
 \item{request_id}{- Id of the request that will be downloaded}

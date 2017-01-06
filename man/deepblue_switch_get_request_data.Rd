@@ -5,8 +5,10 @@
 \alias{get_request_data}
 \title{switch_get_request_data}
 \usage{
-deepblue_switch_get_request_data(request_id, user_key = deepblue_USER_KEY,
-  force_download = FALSE, do_not_cache = FALSE)
+deepblue_switch_get_request_data(request_id,
+  user_key = deepblue_options("user_key"),
+  force_download = deepblue_options("force_download"),
+  do_not_cache = deepblue_options("do_not_cache"))
 }
 \arguments{
 \item{request_id}{The request command generated
