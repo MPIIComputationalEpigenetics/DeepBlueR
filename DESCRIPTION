@@ -16,17 +16,22 @@ Imports: GenomicRanges,
     utils,
     R.utils,
     foreach,
-    withr
+    withr,
+    rtracklayer,
 Depends: R (>= 3.3),
     XML,
-    RCurl
+    RCurl,
+    filehash
 Collate:
     class_DeepBlueCommand.R
 	deepblue.R
 	internalFunctions.R
 	export.R
+	liftover.R
 	helperFunctions.R
 	methods_DeepBlueCommand.R
+	zzz.R
+	caching.R
 BuildVignettes: TRUE
 RoxygenNote: 5.0.1
 Suggests: knitr,

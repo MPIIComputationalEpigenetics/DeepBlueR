@@ -7,7 +7,7 @@
 deepblue_select_column(experiments, column, user_key = deepblue_USER_KEY)
 }
 \arguments{
-\item{experiments}{- A data frame with experiments obtained from 
+\item{experiments}{- A data frame with experiments obtained from
 deepblue_list_experiments}
 
 \item{column}{- The name of the column that is extracted from each experiment
@@ -19,20 +19,20 @@ file}
 A list of experiments with the selected column
 }
 \description{
-A utility command that creates a list of experiments 
+A utility command that creates a list of experiments
 in which a specific column is selected. Such a list is needed as input
 for deepblue_score_matrix.
 }
 \examples{
 blueprint_DNA_meth <- deepblue_list_experiments(
-genome = "GRCh38", 
+genome = "GRCh38",
 epigenetic_mark = "DNA Methylation",
 technique = "Bisulfite-Seq",
 project = "BLUEPRINT EPIGENOME")
 
-blueprint_DNA_meth <- blueprint_DNA_meth[grep("bs_call", 
+blueprint_DNA_meth <- blueprint_DNA_meth[grep("bs_call",
  deepblue_extract_names(blueprint_DNA_meth)),]
- 
+
 exp_columns <- deepblue_select_column(blueprint_DNA_meth, "VALUE")
 }
 \seealso{

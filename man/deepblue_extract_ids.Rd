@@ -13,7 +13,7 @@ deepblue_extract_ids(df = NULL)
 ids - A vector containing the extracted IDs)
 }
 \description{
-A utility command that returns a list of IDs extracted 
+A utility command that returns a list of IDs extracted
 from a data frame of ID and names.
 }
 \examples{

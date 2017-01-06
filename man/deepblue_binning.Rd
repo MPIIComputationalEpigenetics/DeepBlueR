@@ -20,7 +20,7 @@ deepblue_binning(query_data_id = NULL, column = NULL, bins = NULL,
 request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
 }
 \description{
----
+Create set of numbers containing the the count values of the selected data columns
 }
 \examples{
 experiment_id = deepblue_select_experiments(

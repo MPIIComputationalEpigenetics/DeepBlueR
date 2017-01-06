@@ -4,12 +4,18 @@
 \alias{deepblue_download_request_data}
 \title{deepblue_download_request_data}
 \usage{
-deepblue_download_request_data(request_id, user_key = deepblue_USER_KEY)
+deepblue_download_request_data(request_id, user_key = deepblue_USER_KEY,
+  force_download = FALSE, do_not_cache = FALSE)
 }
 \arguments{
 \item{request_id}{- Id of the request that will be downloaded}
 
 \item{user_key}{A string}
+
+\item{force_download}{forces DeepBlueR to download the request overwriting
+any results that might already be in the cache}
+
+\item{do_not_cache}{whether to use local caching of requests}
 }
 \value{
 grange_regions Final output in GRanges format or as data frame
