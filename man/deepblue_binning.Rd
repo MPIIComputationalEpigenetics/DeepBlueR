@@ -5,7 +5,7 @@
 \title{binning}
 \usage{
 deepblue_binning(query_data_id = NULL, column = NULL, bins = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_data_id}{- A string (query data that will made by the binning.)}

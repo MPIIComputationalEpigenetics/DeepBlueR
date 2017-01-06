@@ -5,7 +5,7 @@
 \title{aggregate}
 \usage{
 deepblue_aggregate(data_id = NULL, ranges_id = NULL, column = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{data_id}{- A string (id of the query with the data)}

@@ -5,7 +5,7 @@
 \title{input_regions}
 \usage{
 deepblue_input_regions(genome = NULL, region_set = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{genome}{- A string (the target genome)}

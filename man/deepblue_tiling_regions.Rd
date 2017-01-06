@@ -5,7 +5,7 @@
 \title{tiling_regions}
 \usage{
 deepblue_tiling_regions(size = NULL, genome = NULL, chromosome = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{size}{- A int (tiling size)}

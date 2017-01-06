@@ -5,7 +5,7 @@
 \title{select_genes}
 \usage{
 deepblue_select_genes(genes = NULL, gene_model = NULL, chromosome = NULL,
-  start = NULL, end = NULL, user_key = deepblue_USER_KEY)
+  start = NULL, end = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{genes}{- A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)}

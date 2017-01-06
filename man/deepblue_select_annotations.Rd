@@ -6,7 +6,7 @@
 \usage{
 deepblue_select_annotations(annotation_name = NULL, genome = NULL,
   chromosome = NULL, start = NULL, end = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{annotation_name}{- A string or a vector of string (name(s) of selected annotation(s))}

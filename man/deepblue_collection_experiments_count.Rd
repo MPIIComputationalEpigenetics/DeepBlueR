@@ -7,7 +7,7 @@
 deepblue_collection_experiments_count(controlled_vocabulary = NULL,
   genome = NULL, type = NULL, epigenetic_mark = NULL, biosource = NULL,
   sample = NULL, technique = NULL, project = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{controlled_vocabulary}{- A string (controlled vocabulary name)}

@@ -11,7 +11,7 @@ xml.rpc =
              .convert = TRUE,
              .curl = getCurlHandle(),
              useragent = "DeepBlue-R-XMLRPC",
-             verbose=deepblue_debug_VERBOSE)
+             verbose=deepblue_options("debug"))
     {
         # Turn the method and arguments to an RPC body.
         body = createBody(method,  .args)
@@ -290,7 +290,7 @@ xmlRPCToR.struct =
     {
         #check if our structure is nested
         descendant_struct <- getNodeSet(node, ".//struct")
-        
+
         #case where we have tabular data
         if(length(descendant_struct) == 0){
             strings <- xpathSApply(node, "./member", getChildrenStrings)
@@ -298,7 +298,7 @@ xmlRPCToR.struct =
             names(values) <- strings[1,]
             return(values)
         }
-        
+
         #further structs means recursive processing
         else{
             ans = xmlApply(node, function(x) xmlRPCToR(x[[2]][[1]], ...))
@@ -312,7 +312,7 @@ xmlRPCToR.array =
     {
         nodeSize <- xmlSize(node[[1]])
         elements <- xmlChildren(node[[1]])
-        
+
         if(is.null(status)){
             status <- xmlRPCToR(elements[[1]])
             result <- xmlRPCToR(elements[[2]], status)
@@ -322,16 +322,16 @@ xmlRPCToR.array =
             for(element in 1:nodeSize) {
                 result[[element]] <- xmlRPCToR(elements[[element]])
             }
-            
+
             for(r in 1:length(result)){
                 test_result <- result[[r]]
                 if(is.null(names(test_result))){
                     if(length(test_result) == 2){
                         names(result[[r]]) = c("id", "name")
-                        
+
                         if(length(result[[r]]$name) > 1)
                             result[[r]] <- c(id = result[[r]]$id, result[[r]]$name)
-                    } 
+                    }
                     else if(length(test_result) == 3)
                     {
                         names(result[[r]]) = c("id", "name", "count")
@@ -339,12 +339,12 @@ xmlRPCToR.array =
                 }
             }
             if(is.list(result) && length(result) == 1) return(result[[1]])
-            
+
             framed_result <- tryCatch(data.table::rbindlist(result, fill = TRUE),
                                       error = function(e){ return(result)})
-            
+
             return(framed_result)
-            
+
         }
         if(is.null(status)) return(result)
         else return(list(status, result))

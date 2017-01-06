@@ -4,7 +4,8 @@
 \alias{deepblue_is_biosource}
 \title{is_biosource}
 \usage{
-deepblue_is_biosource(biosource = NULL, user_key = deepblue_USER_KEY)
+deepblue_is_biosource(biosource = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{biosource}{- A string (biosource name)}

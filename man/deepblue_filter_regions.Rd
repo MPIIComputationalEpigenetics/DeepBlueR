@@ -5,7 +5,7 @@
 \title{filter_regions}
 \usage{
 deepblue_filter_regions(query_id = NULL, field = NULL, operation = NULL,
-  value = NULL, type = NULL, user_key = deepblue_USER_KEY)
+  value = NULL, type = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_id}{- A string (id of the query to be filtered)}

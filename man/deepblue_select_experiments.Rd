@@ -5,7 +5,7 @@
 \title{select_experiments}
 \usage{
 deepblue_select_experiments(experiment_name = NULL, chromosome = NULL,
-  start = NULL, end = NULL, user_key = deepblue_USER_KEY)
+  start = NULL, end = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{experiment_name}{- A string or a vector of string (name(s) of selected experiment(s))}

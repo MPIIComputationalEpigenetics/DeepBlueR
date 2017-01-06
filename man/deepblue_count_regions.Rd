@@ -4,7 +4,8 @@
 \alias{deepblue_count_regions}
 \title{count_regions}
 \usage{
-deepblue_count_regions(query_id = NULL, user_key = deepblue_USER_KEY)
+deepblue_count_regions(query_id = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_id}{- A string (Query ID)}

@@ -5,7 +5,7 @@
 \title{list_in_use}
 \usage{
 deepblue_list_in_use(controlled_vocabulary = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{controlled_vocabulary}{- A string (controlled vocabulary name)}

@@ -4,7 +4,7 @@
 \alias{deepblue_list_projects}
 \title{list_projects}
 \usage{
-deepblue_list_projects(user_key = deepblue_USER_KEY)
+deepblue_list_projects(user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{user_key}{- A string (users token key)}

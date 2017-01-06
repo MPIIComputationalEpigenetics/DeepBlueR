@@ -4,7 +4,7 @@
 \alias{deepblue_info}
 \title{info}
 \usage{
-deepblue_info(id = NULL, user_key = deepblue_USER_KEY)
+deepblue_info(id = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{id}{- A string or a vector of string (ID or an array of IDs)}

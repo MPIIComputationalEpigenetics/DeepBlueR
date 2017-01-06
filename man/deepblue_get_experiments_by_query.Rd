@@ -5,7 +5,7 @@
 \title{get_experiments_by_query}
 \usage{
 deepblue_get_experiments_by_query(query_id = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_id}{- A string (id of the query)}

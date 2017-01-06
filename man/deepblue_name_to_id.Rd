@@ -5,7 +5,7 @@
 \title{name_to_id}
 \usage{
 deepblue_name_to_id(name = NULL, collection = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{name}{- A string or a vector of string (ID or an array of IDs)}

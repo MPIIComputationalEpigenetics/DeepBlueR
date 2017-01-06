@@ -5,7 +5,7 @@
 \title{get_biosource_parents}
 \usage{
 deepblue_get_biosource_parents(biosource = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{biosource}{- A string (biosource name)}

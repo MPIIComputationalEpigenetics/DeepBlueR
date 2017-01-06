@@ -6,7 +6,7 @@
 \usage{
 deepblue_select_expressions(expression_type = NULL, sample_ids = NULL,
   replicas = NULL, identifiers = NULL, projects = NULL,
-  gene_model = NULL, user_key = deepblue_USER_KEY)
+  gene_model = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{expression_type}{- A string (expression type (supported: 'gene'))}

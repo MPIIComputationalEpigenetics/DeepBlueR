@@ -5,7 +5,7 @@
 \title{list_biosources}
 \usage{
 deepblue_list_biosources(extra_metadata = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{extra_metadata}{- A struct (Metadata that must be matched)}

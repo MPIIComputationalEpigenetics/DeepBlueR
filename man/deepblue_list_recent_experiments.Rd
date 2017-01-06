@@ -6,7 +6,7 @@
 \usage{
 deepblue_list_recent_experiments(days = NULL, genome = NULL,
   epigenetic_mark = NULL, sample = NULL, technique = NULL,
-  project = NULL, user_key = deepblue_USER_KEY)
+  project = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{days}{- A double (maximum days ago the experiments were added)}

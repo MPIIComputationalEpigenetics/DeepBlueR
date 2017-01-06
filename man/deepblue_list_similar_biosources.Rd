@@ -4,7 +4,8 @@
 \alias{deepblue_list_similar_biosources}
 \title{list_similar_biosources}
 \usage{
-deepblue_list_similar_biosources(name = NULL, user_key = deepblue_USER_KEY)
+deepblue_list_similar_biosources(name = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{name}{- A string (biosource name)}

@@ -4,7 +4,7 @@
 \alias{deepblue_cancel_request}
 \title{cancel_request}
 \usage{
-deepblue_cancel_request(id = NULL, user_key = deepblue_USER_KEY)
+deepblue_cancel_request(id = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{id}{- A string (Request ID to be canceled, stopped or removed.)}

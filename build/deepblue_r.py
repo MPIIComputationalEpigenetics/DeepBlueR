@@ -160,7 +160,7 @@ def main():
     for p in cmd["parameters"]:
 
       if p[0] == "user_key":
-        param_names.append("user_key=deepblue_USER_KEY")
+        param_names.append("user_key=deepblue_options('user_key')")
       elif p[0] == "extra_metadata":
         param_names.append("extra_metadata=NULL")
       else:
@@ -212,7 +212,7 @@ def main():
                            "parameter_convertion": parameters_list_convertion,
                            "name": name,
                            "documentation": command_description,
-                           'url': "deepblue_URL"}
+                           'url': "deepblue_options('url')"}
 
   print commands_long_doc
 

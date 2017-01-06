@@ -5,7 +5,7 @@
 \title{get_regions}
 \usage{
 deepblue_get_regions(query_id = NULL, output_format = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_id}{- A string (Query ID)}

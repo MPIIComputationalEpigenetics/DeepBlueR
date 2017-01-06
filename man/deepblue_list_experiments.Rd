@@ -6,7 +6,8 @@
 \usage{
 deepblue_list_experiments(genome = NULL, type = NULL,
   epigenetic_mark = NULL, biosource = NULL, sample = NULL,
-  technique = NULL, project = NULL, user_key = deepblue_USER_KEY)
+  technique = NULL, project = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{genome}{- A string or a vector of string (the target genome)}

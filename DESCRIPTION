@@ -18,11 +18,13 @@ Imports: GenomicRanges,
     foreach,
     withr,
     rtracklayer,
+    settings,
+    filehash
 Depends: R (>= 3.3),
     XML,
-    RCurl,
-    filehash
+    RCurl
 Collate:
+    options.R
     class_DeepBlueCommand.R
 	deepblue.R
 	internalFunctions.R

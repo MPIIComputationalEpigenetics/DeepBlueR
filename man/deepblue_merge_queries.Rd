@@ -5,7 +5,7 @@
 \title{merge_queries}
 \usage{
 deepblue_merge_queries(query_a_id = NULL, query_b_id = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_a_id}{- A string (id of the first query)}

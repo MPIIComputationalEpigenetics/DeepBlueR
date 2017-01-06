@@ -4,7 +4,7 @@
 \alias{deepblue_echo}
 \title{echo}
 \usage{
-deepblue_echo(user_key = deepblue_USER_KEY)
+deepblue_echo(user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{user_key}{- A string (users token key)}

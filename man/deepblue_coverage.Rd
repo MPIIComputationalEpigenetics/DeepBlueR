@@ -5,7 +5,7 @@
 \title{coverage}
 \usage{
 deepblue_coverage(query_id = NULL, genome = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_id}{- A string (Query ID)}

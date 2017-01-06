@@ -4,7 +4,8 @@
 \alias{deepblue_search}
 \title{search}
 \usage{
-deepblue_search(keyword = NULL, type = NULL, user_key = deepblue_USER_KEY)
+deepblue_search(keyword = NULL, type = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{keyword}{- A string (keyword to search by)}

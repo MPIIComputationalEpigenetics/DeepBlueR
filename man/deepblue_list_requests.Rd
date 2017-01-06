@@ -4,7 +4,8 @@
 \alias{deepblue_list_requests}
 \title{list_requests}
 \usage{
-deepblue_list_requests(request_state = NULL, user_key = deepblue_USER_KEY)
+deepblue_list_requests(request_state = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{request_state}{- A string (Name of the state to get requests for. The valid states are: new, running, done, and failed.)}

@@ -6,7 +6,7 @@
 \usage{
 deepblue_score_matrix(experiments_columns = NULL,
   aggregation_function = NULL, aggregation_regions_id = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{experiments_columns}{- A struct (map with experiments names and columns to be processed. Example : {'wgEncodeBroadHistoneDnd41H3k27acSig.wig':'VALUE', 'wgEncodeBroadHistoneCd20ro01794H3k27acSig.wig':'VALUE'})}

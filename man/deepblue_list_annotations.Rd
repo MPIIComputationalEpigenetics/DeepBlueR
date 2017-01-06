@@ -4,7 +4,8 @@
 \alias{deepblue_list_annotations}
 \title{list_annotations}
 \usage{
-deepblue_list_annotations(genome = NULL, user_key = deepblue_USER_KEY)
+deepblue_list_annotations(genome = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{genome}{- A string or a vector of string (the target genome)}

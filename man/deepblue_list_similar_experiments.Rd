@@ -5,7 +5,7 @@
 \title{list_similar_experiments}
 \usage{
 deepblue_list_similar_experiments(name = NULL, genome = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{name}{- A string (experiment name)}

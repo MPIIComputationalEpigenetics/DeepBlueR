@@ -4,7 +4,8 @@
 \alias{deepblue_get_request_data}
 \title{get_request_data}
 \usage{
-deepblue_get_request_data(request_id = NULL, user_key = deepblue_USER_KEY)
+deepblue_get_request_data(request_id = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{request_id}{- A string (ID of the request)}

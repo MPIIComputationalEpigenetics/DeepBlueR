@@ -5,7 +5,7 @@
 \title{query_cache}
 \usage{
 deepblue_query_cache(query_id = NULL, cache = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_id}{- A string (query ID)}

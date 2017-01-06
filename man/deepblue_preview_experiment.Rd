@@ -5,7 +5,7 @@
 \title{preview_experiment}
 \usage{
 deepblue_preview_experiment(experiment_name = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{experiment_name}{- A string (name(s) of selected experiment(s))}

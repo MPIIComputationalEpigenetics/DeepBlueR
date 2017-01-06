@@ -5,7 +5,7 @@
 \title{list_samples}
 \usage{
 deepblue_list_samples(biosource = NULL, extra_metadata = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{biosource}{- A string or a vector of string (name(s) of selected biosource(s))}

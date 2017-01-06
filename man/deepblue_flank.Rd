@@ -5,7 +5,7 @@
 \title{flank}
 \usage{
 deepblue_flank(query_id = NULL, start = NULL, length = NULL,
-  use_strand = NULL, user_key = deepblue_USER_KEY)
+  use_strand = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_id}{- A string (id of the query that contains the regions)}

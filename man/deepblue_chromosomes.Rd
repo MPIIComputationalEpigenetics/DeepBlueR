@@ -4,7 +4,7 @@
 \alias{deepblue_chromosomes}
 \title{chromosomes}
 \usage{
-deepblue_chromosomes(genome = NULL, user_key = deepblue_USER_KEY)
+deepblue_chromosomes(genome = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{genome}{- A string (the target genome)}

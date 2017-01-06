@@ -4,7 +4,7 @@
 \alias{deepblue_list_gene_models}
 \title{list_gene_models}
 \usage{
-deepblue_list_gene_models(user_key = deepblue_USER_KEY)
+deepblue_list_gene_models(user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{user_key}{- A string (users token key)}

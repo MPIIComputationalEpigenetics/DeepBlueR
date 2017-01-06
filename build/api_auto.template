@@ -5,22 +5,6 @@
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
 # for R in this file.
 
-#' @title deepblue URL
-#' @description Location of the DeepBlue XML-RPC server
-#' @keywords internal
-#' @return URL to access DeepBlue Data Server
-deepblue_URL = "http://deepblue.mpi-inf.mpg.de/xmlrpc"
-#' @title default User Key
-#' @description Default anonymous user key
-#' @return default user key for accessing DeepBlue
-#' @keywords internal
-deepblue_USER_KEY = "anonymous_key"
-#' @title Verbose
-#' @description Show or hide debugging messages
-#' @return if this package must print some debugging outputs
-#' @keywords internal
-deepblue_debug_VERBOSE = FALSE
-
 {{ commands }}
 
 {{ serialize_r }}

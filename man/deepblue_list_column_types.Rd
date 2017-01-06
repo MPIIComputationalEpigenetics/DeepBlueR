@@ -4,7 +4,7 @@
 \alias{deepblue_list_column_types}
 \title{list_column_types}
 \usage{
-deepblue_list_column_types(user_key = deepblue_USER_KEY)
+deepblue_list_column_types(user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{user_key}{- A string (users token key)}

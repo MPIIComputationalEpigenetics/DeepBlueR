@@ -5,7 +5,7 @@
 \title{intersection}
 \usage{
 deepblue_intersection(query_data_id = NULL, query_filter_id = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{query_data_id}{- A string (query data that will be filtered.)}

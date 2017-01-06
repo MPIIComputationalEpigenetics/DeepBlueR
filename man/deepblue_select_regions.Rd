@@ -7,7 +7,7 @@
 deepblue_select_regions(experiment_name = NULL, genome = NULL,
   epigenetic_mark = NULL, sample_id = NULL, technique = NULL,
   project = NULL, chromosomes = NULL, start = NULL, end = NULL,
-  user_key = deepblue_USER_KEY)
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{experiment_name}{- A string or a vector of string (name(s) of selected experiment(s))}
