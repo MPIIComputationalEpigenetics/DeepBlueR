@@ -13,7 +13,7 @@ deepblue_get_db <- function(){
 
 #' Clear cache
 #'
-#' @return new empty cache database
+#' @return TRUE if successful
 #' @import filehash
 #' @export
 #'
@@ -21,7 +21,7 @@ deepblue_get_db <- function(){
 deepblue_clear_cache <- function(){
     db <- dbInit(db.file.name)
     dbUnlink(db)
-    return(deepblue_get_db)
+    return(TRUE)
 }
 
 #' List cached requests

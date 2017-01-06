@@ -139,10 +139,10 @@ In addition, this package provides a set of convenience functions not part of
 the DeepBlue API, such as:
 
 | Category | Command               | Description                                       |
-|----------|-----------------------|-----------------------==--------------------------|
+|----------|-----------------------|---------------------------------------------------|
 | Request  | batch_export_results  | Download the results for a list of requests       |
 |          | download_request_data | Download and convert the requested data (blocking)|
-|          | export_meta_data      | Export metadata to a tab delimited file          |
+|          | export_meta_data      | Export metadata to a tab delimited file           |
 |          | export_tab            | Export any result as tab delimited file           |
 |          | export_bed            | Export GenomicRanges results as BED file          |
 
@@ -836,6 +836,79 @@ request_data = deepblue_batch_export_results(request_ids,
                              target.directory = "BLUEPRINT macrophages chr21")
 ```
 
+
+## Options
+
+DeepBlueR comes with default options that can be changed by the user. To list
+the current options use the following command:
+
+```{r, echo=TRUE, eval = TRUE, warning=FALSE, message=FALSE}
+deepblue_options()
+```
+
+- ```url``` This is the URL of the DeepBlue application server and should not be changed
+- ```user_key``` This option can be replaced by the personal key of the user after 
+successful registration at http://deepblue.mpi-inf.mpg.de. The key can be found 
+by logging into the web application and clicking on the user name in the top
+left corner. Registered users have access to advanced features of DeepBlue, e.g.
+they can review previous requests.
+- ```do_not_cache``` Allows users to switch off the caching functionality of 
+DeepBlueR. See [Caching].
+- ```force_download``` If the users wishes to overwrite cached results for the
+following requests, this option can be switched on. See [Caching].
+- ```debug``` Switching on this option enables verbose output only useful for 
+debugging.
+
+Changing an option works as follows:
+
+```{r, echo=TRUE, eval = TRUE, warning=FALSE, message=FALSE}
+deepblue_options(do_not_cache = TRUE)
+```
+
+Another example (replace 'my_user_key' with the actual key):
+
+```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
+deepblue_options(user_key = "my_user_key")
+```
+
+In case you wish to restore the default options simply call
+
+```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
+deepblue_reset_options()
+```
+
+
+## Caching
+
+DeepBlueR by default creates a file 'DeepBlueR.cache' in the current working
+directory. Downloaded results / regions are stored there and can be instantly
+retrieved, which is particularly useful for users with limited network bandwith.
+However, in case caching is not desired it can be switched off (see [Options])
+
+To check the status of the cache you can use the following command:
+
+```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
+deepblue_cache_status()
+```
+
+This will report the cache size and the number of requests currently stored. 
+Alternatively, users can list the request ids for which results are available:
+
+```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
+deepblue_list_cached_request()
+```
+
+Over time, the cache can quickly grow in size. It is possible to remove 
+individual requests from the cache if the request id is known:
+
+```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
+deepblue_delete_request_from_cache("r123")
+```
+
+In most cases it will be simpler to simply delete the cache:
+```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
+deepblue_clear_cache()
+```
 
 # Large-scale analysis of DNA methylation across 212 samples from the BLUEPRINT consortium
 
