@@ -1,7 +1,7 @@
 db.file.name <- "DeepBlueR.cache"
 
 #' Sets up the DeepBlueR cache and returns a filehash db object
-#'
+#' @import filehash
 #' @return A filehash package database
 #'
 deepblue_get_db <- function(){
@@ -14,6 +14,7 @@ deepblue_get_db <- function(){
 #' Clear cache
 #'
 #' @return new empty cache database
+#' @import filehash
 #' @export
 #'
 #' @examples deepblue_clear_cache()
@@ -26,6 +27,7 @@ deepblue_clear_cache <- function(){
 #' List cached requests
 #'
 #' @return list of request ids that are cached
+#' @import filehash
 #' @export
 #'
 #' @examples deepblue_list_cached_requests()
@@ -37,6 +39,7 @@ deepblue_list_cached_request <- function(){
 #' Report on the cache size and status
 #'
 #' @return cache size in byte
+#' @import filehash
 #' @export
 #'
 #' @examples deepblue_cache_status()
@@ -64,6 +67,7 @@ deepblue_cache_status <- function(){
 #' @param request_id the request to delete from the cache
 #'
 #' @return TRUE if the request was successfully deleted, FALSE otherwise
+#' @import filehash
 #' @export
 #'
 #' @examples deepblue_delete_request_from_cache("non-existing-request-id")

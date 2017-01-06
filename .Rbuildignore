@@ -6,4 +6,4 @@
 .gitignore
 .Rproj.user
 .git
-
+^.*\.cache$
