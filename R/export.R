@@ -6,6 +6,7 @@
 #' @param file.name The name of the file without suffix
 #'
 #' @importFrom withr with_options
+#' @return return value of write.table
 #'
 #' @export
 #'
@@ -50,6 +51,7 @@ deepblue_export_tab <- function(result,
 #' @param score.field Which column of the results should be used to populate
 #' the score column of the BED file (optional)
 #' @export
+#' @return return value of write.table
 #'
 #' @examples query_id = deepblue_select_experiments (
 #' experiment=c("GC_T14_10.CPG_methylation_calls.bs_call.GRCh38.20160531.wig"),
@@ -122,6 +124,8 @@ deepblue_meta_data_to_table <- function(ids, user_key = deepblue_options("user_k
     all_meta_data <- deepblue_info(ids, user_key = user_key)
     if(length(ids) == 1) all_meta_data <- list(all_meta_data)
 
+    i <- NULL
+
     foreach(i = 1:length(all_meta_data), .combine = bind_rows) %do%{
 
         file_info <- all_meta_data[[i]]
@@ -150,6 +154,7 @@ deepblue_meta_data_to_table <- function(ids, user_key = deepblue_options("user_k
 #' @param file.name name of the file
 #' @param user_key DeepBlue user key
 #' @importFrom withr with_options
+#' @return return value of write.table
 #'
 #' @export
 #'

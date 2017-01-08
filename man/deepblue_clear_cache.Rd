@@ -7,7 +7,7 @@
 deepblue_clear_cache()
 }
 \value{
-new empty cache database
+TRUE if successful
 }
 \description{
 Clear cache

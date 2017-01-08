@@ -16,6 +16,9 @@ deepblue_export_meta_data(ids, target.directory = "./", file.name,
 
 \item{user_key}{DeepBlue user key}
 }
+\value{
+return value of write.table
+}
 \description{
 Export meta data as tab delimited file
 }

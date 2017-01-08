@@ -1,7 +1,8 @@
 db.file.name <- "DeepBlueR.cache"
 
 #' Sets up the DeepBlueR cache and returns a filehash db object
-#' @import filehash
+#' @importFrom filehash dbCreate
+#' @importFrom filehash dbInit
 #' @return A filehash package database
 #'
 deepblue_get_db <- function(){
@@ -14,12 +15,12 @@ deepblue_get_db <- function(){
 #' Clear cache
 #'
 #' @return TRUE if successful
-#' @import filehash
+#' @importFrom filehash dbUnlink
 #' @export
 #'
 #' @examples deepblue_clear_cache()
 deepblue_clear_cache <- function(){
-    db <- dbInit(db.file.name)
+    db <- deepblue_get_db()
     dbUnlink(db)
     return(TRUE)
 }
@@ -27,19 +28,18 @@ deepblue_clear_cache <- function(){
 #' List cached requests
 #'
 #' @return list of request ids that are cached
-#' @import filehash
+#' @importFrom filehash dbList
 #' @export
 #'
 #' @examples deepblue_list_cached_requests()
-deepblue_list_cached_request <- function(){
-    db <- dbInit(db.file.name)
+deepblue_list_cached_requests <- function(){
+    db <- deepblue_get_db()
     dbList(db)
 }
 
 #' Report on the cache size and status
 #'
 #' @return cache size in byte
-#' @import filehash
 #' @export
 #'
 #' @examples deepblue_cache_status()
@@ -51,7 +51,7 @@ deepblue_cache_status <- function(){
     else{
         cache_size <- file.size(db.file.name)
         size <- utils:::format.object_size(cache_size, "auto")
-        cached_requests <- deepblue_list_cached_request()
+        cached_requests <- deepblue_list_cached_requests()
         num_of_requests <- length(cached_requests)
 
         message(paste("DeepBlueR caches", num_of_requests,
@@ -67,14 +67,15 @@ deepblue_cache_status <- function(){
 #' @param request_id the request to delete from the cache
 #'
 #' @return TRUE if the request was successfully deleted, FALSE otherwise
-#' @import filehash
+#' @importFrom filehash dbExists
+#' @importFrom filehash dbDelete
 #' @export
 #'
 #' @examples deepblue_delete_request_from_cache("non-existing-request-id")
 #' # returns FALSE
 deepblue_delete_request_from_cache <- function(request_id){
     db <- deepblue_get_db()
-    if(!dbExists(request_id)){
+    if(!dbExists(db, request_id)){
         warning("request was not found in cache.")
         return(FALSE)
     }

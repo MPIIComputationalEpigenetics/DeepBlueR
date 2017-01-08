@@ -1,7 +1,10 @@
 #' Lift over region results between Genome Assemblies used in DeepBlue
 #'
 #' @importFrom rtracklayer liftOver
+#' @importFrom rtracklayer import.chain
 #' @importFrom R.utils gunzip
+#' @importFrom GenomeInfoDb genome
+#' @importFrom GenomeInfoDb genome<-
 #'
 #' @param regions The GRanges object to lift over to another assembly
 #' @param source The source assembly version, e.g. hg38. If NULL, we try to
@@ -32,7 +35,7 @@ deepblue_liftover <- function(regions,
                               collapse = TRUE){
     supported_assemblies <- c("hg19", "hg38", "mm9", "mm10")
 
-    if(is.null(source)) source <- genome(regions)
+    if(is.null(source)) source <- GenomeInfoDb::genome(regions)
     if(is.na(source)) stop("You need to specify the source genome assembly")
     if(source == "hs37d5") source <- "hg19"
     if(source == "GRChm38") source <- "mm10"
@@ -82,7 +85,7 @@ deepblue_liftover <- function(regions,
 
     message(paste("Performing coordinate liftover from", source, "to", target))
     liftover_result <- liftOver(regions, chain)
-    genome(liftover_result) <- target
+    GenomeInfoDb::genome(liftover_result) <- target
 
     if(collapse) return(unlist(liftover_result))
     else return(liftover_result)

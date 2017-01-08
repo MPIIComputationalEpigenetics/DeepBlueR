@@ -18,6 +18,9 @@ regions.}
 \item{score.field}{Which column of the results should be used to populate
 the score column of the BED file (optional)}
 }
+\value{
+return value of write.table
+}
 \description{
 Export GenomicRanges result as BED file
 }

@@ -1,5 +1,8 @@
 #' @title options
 #' @description options manager from the settings package
+#' @param ... list of new options
+#' @param .__defaults disallowed option
+#' @param .__reset disallowed option
 #' @return default options
 #' @importFrom settings options_manager
 #' @export

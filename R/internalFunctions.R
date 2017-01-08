@@ -51,8 +51,10 @@ setGeneric("deepblue_download_request_data",
                                      do_not_cache = do_not_cache)
 })
 
-#' @import XML RCurl
 #' @importFrom R.utils bunzip2
+#' @importFrom filehash dbInsert
+#' @importFrom filehash dbFetch
+#' @importFrom filehash dbExists
 #' @title switch_get_request_data
 #' @param request_id The request command generated
 #' with deepblue_get_request_data

@@ -6,6 +6,13 @@
 \usage{
 deepblue_options(..., .__defaults = FALSE, .__reset = FALSE)
 }
+\arguments{
+\item{...}{list of new options}
+
+\item{.__defaults}{disallowed option}
+
+\item{.__reset}{disallowed option}
+}
 \value{
 default options
 }

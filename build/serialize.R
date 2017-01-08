@@ -1,5 +1,6 @@
 #' @title xml.rpc
 #' @keywords internal
+#' @import RCurl XML
 #' @return XML RPC request data converted to R objects
 #' @description perform an XML-RPC call
 xml.rpc =

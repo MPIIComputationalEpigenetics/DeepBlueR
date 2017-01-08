@@ -895,7 +895,7 @@ This will report the cache size and the number of requests currently stored.
 Alternatively, users can list the request ids for which results are available:
 
 ```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
-deepblue_list_cached_request()
+deepblue_list_cached_requests()
 ```
 
 Over time, the cache can quickly grow in size. It is possible to remove 
@@ -1167,7 +1167,7 @@ allow us to spot differences between cell types in the heatmap.
 
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 message("regions before: ", nrow(filtered_score_matrix))
-filtered_score_matrix_rowVars <- rowVars(filtered_score_matrix, na.rm = T)
+filtered_score_matrix_rowVars <- rowVars(filtered_score_matrix, na.rm = TRUE)
 filtered_score_matrix <- filtered_score_matrix[which(filtered_score_matrix_rowVars > 0.05),]
 message("regions after: ", nrow(filtered_score_matrix))
 ```

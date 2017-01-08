@@ -14,6 +14,9 @@ regions.}
 
 \item{file.name}{The name of the file without suffix}
 }
+\value{
+return value of write.table
+}
 \description{
 Export a DeepBlue result as ordinary tab delimited file
 }
