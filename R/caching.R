@@ -50,7 +50,7 @@ deepblue_cache_status <- function(){
     }
     else{
         cache_size <- file.size(db.file.name)
-        size <- utils:::format.object_size(cache_size, "auto")
+        size <- deepblue_format_object_size(cache_size, "auto")
         cached_requests <- deepblue_list_cached_requests()
         num_of_requests <- length(cached_requests)
 

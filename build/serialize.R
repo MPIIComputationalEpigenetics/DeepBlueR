@@ -1,6 +1,13 @@
 #' @title xml.rpc
 #' @keywords internal
-#' @import RCurl XML
+#' @import XML
+#' @importFrom RCurl getCurlHandle
+#' @importFrom RCurl postForm
+#' @importFrom RCurl parseHTTPHeader
+#' @importFrom RCurl dynCurlReader
+#' @importFrom RCurl base64
+#' @importFrom RCurl base64Encode
+#'
 #' @return XML RPC request data converted to R objects
 #' @description perform an XML-RPC call
 xml.rpc =

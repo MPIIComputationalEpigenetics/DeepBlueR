@@ -122,8 +122,15 @@ deepblue_export_bed <- function(result,
 deepblue_meta_data_to_table <- function(ids, user_key = deepblue_options("user_key"))
 {
     all_meta_data <- deepblue_info(ids, user_key = user_key)
+
+    #for some ids a data table is already returned by deepblue_info, e.g.
+    #samples
+    if(is.data.frame(all_meta_data)) return(all_meta_data)
+
+    #if we have only one id, make a list
     if(length(ids) == 1) all_meta_data <- list(all_meta_data)
 
+    #just to shut up R CMD check
     i <- NULL
 
     foreach(i = 1:length(all_meta_data), .combine = bind_rows) %do%{
