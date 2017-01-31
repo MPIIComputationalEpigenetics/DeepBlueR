@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.10.1
+# For DeepBlue version 1.10.3
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -80,7 +80,7 @@ deepblue_aggregate <- function(data_id= NULL, ranges_id= NULL, column= NULL, use
 #' @export 
 #' 
 #' @title binning 
-#' @description Create set of numbers containing the the count values of the selected data columns
+#' @description Bin results according to counts.
 #' @family Operating on the data regions
 #' 
 #' @param query_data_id - A string (query data that will made by the binning.)
@@ -3969,7 +3969,7 @@ setMethod('convertToR', 'XMLInternalNode',
 setMethod('convertToR', 'character',
           function(node)
           {
-              xml = xmlParse(node, asText = TRUE)
+              xml = xmlParse(node, asText = TRUE, encoding = "UTF-8")
               convertToR(xml)
           })
 

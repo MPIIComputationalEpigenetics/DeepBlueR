@@ -261,7 +261,7 @@ setMethod('convertToR', 'XMLInternalNode',
 setMethod('convertToR', 'character',
           function(node)
           {
-              xml = xmlParse(node, asText = TRUE)
+              xml = xmlParse(node, asText = TRUE, encoding = "UTF-8")
               convertToR(xml)
           })
 

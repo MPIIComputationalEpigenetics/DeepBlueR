@@ -4,8 +4,7 @@
 \alias{deepblue_select_column}
 \title{select column}
 \usage{
-deepblue_select_column(experiments, column,
-  user_key = deepblue_options("user_key"))
+deepblue_select_column(experiments, column)
 }
 \arguments{
 \item{experiments}{- A data frame with experiments obtained from
@@ -13,8 +12,6 @@ deepblue_list_experiments}
 
 \item{column}{- The name of the column that is extracted from each experiment
 file}
-
-\item{user_key}{- A string (users token key)}
 }
 \value{
 A list of experiments with the selected column

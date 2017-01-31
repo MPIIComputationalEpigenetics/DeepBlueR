@@ -102,7 +102,6 @@ deepblue_diff <- function(id1, id2, user_key = deepblue_options("user_key")){
 #' deepblue_list_experiments
 #' @param column - The name of the column that is extracted from each experiment
 #' file
-#' @param user_key - A string (users token key)
 #'
 #' @return A list of experiments with the selected column
 #' @examples
@@ -116,7 +115,7 @@ deepblue_diff <- function(id1, id2, user_key = deepblue_options("user_key")){
 #'  deepblue_extract_names(blueprint_DNA_meth)),]
 #'
 #' exp_columns <- deepblue_select_column(blueprint_DNA_meth, "VALUE")
-deepblue_select_column <- function(experiments, column, user_key = deepblue_options("user_key")){
+deepblue_select_column <- function(experiments, column){
     experiments_columns <- list()
 
     for(experiment in deepblue_extract_names(experiments)){
