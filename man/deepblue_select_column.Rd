@@ -40,4 +40,3 @@ exp_columns <- deepblue_select_column(blueprint_DNA_meth, "VALUE")
 
 Other Utilities for information processing: \code{\link{deepblue_diff}}
 }
-

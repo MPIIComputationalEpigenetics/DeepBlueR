@@ -37,4 +37,3 @@ request_id = deepblue_get_regions(query_id =data_id,
   output_format = "CHROMOSOME,START,END")
 request_data = deepblue_batch_export_results(list(request_id))
 }
-

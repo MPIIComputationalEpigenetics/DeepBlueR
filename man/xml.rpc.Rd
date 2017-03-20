@@ -17,4 +17,3 @@ XML RPC request data converted to R objects
 perform an XML-RPC call
 }
 \keyword{internal}
-

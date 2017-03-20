@@ -4,11 +4,14 @@
 \alias{deepblue_list_genes}
 \title{list_genes}
 \usage{
-deepblue_list_genes(genes = NULL, chromosome = NULL, start = NULL,
-  end = NULL, gene_models = NULL, user_key = deepblue_options("user_key"))
+deepblue_list_genes(genes = NULL, go_terms = NULL, chromosome = NULL,
+  start = NULL, end = NULL, gene_model = NULL,
+  user_key = deepblue_options("user_key"))
 }
 \arguments{
 \item{genes}{- A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)}
+
+\item{go_terms}{- A string or a vector of string (gene ontology terms - ID or label)}
 
 \item{chromosome}{- A string or a vector of string (chromosome name(s))}
 
@@ -16,7 +19,7 @@ deepblue_list_genes(genes = NULL, chromosome = NULL, start = NULL,
 
 \item{end}{- A int (maximum end region)}
 
-\item{gene_models}{- A string or a vector of string (the gene model)}
+\item{gene_model}{- A string (the gene model)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -28,14 +31,14 @@ List the Genes currently available in DeepBlue.
 }
 \examples{
 deepblue_list_genes(
-  chromosome="chr20", 
-  start=10000000, 
-  end=21696620, 
-gene_models='Gencode v22')
+  chromosome="chr20",
+  start=10000000,
+  end=21696620,
+gene_model='Gencode v22')
 
 }
 \seealso{
-Other Gene models and genes identifiers: \code{\link{deepblue_list_gene_models}},
+Other Gene models and genes identifiers: \code{\link{deepblue_count_gene_ontology_terms}},
+  \code{\link{deepblue_list_gene_models}},
   \code{\link{deepblue_select_genes}}
 }
-

@@ -15,4 +15,3 @@ Clear cache
 \examples{
 deepblue_clear_cache()
 }
-

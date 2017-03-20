@@ -19,4 +19,3 @@ Lists the ColumnTypes included in DeepBlue.
 deepblue_list_column_types()
 
 }
-

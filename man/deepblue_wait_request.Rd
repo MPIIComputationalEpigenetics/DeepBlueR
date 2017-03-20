@@ -21,4 +21,3 @@ request_id info
 Process the user request. Takes in three parameters;
 requested regions, sleep time, and user key.
 }
-

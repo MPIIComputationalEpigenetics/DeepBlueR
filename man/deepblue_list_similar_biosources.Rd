@@ -25,4 +25,3 @@ deepblue_list_similar_biosources(name = "blood")
 \seealso{
 Other Inserting and listing biosources: \code{\link{deepblue_list_biosources}}
 }
-

@@ -29,4 +29,3 @@ deepblue_diff(
 \seealso{
 Other Utilities for information processing: \code{\link{deepblue_select_column}}
 }
-

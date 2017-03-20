@@ -25,4 +25,3 @@ deepblue_chromosomes(genome = "g1")
 Other Inserting and listing genomes: \code{\link{deepblue_list_genomes}},
   \code{\link{deepblue_list_similar_genomes}}
 }
-

@@ -41,6 +41,7 @@ deepblue_overlap(query_data_id = experiment_id, query_filter_id = annotation_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_binning}},
+  \code{\link{deepblue_calculate_enrichment}},
   \code{\link{deepblue_count_regions}},
   \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
@@ -59,4 +60,3 @@ Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_select_regions}},
   \code{\link{deepblue_tiling_regions}}
 }
-

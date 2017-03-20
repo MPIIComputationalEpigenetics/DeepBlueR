@@ -19,4 +19,3 @@ deepblue_commands()
 \seealso{
 Other Checking DeepBlue status: \code{\link{deepblue_echo}}
 }
-

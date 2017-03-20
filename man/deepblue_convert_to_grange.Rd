@@ -20,4 +20,3 @@ Expects one input; A dataframe with requested data.
 \code{\link[GenomicRanges]{makeGRangesFromDataFrame}}
 }
 \keyword{internal}
-

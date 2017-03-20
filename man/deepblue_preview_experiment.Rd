@@ -29,4 +29,3 @@ Other Inserting and listing experiments: \code{\link{deepblue_collection_experim
   \code{\link{deepblue_list_recent_experiments}},
   \code{\link{deepblue_list_similar_experiments}}
 }
-

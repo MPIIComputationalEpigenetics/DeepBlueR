@@ -2,8 +2,8 @@
 % Please edit documentation in R/class_DeepBlueCommand.R
 \docType{class}
 \name{DeepBlueCommand-class}
-\alias{DeepBlueCommand}
 \alias{DeepBlueCommand-class}
+\alias{DeepBlueCommand}
 \title{DeepBlueCommand class}
 \arguments{
 \item{call}{language}
@@ -28,4 +28,3 @@ the original call, the query / request status,
 previous commands, the user_key, and results in GRanges format once
 a request is downloaded.
 }
-

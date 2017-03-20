@@ -33,4 +33,3 @@ Other Commands for all types of data: \code{\link{deepblue_cancel_request}},
   \code{\link{deepblue_list_in_use}},
   \code{\link{deepblue_search}}
 }
-

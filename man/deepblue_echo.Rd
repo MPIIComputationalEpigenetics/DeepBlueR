@@ -22,4 +22,3 @@ deepblue_echo(user_key = "anonymous_key")
 \seealso{
 Other Checking DeepBlue status: \code{\link{deepblue_commands}}
 }
-

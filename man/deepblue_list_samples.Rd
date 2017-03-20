@@ -24,4 +24,3 @@ List Samples included in DeepBlue. It is possible to filter by the BioSource and
 deepblue_list_samples(biosource = "Blood")
 
 }
-

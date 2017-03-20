@@ -27,4 +27,3 @@ deepblue_export_meta_data(list("e30035", "e30036"),
 file.name = "test_export",
 target.directory = tempdir())
 }
-

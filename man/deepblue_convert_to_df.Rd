@@ -22,4 +22,3 @@ Expects two parameters; the output string from method
 deepblue_get_request_data and request information from process_request
 }
 \keyword{internal}
-

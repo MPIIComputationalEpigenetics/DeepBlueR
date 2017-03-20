@@ -22,4 +22,3 @@ List all annotations of genomic regions currently available in DeepBlue.
 deepblue_list_annotations(genome = "hg19")
 
 }
-

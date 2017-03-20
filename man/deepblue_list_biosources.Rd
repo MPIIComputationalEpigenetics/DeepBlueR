@@ -25,4 +25,3 @@ deepblue_list_biosources(extra_metadata = list(ontology_id = "UBERON:0002485"))
 \seealso{
 Other Inserting and listing biosources: \code{\link{deepblue_list_similar_biosources}}
 }
-

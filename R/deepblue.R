@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.10.3
+# For DeepBlue version 1.11.1
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -112,6 +112,77 @@ deepblue_binning <- function(query_data_id= NULL, column= NULL, bins= NULL, user
         }
     }
     value <- xml.rpc(deepblue_options('url'), 'binning', query_data_id, column, if (is.null(bins)) NULL else as.integer(bins), user_key)
+    status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
+    message(paste("Reported status was:", status))
+    if (status == "error") {
+        stop(value[[2]])
+    }
+    if (!exists("user_key")) {
+        user_key = NULL
+    }
+    if(length(value) == 1) return(NULL)
+    else if(!is.list(value[[2]])){
+        DeepBlueCommand(call = sys.call(),
+            status = value[[1]],
+            query_id = value[[2]],
+            previous_commands = previous_commands,
+            user_key = user_key
+        )
+    }
+
+    if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
+        result <- value[[2]]
+        result$count <- as.integer(result$count)
+        return(result)
+    }
+
+    return(value[[2]])
+}
+
+
+
+#' @export 
+#' 
+#' @title calculate_enrichment 
+#' @description  Enrich the regions based on Gene Ontology terms.
+#' @family Operating on the data regions
+#' 
+#' @param query_id - A string (Query ID)
+#' @param gene_model - A string (the gene model)
+#' @param user_key - A string (users token key)
+#'
+#' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data())
+#'
+#' @examples
+#' data_id = deepblue_select_experiments(
+#'     experiment_name="E002-H3K9ac.narrowPeak.bed")
+#' 
+#' filtered_id = deepblue_filter_regions(query_id = data_id,
+#'     field = "VALUE",
+#'     operation = ">",
+#'     value = "100",
+#'     type = "number",
+#'     user_key = "anonymous_key")
+#' 
+#' deepblue_calculate_enrichment(query_id = filtered_id,
+#'    gene_model = "gencode v23")
+#'
+deepblue_calculate_enrichment <- function(query_id= NULL, gene_model= NULL, user_key=deepblue_options('user_key')) {
+
+    previous_commands <- list()
+    arg.names <- names(as.list(match.call()))
+    for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+    }
+    value <- xml.rpc(deepblue_options('url'), 'calculate_enrichment', query_id, gene_model, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -389,6 +460,73 @@ deepblue_commands <- function() {
 
 #' @export 
 #' 
+#' @title count_gene_ontology_terms 
+#' @description Summarize the controlled_vocabulary fields, from experiments that match the selection criteria. It is similar to the 'collection_experiments_count' command, but this command return the summarization for all controlled_vocabulary terms.
+#' @family Gene models and genes identifiers
+#' 
+#' @param genes - A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)
+#' @param go_terms - A string or a vector of string (gene ontology terms - ID or label)
+#' @param chromosome - A string or a vector of string (chromosome name(s))
+#' @param start - A int (minimum start region)
+#' @param end - A int (maximum end region)
+#' @param gene_model - A string (the gene model)
+#' @param user_key - A string (users token key)
+#'
+#' @return faceting - A struct (Map with the mandatory fields of the experiments metadata, where each contains a list of terms that appears.)
+#'
+#' @examples
+#' gene_names = c('CCR1', 'CD164', 'CD1D', 'CD2', 'CD34', 'CD3G', 'CD44')
+#' deepblue_count_gene_ontology_terms (genes = gene_names, gene_model = "gencode v23")
+#' 
+
+#'
+deepblue_count_gene_ontology_terms <- function(genes= NULL, go_terms= NULL, chromosome= NULL, start= NULL, end= NULL, gene_model= NULL, user_key=deepblue_options('user_key')) {
+
+    previous_commands <- list()
+    arg.names <- names(as.list(match.call()))
+    for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+    }
+    value <- xml.rpc(deepblue_options('url'), 'count_gene_ontology_terms', genes, go_terms, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), gene_model, user_key)
+    status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
+    message(paste("Reported status was:", status))
+    if (status == "error") {
+        stop(value[[2]])
+    }
+    if (!exists("user_key")) {
+        user_key = NULL
+    }
+    if(length(value) == 1) return(NULL)
+    else if(!is.list(value[[2]])){
+        DeepBlueCommand(call = sys.call(),
+            status = value[[1]],
+            query_id = value[[2]],
+            previous_commands = previous_commands,
+            user_key = user_key
+        )
+    }
+
+    if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
+        result <- value[[2]]
+        result$count <- as.integer(result$count)
+        return(result)
+    }
+
+    return(value[[2]])
+}
+
+
+
+#' @export 
+#' 
 #' @title count_regions 
 #' @description  Return the number of genomic regions present in the query.
 #' @family Operating on the data regions
@@ -574,7 +712,7 @@ deepblue_echo <- function(user_key=deepblue_options('user_key')) {
 #' @description Extend the genomic regions included in the query. It is possible to extend downstream, upstream or in both directions.
 #' @family Operating on the data regions
 #' 
-#' @param query_id - A string (id of the query that contains the regions)
+#' @param query_id - A string (Query ID)
 #' @param length - A int (The new region length)
 #' @param direction - A string (The direction that the region will be extended: 'BACKWARD', 'FORWARD', 'BOTH'. (Empty value will be used for both direction.)
 #' @param use_strand - A boolean (Use the region column STRAND to define the region direction)
@@ -708,7 +846,7 @@ deepblue_faceting_experiments <- function(genome= NULL, type= NULL, epigenetic_m
 #' @description Filter the genomic regions by their content.
 #' @family Operating on the data regions
 #' 
-#' @param query_id - A string (id of the query to be filtered)
+#' @param query_id - A string (Query ID)
 #' @param field - A string (field that is filtered by)
 #' @param operation - A string (operation used for filtering. For 'string' must be '==' or '!=' and for 'number' must be one of these: ==,!=,>,>=,<,<=)
 #' @param value - A string (value the operator is applied to)
@@ -776,7 +914,7 @@ deepblue_filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 #' @description Create a set of genomic regions that flank the query regions. The original regions are removed from the query. Use the merge command to combine flanking regions with the original query.
 #' @family Operating on the data regions
 #' 
-#' @param query_id - A string (id of the query that contains the regions)
+#' @param query_id - A string (Query ID)
 #' @param start - A int (Number of base pairs after the end of the region. Use a negative number to denote the number of base pairs before the start of the region.)
 #' @param length - A int (The new region length)
 #' @param use_strand - A boolean (Use the region column STRAND to define the region direction)
@@ -1079,7 +1217,7 @@ deepblue_get_biosource_synonyms <- function(biosource= NULL, user_key=deepblue_o
 #' @description List the experiments and annotations that have at least one genomic region in the final query result.
 #' @family Operating on the data regions
 #' 
-#' @param query_id - A string (id of the query)
+#' @param query_id - A string (Query ID)
 #' @param user_key - A string (users token key)
 #'
 #' @return experiments - A array (List containing experiments names and ids)
@@ -1944,23 +2082,24 @@ deepblue_list_gene_models <- function(user_key=deepblue_options('user_key')) {
 #' @family Gene models and genes identifiers
 #' 
 #' @param genes - A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)
+#' @param go_terms - A string or a vector of string (gene ontology terms - ID or label)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
 #' @param end - A int (maximum end region)
-#' @param gene_models - A string or a vector of string (the gene model)
+#' @param gene_model - A string (the gene model)
 #' @param user_key - A string (users token key)
 #'
 #' @return genes - A array (genes names and its content)
 #'
 #' @examples
 #' deepblue_list_genes(
-#'   chromosome="chr20", 
-#'   start=10000000, 
-#'   end=21696620, 
-#' gene_models='Gencode v22')
+#'   chromosome="chr20",
+#'   start=10000000,
+#'   end=21696620,
+#' gene_model='Gencode v22')
 
 #'
-deepblue_list_genes <- function(genes= NULL, chromosome= NULL, start= NULL, end= NULL, gene_models= NULL, user_key=deepblue_options('user_key')) {
+deepblue_list_genes <- function(genes= NULL, go_terms= NULL, chromosome= NULL, start= NULL, end= NULL, gene_model= NULL, user_key=deepblue_options('user_key')) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -1973,7 +2112,7 @@ deepblue_list_genes <- function(genes= NULL, chromosome= NULL, start= NULL, end=
             }
         }
     }
-    value <- xml.rpc(deepblue_options('url'), 'list_genes', genes, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), gene_models, user_key)
+    value <- xml.rpc(deepblue_options('url'), 'list_genes', genes, go_terms, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), gene_model, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -3041,7 +3180,7 @@ deepblue_preview_experiment <- function(experiment_name= NULL, user_key=deepblue
 #' @description Cache a query result in DeepBlue memory. This command is useful when the same query ID is used multiple times in different requests. The command is an advice for DeepBlue to cache the query result and there is no guarantee that this query data access will be faster.
 #' @family Operating on the data regions
 #' 
-#' @param query_id - A string (query ID)
+#' @param query_id - A string (Query ID)
 #' @param cache - A boolean (set or unset this query caching)
 #' @param user_key - A string (users token key)
 #'
@@ -3110,7 +3249,7 @@ deepblue_query_cache <- function(query_id= NULL, cache= NULL, user_key=deepblue_
 #' @description Filter the query ID for regions associated with experiments of a given type. For example, it is possible to select only peaks using this command with the 'peaks' parameter.
 #' @family Operating on the data regions
 #' 
-#' @param query_id - A string (query ID)
+#' @param query_id - A string (Query ID)
 #' @param type - A string (experiment type (peaks or signal))
 #' @param user_key - A string (users token key)
 #'
@@ -3242,11 +3381,11 @@ deepblue_score_matrix <- function(experiments_columns= NULL, aggregation_functio
 #' @export 
 #' 
 #' @title search 
-#' @description Search all data of all types for the given keyword. A minus (-) character in front of a keyword searches for data without the given keyword. The search can be restricted to the following data types are: Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Projects, Samples, Techniques, Tilings.
+#' @description Search all data of all types for the given keyword. A minus (-) character in front of a keyword searches for data without the given keyword. The search can be restricted to the following data types are: Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Gene_ontology, Projects, Samples, Techniques, Tilings.
 #' @family Commands for all types of data
 #' 
 #' @param keyword - A string (keyword to search by)
-#' @param type - A string or a vector of string (type of data to search for - Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Projects, Samples, Techniques, Tilings)
+#' @param type - A string or a vector of string (type of data to search for - Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Gene_ontology, Projects, Samples, Techniques, Tilings)
 #' @param user_key - A string (users token key)
 #'
 #' @return results - A array (search results as [id, name, type])
@@ -3512,7 +3651,8 @@ deepblue_select_expressions <- function(expression_type= NULL, sample_ids= NULL,
 #' @family Gene models and genes identifiers
 #' 
 #' @param genes - A string or a vector of string (Name(s) or ENSEMBL ID (ENSGXXXXXXXXXXX.X ) of the gene(s).)
-#' @param gene_model - A string (gene model name)
+#' @param go_terms - A string or a vector of string (gene ontology terms - ID or label)
+#' @param gene_model - A string (the gene model)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
 #' @param end - A int (maximum end region)
@@ -3528,7 +3668,7 @@ deepblue_select_expressions <- function(expression_type= NULL, sample_ids= NULL,
 #'     gene_model = "gencode v23")
 
 #'
-deepblue_select_genes <- function(genes= NULL, gene_model= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_options('user_key')) {
+deepblue_select_genes <- function(genes= NULL, go_terms= NULL, gene_model= NULL, chromosome= NULL, start= NULL, end= NULL, user_key=deepblue_options('user_key')) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -3541,7 +3681,7 @@ deepblue_select_genes <- function(genes= NULL, gene_model= NULL, chromosome= NUL
             }
         }
     }
-    value <- xml.rpc(deepblue_options('url'), 'select_genes', genes, gene_model, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
+    value <- xml.rpc(deepblue_options('url'), 'select_genes', genes, go_terms, gene_model, chromosome, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))

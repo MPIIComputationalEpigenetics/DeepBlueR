@@ -19,4 +19,3 @@ default options
 \description{
 options manager from the settings package
 }
-

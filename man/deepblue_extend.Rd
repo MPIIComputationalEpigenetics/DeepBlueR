@@ -8,7 +8,7 @@ deepblue_extend(query_id = NULL, length = NULL, direction = NULL,
   use_strand = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
-\item{query_id}{- A string (id of the query that contains the regions)}
+\item{query_id}{- A string (Query ID)}
 
 \item{length}{- A int (The new region length)}
 
@@ -36,6 +36,7 @@ deepblue_extend(query_id = annotation_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_binning}},
+  \code{\link{deepblue_calculate_enrichment}},
   \code{\link{deepblue_count_regions}},
   \code{\link{deepblue_coverage}},
   \code{\link{deepblue_filter_regions}},
@@ -54,4 +55,3 @@ Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_select_regions}},
   \code{\link{deepblue_tiling_regions}}
 }
-

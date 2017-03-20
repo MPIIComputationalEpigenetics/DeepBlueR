@@ -17,4 +17,3 @@ query ID of the object
 Provides a summary of a DeepBlue command object
 }
 \keyword{internal}
-

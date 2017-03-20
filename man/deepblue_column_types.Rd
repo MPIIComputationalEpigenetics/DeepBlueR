@@ -13,4 +13,3 @@ Dictionary will all column names and types
 Load the column types from DeepBlue
 }
 \keyword{internal}
-

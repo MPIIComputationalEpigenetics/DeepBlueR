@@ -42,4 +42,3 @@ deepblue_select_expressions(
 \seealso{
 Other Expression data: \code{\link{deepblue_list_expressions}}
 }
-

@@ -28,4 +28,3 @@ Other Commands for all types of data: \code{\link{deepblue_info}},
   \code{\link{deepblue_name_to_id}},
   \code{\link{deepblue_search}}
 }
-

@@ -24,4 +24,3 @@ deepblue_extract_ids(
 \seealso{
 Other Utilities for connecting operations: \code{\link{deepblue_extract_ids}}
 }
-

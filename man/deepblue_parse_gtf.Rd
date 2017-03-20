@@ -16,4 +16,3 @@ the parsed GTF data
 Parse the GTF semicolon separated attributes into a data frame
 }
 \keyword{internal}
-

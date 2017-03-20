@@ -25,4 +25,3 @@ deepblue_list_similar_techniques(name = "chip seq")
 \seealso{
 Other Inserting and listing techniques: \code{\link{deepblue_list_techniques}}
 }
-

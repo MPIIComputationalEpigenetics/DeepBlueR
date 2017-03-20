@@ -19,4 +19,3 @@ Delete a specific request from the cache
 deepblue_delete_request_from_cache("non-existing-request-id")
 # returns FALSE
 }
-

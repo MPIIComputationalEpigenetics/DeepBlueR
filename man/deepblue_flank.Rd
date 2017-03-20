@@ -8,7 +8,7 @@ deepblue_flank(query_id = NULL, start = NULL, length = NULL,
   use_strand = NULL, user_key = deepblue_options("user_key"))
 }
 \arguments{
-\item{query_id}{- A string (id of the query that contains the regions)}
+\item{query_id}{- A string (Query ID)}
 
 \item{start}{- A int (Number of base pairs after the end of the region. Use a negative number to denote the number of base pairs before the start of the region.)}
 
@@ -36,6 +36,7 @@ deepblue_flank(query_id = annotation_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_binning}},
+  \code{\link{deepblue_calculate_enrichment}},
   \code{\link{deepblue_count_regions}},
   \code{\link{deepblue_coverage}},
   \code{\link{deepblue_extend}},
@@ -54,4 +55,3 @@ Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_select_regions}},
   \code{\link{deepblue_tiling_regions}}
 }
-

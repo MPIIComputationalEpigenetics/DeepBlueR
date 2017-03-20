@@ -22,4 +22,3 @@ deepblue_list_projects()
 \seealso{
 Other Inserting and listing projects: \code{\link{deepblue_list_similar_projects}}
 }
-

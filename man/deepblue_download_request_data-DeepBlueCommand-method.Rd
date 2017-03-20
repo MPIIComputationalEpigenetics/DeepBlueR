@@ -19,4 +19,3 @@ Expects two input parameters; Request information and
 user key. It depends on outputs from several functions, namely;
 deepblue_get_request_data, convert_to_df, and convert_to_grange.
 }
-

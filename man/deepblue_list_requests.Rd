@@ -25,4 +25,3 @@ deepblue_list_requests(request_state = 'running')
 \seealso{
 Other Requests status information and results: \code{\link{deepblue_get_request_data}}
 }
-

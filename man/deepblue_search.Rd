@@ -10,7 +10,7 @@ deepblue_search(keyword = NULL, type = NULL,
 \arguments{
 \item{keyword}{- A string (keyword to search by)}
 
-\item{type}{- A string or a vector of string (type of data to search for - Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Projects, Samples, Techniques, Tilings)}
+\item{type}{- A string or a vector of string (type of data to search for - Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Gene_ontology, Projects, Samples, Techniques, Tilings)}
 
 \item{user_key}{- A string (users token key)}
 }
@@ -18,7 +18,7 @@ deepblue_search(keyword = NULL, type = NULL,
 results - A array (search results as [id, name, type])
 }
 \description{
-Search all data of all types for the given keyword. A minus (-) character in front of a keyword searches for data without the given keyword. The search can be restricted to the following data types are: Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Projects, Samples, Techniques, Tilings.
+Search all data of all types for the given keyword. A minus (-) character in front of a keyword searches for data without the given keyword. The search can be restricted to the following data types are: Annotations, Biosources, Column_types, Epigenetic_marks, Experiments, Genomes, Gene_models, Gene_expressions, Genes, Gene_ontology, Projects, Samples, Techniques, Tilings.
 }
 \examples{
 deepblue_search(keyword = "DNA Methylation BLUEPRINT",
@@ -32,4 +32,3 @@ Other Commands for all types of data: \code{\link{deepblue_cancel_request}},
   \code{\link{deepblue_list_in_use}},
   \code{\link{deepblue_name_to_id}}
 }
-

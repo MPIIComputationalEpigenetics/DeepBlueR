@@ -15,4 +15,3 @@ List cached requests
 \examples{
 deepblue_list_cached_requests()
 }
-

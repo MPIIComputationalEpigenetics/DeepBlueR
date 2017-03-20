@@ -25,4 +25,3 @@ deepblue_list_similar_epigenetic_marks(name = "H3k27ac")
 \seealso{
 Other Inserting and listing epigenetic marks: \code{\link{deepblue_list_epigenetic_marks}}
 }
-

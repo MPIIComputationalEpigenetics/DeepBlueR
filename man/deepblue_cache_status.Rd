@@ -15,4 +15,3 @@ Report on the cache size and status
 \examples{
 deepblue_cache_status()
 }
-

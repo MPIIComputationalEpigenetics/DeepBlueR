@@ -27,4 +27,3 @@ Other Set the relationship between different biosources: \code{\link{deepblue_ge
   \code{\link{deepblue_get_biosource_parents}},
   \code{\link{deepblue_get_biosource_synonyms}}
 }
-

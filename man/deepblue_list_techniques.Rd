@@ -22,4 +22,3 @@ deepblue_list_techniques()
 \seealso{
 Other Inserting and listing techniques: \code{\link{deepblue_list_similar_techniques}}
 }
-

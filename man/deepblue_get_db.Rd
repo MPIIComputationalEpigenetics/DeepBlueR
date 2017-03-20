@@ -12,4 +12,3 @@ A filehash package database
 \description{
 Sets up the DeepBlueR cache and returns a filehash db object
 }
-

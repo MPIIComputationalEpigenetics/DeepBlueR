@@ -20,4 +20,3 @@ formatted size
 \description{
 Format byte size as human readable units
 }
-

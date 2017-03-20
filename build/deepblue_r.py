@@ -92,6 +92,7 @@ def main():
 
   #list of commands to ignore
   exclude = ['get_state',
+  'add_gene_ontology_term',
   'add_annotation',
   'add_biosource',
   'add_epigenetic_mark',
@@ -104,9 +105,11 @@ def main():
   'add_sample_from_gsm',
   'add_technique',
   'add_user_to_project',
+  'annotate_gene',
   'create_experiments_set',
   'set_biosource_parent',
   'set_biosource_synonym',
+  'set_gene_ontology_term_parent',
   'set_project_public',
   'upload_chromosome',
   'change_extra_metadata',

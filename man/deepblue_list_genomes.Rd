@@ -23,4 +23,3 @@ deepblue_list_genomes()
 Other Inserting and listing genomes: \code{\link{deepblue_chromosomes}},
   \code{\link{deepblue_list_similar_genomes}}
 }
-

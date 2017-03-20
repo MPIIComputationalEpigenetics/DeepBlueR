@@ -25,4 +25,3 @@ deepblue_list_similar_projects(name = "BLUEPRINT")
 \seealso{
 Other Inserting and listing projects: \code{\link{deepblue_list_projects}}
 }
-

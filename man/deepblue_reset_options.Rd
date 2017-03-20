@@ -19,4 +19,3 @@ Reset DeepBlueR options
 \examples{
 deepblue_reset_options()
 }
-

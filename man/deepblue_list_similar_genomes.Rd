@@ -26,4 +26,3 @@ deepblue_list_similar_genomes(name = "grc")
 Other Inserting and listing genomes: \code{\link{deepblue_chromosomes}},
   \code{\link{deepblue_list_genomes}}
 }
-

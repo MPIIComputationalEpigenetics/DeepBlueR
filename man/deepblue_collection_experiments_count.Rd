@@ -48,4 +48,3 @@ Other Inserting and listing experiments: \code{\link{deepblue_faceting_experimen
   \code{\link{deepblue_list_similar_experiments}},
   \code{\link{deepblue_preview_experiment}}
 }
-

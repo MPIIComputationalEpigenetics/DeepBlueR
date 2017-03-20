@@ -36,4 +36,3 @@ temp_dir = tempdir()
 deepblue_export_tab(regions, target.directory = temp_dir,
                   file.name = "GC_T14_10.CpG_islands")
 }
-

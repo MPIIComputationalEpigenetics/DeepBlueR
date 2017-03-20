@@ -31,4 +31,3 @@ deepblue_get_request_data(request_id = request_id)
 \seealso{
 Other Requests status information and results: \code{\link{deepblue_list_requests}}
 }
-

@@ -29,4 +29,3 @@ Other Commands for all types of data: \code{\link{deepblue_cancel_request}},
   \code{\link{deepblue_name_to_id}},
   \code{\link{deepblue_search}}
 }
-

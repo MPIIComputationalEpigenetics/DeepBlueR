@@ -31,4 +31,3 @@ deepblue_list_expressions(expression_type='gene')
 \seealso{
 Other Expression data: \code{\link{deepblue_select_expressions}}
 }
-

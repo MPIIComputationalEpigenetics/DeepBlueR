@@ -1,33 +1,15 @@
 DeepBlueRef <- bibentry(bibtype = "Article",
-         author = c(as.person("Felipe Albrecht"), 
-                    as.person("Markus List"), 
+         author = c(as.person("Felipe Albrecht"),
+                    as.person("Markus List"),
                     as.person("Christoph Bock"),
                     as.person("Thomas Lengauer")),
-         title = "DeepBlue epigenomic data server: programmatic data 
-         retrieval and analysis of epigenome region sets",
-         year = 2016, 
-         doi = "10.1093/nar/gkw211", 
-         abstract ="Large amounts of epigenomic data are generated under 
-         the umbrella of the International Human Epigenome Consortium, 
-         which aims to establish 1000 reference epigenomes within the next 
-         few years. These data have the potential to unravel the complexity of 
-         epigenomic regulation. However, their effective use is hindered by the 
-         lack of flexible and easy-to-use methods for data retrieval. 
-         Extracting region sets of interest is a cumbersome task that involves 
-         several manual steps: identifying the relevant experiments, 
-         downloading the corresponding data files and filtering the region 
-         sets of interest. Here we present the DeepBlue Epigenomic Data Server, 
-         which streamlines epigenomic data analysis as well as software 
-         development. DeepBlue provides a comprehensive programmatic interface 
-         for finding, selecting, filtering, summarizing and downloading 
-         region sets. It contains data from four major epigenome projects, 
-         namely ENCODE, ROADMAP, BLUEPRINT and DEEP. DeepBlue comes with a 
-         user manual, examples and a well-documented application 
-         programming interface (API). The latter is accessed via the 
-         XML-RPC protocol supported by many programming languages. 
-         To demonstrate usage of the API and to enable convenient data 
-         retrieval for non-programmers, we offer an optional web interface. 
-         DeepBlue can be openly accessed at http://deepblue.mpi-inf.mpg.de.", 
-         URL = "http://nar.oxfordjournals.org/content/early/2016/04/15/nar.gkw211.abstract", 
-         eprint = "http://nar.oxfordjournals.org/content/early/2016/04/15/nar.gkw211.full.pdf+html", 
-         journal = "Nucleic Acids Research")
+         title = "DeepBlueR: large-scale epigenomic analysis in R",
+         year = 2017,
+         doi = " 10.1093/bioinformatics/btx099",
+         abstract ="While large amounts of epigenomic data are publicly available,
+         their retrieval in a form suitable for downstream analysis is a bottleneck in current research.
+         The DeepBlue Epigenomic Data Server provides a powerful interface and API for filtering,
+         transforming, aggregating and downloading data from several epigenomic consortia.
+         URL = "https://academic.oup.com/bioinformatics/article/3045024/DeepBlueR:",
+         eprint = "https://academic.oup.com/bioinformatics/article-pdf/doi/10.1093/bioinformatics/btx099/10931981/btx099.pdf",
+         journal = "Bioinformatics")
