@@ -9,7 +9,7 @@ DeepBlueRef <- bibentry(bibtype = "Article",
          abstract ="While large amounts of epigenomic data are publicly available,
          their retrieval in a form suitable for downstream analysis is a bottleneck in current research.
          The DeepBlue Epigenomic Data Server provides a powerful interface and API for filtering,
-         transforming, aggregating and downloading data from several epigenomic consortia.
+         transforming, aggregating and downloading data from several epigenomic consortia.",
          URL = "https://academic.oup.com/bioinformatics/article/3045024/DeepBlueR:",
          eprint = "https://academic.oup.com/bioinformatics/article-pdf/doi/10.1093/bioinformatics/btx099/10931981/btx099.pdf",
          journal = "Bioinformatics")

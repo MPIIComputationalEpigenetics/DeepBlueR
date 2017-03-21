@@ -73,9 +73,6 @@ deepblue_switch_get_request_data = function(request_id,
                                             force_download=deepblue_options("force_download"),
                                             do_not_cache=deepblue_options("do_not_cache"))
 {
-    if(is.null(request_id)) stop("parameter request_id missing")
-    if(!grepl("^r[0-9]*", request_id)) stop("request parameter not of form r[0-9]*")
-
     #check if results is in cache
     if(!do_not_cache){
         db <- deepblue_get_db()
