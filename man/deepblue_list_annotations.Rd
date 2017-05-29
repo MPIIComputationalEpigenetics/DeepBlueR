@@ -22,3 +22,6 @@ List all annotations of genomic regions currently available in DeepBlue.
 deepblue_list_annotations(genome = "hg19")
 
 }
+\seealso{
+Other Inserting and listing annotations: \code{\link{deepblue_find_pattern}}
+}

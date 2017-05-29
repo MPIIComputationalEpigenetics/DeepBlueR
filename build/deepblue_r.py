@@ -118,7 +118,6 @@ def main():
   'create_column_type_simple',
   'create_column_type_range',
   'create_column_type_category',
-  'find_pattern',
   'remove',
   'extract_ids',
   'extract_names']

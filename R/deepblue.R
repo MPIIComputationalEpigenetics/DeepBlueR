@@ -910,6 +910,69 @@ deepblue_filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 
 #' @export 
 #' 
+#' @title find_pattern 
+#' @description Generate a custom annotation of genomic regions based on a given pattern that appears in the genomic sequence. Be patient and gently as this command may need a few minutes for execution.
+#' @family Inserting and listing annotations
+#' 
+#' @param pattern - A string (pattern (PERL regular expression))
+#' @param genome - A string (the target genome)
+#' @param overlap - A boolean (if the matching should do overlap search)
+#' @param user_key - A string (users token key)
+#'
+#' @return id - A string (id of the annotation that contains the positions of the given pattern)
+#'
+#' @examples
+#' deepblue_find_pattern(pattern = "C[GT]+C",
+#'     genome = "hg19", overlap = FALSE)
+
+#'
+deepblue_find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, user_key=deepblue_options('user_key')) {
+
+    previous_commands <- list()
+    arg.names <- names(as.list(match.call()))
+    for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+    }
+    value <- xml.rpc(deepblue_options('url'), 'find_pattern', pattern, genome, overlap, user_key)
+    status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
+    message(paste("Reported status was:", status))
+    if (status == "error") {
+        stop(value[[2]])
+    }
+    if (!exists("user_key")) {
+        user_key = NULL
+    }
+    if(length(value) == 1) return(NULL)
+    else if(!is.list(value[[2]])){
+        DeepBlueCommand(call = sys.call(),
+            status = value[[1]],
+            query_id = value[[2]],
+            previous_commands = previous_commands,
+            user_key = user_key
+        )
+    }
+
+    if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
+        result <- value[[2]]
+        result$count <- as.integer(result$count)
+        return(result)
+    }
+
+    return(value[[2]])
+}
+
+
+
+#' @export 
+#' 
 #' @title flank 
 #' @description Create a set of genomic regions that flank the query regions. The original regions are removed from the query. Use the merge command to combine flanking regions with the original query.
 #' @family Operating on the data regions
