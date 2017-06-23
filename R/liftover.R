@@ -51,19 +51,19 @@ deepblue_liftover <- function(regions,
 
 
     if(source == "hg19" && target == "hg38"){
-        url <- "ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz"
-        file_name <- "hg38ToHg19.over.chain"
-    }
-    else if(source == "hg38" && target == "hg19"){
         url <- "ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz"
         file_name <- "hg19ToHg38.over.chain"
     }
-    else if(source == "mm9" && target == "mm10"){
-        url <- "http://hgdownload.cse.ucsc.edu/goldenpath/mm10/liftOver/mm10ToMm9.over.chain.gz"
-        file_name <- "mm10ToMm9.over.chain"
+    else if(source == "hg38" && target == "hg19"){        
+        url <- "ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz"
+        file_name <- "hg38ToHg19.over.chain"
     }
-    else if(source == "mm10" && target == "mm9"){
+    else if(source == "mm9" && target == "mm10"){
         url <- "http://hgdownload.cse.ucsc.edu/goldenpath/mm9/liftOver/mm9ToMm10.over.chain.gz"
+        file_name <- "mm9ToMm10.over.chain"
+    }
+    else if(source == "mm10" && target == "mm9"){        
+        url <- "http://hgdownload.cse.ucsc.edu/goldenpath/mm10/liftOver/mm10ToMm9.over.chain.gz"        
         file_name <- "mm10ToMm9.over.chain"
     }
 
