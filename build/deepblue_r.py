@@ -154,9 +154,6 @@ def main():
     examples = "#' ".join(examples.splitlines(True))
     examples = "#' " + examples
 
-    #if name.startswith("add_") or name.startswith("set_biosource") or name == "set_project_public" or name == "upload_chromosome" or name.startswith("create_") or name == "cancel_request" or name == "change_extra_metadata" or name == "clone_dataset" or name == "remove" or name == "find_pattern":
-    #  examples = "#' \dontrun{\n" + examples + "\n#' }\n"
-
     params_documentation = []
     titles = []
     for p in cmd["parameters"]:

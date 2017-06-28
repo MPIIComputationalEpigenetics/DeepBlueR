@@ -418,7 +418,7 @@ head(regions, 1)
 ```
 
 ### DNA pattern matching operations
-We use the ```deepblue_find_pattern``` command to find all position of a given
+We use the ```deepblue_find_motif``` command to find all position of a given
 pattern in the genome. An example is finding all locations of 'TATAA'
 in genome assembly GRCh38.
 
@@ -430,9 +430,7 @@ The command ```deepblue_intersect``` selects all regions of the ```query_id```
 that intersect with at least one `tataa_regions` region.
 
 ```{R, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-tataa_regions = deepblue_select_annotations(
-    annotation_name="Pattern TATAAA (non-overlap) in the genome GRCh38",
-    genome="GRCh38", chromosome="chr1")
+tataa_regions = deepblue_find_motif(motif="TATAAA", genome="GRCh38", chromosomes="chr1")
 query_id = deepblue_select_experiments(
     experiment_name= c("BL-2_c01.ERX297416.H3K27ac.bwa.GRCh38.20150527.bed",
         "S008SGH1.ERX406923.H3K27ac.bwa.GRCh38.20150728.bed"),
@@ -847,16 +845,16 @@ deepblue_options()
 ```
 
 - ```url``` This is the URL of the DeepBlue application server and should not be changed
-- ```user_key``` This option can be replaced by the personal key of the user after 
-successful registration at http://deepblue.mpi-inf.mpg.de. The key can be found 
+- ```user_key``` This option can be replaced by the personal key of the user after
+successful registration at http://deepblue.mpi-inf.mpg.de. The key can be found
 by logging into the web application and clicking on the user name in the top
 left corner. Registered users have access to advanced features of DeepBlue, e.g.
 they can review previous requests.
-- ```do_not_cache``` Allows users to switch off the caching functionality of 
+- ```do_not_cache``` Allows users to switch off the caching functionality of
 DeepBlueR. See [Caching].
 - ```force_download``` If the users wishes to overwrite cached results for the
 following requests, this option can be switched on. See [Caching].
-- ```debug``` Switching on this option enables verbose output only useful for 
+- ```debug``` Switching on this option enables verbose output only useful for
 debugging.
 
 Changing an option works as follows:
@@ -891,14 +889,14 @@ To check the status of the cache you can use the following command:
 deepblue_cache_status()
 ```
 
-This will report the cache size and the number of requests currently stored. 
+This will report the cache size and the number of requests currently stored.
 Alternatively, users can list the request ids for which results are available:
 
 ```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
 deepblue_list_cached_requests()
 ```
 
-Over time, the cache can quickly grow in size. It is possible to remove 
+Over time, the cache can quickly grow in size. It is possible to remove
 individual requests from the cache if the request id is known:
 
 ```{r, echo=TRUE, eval = FALSE, warning=FALSE, message=FALSE}
@@ -953,7 +951,7 @@ We are only interested in a subset of those files and filter for call files
 (opposed to coverage files).
 
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-blueprint_DNA_meth <- blueprint_DNA_meth[grep("bs_call",
+blueprint_DNA_meth <- blueprint_DNA_meth[grep("CPG_methylation_calls.bs_call",
     deepblue_extract_names(blueprint_DNA_meth)),]
 
 blueprint_DNA_meth
@@ -999,6 +997,7 @@ DeepBlueR returns a query id, which we store for later use.
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 blueprint_regulatory_regions <- deepblue_select_annotations(
     annotation_name = "Blueprint Ensembl Regulatory Build",
+    chromosome="chr22",
     genome = "GRCh38")
 
 blueprint_regulatory_regions

@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.11.1
+# For DeepBlue version 1.12.13
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -910,23 +910,26 @@ deepblue_filter_regions <- function(query_id= NULL, field= NULL, operation= NULL
 
 #' @export 
 #' 
-#' @title find_pattern 
-#' @description Generate a custom annotation of genomic regions based on a given pattern that appears in the genomic sequence. Be patient and gently as this command may need a few minutes for execution.
+#' @title find_motif 
+#' @description Find genomic regions based on a given motif that appears in the genomic sequence.
 #' @family Inserting and listing annotations
 #' 
-#' @param pattern - A string (pattern (PERL regular expression))
+#' @param motif - A string (motif (PERL regular expression))
 #' @param genome - A string (the target genome)
+#' @param chromosomes - A string or a vector of string (chromosome name(s))
+#' @param start - A int (minimum start region)
+#' @param end - A int (maximum end region)
 #' @param overlap - A boolean (if the matching should do overlap search)
 #' @param user_key - A string (users token key)
 #'
-#' @return id - A string (id of the annotation that contains the positions of the given pattern)
+#' @return id - A string (id of the annotation that contains the positions of the given motif)
 #'
 #' @examples
-#' deepblue_find_pattern(pattern = "C[GT]+C",
+#' deepblue_find_motif(motif = "C[GT]+C", chromosomes=c("chr11", "chr12"),
 #'     genome = "hg19", overlap = FALSE)
 
 #'
-deepblue_find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, user_key=deepblue_options('user_key')) {
+deepblue_find_motif <- function(motif= NULL, genome= NULL, chromosomes= NULL, start= NULL, end= NULL, overlap= NULL, user_key=deepblue_options('user_key')) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -939,7 +942,7 @@ deepblue_find_pattern <- function(pattern= NULL, genome= NULL, overlap= NULL, us
             }
         }
     }
-    value <- xml.rpc(deepblue_options('url'), 'find_pattern', pattern, genome, overlap, user_key)
+    value <- xml.rpc(deepblue_options('url'), 'find_motif', motif, genome, chromosomes, if (is.null(start)) NULL else as.integer(start), if (is.null(end)) NULL else as.integer(end), overlap, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))

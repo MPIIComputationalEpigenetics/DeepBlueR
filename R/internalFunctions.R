@@ -11,6 +11,7 @@ setGeneric("deepblue_wait_request", function(request_id, sleep_time = 1,
     info = deepblue_info(request_id, user_key)
     state = info$state
     if(is.null(state)) stop("no state information found")
+
     while (!state %in% c('done','error','failed') &&
       !is.null(sleep_time) )
     {
@@ -84,6 +85,7 @@ deepblue_switch_get_request_data = function(request_id,
     #check if result is already done
     deepblue_wait_request(request_id, user_key=user_key)
 
+    print("getting data")
     #check if something went wrong
     request_info = deepblue_info(request_id, user_key)
     if (request_info$state != "done") {
@@ -264,6 +266,11 @@ deepblue_column_types = function()
     dict[["@COUNT.NON-OVERLAP"]] = "integer"
     dict[["@CALCULATED"]] = "string"
     dict[["@GENE_ATTRIBUTE"]] = "string"
+    dict[["@GENE_ID"]] = "string";
+    dict[["@GENE_NAME"]] = "string";
+    dict[["@GENE_EXPRESSION"]] = "double";
+    dict[["@GO_IDS"]] = "string";
+    dict[["@GO_LABELS"]] = "string";
 
     return(dict)
 }
