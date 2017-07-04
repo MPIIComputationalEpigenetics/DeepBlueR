@@ -328,7 +328,7 @@ xmlRPCToR.array =
         else{
             result <- vector("list", nodeSize)
             for(element in 1:nodeSize) {
-                result[[element]] <- xmlRPCToR(elements[[element]])
+                result[[element]] <- xmlRPCToR(elements[[element]], status)
             }
 
             for(r in 1:length(result)){
