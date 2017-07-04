@@ -21,7 +21,7 @@ Imports: GenomicRanges,
     GenomeInfoDb,
     settings,
     filehash
-Depends: R (>= 3.3),
+Depends: R (>= 3.4),
     XML,
     RCurl
 Collate:
