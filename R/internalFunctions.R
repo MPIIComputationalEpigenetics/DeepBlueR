@@ -85,7 +85,7 @@ deepblue_switch_get_request_data = function(request_id,
     #check if result is already done
     deepblue_wait_request(request_id, user_key=user_key)
 
-    print("getting data")
+    message("fetching data")
     #check if something went wrong
     request_info = deepblue_info(request_id, user_key)
     if (request_info$state != "done") {

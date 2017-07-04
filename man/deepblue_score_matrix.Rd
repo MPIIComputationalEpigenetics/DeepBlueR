@@ -25,7 +25,7 @@ Build a matrix containing the aggregation result of the the experiments data by 
 }
 \examples{
 tiling_regions = deepblue_tiling_regions(
-    size=100000, genome="hg19", chromosome="chr1")
+    size=100000, genome="mm10", chromosome="chr1")
 deepblue_score_matrix(
     experiments_columns =
         list(ENCFF721EKA="VALUE", ENCFF781VVH="VALUE"),
