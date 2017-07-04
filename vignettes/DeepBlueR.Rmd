@@ -1264,7 +1264,8 @@ Next, we can simple merge them to obtain the final matrix
 
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 library(data.table)
-genome_wide_score_matrix <- data.table::rbindlist(list_of_score_matrices)
+genome_wide_score_matrix <- data.table::rbindlist(list_of_score_matrices,
+                                                  use.names = TRUE)
 genome_wide_score_matrix
 ```
 
