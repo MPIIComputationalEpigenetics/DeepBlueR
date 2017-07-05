@@ -4244,6 +4244,7 @@ xmlRPCToR.array =
             for(element in 1:nodeSize) {
                 result[[element]] <- xmlRPCToR(elements[[element]], status)
             }
+
             for(r in 1:length(result)){
                 test_result <- result[[r]]
                 if(is.null(names(test_result))){

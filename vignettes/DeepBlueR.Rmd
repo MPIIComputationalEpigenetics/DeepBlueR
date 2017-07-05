@@ -908,6 +908,52 @@ In most cases it will be simpler to simply delete the cache:
 deepblue_clear_cache()
 ```
 
+## Splitting requests for improving the performance in genome-scale requests
+
+DeepBlue has a memory limit on individual requests. As a consequence, 
+some operations may not be executed successfully by the DeepBlue web server. To 
+avoid this, large requests should be split by chromosomes. This has another
+advantage: if each chromosome is a different request, processing will be 
+parallelized on DeepBlue and finish in a fraction of the time (depending on the
+queing status) compared to the same operation without splitting. Here is an 
+example for obtaining a score matrix for each chromosome individually:
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+library(foreach)
+
+chromosomes_mm10 <- deepblue_extract_ids(deepblue_chromosomes(genome = "mm10"))
+
+request_ids <- foreach(chromosome = chromosomes_mm10, .combine = c) %do% {
+    
+    tiling_regions = deepblue_tiling_regions(
+        size=100000, genome="mm10", chromosome=chromosome)
+    
+    deepblue_score_matrix(
+        experiments_columns = list(ENCFF721EKA="VALUE", ENCFF781VVH="VALUE"),
+        aggregation_function = "mean",
+        aggregation_regions_id = tiling_regions
+    )
+}
+
+```
+
+Now each chromosome is processed individually and efficiently by DeepBlue. We
+can use the deepblue_batch_export function to download the individual matrices
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+list_of_score_matrices <- deepblue_batch_export_results(request_ids)
+```
+
+Next, we can simple merge them to obtain the final matrix
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+library(data.table)
+genome_wide_score_matrix <- data.table::rbindlist(list_of_score_matrices,
+                                                  use.names = TRUE)
+genome_wide_score_matrix
+```
+
+
 # Large-scale analysis of DNA methylation across 212 samples from the BLUEPRINT consortium
 
 ## Aim
@@ -991,14 +1037,29 @@ will be informative for clustering the data. We thus filter for those regions
 that are part of the BLUEPRINT regulatory build, a modified version of the
 [ENSEMBL regulatory build](http://www.ensembl.org/info/genome/funcgen/regulatory_build.html)
 that contains promoters, promoter flanking regions, enhancers, CTCF binding sites,
-transcription factor binding sites and open chromatin regions. As we can see,
-DeepBlueR returns a query id, which we store for later use.
+transcription factor binding sites and open chromatin regions. As we can see in
+this example, DeepBlueR returns a vector of query ids (one for each chromosome) 
+which we store for later use.
 
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-blueprint_regulatory_regions <- deepblue_select_annotations(
-    annotation_name = "Blueprint Ensembl Regulatory Build",
-    chromosome="chr22",
-    genome = "GRCh38")
+#list all available chromosomes in GRCh38
+chromosomes_GRCh38 <- deepblue_extract_ids(
+    deepblue_chromosomes(genome = "GRCh38")
+)
+
+#keep only the essential ones
+chromosomes_GRCh38 <- 
+    grep(pattern = "chr([0-9]{1,2}|X)$", chromosomes_GRCh38, value = TRUE)
+
+#we split the request by chromosome to avoid hitting the memory limit of 
+#DeepBlue
+blueprint_regulatory_regions <- 
+    foreach(chr = chromosomes_GRCh38, .combine = c) %do%
+        deepblue_select_annotations(
+            annotation_name = "Blueprint Ensembl Regulatory Build",
+            chromosome = chr,
+            genome = "GRCh38"
+        )
 
 blueprint_regulatory_regions
 ```
@@ -1036,15 +1097,18 @@ build a score matrix, in which the selected genomic regions are aggregated on
 the server to reduce the complexity and size of the data. We request such a
 score matrix in which regulatory regions are aggregated by the mean as follows.
 Note that we use the variables 'exp_columns' and 'blueprint_regulatory_regions'
-that we have defined above.
+that we have defined above. Since we had to split our request by chromosome,
+we need to make multiple requests.
 
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-request_id <- deepblue_score_matrix(
-    experiments_columns = exp_columns,
-    aggregation_function = "mean",
-    aggregation_regions_id = blueprint_regulatory_regions)
+request_ids <- foreach(query_id = blueprint_regulatory_regions,
+                       .combine = c) %do% 
+    deepblue_score_matrix(
+        experiments_columns = exp_columns,
+        aggregation_function = "mean",
+        aggregation_regions_id = query_id)
 
-request_id
+request_ids
 ```
 
 After triggering this function, DeepBlue queues our task and will execute it
@@ -1052,7 +1116,7 @@ when resources become available. We also observe that DeepBlue returns a
 request id, which we can use to query the status of the operation.
 
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-deepblue_info(request_id)$state
+foreach(info = deepblue_info(request_ids), .combine = c) %do% info$state
 ```
 
 When the operation is finished, we can download the score matrix and store it
@@ -1065,7 +1129,9 @@ we also compress data on the server side to reduce download time. Here, we only
 show the first five columns out of 215.
 
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-score_matrix <- deepblue_download_request_data(request_id = request_id)
+score_matrix <- data.table::rbindlist(
+    deepblue_batch_export_results(request_ids),
+    use.names = TRUE)
 score_matrix[,1:5, with=FALSE]
 ```
 
@@ -1221,52 +1287,6 @@ measure, to a distance, such that it can be used with hierarchical clustering.
        x.intersp = 0.7,
        inset=c(-0.21,-0.11))
 
-```
-
-
-# Splitting requests for improving the performance in genome-scale requests
-
-DeepBlue has a memory limit on individual requests. As a consequence, 
-some operations may not be executed successfully by the DeepBlue web server. To 
-avoid this, large requests should be split by chromosomes. This has another
-advantage: if each chromosome is a different request, processing will be 
-parallelized on DeepBlue and finish in a fraction of the time (depending on the
-queing status) compared to the same operation without splitting. Here is an 
-example for obtaining a score matrix for each chromosome individually:
-
-```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-library(foreach)
-
-chromosomes_mm10 <- deepblue_extract_ids(deepblue_chromosomes(genome = "mm10"))
-
-request_ids <- foreach(chromosome = chromosomes_mm10, .combine = c) %do% {
-    
-    tiling_regions = deepblue_tiling_regions(
-        size=100000, genome="mm10", chromosome=chromosome)
-    
-    deepblue_score_matrix(
-        experiments_columns = list(ENCFF721EKA="VALUE", ENCFF781VVH="VALUE"),
-        aggregation_function = "mean",
-        aggregation_regions_id = tiling_regions
-    )
-}
-
-```
-
-Now each chromosome is processed individually and efficiently by DeepBlue. We
-can use the deepblue_batch_export function to download the individual matrices
-
-```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-list_of_score_matrices <- deepblue_batch_export_results(request_ids)
-```
-
-Next, we can simple merge them to obtain the final matrix
-
-```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-library(data.table)
-genome_wide_score_matrix <- data.table::rbindlist(list_of_score_matrices,
-                                                  use.names = TRUE)
-genome_wide_score_matrix
 ```
 
 # Further reading material
