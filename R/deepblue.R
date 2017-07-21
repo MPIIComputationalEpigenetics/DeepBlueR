@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.12.13
+# For DeepBlue version 1.13.7
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -3513,7 +3513,7 @@ deepblue_search <- function(keyword= NULL, type= NULL, user_key=deepblue_options
 #' @family Operating on the data regions
 #'
 #' @param annotation_name - A string or a vector of string (name(s) of selected annotation(s))
-#' @param genome - A string or a vector of string (the target genome)
+#' @param genome - A string (the target genome)
 #' @param chromosome - A string or a vector of string (chromosome name(s))
 #' @param start - A int (minimum start region)
 #' @param end - A int (maximum end region)

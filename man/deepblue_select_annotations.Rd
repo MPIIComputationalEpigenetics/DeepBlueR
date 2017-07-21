@@ -11,7 +11,7 @@ deepblue_select_annotations(annotation_name = NULL, genome = NULL,
 \arguments{
 \item{annotation_name}{- A string or a vector of string (name(s) of selected annotation(s))}
 
-\item{genome}{- A string or a vector of string (the target genome)}
+\item{genome}{- A string (the target genome)}
 
 \item{chromosome}{- A string or a vector of string (chromosome name(s))}
 
@@ -39,9 +39,9 @@ deepblue_select_annotations(
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_binning}},
-  \code{\link{deepblue_calculate_enrichment}},
   \code{\link{deepblue_count_regions}},
   \code{\link{deepblue_coverage}},
+  \code{\link{deepblue_distinct_column_values}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},

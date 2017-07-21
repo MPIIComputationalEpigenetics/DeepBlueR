@@ -33,7 +33,7 @@ annotation_id = deepblue_select_annotations(
     genome="hg19", chromosome="chr1")
 experiment_id = deepblue_select_experiments(
     experiment_name="S00XDKH1.ERX712765.H3K27ac.bwa.GRCh38.20150527.bed")
-deepblue_overlap(query_data_id = experiment_id, query_filter_id = annotation_id,
+deepblue_overlap(query_data_id = experiment_id, query_filter_id = annotation_id, 
     overlap = TRUE, amount=10, amount_type="\%")
 
 
@@ -41,9 +41,9 @@ deepblue_overlap(query_data_id = experiment_id, query_filter_id = annotation_id,
 \seealso{
 Other Operating on the data regions: \code{\link{deepblue_aggregate}},
   \code{\link{deepblue_binning}},
-  \code{\link{deepblue_calculate_enrichment}},
   \code{\link{deepblue_count_regions}},
   \code{\link{deepblue_coverage}},
+  \code{\link{deepblue_distinct_column_values}},
   \code{\link{deepblue_extend}},
   \code{\link{deepblue_filter_regions}},
   \code{\link{deepblue_flank}},
