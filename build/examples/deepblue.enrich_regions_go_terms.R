@@ -8,5 +8,5 @@ filtered_id = deepblue_filter_regions(query_id = data_id,
     type = "number",
     user_key = "anonymous_key")
 
-deepblue_calculate_enrichment(query_id = filtered_id,
+deepblue_enrich_regions_go_terms(query_id = filtered_id,
    gene_model = "gencode v23")
