@@ -37,8 +37,7 @@ filtered_query_id = deepblue_filter_regions(
 
 rg_10kb_tilling = deepblue_tiling_regions(
     size = 1000,
-    genome = "hg19",
-    chromosome = "chr1")
+    genome = "hg19")
 
 # We could have included more Epigenetic Marks here
 epigenetic_marks <- c("h3k27ac", "H3K27me3", "H3K4me3")
