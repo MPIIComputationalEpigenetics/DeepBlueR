@@ -1,7 +1,7 @@
 setwd("build/")
 
 #build up-to-date version of R API
-api_update <- system("python deepblue_r.py")
+api_update <- system("python2 deepblue_r.py")
 
 if(!require(devtools)) stop("Package devtools needs to be installed.")
 
