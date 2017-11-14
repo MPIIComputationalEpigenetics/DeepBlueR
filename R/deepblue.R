@@ -1,5 +1,5 @@
 # Accessing Deepblue through R
-# For DeepBlue version 1.13.7
+# For DeepBlue version 1.17.5
 
 # We include a modified version of the XML-RPC library:
 # http://bioconductor.org/packages/release/extra/html/XMLRPC.html
@@ -697,56 +697,25 @@ deepblue_echo <- function(user_key=deepblue_options('user_key')) {
 
 #' @export 
 #' 
-#' @title enrich_region_overlap 
-#' @description Enrich the regions based on regions overlap analysis.
+#' @title enrich_regions_fast 
+#' @description Enrich the regions based on regions bitmap signature comparison.
 #' @family Enrich the genome regions
 #' 
 #' @param query_id - A string (Query ID)
-#' @param background_query_id - A string (query_id containing the regions that will be used as the background data.)
-#' @param datasets - A struct (a map where each key is an identifier and the value is a list containing experiment names or query_ids (you can use both together).)
-#' @param genome - A string (the target genome)
+#' @param genome - A string or a vector of string (the target genome)
+#' @param epigenetic_mark - A string or a vector of string (name(s) of selected epigenetic mark(s))
+#' @param biosource - A string or a vector of string (name(s) of selected biosource(s))
+#' @param sample - A string or a vector of string (id(s) of selected sample(s))
+#' @param technique - A string or a vector of string (name(s) of selected technique(s))
+#' @param project - A string or a vector of string (name(s) of selected projects)
 #' @param user_key - A string (users token key)
 #'
 #' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data(). The result is a list containing the datasets that overlap with the query_id regions.)
 #'
 #' @examples
-#' query_id = deepblue_select_experiments(
-#'   experiment_name="S00VEQA1.hypo_meth.bs_call.GRCh38.20150707.bed")
 #' 
-#' filtered_query_id = deepblue_filter_regions(
-#'   query_id = query_id,
-#'   field = "AVG_METHYL_LEVEL",
-#'   operation = "<",
-#'   value = "0.0025",
-#'   type="number")
-#' 
-#' rg_10kb_tilling = deepblue_tiling_regions(
-#'     size = 1000,
-#'     genome = "hg19")
-#' 
-#' # We could have included more Epigenetic Marks here
-#' epigenetic_marks <- c("h3k27ac", "H3K27me3", "H3K4me3")
-#' 
-#' histones_datasets = c()
-#' for (i in 1:length(epigenetic_marks)) {
-#'   experiments_list <- deepblue_list_experiments(
-#'     epigenetic_mark=epigenetic_marks[[i]],
-#'     type="peaks",
-#'     genome="grch38",
-#'     project="BLUEPRINT Epigenome");
-#' 
-#'     experiment_names = deepblue_extract_names(experiments_list)
-#'     histones_datasets[[epigenetic_marks[[i]]]] = experiment_names
-#' }
-#' 
-#' deepblue_enrich_region_overlap(
-#'   query_id=filtered_query_id,
-#'   background_query=rg_10kb_tilling,
-#'   datasets=histones_datasets,
-#'   genome="grch38")
-
 #'
-deepblue_enrich_region_overlap <- function(query_id= NULL, background_query_id= NULL, datasets= NULL, genome= NULL, user_key=deepblue_options('user_key')) {
+deepblue_enrich_regions_fast <- function(query_id= NULL, genome= NULL, epigenetic_mark= NULL, biosource= NULL, sample= NULL, technique= NULL, project= NULL, user_key=deepblue_options('user_key')) {
 
     previous_commands <- list()
     arg.names <- names(as.list(match.call()))
@@ -759,7 +728,7 @@ deepblue_enrich_region_overlap <- function(query_id= NULL, background_query_id= 
             }
         }
     }
-    value <- xml.rpc(deepblue_options('url'), 'enrich_region_overlap', query_id, background_query_id, datasets, genome, user_key)
+    value <- xml.rpc(deepblue_options('url'), 'enrich_regions_fast', query_id, genome, epigenetic_mark, biosource, sample, technique, project, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -831,6 +800,102 @@ deepblue_enrich_regions_go_terms <- function(query_id= NULL, gene_model= NULL, u
         }
     }
     value <- xml.rpc(deepblue_options('url'), 'enrich_regions_go_terms', query_id, gene_model, user_key)
+    status = value[[1]]
+    method_name = as.character(match.call()[[1]])
+    message(paste("Called method:", method_name))
+    message(paste("Reported status was:", status))
+    if (status == "error") {
+        stop(value[[2]])
+    }
+    if (!exists("user_key")) {
+        user_key = NULL
+    }
+    if(length(value) == 1) return(NULL)
+    else if(!is.list(value[[2]])){
+        DeepBlueCommand(call = sys.call(),
+            status = value[[1]],
+            query_id = value[[2]],
+            previous_commands = previous_commands,
+            user_key = user_key
+        )
+    }
+
+    if(is.data.frame(value[[2]]) && "count" %in% colnames(value[[2]])){
+        result <- value[[2]]
+        result$count <- as.integer(result$count)
+        return(result)
+    }
+
+    return(value[[2]])
+}
+
+
+
+#' @export 
+#' 
+#' @title enrich_regions_overlap 
+#' @description Enrich the regions based on regions overlap analysis.
+#' @family Enrich the genome regions
+#' 
+#' @param query_id - A string (Query ID)
+#' @param background_query_id - A string (query_id containing the regions that will be used as the background data.)
+#' @param datasets - A struct (a map where each key is an identifier and the value is a list containing experiment names or query_ids (you can use both together).)
+#' @param genome - A string (the target genome)
+#' @param user_key - A string (users token key)
+#'
+#' @return request_id - A string (Request ID - Use it to retrieve the result with info() and get_request_data(). The result is a list containing the datasets that overlap with the query_id regions.)
+#'
+#' @examples
+#' query_id = deepblue_select_experiments(
+#'   experiment_name="S00VEQA1.hypo_meth.bs_call.GRCh38.20150707.bed")
+#' 
+#' filtered_query_id = deepblue_filter_regions(
+#'   query_id = query_id,
+#'   field = "AVG_METHYL_LEVEL",
+#'   operation = "<",
+#'   value = "0.0025",
+#'   type="number")
+#' 
+#' rg_10kb_tilling = deepblue_tiling_regions(
+#'     size = 1000,
+#'     genome = "hg19")
+#' 
+#' # We could have included more Epigenetic Marks here
+#' epigenetic_marks <- c("h3k27ac", "H3K27me3", "H3K4me3")
+#' 
+#' histones_datasets = c()
+#' for (i in 1:length(epigenetic_marks)) {
+#'   experiments_list <- deepblue_list_experiments(
+#'     epigenetic_mark=epigenetic_marks[[i]],
+#'     type="peaks",
+#'     genome="grch38",
+#'     project="BLUEPRINT Epigenome");
+#' 
+#'     experiment_names = deepblue_extract_names(experiments_list)
+#'     histones_datasets[[epigenetic_marks[[i]]]] = experiment_names
+#' }
+#' 
+#' deepblue_enrich_regions_overlap(
+#'   query_id=filtered_query_id,
+#'   background_query=rg_10kb_tilling,
+#'   datasets=histones_datasets,
+#'   genome="grch38")
+
+#'
+deepblue_enrich_regions_overlap <- function(query_id= NULL, background_query_id= NULL, datasets= NULL, genome= NULL, user_key=deepblue_options('user_key')) {
+
+    previous_commands <- list()
+    arg.names <- names(as.list(match.call()))
+    for(command_object_name in arg.names[which(arg.names != "")]){
+        if(exists(command_object_name)){
+            command_object <- get(command_object_name)
+            if(is(command_object, "DeepBlueCommand")){
+                previous_commands <- append(previous_commands, command_object)
+                assign(command_object_name, command_object@query_id)
+            }
+        }
+    }
+    value <- xml.rpc(deepblue_options('url'), 'enrich_regions_overlap', query_id, background_query_id, datasets, genome, user_key)
     status = value[[1]]
     method_name = as.character(match.call()[[1]])
     message(paste("Called method:", method_name))
@@ -3144,7 +3209,7 @@ deepblue_list_techniques <- function(user_key=deepblue_options('user_key')) {
 #' @family Operating on the data regions
 #' 
 #' @param query_a_id - A string (id of the first query)
-#' @param query_b_id - A string (id of the second query)
+#' @param query_b_id - A string or a vector of string (id of the second query (or use an array to include multiple queries))
 #' @param user_key - A string (users token key)
 #'
 #' @return id - A string (new query id)

@@ -27,7 +27,7 @@ for (i in 1:length(epigenetic_marks)) {
     histones_datasets[[epigenetic_marks[[i]]]] = experiment_names
 }
 
-deepblue_enrich_region_overlap(
+deepblue_enrich_regions_overlap(
   query_id=filtered_query_id,
   background_query=rg_10kb_tilling,
   datasets=histones_datasets,

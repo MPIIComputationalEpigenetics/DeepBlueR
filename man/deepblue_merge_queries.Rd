@@ -10,7 +10,7 @@ deepblue_merge_queries(query_a_id = NULL, query_b_id = NULL,
 \arguments{
 \item{query_a_id}{- A string (id of the first query)}
 
-\item{query_b_id}{- A string (id of the second query)}
+\item{query_b_id}{- A string or a vector of string (id of the second query (or use an array to include multiple queries))}
 
 \item{user_key}{- A string (users token key)}
 }
