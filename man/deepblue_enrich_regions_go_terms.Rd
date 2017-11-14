@@ -36,5 +36,6 @@ deepblue_enrich_regions_go_terms(query_id = filtered_id,
 
 }
 \seealso{
-Other Enrich the genome regions: \code{\link{deepblue_enrich_region_overlap}}
+Other Enrich the genome regions: \code{\link{deepblue_enrich_regions_fast}},
+  \code{\link{deepblue_enrich_regions_overlap}}
 }
