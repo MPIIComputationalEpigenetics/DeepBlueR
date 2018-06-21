@@ -66,11 +66,11 @@ provided by the epigenome mapping consortia.
 ## Installation
 
 Installation of DeepBlueR and its companion packages can be
-performed using the Bioconductor installer:
+performed using the Bioconductor install method in the BiocManager package:
 
 ```{r, eval = FALSE, echo=TRUE, warning=FALSE, message=FALSE}
-source("https://bioconductor.org/biocLite.R")
-biocLite("DeepBlueR")
+install.packages("BiocManager") 
+BiocManager::install("DeepBlueR")
 ```
 
 The package name is ```DeepBlueR``` and it can be loaded via:
