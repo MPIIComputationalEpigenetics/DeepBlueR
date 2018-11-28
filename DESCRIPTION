@@ -4,7 +4,7 @@ Type: Package
 Description: Accessing the DeepBlue Epigenetics Data Server through R.
 Version: 1.8.0
 Author: Felipe Albrecht, Markus List
-Maintainer: Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>, Markus List <markus.list@mpi-inf.mpg.de>
+Maintainer: Felipe Albrecht <felipe.albrecht@mpi-inf.mpg.de>, Markus List <markus.list@wzw.tum.de>
 License: GPL (>=2.0)
 Imports: GenomicRanges,
     data.table,
@@ -56,4 +56,5 @@ biocViews: DataImport,
     DNAMethylation,
     Epigenetics,
     Annotation,
-    Preprocessing
+    Preprocessing,
+    ImmunoOncology
