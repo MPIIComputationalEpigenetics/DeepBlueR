@@ -1115,8 +1115,10 @@ After triggering this function, DeepBlue queues our task and will execute it
 when resources become available. We also observe that DeepBlue returns a
 request id, which we can use to query the status of the operation.
 
-```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
-foreach(info = deepblue_info(request_ids), .combine = c) %do% info$state
+```{r eval=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+foreach(request = request_ids, .combine = c) %do% {
+  deepblue_info(request)$state
+}
 ```
 
 When the operation is finished, we can download the score matrix and store it
