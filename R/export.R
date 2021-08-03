@@ -215,8 +215,14 @@ deepblue_batch_export_results <- function(requests,
                                           user_key = deepblue_options("user_key")){
     #to store results
     all.results <- list()
-    if(is.na(requests) || is.null(requests))
+    if(is.null(requests))
         stop("A list of request_info objects or request identifiers is needed.")
+    
+    #remove NAs
+    if (any(is.na(requests))) {
+        message('Removing NA entries in requests.')
+        requests <- requests[!is.na(requests)]
+    }
 
     #make sure we have a list
     requests <- as.list(requests)
